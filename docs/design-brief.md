@@ -267,3 +267,7 @@ Hashigodakaを、**人間味のある力強い実装パートナー**として�
   図解での識別という3文脈へ適用して全8案で比較する。Success・Warning・Errorなどの状態色は
   この比較へ混ぜず、Semantic Colorsとして別工程で選ぶ。** ブランド表現を広げる色と、機能上の
   誤認防止を優先する色を分け、Extended Colorsの相性と実用性だけを判断しやすくするため。
+- **2026-07-21:** before: C-F・D-EそれぞれにExtended Colors A〜Dを組み合わせた全8案を
+  候補としていた。after: **C-F-A、C-F-C、D-E-C、D-E-Dの4案を残し、C-F-B、C-F-D、
+  D-E-A、D-E-Bを不採用とする。** 次の比較ではPrimary・Secondaryとの組み合わせごとに残った
+  2案を同条件で精査し、Extended Colorsを最終選定できる状態にするため。
