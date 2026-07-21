@@ -6,6 +6,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
 const layoutSource = JSON.parse(await readFile(resolve(root, "tokens/layout.json"), "utf8"));
+const assetSource = JSON.parse(await readFile(resolve(root, "assets/manifest.json"), "utf8"));
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
@@ -101,6 +102,27 @@ for (const role of typographySource.roles) {
   }
 }
 
+const assetIds = new Set();
+for (const asset of assetSource.assets) {
+  if (assetIds.has(asset.id)) failures.push(`Duplicate asset: ${asset.id}`);
+  assetIds.add(asset.id);
+  if (!asset.path.startsWith("assets/") || asset.path.includes("..")) failures.push(`Unsafe asset path: ${asset.path}`);
+  if (!new Set(["candidate", "approved", "deprecated"]).has(asset.status)) failures.push(`Unknown asset status: ${asset.id}`);
+  try {
+    resolveReference(asset.defaultColor);
+    const source = await readFile(resolve(root, asset.path), "utf8");
+    if (asset.format === "image/svg+xml") {
+      if (!source.includes("<svg")) failures.push(`SVG asset is invalid: ${asset.id}`);
+      if (!source.includes(`viewBox="${asset.viewBox}"`)) failures.push(`SVG viewBox does not match manifest: ${asset.id}`);
+      if (!source.includes("currentColor")) failures.push(`SVG asset must use currentColor: ${asset.id}`);
+    }
+    await readFile(resolve(root, asset.sourceArchive, "index.html"), "utf8");
+  } catch (error) {
+    failures.push(`Asset ${asset.id}: ${error.message}`);
+  }
+  if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
+}
+
 const luminance = (hex) => {
   if (!/^#[0-9a-f]{6}$/i.test(hex)) throw new Error(`Invalid color value: ${hex}`);
   const channels = hex.slice(1).match(/../g).map((channel) => parseInt(channel, 16) / 255);
@@ -136,4 +158,5 @@ if (failures.length) {
   console.log(`${colorSource.tokens.length} color tokens validated`);
   console.log(`${typographySource.tokens.length} typography tokens and ${typographySource.roles.length} roles validated`);
   console.log(`${layoutSource.tokens.length} layout tokens validated`);
+  console.log(`${assetSource.assets.length} brand assets validated`);
 }
