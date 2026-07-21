@@ -78,7 +78,6 @@ h1 { max-width: 720px; margin-bottom: 28px; font-size: var(--hsg-typography-size
 .use-sample { min-height: 230px; margin-bottom: 18px; border: 1px solid var(--hsg-color-neutral-ink); }
 .good-sample { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 28px; background: var(--hsg-color-neutral-canvas); }
 .sample-copy { max-width: 240px; font-size: var(--hsg-typography-size-heading-2-desktop); font-weight: var(--hsg-typography-weight-heading); line-height: var(--hsg-typography-line-height-heading); letter-spacing: var(--hsg-typography-letter-spacing-heading); }
-.sample-action { padding: 12px 16px; border: 1px solid var(--hsg-color-neutral-ink); background: var(--hsg-color-brand-primary); font-size: var(--hsg-typography-size-action); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); }
 .bad-sample { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
 .bad-sample span { border: 1px solid var(--hsg-color-neutral-ink); }
 .bad-sample span:nth-child(1) { background: var(--hsg-color-brand-primary); }
@@ -119,7 +118,6 @@ h1 { max-width: 720px; margin-bottom: 28px; font-size: var(--hsg-typography-size
 .type-role dt { color: #817b88; }
 .type-role dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: var(--hsg-typography-weight-emphasis); }
 .type-role-usage { grid-column: 2 / 4; max-width: 720px; margin: -4px 0 0; color: #625d69; font-size: var(--hsg-typography-size-body-small); line-height: var(--hsg-typography-line-height-body); }
-.inline-action { display: inline-flex; min-height: 46px; align-items: center; padding: 0 18px; border: 1px solid var(--hsg-color-neutral-ink); background: var(--hsg-color-brand-primary); }
 .type-rules { margin-top: 74px; }
 .type-rules > h3 { margin-left: 72px; font-size: var(--hsg-typography-size-heading-2-desktop); line-height: var(--hsg-typography-line-height-heading); letter-spacing: var(--hsg-typography-letter-spacing-heading); }
 .rule-list { margin-left: 72px; border-top: 1px solid var(--hsg-color-neutral-ink); }
