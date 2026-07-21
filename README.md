@@ -8,7 +8,36 @@ AI向け配布物の正本です。
 
 ## 現在のフェーズ
 
-ビジュアルの方向性を定める準備段階です。最初に4象限のムードボードをローカルHTMLで
-比較し、選定した方向をデザイン原則とトークンへ変換します。
+D-E-Dをカラースキームの主案として、再利用可能なデザイントークンと実装例の構築を開始しました。
+色は暫定利用できますが、書体、正式ロゴ、Semantic Colors、レイアウト基礎、コンポーネントは
+未決定です。現在の利用可否は [docs/status.md](docs/status.md) を参照してください。
 
-現在の目的、決定事項、未決事項は [docs/design-brief.md](docs/design-brief.md) を参照してください。
+## 構成
+
+- [`tokens/`](tokens/) — AIやツールが参照する機械可読な正本
+- [`styles/`](styles/) — 正本から生成したCSS変数
+- [`docs/foundations/`](docs/foundations/) — 人間向けの基礎ガイド
+- [`examples/`](examples/) — 承認済みトークンの実装見本
+- [`scripts/`](scripts/) — トークンの生成と機械検証
+- [`process-archive/`](process-archive/) — 選定過程の比較HTMLと資産
+
+## カラーを使う
+
+```css
+@import "path/to/design-system/styles/tokens.css";
+
+.example {
+  color: var(--hsg-color-text-primary);
+  background: var(--hsg-color-background-canvas);
+}
+```
+
+トークンを変更したら、次の2つを実行します。
+
+```sh
+node scripts/build-tokens.mjs
+node scripts/validate-tokens.mjs
+```
+
+制作目的、判断理由、未決事項は [docs/design-brief.md](docs/design-brief.md)、色の用途は
+[docs/foundations/colors.md](docs/foundations/colors.md) を参照してください。

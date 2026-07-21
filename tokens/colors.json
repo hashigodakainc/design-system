@@ -1,0 +1,151 @@
+{
+  "version": "0.1.0",
+  "status": "candidate",
+  "sourceDecision": "D-E-D",
+  "description": "Hashigodakaの主案D-E-Dを実装検証するためのカラートークン",
+  "tokens": [
+    {
+      "name": "color.brand.primary",
+      "type": "color",
+      "value": "#00A0FF",
+      "description": "ブランドの主色。CTAや主役となるグラフィックへ限定して使う。"
+    },
+    {
+      "name": "color.brand.secondary",
+      "type": "color",
+      "value": "#C7F14A",
+      "description": "ブランドの補助色。主色より小さい面積で、対比が必要な箇所へ使う。"
+    },
+    {
+      "name": "color.brand.extended.violet",
+      "type": "color",
+      "value": "#6C4ED9",
+      "description": "図解やブランド表現を拡張する紫。"
+    },
+    {
+      "name": "color.brand.extended.orange",
+      "type": "color",
+      "value": "#FF6B3D",
+      "description": "図解やブランド表現を拡張する橙。"
+    },
+    {
+      "name": "color.neutral.canvas",
+      "type": "color",
+      "value": "#FAF9FC",
+      "description": "ページ全体の背景。広い面積を確保する。"
+    },
+    {
+      "name": "color.neutral.ink",
+      "type": "color",
+      "value": "#18151D",
+      "description": "見出しと本文の基本文字色。"
+    },
+    {
+      "name": "color.neutral.surface",
+      "type": "color",
+      "value": "#ECE8F0",
+      "description": "カード、図表、区切り面の薄い背景。"
+    },
+    {
+      "name": "color.background.canvas",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "ページ背景の用途別トークン。"
+    },
+    {
+      "name": "color.background.surface",
+      "type": "color",
+      "value": "{color.neutral.surface}",
+      "description": "カードや図表背景の用途別トークン。"
+    },
+    {
+      "name": "color.background.brand",
+      "type": "color",
+      "value": "{color.brand.primary}",
+      "description": "ブランド主色を背景として使う場合のトークン。"
+    },
+    {
+      "name": "color.text.primary",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "通常の見出しと本文。"
+    },
+    {
+      "name": "color.text.on-brand",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "PrimaryとSecondaryの色面上で使う文字色。"
+    },
+    {
+      "name": "color.border.subtle",
+      "type": "color",
+      "value": "{color.neutral.surface}",
+      "description": "装飾的な区切り線。情報伝達を罫線だけに依存させない。"
+    },
+    {
+      "name": "color.action.primary.background",
+      "type": "color",
+      "value": "{color.brand.primary}",
+      "description": "主要CTAの背景。"
+    },
+    {
+      "name": "color.action.primary.foreground",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "主要CTAの文字。"
+    },
+    {
+      "name": "color.action.secondary.background",
+      "type": "color",
+      "value": "{color.brand.secondary}",
+      "description": "補助CTAまたは強調要素の背景。"
+    },
+    {
+      "name": "color.action.secondary.foreground",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "補助CTAの文字。"
+    },
+    {
+      "name": "color.data.series.1",
+      "type": "color",
+      "value": "{color.brand.primary}",
+      "description": "図解・チャートの第1系列。"
+    },
+    {
+      "name": "color.data.series.2",
+      "type": "color",
+      "value": "{color.brand.secondary}",
+      "description": "図解・チャートの第2系列。"
+    },
+    {
+      "name": "color.data.series.3",
+      "type": "color",
+      "value": "{color.brand.extended.violet}",
+      "description": "図解・チャートの第3系列。"
+    },
+    {
+      "name": "color.data.series.4",
+      "type": "color",
+      "value": "{color.brand.extended.orange}",
+      "description": "図解・チャートの第4系列。"
+    }
+  ],
+  "contrastChecks": [
+    {
+      "foreground": "color.text.primary",
+      "background": "color.background.canvas",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.action.primary.foreground",
+      "background": "color.action.primary.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.action.secondary.foreground",
+      "background": "color.action.secondary.background",
+      "minimum": 4.5
+    }
+  ]
+}

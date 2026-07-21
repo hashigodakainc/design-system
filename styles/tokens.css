@@ -1,0 +1,24 @@
+/* Generated from tokens/colors.json. Do not edit directly. */
+:root {
+  --hsg-color-brand-primary: #00A0FF;
+  --hsg-color-brand-secondary: #C7F14A;
+  --hsg-color-brand-extended-violet: #6C4ED9;
+  --hsg-color-brand-extended-orange: #FF6B3D;
+  --hsg-color-neutral-canvas: #FAF9FC;
+  --hsg-color-neutral-ink: #18151D;
+  --hsg-color-neutral-surface: #ECE8F0;
+  --hsg-color-background-canvas: var(--hsg-color-neutral-canvas);
+  --hsg-color-background-surface: var(--hsg-color-neutral-surface);
+  --hsg-color-background-brand: var(--hsg-color-brand-primary);
+  --hsg-color-text-primary: var(--hsg-color-neutral-ink);
+  --hsg-color-text-on-brand: var(--hsg-color-neutral-ink);
+  --hsg-color-border-subtle: var(--hsg-color-neutral-surface);
+  --hsg-color-action-primary-background: var(--hsg-color-brand-primary);
+  --hsg-color-action-primary-foreground: var(--hsg-color-neutral-ink);
+  --hsg-color-action-secondary-background: var(--hsg-color-brand-secondary);
+  --hsg-color-action-secondary-foreground: var(--hsg-color-neutral-ink);
+  --hsg-color-data-series-1: var(--hsg-color-brand-primary);
+  --hsg-color-data-series-2: var(--hsg-color-brand-secondary);
+  --hsg-color-data-series-3: var(--hsg-color-brand-extended-violet);
+  --hsg-color-data-series-4: var(--hsg-color-brand-extended-orange);
+}
