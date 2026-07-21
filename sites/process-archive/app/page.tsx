@@ -1,5 +1,13 @@
 const rounds = [
   {
+    number: "00",
+    phase: "Direction",
+    title: "4象限ムードボード",
+    description: "30の参照を4象限に配置し、中心にする方向と借りる要素を比較。第三者画像を載せない再構成版です。",
+    result: "大胆・表現的を中心に、有機性と精密さを役割分担",
+    href: "/archive/2026-07-21/00-moodboard-direction/",
+  },
+  {
     number: "01",
     phase: "Direction",
     title: "青系パレット",
@@ -72,6 +80,14 @@ const rounds = [
     result: "黒・反転枠・下線の3階層を採用",
     href: "/archive/2026-07-21/09-button-hierarchy/",
   },
+  {
+    number: "TL",
+    phase: "Process",
+    title: "判断の時系列",
+    description: "画面間で何が変わったかを、before / after / 理由で横断。失われた途中状態を推測せず補います。",
+    result: "設計ブリーフとGit履歴から約50件を整理",
+    href: "/archive/2026-07-21/process-timeline/",
+  },
 ] as const;
 
 function Arrow() {
@@ -86,7 +102,7 @@ export default function Home() {
           Hashigodaka
         </a>
         <p>Design System / Process Archive</p>
-        <a className="header-link" href="#rounds">全9ラウンドを見る <span aria-hidden="true">↓</span></a>
+        <a className="header-link" href="#rounds">全記録を見る <span aria-hidden="true">↓</span></a>
       </header>
 
       <section className="hero" id="top">
@@ -95,7 +111,7 @@ export default function Home() {
           <h1>デザインは、<br />比較の跡から<br />強くなる。</h1>
           <p className="lead">
             Hashigodakaのデザインシステムをつくる過程で、何を並べ、何を外し、何を残したか。
-            9つの比較画面を、判断の順番ごとに公開します。
+            10の比較画面と判断の時系列を、検討の順番ごとに公開します。
           </p>
         </div>
         <div className="hero-visual" aria-label="現在のメイン候補 D-E-D のカラーパレット">
@@ -114,16 +130,16 @@ export default function Home() {
         <div>
           <h2>完成案だけでなく、<br />選ぶための比較面を残す。</h2>
           <p>
-            各ラウンドは当時の操作可能なHTMLスナップショットです。カードから実物を開き、
-            色や書体の切り替え、拡大比較などをそのまま試せます。なお、同じ画面を更新しながら
-            検討したため、細かな全中間状態ではなく、各ラウンドの最終状態を保存しています。
+            01〜09は当時の操作可能なHTMLスナップショットです。00は第三者画像を再公開しない
+            再構成版、判断の時系列は失われた中間状態をbefore / after / 理由で補う横断記録です。
+            カードから実物を開き、色や書体の切り替え、拡大比較などを試せます。
           </p>
         </div>
       </section>
 
       <section className="round-section" id="rounds">
         <div className="rounds-heading">
-          <p className="section-index">01–09 / Comparison rounds</p>
+          <p className="section-index">00–09 + Timeline / Process records</p>
           <h2>比較の記録</h2>
         </div>
         <div className="round-list">

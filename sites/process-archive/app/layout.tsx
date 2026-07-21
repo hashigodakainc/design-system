@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Hashigodaka Design System — Process Archive",
-  description: "Hashigodakaのデザインシステム制作過程で行った9つの比較と判断の記録。",
+  description: "Hashigodakaのデザインシステム制作過程で行った10の比較と判断の時系列。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

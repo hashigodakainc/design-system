@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashigodaka — Decision Timeline</title>
+  <style>
+    :root{--canvas:#faf9fc;--ink:#18151d;--muted:#625d69;--line:#dcd8e1;--surface:#ece8f0;--blue:#00a0ff;--lime:#c7f14a}
+    *{box-sizing:border-box}html{background:var(--canvas);scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--canvas);font-family:"Yu Gothic",YuGothic,"Hiragino Kaku Gothic ProN",sans-serif;line-height:1.75}button{font:inherit}
+    header{display:flex;justify-content:space-between;align-items:center;min-height:72px;padding:0 40px;border-bottom:1px solid var(--line)}header span{color:var(--muted);font-size:12px}
+    main{max-width:1440px;margin:auto;padding:72px 40px 120px}.intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:64px;align-items:end}.eyebrow{margin:0 0 18px;color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.intro h1{margin:0;font-size:clamp(46px,7vw,96px);line-height:1;letter-spacing:-.065em}.intro p:last-child{margin:0;color:var(--muted)}
+    .notice{margin:48px 0 32px;padding:18px 22px;border-left:5px solid var(--blue);background:var(--surface);font-size:14px}.filters{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow:auto;padding:14px 0;background:rgba(250,249,252,.96);backdrop-filter:blur(12px)}.filters button{white-space:nowrap;padding:8px 12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:12px;font-weight:700;cursor:pointer}.filters button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
+    .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:28px 0 72px;border:1px solid var(--ink);background:var(--ink)}.summary div{padding:24px;background:var(--canvas)}.summary strong{display:block;font-size:28px}.summary span{color:var(--muted);font-size:12px}
+    .phase{margin-top:72px}.phase-heading{display:grid;grid-template-columns:100px 1fr;gap:24px;align-items:end;margin-bottom:20px}.phase-heading span{color:var(--blue);font-size:12px;font-weight:700}.phase-heading h2{margin:0;font-size:34px;letter-spacing:-.045em}.events{border-top:1px solid var(--ink)}.event{display:grid;grid-template-columns:82px minmax(160px,.65fr) minmax(220px,1fr) minmax(220px,1fr) minmax(220px,1fr);gap:24px;padding:28px 0;border-bottom:1px solid var(--line)}.meta{font-size:11px}.meta code{display:block;margin-top:6px;color:var(--muted)}.event h3{margin:0;font-size:16px;letter-spacing:-.02em}.cell-label{display:block;margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.event p{margin:0;font-size:13px}.after{font-weight:700}.after::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;background:var(--lime)}.event[hidden],.phase[hidden]{display:none}
+    footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    @media(max-width:980px){.event{grid-template-columns:90px 1fr}.event>div:nth-child(n+3){grid-column:2}.intro{grid-template-columns:1fr}.summary{grid-template-columns:1fr}}
+    @media(max-width:560px){header{padding:0 20px}header span{display:none}main{padding:52px 20px 80px}.event{grid-template-columns:1fr;gap:14px}.event>div:nth-child(n){grid-column:auto}.phase-heading{grid-template-columns:1fr;gap:5px}}
+  </style>
+</head>
+<body>
+  <header><strong>Hashigodaka</strong><span>Design System / Process Archive / Timeline</span></header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">Decision timeline · 2026.07.16–21</p><h1>何を変え、<br>なぜ残したか。</h1></div>
+      <p>同じ比較HTMLを更新し続けたため失われた途中画面を、Gitコミットと制作ブリーフの判断記録から補完した時系列です。画面を推測で再現せず、確認できる変更前・変更後・理由だけを記録します。</p>
+    </section>
+    <p class="notice"><strong>記録の読み方：</strong> 9つのHTMLは各ラウンドの最終スナップショット、このページはその間の判断変更です。厳密なピクセル状態が残っていない段階は、文章による再現に限定しています。</p>
+    <div class="filters" aria-label="フェーズで絞り込む"><button aria-pressed="true" data-filter="all">すべて</button><button aria-pressed="false" data-filter="direction">方向性</button><button aria-pressed="false" data-filter="identity">ロゴ・書体</button><button aria-pressed="false" data-filter="primary">Primary</button><button aria-pressed="false" data-filter="secondary">Secondary</button><button aria-pressed="false" data-filter="extended">Extended</button><button aria-pressed="false" data-filter="system">システム化</button></div>
+    <div class="summary"><div><strong id="decision-count">0</strong><span>判断変更</span></div><div><strong>6</strong><span>検証フェーズ</span></div><div><strong>9 + 2</strong><span>最終比較HTML + 補完資料</span></div></div>
+    <div id="timeline"></div>
+    <footer>Source: docs/design-brief.md and the design-system Git history. Generated as an archival reading surface, not a replacement for the primary records.</footer>
+  </main>
+  <script>
+    const phaseNames={direction:"方向性とムードボード",identity:"ロゴと日本語書体",primary:"Primary Color",secondary:"Secondary Color",extended:"Extended + Neutral Colors",system:"ガイドラインとコンポーネント"};
+    const data=[
+      {p:"direction",c:"38cf25f",t:"比較軸を定義",b:"方向性を形容詞だけで議論",a:"有機的・親密 ↔ 幾何学的・精密、静か・抑制的 ↔ 大胆・表現的の二軸で比較",w:"選択肢の位置関係を同じ座標で判断するため"},
+      {p:"direction",c:"fe99968",t:"比較面をライトテーマへ",b:"閲覧環境のダークテーマに追従",a:"ムードボードの比較面をライトテーマへ固定",w:"黒い面で境界線と説明が沈み、位置関係を読みづらかったため"},
+      {p:"direction",c:"abd52b1",t:"キャンバス境界を統一",b:"カード追加後に右端が象限背景からはみ出す",a:"背景・軸・全体表示を同じキャンバス境界へ統一",w:"30件へ拡張しても象限とカードの所属を一目で比較するため"},
+      {p:"direction",c:"6d06833",t:"重心を大胆側へ変更",b:"幾何学的・精密 × 静か・抑制的を中心",a:"大胆・表現的を中心に、人間味と精密さを横断",w:"参照例は強い主役と整った組版を両立していたため"},
+      {p:"direction",c:"6d06833",t:"参照元の役割を分割",b:"参照サイト全体を好みとして扱う",a:"MONSTAR LAB＝人物とB2B構造、SPIKE STUDIO＝固有モチーフ、YOU TRUST＝色",w:"模倣せず、借りる判断単位を分けるため"},
+      {p:"direction",c:"6d06833",t:"寒色の強い表現へ",b:"ブランドカラー未決定",a:"色数を絞ったビビッドな青・水色・シアン系",w:"業界で多い赤黄と区別し、寒色でも力強さを作るため"},
+
+      {p:"identity",c:"74be435",t:"現行ロゴを比較条件から外す",b:"青パレットのヒーローに現行ロゴを配置",a:"全案共通の中立な仮ワードマークへ",w:"刷新対象の旧印象が色評価へ混入するため"},
+      {p:"identity",c:"bf92564",t:"選定順を変更",b:"色を決めてからロゴ書体を選ぶ",a:"ロゴ → 日本語書体 → カラーの順",w:"ロゴの文字骨格を視覚言語の起点にするため"},
+      {p:"identity",c:"35567dc",t:"Soraを基準案へ",b:"Space Grotesk、Manrope、Bricolage Grotesque、Soraを並列比較",a:"D（Sora）の雰囲気を基準に近似5書体を追加",w:"好みに近い骨格の範囲で精密さ・人間味・力強さを比較するため"},
+      {p:"identity",c:"82548a5",t:"ロゴを3案へ",b:"D〜Iの6案",a:"D（Sora）・F（Outfit）・H（Geologica）",w:"LPへ当てる前に文字骨格だけを絞るため"},
+      {p:"identity",c:"9f24f1e",t:"英字 × 和文を総当たり",b:"ロゴ書体を先に1案へ確定",a:"ロゴ3案 × 日本語5案の15組",w:"英字と和文を一つのブランドの声として評価するため"},
+      {p:"identity",c:"d9f14f6",t:"日本語B・Dを除外",b:"日本語5案",a:"A・C・Eの3案",w:"個別相性ではなく日本語書体の印象自体が方向から外れたため"},
+      {p:"identity",c:"d9f14f6",t:"ロゴFを除外",b:"ロゴD・F・H",a:"ロゴD・H",w:"すべての日本語書体で骨格の方向が合わなかったため"},
+      {p:"identity",c:"2d195a3",t:"ウェイト差を分離",b:"A・C・Eを比較",a:"Cを基準にC8・F・G・Hを追加",w:"骨格差と線幅差を別々に判断するため"},
+      {p:"identity",c:"9890c35",t:"丸いGを除外",b:"C・C8・F・G・H",a:"C・C8・F・H、Hは900→800",w:"丸みの強い骨格を外し、過度な太さを抑えるため"},
+      {p:"identity",c:"abd5bd5",t:"角の残るI・Jを追加",b:"F・Hの「で」「き」の丸みが気になる",a:"LINE Seed JPとM PLUS 1を追加",w:"仮名の線端と接合に角が残る案を同条件で確認するため"},
+      {p:"identity",c:"38b82d7",t:"Iを700へ",b:"LINE Seed JP見出し800",a:"見出し700",w:"骨格を維持しつつロゴとの線幅バランスを確認するため"},
+      {p:"identity",c:"eab382f",t:"C8をCへ戻す",b:"M PLUS 1p 800をC8として表示",a:"C表記・700へ戻す",w:"派生記号を外し現在条件を正式なCとして扱うため"},
+      {p:"identity",c:"426a166",t:"日本語をI・Jへ",b:"C・F・H・I・J",a:"I（700）・J（800）の2案",w:"丸みを抑えた仮名に候補を集中するため"},
+      {p:"identity",c:"55e8740",t:"H-Iを除外",b:"D-I・D-J・H-I・H-J",a:"D-I・D-J・H-J",w:"ロゴと日本語の角ばり具合が揃わなかったため"},
+      {p:"identity",c:"8b29337",t:"最終2組へ",b:"D-I・D-J・H-J",a:"D-IとH-J",w:"ロゴと日本語を一体で評価する最終候補に絞るため"},
+
+      {p:"primary",c:"1c82982",t:"書体2案 × 色5案",b:"次の比較条件が未定",a:"同じB2B LPで全10パターン",w:"コピー・構図・余白・CTAを固定して色だけを判断するため"},
+      {p:"primary",c:"bd38d43",t:"AI的アイブローを削除",b:"DESIGN & ENGINEERING PARTNER",a:"アイブローなし",w:"英字の装飾ラベルがAI生成LPの既視感を強めたため"},
+      {p:"primary",c:"5f546e0",t:"仮構造ラベルを削除",b:"STRUCTURE PLACEHOLDERを縦配置",a:"ラベルなし",w:"比較条件の仮要素がブランド表現に見えたため"},
+      {p:"primary",c:"dbe22d0",t:"白の面積を固定",b:"全面色や濃色面を含む案",a:"全案を白基調・色は意味のある箇所へ限定",w:"D-IとH-Jで確認した余白方針を守るため"},
+      {p:"primary",c:"3bcf83f",t:"主色だけに分離",b:"主色・補助色・文字・薄背景を同時比較",a:"ブランドのMain Colorだけを比較",w:"評価変数を一つに絞るため"},
+      {p:"primary",c:"c996d84",t:"高彩度候補へ",b:"彩度を抑えた暗い青が多い",a:"パキッとした高彩度の5案",w:"大胆・表現的というブランド方向を色でも保つため"},
+      {p:"primary",c:"b95a264",t:"明るさを上げる",b:"濃い青が多い",a:"明るくビビッドな主色へ",w:"白い面の中で強く見せつつ、重すぎる印象を避けるため"},
+      {p:"primary",c:"8b4ad24",t:"C・Dへ絞る",b:"明るい主色5案",a:"C（#00B8D9）・D（#00A0FF）",w:"Secondaryとの隣接比較へ進むため"},
+
+      {p:"secondary",c:"9852f93",t:"Primaryと隣接表示",b:"各段の役割が混在",a:"1・2段目をPrimary、3段目だけSecondary",w:"隣り合ったときの相性を直接比較するため"},
+      {p:"secondary",c:"3e07a45",t:"D-Eを固定、Cを再探索",b:"C・Dとも明るいSecondary A〜E",a:"D-E固定、Cは渋めのF〜Jへ",w:"Dは方向が定まり、CはPrimaryに対して軽すぎたため"},
+      {p:"secondary",c:"228b0a5",t:"不採用表示を改善",b:"カード全体をグレースケール化",a:"枠・見出しだけ灰色化し色面は保持",w:"採否を示しながら色差と判断経緯を後から読めるようにするため"},
+      {p:"secondary",c:"228b0a5",t:"C-Fを固定",b:"C-F〜J",a:"C-F（#476A7A）",w:"Primary Cに合う少し渋めのSecondaryとして残ったため"},
+
+      {p:"extended",c:"32fc89c",t:"3文脈で比較",b:"Extended Colorsの比較単位が未定",a:"隣接・小面積利用・図解識別で全8案",w:"ブランド拡張色とSemantic Colorsを分離して判断するため"},
+      {p:"extended",c:"0211411",t:"候補4案へ",b:"C-F・D-EそれぞれA〜Dの全8案",a:"C-F-A / C-F-C / D-E-C / D-E-D",w:"Primary・Secondaryごとに残った2案を精査するため"},
+      {p:"extended",c:"613f644",t:"書体を切替可能に",b:"D-Iで固定",a:"D-I / H-Jを全カード共通で切替",w:"色案を複製せず書体との調和を確認するため"},
+      {p:"extended",c:"419bd57",t:"候補のみを既定表示",b:"採用候補と不採用を同時表示",a:"候補4案を既定、全8案へ切替可能",w:"現在の判断対象へ集中しつつ経緯も失わないため"},
+      {p:"extended",c:"d628eb9",t:"ロゴを見出し相当に拡大",b:"ナビゲーション相当の小ささ",a:"主見出しと同程度",w:"ブランドの主役として書体と色の調和を判断するため"},
+      {p:"extended",c:"a79d3b7",t:"Neutralも案ごとに選定",b:"白・黒・グレーを全案共通",a:"背景・文字・薄背景を各案に合わせる",w:"画面の大部分を占めるNeutralを含む実用配色で判断するため"},
+      {p:"extended",c:"f4ca362",t:"D-E-Dを主案へ",b:"4候補を並列比較",a:"D-E-Dを実装検証へ",w:"比較を続けずB2B LPと図解で再利用性を試すため"},
+
+      {p:"system",c:"e407480",t:"ガイドラインサイトを中心へ",b:"トークンとMarkdown中心",a:"原則・基礎・ブランド・コンポーネントを横断する閲覧サイト",w:"人とAIが同じ正本を異なる入口から参照するため"},
+      {p:"system",c:"4f60ab2",t:"用途別タイポグラフィ",b:"書体候補を並べるだけ",a:"Display〜Codeの11用途を共通定義",w:"書体選定と情報階層を分離するため"},
+      {p:"system",c:"bcae983",t:"ガイド自身へ書体適用",b:"見本だけにトークン適用",a:"サイト全体を切替可能に",w:"実際の読み物全体で相性を判断するため"},
+      {p:"system",c:"a4d252d",t:"技術を開放する原則を追加",b:"原則4項目",a:"「新しい技術を開放する」を含む5項目",w:"技術を使える形にする姿勢もブランド人格だから"},
+      {p:"system",c:"fa39c10",t:"ボタン案3を採用",b:"ブランド色の枠線型・塗り型",a:"黒面・反転枠・下線の3階層",w:"色ではなく形状と明暗で優先度を安定して示すため"},
+      {p:"system",c:"06a38d9",t:"旧CTA見本を統一",b:"別節にブランドPrimary背景のActionが残る",a:"採用済み黒背景Primaryへ統一",w:"旧仕様を採用例に見せないため"},
+      {p:"system",c:"7de877d",t:"色面の黒枠を削減",b:"高彩度色を黒枠で囲む",a:"色はCanvas余白、構造はNeutral Borderで分離",w:"ポップ／コミック寄りの印象を抑えるため"},
+      {p:"system",c:"6f48677",t:"Badgeを統一",b:"status-tagとbadgeが別実装",a:"Neutral + 4色のBadge、色付きは白文字",w:"状態の意味と表示部品を分け、4.5:1以上を確保するため"},
+      {p:"system",c:"3d64538",t:"レイアウト数値を共通化",b:"72・84・108pxなど個別値が混在",a:"4px基準、4/8/12列、24/48/64pxガター",w:"人とAIが同じ余白とグリッドを再現するため"}
+    ];
+    const root=document.querySelector('#timeline');
+    document.querySelector('#decision-count').textContent=data.length;
+    function render(filter='all'){
+      root.innerHTML='';
+      for(const [key,name] of Object.entries(phaseNames)){
+        const items=data.filter(d=>d.p===key&&(filter==='all'||filter===key));
+        if(!items.length)continue;
+        const section=document.createElement('section');section.className='phase';section.dataset.phase=key;
+        section.innerHTML=`<div class="phase-heading"><span>${String(Object.keys(phaseNames).indexOf(key)+1).padStart(2,'0')}</span><h2>${name}</h2></div><div class="events"></div>`;
+        const events=section.querySelector('.events');
+        for(const item of items){const article=document.createElement('article');article.className='event';article.innerHTML=`<div class="meta"><strong>2026.07.21</strong><code>${item.c}</code></div><h3>${item.t}</h3><div><span class="cell-label">Before</span><p>${item.b}</p></div><div><span class="cell-label">After</span><p class="after">${item.a}</p></div><div><span class="cell-label">Why</span><p>${item.w}</p></div>`;events.append(article)}
+        root.append(section);
+      }
+    }
+    document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');render(button.dataset.filter)}));
+    render();
+  </script>
+</body>
+</html>
