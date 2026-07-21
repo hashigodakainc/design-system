@@ -24,14 +24,14 @@
       <div><p class="eyebrow">Decision timeline · 2026.07.16–21</p><h1>何を変え、<br>なぜ残したか。</h1></div>
       <p>同じ比較HTMLを更新し続けたため失われた途中画面を、Gitコミットと制作ブリーフの判断記録から補完した時系列です。画面を推測で再現せず、確認できる変更前・変更後・理由だけを記録します。</p>
     </section>
-    <p class="notice"><strong>記録の読み方：</strong> 9つのHTMLは各ラウンドの最終スナップショット、このページはその間の判断変更です。厳密なピクセル状態が残っていない段階は、文章による再現に限定しています。</p>
-    <div class="filters" aria-label="フェーズで絞り込む"><button aria-pressed="true" data-filter="all">すべて</button><button aria-pressed="false" data-filter="direction">方向性</button><button aria-pressed="false" data-filter="identity">ロゴ・書体</button><button aria-pressed="false" data-filter="primary">Primary</button><button aria-pressed="false" data-filter="secondary">Secondary</button><button aria-pressed="false" data-filter="extended">Extended</button><button aria-pressed="false" data-filter="system">システム化</button></div>
-    <div class="summary"><div><strong id="decision-count">0</strong><span>判断変更</span></div><div><strong>6</strong><span>検証フェーズ</span></div><div><strong>9 + 2</strong><span>最終比較HTML + 補完資料</span></div></div>
+    <p class="notice"><strong>記録の読み方：</strong> 00〜10のHTMLは各ラウンドのスナップショットまたは確認できる比較画像からの再構成、このページはその間の判断変更です。厳密なピクセル状態が残っていない段階は、文章による再現に限定しています。</p>
+    <div class="filters" aria-label="フェーズで絞り込む"><button aria-pressed="true" data-filter="all">すべて</button><button aria-pressed="false" data-filter="direction">方向性</button><button aria-pressed="false" data-filter="identity">ロゴ・書体</button><button aria-pressed="false" data-filter="primary">Primary</button><button aria-pressed="false" data-filter="secondary">Secondary</button><button aria-pressed="false" data-filter="extended">Extended</button><button aria-pressed="false" data-filter="system">システム化</button><button aria-pressed="false" data-filter="motif">モチーフ</button></div>
+    <div class="summary"><div><strong id="decision-count">0</strong><span>判断変更</span></div><div><strong>7</strong><span>検証フェーズ</span></div><div><strong>11 + 2</strong><span>比較HTML + 補完資料</span></div></div>
     <div id="timeline"></div>
     <footer>Source: docs/design-brief.md and the design-system Git history. Generated as an archival reading surface, not a replacement for the primary records.</footer>
   </main>
   <script>
-    const phaseNames={direction:"方向性とムードボード",identity:"ロゴと日本語書体",primary:"Primary Color",secondary:"Secondary Color",extended:"Extended + Neutral Colors",system:"ガイドラインとコンポーネント"};
+    const phaseNames={direction:"方向性とムードボード",identity:"ロゴと日本語書体",primary:"Primary Color",secondary:"Secondary Color",extended:"Extended + Neutral Colors",system:"ガイドラインとコンポーネント",motif:"固有モチーフ"};
     const data=[
       {p:"direction",c:"38cf25f",t:"比較軸を定義",b:"方向性を形容詞だけで議論",a:"有機的・親密 ↔ 幾何学的・精密、静か・抑制的 ↔ 大胆・表現的の二軸で比較",w:"選択肢の位置関係を同じ座標で判断するため"},
       {p:"direction",c:"fe99968",t:"比較面をライトテーマへ",b:"閲覧環境のダークテーマに追従",a:"ムードボードの比較面をライトテーマへ固定",w:"黒い面で境界線と説明が沈み、位置関係を読みづらかったため"},
@@ -86,7 +86,13 @@
       {p:"system",c:"06a38d9",t:"旧CTA見本を統一",b:"別節にブランドPrimary背景のActionが残る",a:"採用済み黒背景Primaryへ統一",w:"旧仕様を採用例に見せないため"},
       {p:"system",c:"7de877d",t:"色面の黒枠を削減",b:"高彩度色を黒枠で囲む",a:"色はCanvas余白、構造はNeutral Borderで分離",w:"ポップ／コミック寄りの印象を抑えるため"},
       {p:"system",c:"6f48677",t:"Badgeを統一",b:"status-tagとbadgeが別実装",a:"Neutral + 4色のBadge、色付きは白文字",w:"状態の意味と表示部品を分け、4.5:1以上を確保するため"},
-      {p:"system",c:"3d64538",t:"レイアウト数値を共通化",b:"72・84・108pxなど個別値が混在",a:"4px基準、4/8/12列、24/48/64pxガター",w:"人とAIが同じ余白とグリッドを再現するため"}
+      {p:"system",c:"3d64538",t:"レイアウト数値を共通化",b:"72・84・108pxなど個別値が混在",a:"4px基準、4/8/12列、24/48/64pxガター",w:"人とAIが同じ余白とグリッドを再現するため"},
+
+      {p:"motif",c:"a9f8c9f",t:"具象連想を物語へ",b:"蝶・植物・羽根に見える形を意図しない連想として回避",a:"バタフライエフェクト、システムを育てる、共創で可能性が開く物語として比較",w:"抽象性だけを優先して有効な記憶点まで排除しないため"},
+      {p:"motif",c:"aeef776",t:"意味ごとの部品追加を停止",b:"橋渡し・共創・成長へ別々の部品を割り当てて複雑化",a:"最大2形状、接続1か所、曲線1系統、負形1か所以内",w:"短時間で思い出せ、H-Jの横で説明過多にならない形を優先するため"},
+      {p:"motif",c:"170ea2f",t:"負形による接続を許容",b:"左右の形が物理的につながることを必須化",a:"共有する負形・噛み合わせ・緊張関係も橋渡しと共創として扱う",w:"明示的な橋がなくても、二者性と一体感を簡潔に表現できたため"},
+      {p:"motif",c:"92a8ac3",t:"ロケット連想を肯定",b:"大小差と右上方向がロケットに見えるため回避",a:"小さな起点が推進力を得て大きな変化を打ち上げる物語として候補化",w:"橋渡し・共創に、実装後の加速と成長を重ねられるため"},
+      {p:"motif",c:"4156650",t:"黄金比と重心を基準化",b:"感覚的な大小比、右上へ偏る重心、斜めに切った外周",a:"線寸法比約1:1.618、面積比約1:2.618、合成重心を中央へ、外周は連続曲線",w:"推進感を残しながら単体と横組みの安定性、有機性、精密さを両立するため"}
     ];
     const root=document.querySelector('#timeline');
     document.querySelector('#decision-count').textContent=data.length;
