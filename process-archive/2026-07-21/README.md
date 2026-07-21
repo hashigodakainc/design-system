@@ -26,7 +26,7 @@
 | 7 | [`07-secondary-color/`](07-secondary-color/) | Primaryと隣接させてSecondaryを比較する | Main C-F（#476A7A）とMain D-E（#C7F14A）を固定。不採用カードの配色面は色を残し、枠・見出し・操作のみ灰色化 | `8b4ad24`、`9852f93`、`3e07a45`と、その後のC-F絞り込み |
 | 8 | [`08-extended-neutral-color/`](08-extended-neutral-color/) | Extended Colorsと背景・文字・薄い背景を同じ適用見本で比較する | 候補4案を既定表示。書体ペアを切り替え可能。D-E-Dを主案として選定した時点の最終状態 | `32fc89c`〜`a79d3b7`、`f4ca362` |
 | 9 | [`09-button-hierarchy/`](09-button-hierarchy/) | ボタンのブランドカラー案とニュートラルな3階層案を比較する | 枠線型・塗り型のPrimary / Secondary Color案と、採用したPrimary / Secondary / Tertiaryの3階層案 | 案3採用時のコミット |
-| 10 | [`10-motif-exploration/`](10-motif-exploration/) | 写真を使わない場面の固有モチーフを比較する | H由来の直接表現から蝶・梯子、推進感の探索を経て、力強い01C-Cを暫定メイン候補としSVG初版へ至る主要15段階 | `a9f8c9f`〜`a6e0421`、Imagegen比較画像、01C-C SVG初版 |
+| 10 | [`10-motif-exploration/`](10-motif-exploration/) | 写真を使わない場面の固有モチーフを比較する | H由来の直接表現から蝶・梯子、推進感の探索を経て、力強い01C-Cを暫定メイン候補としSVG初版へ至る主要15段階 | `a9f8c9f`〜`ad62c54`、Imagegen比較画像、01C-C SVG初版 |
 | 横断 | [`process-timeline/`](process-timeline/) | 各画面の間で変わった判断を追う | 約50件のbefore / after / 理由を、確認できる記録だけから時系列化 | `docs/design-brief.md`とGit履歴 |
 
 ## 閲覧方法
