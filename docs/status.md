@@ -41,13 +41,24 @@
 専用トーンを使う。Success、Warning、Error、Infoとの意味対応は未策定。詳細は
 [components/badges.md](components/badges.md) を参照する。
 
+## 利用可能なレイアウト仕様
+
+- 余白スケール：`0 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128px`
+- ページ余白：Mobile `24px`、Tablet `48px`、Desktop `64px`
+- グリッド：Mobile `4列`、Tablet `8列`、Desktop `12列`
+- コンテンツ最大幅：Reading `720px`、Standard `1120px`、Wide `1440px`
+- セクション間隔：Small `48px`、Medium `64px`、Large `96px`
+
+基礎レイアウトは検証利用できる。ブレークポイントと用途別トークンを含む詳細は
+[foundations/layout.md](foundations/layout.md) を参照する。
+
 ## 未決定
 
 - フォントファミリー：D-I（Sora × LINE Seed JP）とH-J（Geologica × M PLUS 1）の最終選定
 - 選定書体を調整した正式ワードマーク
 - Success、Warning、Error、InfoのSemantic Colors
 - Primary、Secondary、Extended Colorsの用途別濃淡
-- 余白、グリッド、角丸、罫線、影、モーション
+- 角丸、罫線、影、モーション
 - 写真を使わない場面のHashigodaka固有モチーフ
 - ボタン、バッジ以外のコンポーネント仕様と対応プラットフォーム
 - ボタンの寸法バリエーション、無効・処理中状態、アイコン併用
@@ -57,7 +68,7 @@
 
 1. 主案D-E-Dの色トークンと実装例を運用する。
 2. 用途別タイポグラフィを運用しながらD-IとH-Jを比較し、書体とロゴの土台を決める。
-3. 余白、グリッドなどの基礎トークンを追加する。
+3. 採用済みの余白、グリッド、コンテンツ幅を実装で検証する。
 4. Semantic Colorsを機能別に選ぶ。
 5. 採用済みボタン・バッジ仕様を運用し、リンク、カード、ナビゲーション、図解などもコンポーネント化する。
 6. 人間向けガイドとAI向け定義を同じ正本から配布し、別環境で再現性を検証する。

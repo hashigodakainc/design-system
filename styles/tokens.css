@@ -1,4 +1,4 @@
-/* Generated from tokens/colors.json and tokens/typography.json. Do not edit directly. */
+/* Generated from tokens/colors.json, tokens/typography.json, and tokens/layout.json. Do not edit directly. */
 :root {
   --hsg-color-brand-primary: #00A0FF;
   --hsg-color-brand-secondary: #C7F14A;
@@ -78,4 +78,36 @@
   --hsg-typography-letter-spacing-heading: -0.02em;
   --hsg-typography-letter-spacing-body: 0;
   --hsg-typography-letter-spacing-label: 0.04em;
+  --hsg-space-0: 0px;
+  --hsg-space-1: 4px;
+  --hsg-space-2: 8px;
+  --hsg-space-3: 12px;
+  --hsg-space-4: 16px;
+  --hsg-space-5: 24px;
+  --hsg-space-6: 32px;
+  --hsg-space-7: 48px;
+  --hsg-space-8: 64px;
+  --hsg-space-9: 96px;
+  --hsg-space-10: 128px;
+  --hsg-layout-page-gutter-mobile: var(--hsg-space-5);
+  --hsg-layout-page-gutter-tablet: var(--hsg-space-7);
+  --hsg-layout-page-gutter-desktop: var(--hsg-space-8);
+  --hsg-layout-content-indent: var(--hsg-space-8);
+  --hsg-layout-section-space-small: var(--hsg-space-7);
+  --hsg-layout-section-space-medium: var(--hsg-space-8);
+  --hsg-layout-section-space-large: var(--hsg-space-9);
+  --hsg-layout-content-width-reading: 720px;
+  --hsg-layout-content-width-standard: 1120px;
+  --hsg-layout-content-width-wide: 1440px;
+  --hsg-layout-grid-columns-mobile: 4;
+  --hsg-layout-grid-columns-tablet: 8;
+  --hsg-layout-grid-columns-desktop: 12;
+  --hsg-layout-grid-gutter-mobile: var(--hsg-space-4);
+  --hsg-layout-grid-gutter-tablet: var(--hsg-space-5);
+  --hsg-layout-grid-gutter-desktop: var(--hsg-space-5);
+  --hsg-layout-breakpoint-mobile: 760px;
+  --hsg-layout-breakpoint-tablet: 1050px;
+  --hsg-layout-breakpoint-wide: 1440px;
+  --hsg-layout-sidebar-width: 268px;
+  --hsg-layout-mobile-header-height: 62px;
 }

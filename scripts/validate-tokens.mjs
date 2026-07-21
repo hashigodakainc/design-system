@@ -5,13 +5,14 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
+const layoutSource = JSON.parse(await readFile(resolve(root, "tokens/layout.json"), "utf8"));
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
 const exampleHtml = await readFile(resolve(root, "examples/color-foundations.html"), "utf8");
 const guidelineHtml = await readFile(resolve(root, "guidelines/index.html"), "utf8");
 const guidelineCss = await readFile(resolve(root, "guidelines/site.css"), "utf8");
-const allTokens = [...colorSource.tokens, ...typographySource.tokens];
+const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
 const tokens = new Map();
 const failures = [];
 const supportedTypes = new Set(["color", "fontFamily", "fontWeight", "dimension", "number", "letterSpacing"]);
@@ -134,4 +135,5 @@ if (failures.length) {
 } else {
   console.log(`${colorSource.tokens.length} color tokens validated`);
   console.log(`${typographySource.tokens.length} typography tokens and ${typographySource.roles.length} roles validated`);
+  console.log(`${layoutSource.tokens.length} layout tokens validated`);
 }

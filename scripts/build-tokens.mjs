@@ -5,9 +5,10 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
+const layoutSource = JSON.parse(await readFile(resolve(root, "tokens/layout.json"), "utf8"));
 const outputPath = resolve(root, "styles/tokens.css");
 const typographyOutputPath = resolve(root, "styles/typography.css");
-const tokens = [...colorSource.tokens, ...typographySource.tokens];
+const tokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
 
 const cssName = (name) => `--hsg-${name.replaceAll(".", "-")}`;
 const cssValue = (value) => {
@@ -16,7 +17,7 @@ const cssValue = (value) => {
 };
 
 const lines = [
-  "/* Generated from tokens/colors.json and tokens/typography.json. Do not edit directly. */",
+  "/* Generated from tokens/colors.json, tokens/typography.json, and tokens/layout.json. Do not edit directly. */",
   ":root {",
   ...tokens.map((token) => `  ${cssName(token.name)}: ${cssValue(token.value)};`),
   "}",

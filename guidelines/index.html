@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Hashigodakaのデザイン原則、基礎、ブランド、コンポーネントを共有するガイドライン。">
   <title>Hashigodaka Design System</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2300A0FF'/%3E%3Cpath d='M8 7v18M24 7v18M8 16h16' stroke='%23FAF9FC' stroke-width='4'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="../styles/tokens.css">
   <link rel="stylesheet" href="../styles/typography.css">
   <link rel="stylesheet" href="../styles/components.css">
@@ -202,8 +203,42 @@
     </section>
 
     <section class="section compact-section" id="layout">
-      <div class="section-heading"><p class="section-number">04</p><div><h2>レイアウト</h2><p>数値トークンの策定前に、運用原則を共有します。</p></div></div>
-      <div class="rule-list"><p><strong>広い余白</strong><span>情報量ではなく優先順位から密度を決める</span></p><p><strong>明確なグリッド</strong><span>大胆な表現ほど、整った整列で支える</span></p><p><strong>一つの主役</strong><span>写真、図形、見出しを同時に競わせない</span></p></div>
+      <div class="section-heading"><p class="section-number">04</p><div><h2>レイアウト</h2><p>4px基準の余白と、画面幅に応じた4・8・12列グリッドで、強い表現を整った構造で支えます。</p></div></div>
+
+      <div class="layout-foundation">
+        <article class="layout-block">
+          <div class="layout-block-heading"><div><p class="demo-label">Spacing scale</p><h3>余白の共通尺度</h3></div><p>迷ったときは隣接する要素間の関係が伝わる、最小の値を選びます。</p></div>
+          <div class="space-scale" aria-label="余白スケール">
+            <div><span style="--space-size:4px"></span><strong>4</strong></div>
+            <div><span style="--space-size:8px"></span><strong>8</strong></div>
+            <div><span style="--space-size:12px"></span><strong>12</strong></div>
+            <div><span style="--space-size:16px"></span><strong>16</strong></div>
+            <div><span style="--space-size:24px"></span><strong>24</strong></div>
+            <div><span style="--space-size:32px"></span><strong>32</strong></div>
+            <div><span style="--space-size:48px"></span><strong>48</strong></div>
+            <div><span style="--space-size:64px"></span><strong>64</strong></div>
+            <div><span style="--space-size:96px"></span><strong>96</strong></div>
+            <div><span style="--space-size:128px"></span><strong>128</strong></div>
+          </div>
+        </article>
+
+        <div class="layout-spec-grid">
+          <article class="layout-block"><p class="demo-label">Page gutter</p><h3>24 / 48 / 64px</h3><p>Mobile / Tablet / Desktop。画面端から本文や主要要素までの最低余白です。</p></article>
+          <article class="layout-block"><p class="demo-label">Content width</p><h3>720 / 1120 / 1440px</h3><p>Reading / Standard / Wide。文章、通常ページ、広いビジュアルの最大幅を分けます。</p></article>
+          <article class="layout-block"><p class="demo-label">Section space</p><h3>48 / 64 / 96px</h3><p>Small / Medium / Large。セクションの重要度と情報量に応じて使い分けます。</p></article>
+        </div>
+
+        <article class="layout-block">
+          <div class="layout-block-heading"><div><p class="demo-label">Responsive grid</p><h3>4 / 8 / 12 columns</h3></div><p>760px以下をMobile、1050px以下をTabletとして構造を切り替えます。</p></div>
+          <div class="grid-specimens">
+            <div><span>Mobile · 4</span><div class="grid-columns grid-columns-4" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+            <div><span>Tablet · 8</span><div class="grid-columns grid-columns-8" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div><span>Desktop · 12</span><div class="grid-columns grid-columns-12" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="rule-list layout-rules"><p><strong>尺度から選ぶ</strong><span>個別の都合で中間値を増やさず、定義済みの余白スケールを使う</span></p><p><strong>幅に上限を設ける</strong><span>画面が広くても文章と操作要素を無制限に引き伸ばさない</span></p><p><strong>構造変化で切り替える</strong><span>ブレークポイントは機種名ではなく、内容が窮屈になる地点で使う</span></p><p><strong>一つの主役</strong><span>写真、図形、見出しを同時に競わせず、余白で優先度を示す</span></p></div>
     </section>
 
     <section class="section compact-section" id="logo">
@@ -232,11 +267,11 @@
     </section>
 
     <section class="section compact-section" id="tokens">
-      <div class="section-heading"><p class="section-number">08</p><div><h2>デザイントークン</h2><p>人向けガイドと実装を、同じ色・タイポグラフィ定義でつなぎます。</p></div></div>
+      <div class="section-heading"><p class="section-number">08</p><div><h2>デザイントークン</h2><p>人向けガイドと実装を、同じ色・タイポグラフィ・レイアウト定義でつなぎます。</p></div></div>
       <div class="code-panel"><div class="code-title"><span>HTML</span><code>styles/components.css</code></div><pre><code>&lt;button class="hsg-button hsg-button-primary"&gt;
   お問い合わせ
 &lt;/button&gt;</code></pre></div>
-      <p>機械可読な正本は <code>tokens/colors.json</code> と <code>tokens/typography.json</code> です。生成したCSS変数と採用済みコンポーネントクラスを使い、値を直接コピーせず用途別トークンを参照します。</p>
+      <p>機械可読な正本は <code>tokens/colors.json</code>、<code>tokens/typography.json</code>、<code>tokens/layout.json</code> です。生成したCSS変数と採用済みコンポーネントクラスを使い、値を直接コピーせず用途別トークンを参照します。</p>
     </section>
 
     <section class="section" id="status">
@@ -248,6 +283,7 @@
         <div class="status-row" role="row"><strong>Font family</strong><span><b class="hsg-badge hsg-badge-violet">選定中</b></span><span>D-I／H-Jの比較に限定</span></div>
         <div class="status-row" role="row"><strong>Logo</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>仮表示を資産利用しない</span></div>
         <div class="status-row" role="row"><strong>Semantic Colors</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>Extended Colorsで代用しない</span></div>
+        <div class="status-row" role="row"><strong>Layout foundations</strong><span><b class="hsg-badge hsg-badge-primary">検証中</b></span><span>余白・幅・グリッドを利用可</span></div>
         <div class="status-row" role="row"><strong>Button / Badge</strong><span><b class="hsg-badge hsg-badge-secondary">利用可</b></span><span>基本仕様を利用可</span></div>
         <div class="status-row" role="row"><strong>Other Components</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>掲載例は検証用</span></div>
       </div>
