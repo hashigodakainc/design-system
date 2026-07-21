@@ -331,3 +331,9 @@ Hashigodakaを、**人間味のある力強い実装パートナー**として�
   外し、色同士はCanvasの余白、情報構造はNeutral Borderで分ける。Inkの強い線と面はPrimaryボタン、
   フォーカス、文字など意味のある箇所へ限定する。** 高彩度色＋黒枠によるポップ／コミック寄りの印象を
   抑え、白い面積、力強さ、B2Bらしい精密さを両立するため。
+- **2026-07-21:** before: ロゴ節の「策定中」を`.status-tag`、策定状況表を`.badge`として別実装し、
+  明るいブランド原色へInk文字を載せていた。after: **どちらもBadgeコンポーネントへ統一し、Neutralと
+  Primary / Secondary / Violet / Orangeの5種を定義する。色付きバッジはすべて白文字とし、Primary
+  #0070B8、Secondary #5F7800、Violet #6C4ED9、Orange #B83A12の専用トーンで4.5:1以上を確保する。**
+  ステータスは意味、バッジはその表示部品として整理し、見た目とアクセシビリティを一貫させるため。
+  これらの色へSuccess、Warning、Error、Infoの意味を割り当てるのはSemantic Colors策定後とする。

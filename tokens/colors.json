@@ -191,6 +191,72 @@
       "description": "低重要度アクションのホバー下線。"
     },
     {
+      "name": "color.badge.neutral.background",
+      "type": "color",
+      "value": "{color.neutral.surface}",
+      "description": "未確定など、強い色を必要としないバッジの背景。"
+    },
+    {
+      "name": "color.badge.neutral.foreground",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "Neutralバッジの文字。"
+    },
+    {
+      "name": "color.badge.neutral.border",
+      "type": "color",
+      "value": "{color.neutral.border}",
+      "description": "Neutralバッジの枠線。"
+    },
+    {
+      "name": "color.badge.primary.background",
+      "type": "color",
+      "value": "#0070B8",
+      "description": "Primary系バッジの背景。白文字を使える専用の濃いトーン。"
+    },
+    {
+      "name": "color.badge.primary.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "Primary系バッジの白い文字。"
+    },
+    {
+      "name": "color.badge.secondary.background",
+      "type": "color",
+      "value": "#5F7800",
+      "description": "Secondary系バッジの背景。白文字を使える専用の濃いトーン。"
+    },
+    {
+      "name": "color.badge.secondary.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "Secondary系バッジの白い文字。"
+    },
+    {
+      "name": "color.badge.violet.background",
+      "type": "color",
+      "value": "{color.brand.extended.violet}",
+      "description": "Violet系バッジの背景。"
+    },
+    {
+      "name": "color.badge.violet.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "Violet系バッジの白い文字。"
+    },
+    {
+      "name": "color.badge.orange.background",
+      "type": "color",
+      "value": "#B83A12",
+      "description": "Orange系バッジの背景。白文字を使える専用の濃いトーン。"
+    },
+    {
+      "name": "color.badge.orange.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "Orange系バッジの白い文字。"
+    },
+    {
       "name": "color.data.series.1",
       "type": "color",
       "value": "{color.brand.primary}",
@@ -239,6 +305,31 @@
     {
       "foreground": "color.action.secondary.hover.foreground",
       "background": "color.action.secondary.hover.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.neutral.foreground",
+      "background": "color.badge.neutral.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.primary.foreground",
+      "background": "color.badge.primary.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.secondary.foreground",
+      "background": "color.badge.secondary.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.violet.foreground",
+      "background": "color.badge.violet.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.orange.foreground",
+      "background": "color.badge.orange.background",
       "minimum": 4.5
     }
   ]

@@ -46,4 +46,5 @@ node scripts/validate-tokens.mjs
 制作目的、判断理由、未決事項は [docs/design-brief.md](docs/design-brief.md)、色の用途は
 [docs/foundations/colors.md](docs/foundations/colors.md)、文字の用途は
 [docs/foundations/typography.md](docs/foundations/typography.md)、ボタンの仕様は
-[docs/components/buttons.md](docs/components/buttons.md) を参照してください。
+[docs/components/buttons.md](docs/components/buttons.md)、バッジの仕様は
+[docs/components/badges.md](docs/components/badges.md) を参照してください。

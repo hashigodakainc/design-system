@@ -37,6 +37,10 @@ D-E-Dを、実際の制作物へ適用して検証する主案とする。色は
 ボタンのPrimary / Secondaryは行動の重要度を表し、ブランドのPrimary / Secondary Colorとは
 別の概念である。採用済みボタンはニュートラルカラーで階層を作る。
 
+色付きバッジでは白文字を共通にするため、ブランド原色を直接使わず、コントラストを満たす
+バッジ専用の濃いトーンを使う。これらはブランドパレットの置き換えでも、SuccessやWarningなどの
+Semantic Colorsでもない。用途は [Badges](../components/badges.md) を参照する。
+
 ## アクセシビリティ
 
 - Ink / Canvas、Ink / Primary、Ink / Secondaryは通常テキストの基準を満たす。

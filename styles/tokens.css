@@ -31,6 +31,17 @@
   --hsg-color-action-tertiary-underline: var(--hsg-color-neutral-ink);
   --hsg-color-action-tertiary-hover-foreground: var(--hsg-color-neutral-muted);
   --hsg-color-action-tertiary-hover-underline: var(--hsg-color-neutral-muted);
+  --hsg-color-badge-neutral-background: var(--hsg-color-neutral-surface);
+  --hsg-color-badge-neutral-foreground: var(--hsg-color-neutral-ink);
+  --hsg-color-badge-neutral-border: var(--hsg-color-neutral-border);
+  --hsg-color-badge-primary-background: #0070B8;
+  --hsg-color-badge-primary-foreground: var(--hsg-color-neutral-canvas);
+  --hsg-color-badge-secondary-background: #5F7800;
+  --hsg-color-badge-secondary-foreground: var(--hsg-color-neutral-canvas);
+  --hsg-color-badge-violet-background: var(--hsg-color-brand-extended-violet);
+  --hsg-color-badge-violet-foreground: var(--hsg-color-neutral-canvas);
+  --hsg-color-badge-orange-background: #B83A12;
+  --hsg-color-badge-orange-foreground: var(--hsg-color-neutral-canvas);
   --hsg-color-data-series-1: var(--hsg-color-brand-primary);
   --hsg-color-data-series-2: var(--hsg-color-brand-secondary);
   --hsg-color-data-series-3: var(--hsg-color-brand-extended-violet);
