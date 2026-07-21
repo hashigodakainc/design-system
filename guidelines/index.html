@@ -41,6 +41,19 @@
     <p class="sidebar-note">初版 0.1<br>2026年7月</p>
   </aside>
 
+  <div class="font-pair-float" aria-label="比較用の書体表示切り替え">
+    <div class="font-pair-float-title">
+      <span>比較用</span>
+      <strong>書体表示</strong>
+    </div>
+    <div class="font-pair-float-buttons" role="group" aria-label="ガイドライン全体へ適用する書体ペア">
+      <button type="button" data-font-pair="di" aria-pressed="true" title="Sora × LINE Seed JP">D-I</button>
+      <button type="button" data-font-pair="hj" aria-pressed="false" title="Geologica × M PLUS 1">H-J</button>
+    </div>
+    <a href="#typography">仕様</a>
+    <span class="visually-hidden" data-font-pair-status aria-live="polite">D-Iを表示中</span>
+  </div>
+
   <main id="main">
     <section class="hero" id="overview">
       <div class="hero-copy">
@@ -99,21 +112,11 @@
 
     <section class="section compact-section" id="typography">
       <div class="section-heading"><p class="section-number">03</p><div><h2>タイポグラフィ</h2><p>書体候補は比較中ですが、用途別の階層とスタイリングは共通仕様として利用できます。</p></div></div>
-      <div class="type-switcher">
-        <div>
-          <p class="type-switcher-label">書体ペア</p>
-          <div class="type-switcher-buttons" role="group" aria-label="サイト全体へ適用する書体ペア">
-            <button type="button" data-font-pair="di" aria-pressed="true">D-I</button>
-            <button type="button" data-font-pair="hj" aria-pressed="false">H-J</button>
-          </div>
-        </div>
-        <p>切り替えると、このページ全体の見出し・本文・UIへ反映されます。サイズと行間は変わりません。</p>
-      </div>
       <div class="candidate-grid">
         <article><p class="candidate-label">候補 D-I</p><h3 class="type-di">Hashigodaka</h3><p class="type-sample type-di-jp">構想から実装まで、一つのチームで。</p><p>Sora × LINE Seed JP 700</p></article>
         <article><p class="candidate-label">候補 H-J</p><h3 class="type-hj">Hashigodaka</h3><p class="type-sample type-hj-jp">構想から実装まで、一つのチームで。</p><p>Geologica × M PLUS 1 800</p></article>
       </div>
-      <p class="pending-note">正式なロゴ調整と書体ライセンス確認が完了するまでは、フォントファミリーだけを製品実装へ固定しません。</p>
+      <p class="pending-note">画面右下の比較用メニューで、ガイドライン全体の書体を切り替えられます。正式なロゴ調整と書体ライセンス確認が完了するまでは、フォントファミリーだけを製品実装へ固定しません。</p>
 
       <h3 class="subheading type-subheading">用途別スタイル</h3>
       <div class="type-role-list">

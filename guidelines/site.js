@@ -2,6 +2,7 @@ const menuButton = document.querySelector('.menu-button');
 const sidebar = document.querySelector('.sidebar');
 const navLinks = [...document.querySelectorAll('nav a')];
 const fontPairButtons = [...document.querySelectorAll('[data-font-pair]')];
+const fontPairStatus = document.querySelector('[data-font-pair-status]');
 
 menuButton?.addEventListener('click', () => {
   const open = sidebar.classList.toggle('is-open');
@@ -30,4 +31,5 @@ fontPairButtons.forEach((button) => button.addEventListener('click', () => {
   fontPairButtons.forEach((candidate) => {
     candidate.setAttribute('aria-pressed', String(candidate.dataset.fontPair === pair));
   });
+  if (fontPairStatus) fontPairStatus.textContent = `${pair.toUpperCase()}を表示中`;
 }));
