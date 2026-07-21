@@ -29,11 +29,6 @@ h1, h2, h3 { font-family: var(--hsg-typography-family-body); font-weight: var(--
 h1 { max-width: 720px; margin-bottom: 28px; font-size: var(--hsg-typography-size-display-desktop); line-height: var(--hsg-typography-line-height-display); letter-spacing: var(--hsg-typography-letter-spacing-display); }
 .hero-lead { max-width: 660px; margin-bottom: 38px; color: #4d4853; font-size: var(--hsg-typography-size-body-large); line-height: var(--hsg-typography-line-height-body); }
 .hero-actions, .demo-row { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 22px; border: 1px solid var(--hsg-color-neutral-ink); border-radius: 2px; color: var(--hsg-color-neutral-ink); font-size: var(--hsg-typography-size-action); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); text-decoration: none; cursor: pointer; }
-.button-primary { background: var(--hsg-color-action-primary-background); }
-.button-secondary { background: var(--hsg-color-action-secondary-background); }
-.button-quiet { background: transparent; }
-.button:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 var(--hsg-color-neutral-ink); }
 .text-link { font-size: var(--hsg-typography-size-action); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); text-underline-offset: 5px; }
 .hero-graphic { position: relative; width: min(100%, 510px); aspect-ratio: .96; justify-self: end; }
 .hero-graphic span { position: absolute; display: block; border: 2px solid var(--hsg-color-neutral-ink); }
@@ -136,6 +131,12 @@ h1 { max-width: 720px; margin-bottom: 28px; font-size: var(--hsg-typography-size
 .status-panel p { margin: 0; color: #514c57; }
 .component-demo { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; margin-left: 72px; }
 .component-demo > div { padding: 28px; border: 1px dashed #8b8590; }
+.button-guidance { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1px; margin: 24px 0 0 72px; border: 1px solid var(--hsg-color-neutral-border); background: var(--hsg-color-neutral-border); }
+.button-guidance article { padding: 24px; background: var(--hsg-color-neutral-canvas); }
+.button-guidance strong, .button-guidance span { display: block; }
+.button-guidance strong { font-size: var(--hsg-typography-size-heading-3); line-height: var(--hsg-typography-line-height-heading); }
+.button-guidance span { margin-top: 3px; color: var(--hsg-color-neutral-muted); font-size: var(--hsg-typography-size-label); font-weight: var(--hsg-typography-weight-emphasis); }
+.button-guidance p { margin: 20px 0 0; color: var(--hsg-color-neutral-muted); font-size: var(--hsg-typography-size-body-small); }
 .demo-card { padding: 32px; border: 1px solid var(--hsg-color-neutral-ink); border-top: 10px solid var(--hsg-color-brand-primary); background: white; }
 .demo-card h3 { margin-top: 42px; font-size: var(--hsg-typography-size-heading-2-desktop); line-height: var(--hsg-typography-line-height-heading); letter-spacing: var(--hsg-typography-letter-spacing-heading); }
 .demo-card p:not(.demo-label) { color: #625d69; }
@@ -162,6 +163,7 @@ footer p { margin: 0; }
   .swatches { grid-template-columns: repeat(2,1fr); }
   .neutral-grid { grid-template-columns: 1fr; }
   .component-demo { grid-template-columns: 1fr; }
+  .button-guidance { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
   .mobile-header { position: sticky; top: 0; z-index: 40; display: flex; height: 62px; align-items: center; justify-content: space-between; padding: 0 18px; border-bottom: 1px solid #dcd8e1; background: rgba(250,249,252,.96); backdrop-filter: blur(12px); }
@@ -182,7 +184,7 @@ footer p { margin: 0; }
   .principle-grid, .guidance-grid, .candidate-grid, .two-column { grid-template-columns: 1fr; }
   .principle-card { min-height: 220px; }
   .principle-card:nth-child(5) { grid-column: auto; }
-  .notice, .candidate-grid, .two-column, .pending-note, .rule-list, .status-panel, .component-demo, .code-panel, #tokens > p, .status-table, .type-subheading, .type-role-list, .type-rules > h3 { margin-left: 0; }
+  .notice, .candidate-grid, .two-column, .pending-note, .rule-list, .status-panel, .component-demo, .button-guidance, .code-panel, #tokens > p, .status-table, .type-subheading, .type-role-list, .type-rules > h3 { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .type-role-usage { grid-column: auto; margin-top: 0; }
   .type-role dl { grid-template-columns: repeat(3,1fr); }

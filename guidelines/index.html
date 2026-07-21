@@ -7,6 +7,7 @@
   <title>Hashigodaka Design System</title>
   <link rel="stylesheet" href="../styles/tokens.css">
   <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
   <link rel="stylesheet" href="./site.css">
 </head>
 <body>
@@ -61,7 +62,7 @@
         <h1>人間味のある、<br>力強い実装へ。</h1>
         <p class="hero-lead">Hashigodakaらしい判断を、誰でも、どの制作環境でも再現するための共通言語です。人が読むガイドと、実装が参照するトークンを同じ根拠から提供します。</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#colors">カラーを見る</a>
+          <a class="hsg-button hsg-button-primary" href="#colors">カラーを見る</a>
           <a class="text-link" href="#status">現在の策定状況 <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -94,8 +95,8 @@
       </div>
       <div class="notice"><strong>暫定利用できます。</strong> B2B LPと図解での適用確認後に最終確定します。</div>
       <div class="swatches" aria-label="ブランドカラーパレット">
-        <article class="swatch swatch-primary"><div class="swatch-color"></div><div><p>Primary</p><strong>#00A0FF</strong><small>主要CTA、主役のグラフィック</small></div></article>
-        <article class="swatch swatch-secondary"><div class="swatch-color"></div><div><p>Secondary</p><strong>#C7F14A</strong><small>補助CTA、限定的な強調</small></div></article>
+        <article class="swatch swatch-primary"><div class="swatch-color"></div><div><p>Primary</p><strong>#00A0FF</strong><small>主役のグラフィック、ブランド表現</small></div></article>
+        <article class="swatch swatch-secondary"><div class="swatch-color"></div><div><p>Secondary</p><strong>#C7F14A</strong><small>Primaryと対比する限定的なブランド表現</small></div></article>
         <article class="swatch swatch-violet"><div class="swatch-color"></div><div><p>Extended Violet</p><strong>#6C4ED9</strong><small>図解、チャート、抽象モチーフ</small></div></article>
         <article class="swatch swatch-orange"><div class="swatch-color"></div><div><p>Extended Orange</p><strong>#FF6B3D</strong><small>図解、チャート、抽象モチーフ</small></div></article>
       </div>
@@ -216,21 +217,25 @@
     </section>
 
     <section class="section" id="components">
-      <div class="section-heading"><p class="section-number">07</p><div><h2>コンポーネント</h2><p>現在はカラー適用を検証する実装見本です。</p></div></div>
+      <div class="section-heading"><p class="section-number">07</p><div><h2>コンポーネント</h2><p>ボタンは面、枠線、下線の順で重要度を明確にします。</p></div></div>
       <div class="component-demo">
-        <div><p class="demo-label">Actions</p><div class="demo-row"><button class="button button-primary" type="button">お問い合わせ</button><button class="button button-secondary" type="button">詳しく見る</button><button class="button button-quiet" type="button">戻る</button></div></div>
+        <div><p class="demo-label">Actions</p><div class="demo-row"><button class="hsg-button hsg-button-primary" type="button">お問い合わせ</button><button class="hsg-button hsg-button-secondary" type="button">詳しく見る</button><button class="hsg-button hsg-button-tertiary" type="button">戻る</button></div></div>
         <article class="demo-card"><p class="demo-label">Card</p><h3>構想から実装まで、同じチームで。</h3><p>事業と技術の間をつなぎ、実際に使われるところまで伴走します。</p><a href="#components">サービスを見る →</a></article>
       </div>
-      <p class="pending-note">余白、角丸、フォーカス、状態、レスポンシブ仕様は未確定です。現時点の見本を承認済みコンポーネントとして転用しないでください。</p>
+      <div class="button-guidance">
+        <article><strong>Primary</strong><span>重要度：高</span><p>黒背景と白文字。画面内で最も優先する行動に使います。</p></article>
+        <article><strong>Secondary</strong><span>重要度：中</span><p>白背景、黒文字、グレー枠。ホバー時は黒背景へ反転します。</p></article>
+        <article><strong>Tertiary</strong><span>重要度：低</span><p>透明背景、黒文字、黒下線。面を作らず補助的な行動を示します。</p></article>
+      </div>
+      <p class="pending-note">3階層と基本状態は採用済みです。ボタン寸法のバリエーション、無効・処理中状態、アイコン併用は今後追加します。</p>
     </section>
 
     <section class="section compact-section" id="tokens">
       <div class="section-heading"><p class="section-number">08</p><div><h2>デザイントークン</h2><p>人向けガイドと実装を、同じ色・タイポグラフィ定義でつなぎます。</p></div></div>
-      <div class="code-panel"><div class="code-title"><span>CSS</span><code>styles/tokens.css</code></div><pre><code>.action {
-  color: var(--hsg-color-action-primary-foreground);
-  background: var(--hsg-color-action-primary-background);
-}</code></pre></div>
-      <p>機械可読な正本は <code>tokens/colors.json</code> と <code>tokens/typography.json</code> です。CSS変数と用途別クラスを生成し、値を直接コピーせず用途別トークンを参照します。</p>
+      <div class="code-panel"><div class="code-title"><span>HTML</span><code>styles/components.css</code></div><pre><code>&lt;button class="hsg-button hsg-button-primary"&gt;
+  お問い合わせ
+&lt;/button&gt;</code></pre></div>
+      <p>機械可読な正本は <code>tokens/colors.json</code> と <code>tokens/typography.json</code> です。生成したCSS変数と採用済みコンポーネントクラスを使い、値を直接コピーせず用途別トークンを参照します。</p>
     </section>
 
     <section class="section" id="status">
@@ -242,7 +247,8 @@
         <div class="status-row" role="row"><strong>Font family</strong><span><b class="badge badge-selecting">選定中</b></span><span>D-I／H-Jの比較に限定</span></div>
         <div class="status-row" role="row"><strong>Logo</strong><span><b class="badge badge-pending">未策定</b></span><span>仮表示を資産利用しない</span></div>
         <div class="status-row" role="row"><strong>Semantic Colors</strong><span><b class="badge badge-pending">未策定</b></span><span>Extended Colorsで代用しない</span></div>
-        <div class="status-row" role="row"><strong>Components</strong><span><b class="badge badge-pending">未策定</b></span><span>掲載例は検証用</span></div>
+        <div class="status-row" role="row"><strong>Button</strong><span><b class="badge badge-progress">利用可</b></span><span>3階層と基本状態を利用可</span></div>
+        <div class="status-row" role="row"><strong>Other Components</strong><span><b class="badge badge-pending">未策定</b></span><span>掲載例は検証用</span></div>
       </div>
     </section>
 

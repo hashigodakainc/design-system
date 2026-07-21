@@ -1,0 +1,66 @@
+/* Hashigodaka component styles. Import after tokens.css and typography.css. */
+.hsg-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-action);
+  font-weight: var(--hsg-typography-weight-emphasis);
+  line-height: var(--hsg-typography-line-height-compact);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .16s ease, background-color .16s ease, border-color .16s ease;
+}
+
+.hsg-button-primary {
+  border-color: var(--hsg-color-action-primary-border);
+  background: var(--hsg-color-action-primary-background);
+  color: var(--hsg-color-action-primary-foreground);
+}
+
+.hsg-button-primary:hover {
+  border-color: var(--hsg-color-action-primary-hover-border);
+  background: var(--hsg-color-action-primary-hover-background);
+  color: var(--hsg-color-action-primary-hover-foreground);
+}
+
+.hsg-button-secondary {
+  border-color: var(--hsg-color-action-secondary-border);
+  background: var(--hsg-color-action-secondary-background);
+  color: var(--hsg-color-action-secondary-foreground);
+}
+
+.hsg-button-secondary:hover {
+  border-color: var(--hsg-color-action-secondary-hover-border);
+  background: var(--hsg-color-action-secondary-hover-background);
+  color: var(--hsg-color-action-secondary-hover-foreground);
+}
+
+.hsg-button-tertiary {
+  min-height: auto;
+  padding: 8px 0 6px;
+  border: 0;
+  border-bottom: 2px solid var(--hsg-color-action-tertiary-underline);
+  border-radius: 0;
+  background: transparent;
+  color: var(--hsg-color-action-tertiary-foreground);
+}
+
+.hsg-button-tertiary:hover {
+  border-bottom-color: var(--hsg-color-action-tertiary-hover-underline);
+  background: transparent;
+  color: var(--hsg-color-action-tertiary-hover-foreground);
+}
+
+.hsg-button:focus-visible {
+  outline: 3px solid var(--hsg-color-neutral-ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hsg-button { transition: none; }
+}

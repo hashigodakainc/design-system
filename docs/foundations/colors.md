@@ -9,8 +9,8 @@ D-E-Dを、実際の制作物へ適用して検証する主案とする。色は
 
 | 役割 | トークン | 値 | 主な用途 |
 |---|---|---:|---|
-| Primary | `color.brand.primary` | `#00A0FF` | 主要CTA、主役となるグラフィック |
-| Secondary | `color.brand.secondary` | `#C7F14A` | 補助CTA、限定的な強調 |
+| Primary | `color.brand.primary` | `#00A0FF` | 主役となるグラフィック、ブランド表現 |
+| Secondary | `color.brand.secondary` | `#C7F14A` | Primaryと対比する限定的なブランド表現 |
 | Extended violet | `color.brand.extended.violet` | `#6C4ED9` | 図解、チャート、抽象モチーフ |
 | Extended orange | `color.brand.extended.orange` | `#FF6B3D` | 図解、チャート、抽象モチーフ |
 | Canvas | `color.neutral.canvas` | `#FAF9FC` | ページ背景 |
@@ -21,7 +21,7 @@ D-E-Dを、実際の制作物へ適用して検証する主案とする。色は
 
 - Canvasを画面の基盤とし、最も広い面積を取る。
 - Inkは文字と必要な罫線へ使い、黒い大面積を既定にしない。
-- PrimaryはCTAや一つの強いグラフィックなど、意味のある箇所へ絞る。
+- Primaryは一つの強いグラフィックなど、意味のあるブランド表現へ絞る。
 - SecondaryとExtended ColorsはPrimaryより小さい面積で使う。
 - 4つの有彩色を一つの画面で均等に使わない。図解で系列識別が必要な場合を例外とする。
 
@@ -30,6 +30,9 @@ D-E-Dを、実際の制作物へ適用して検証する主案とする。色は
 制作物では、可能な限り値や原色名ではなく `color.background.canvas`、`color.text.primary`、
 `color.action.primary.background` などの用途別トークンを参照する。将来パレットを調整しても、
 利用側の意図を保ったまま差し替えられるためである。
+
+ボタンのPrimary / Secondaryは行動の重要度を表し、ブランドのPrimary / Secondary Colorとは
+別の概念である。採用済みボタンはニュートラルカラーで階層を作る。
 
 ## アクセシビリティ
 

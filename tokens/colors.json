@@ -8,13 +8,13 @@
       "name": "color.brand.primary",
       "type": "color",
       "value": "#00A0FF",
-      "description": "ブランドの主色。CTAや主役となるグラフィックへ限定して使う。"
+      "description": "ブランドの主色。主役となるグラフィックやブランド表現へ限定して使う。"
     },
     {
       "name": "color.brand.secondary",
       "type": "color",
       "value": "#C7F14A",
-      "description": "ブランドの補助色。主色より小さい面積で、対比が必要な箇所へ使う。"
+      "description": "ブランドの補助色。主色より小さい面積で、ブランド表現の対比が必要な箇所へ使う。"
     },
     {
       "name": "color.brand.extended.violet",
@@ -45,6 +45,18 @@
       "type": "color",
       "value": "#ECE8F0",
       "description": "カード、図表、区切り面の薄い背景。"
+    },
+    {
+      "name": "color.neutral.border",
+      "type": "color",
+      "value": "#DCD8E1",
+      "description": "入力欄やSecondaryボタンなど、輪郭を穏やかに示す罫線。"
+    },
+    {
+      "name": "color.neutral.muted",
+      "type": "color",
+      "value": "#625D69",
+      "description": "補足情報と、Tertiaryボタンのホバー状態に使う控えめな文字色。"
     },
     {
       "name": "color.background.canvas",
@@ -79,32 +91,104 @@
     {
       "name": "color.border.subtle",
       "type": "color",
-      "value": "{color.neutral.surface}",
+      "value": "{color.neutral.border}",
       "description": "装飾的な区切り線。情報伝達を罫線だけに依存させない。"
     },
     {
       "name": "color.action.primary.background",
       "type": "color",
-      "value": "{color.brand.primary}",
-      "description": "主要CTAの背景。"
+      "value": "{color.neutral.ink}",
+      "description": "最重要アクションの黒い背景。ブランドのPrimary Colorとは独立した重要度の表現。"
     },
     {
       "name": "color.action.primary.foreground",
       "type": "color",
-      "value": "{color.neutral.ink}",
+      "value": "{color.neutral.canvas}",
       "description": "主要CTAの文字。"
+    },
+    {
+      "name": "color.action.primary.border",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "主要CTAの枠線。背景と同色にして強い面を作る。"
+    },
+    {
+      "name": "color.action.primary.hover.background",
+      "type": "color",
+      "value": "#35313A",
+      "description": "主要CTAのホバー背景。階層を保ったまま黒のトーンを変える。"
+    },
+    {
+      "name": "color.action.primary.hover.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "主要CTAのホバー文字。"
+    },
+    {
+      "name": "color.action.primary.hover.border",
+      "type": "color",
+      "value": "{color.action.primary.hover.background}",
+      "description": "主要CTAのホバー枠線。"
     },
     {
       "name": "color.action.secondary.background",
       "type": "color",
-      "value": "{color.brand.secondary}",
-      "description": "補助CTAまたは強調要素の背景。"
+      "value": "{color.neutral.canvas}",
+      "description": "中重要度アクションの白い背景。"
     },
     {
       "name": "color.action.secondary.foreground",
       "type": "color",
       "value": "{color.neutral.ink}",
       "description": "補助CTAの文字。"
+    },
+    {
+      "name": "color.action.secondary.border",
+      "type": "color",
+      "value": "{color.neutral.border}",
+      "description": "補助CTAのグレーの枠線。"
+    },
+    {
+      "name": "color.action.secondary.hover.background",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "補助CTAのホバー背景。通常状態の明暗を反転する。"
+    },
+    {
+      "name": "color.action.secondary.hover.foreground",
+      "type": "color",
+      "value": "{color.neutral.canvas}",
+      "description": "補助CTAのホバー文字。"
+    },
+    {
+      "name": "color.action.secondary.hover.border",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "補助CTAのホバー枠線。"
+    },
+    {
+      "name": "color.action.tertiary.foreground",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "低重要度アクションの文字。"
+    },
+    {
+      "name": "color.action.tertiary.underline",
+      "type": "color",
+      "value": "{color.neutral.ink}",
+      "description": "低重要度アクションを示す下線。"
+    },
+    {
+      "name": "color.action.tertiary.hover.foreground",
+      "type": "color",
+      "value": "{color.neutral.muted}",
+      "description": "低重要度アクションのホバー文字。"
+    },
+    {
+      "name": "color.action.tertiary.hover.underline",
+      "type": "color",
+      "value": "{color.neutral.muted}",
+      "description": "低重要度アクションのホバー下線。"
     },
     {
       "name": "color.data.series.1",
@@ -145,6 +229,16 @@
     {
       "foreground": "color.action.secondary.foreground",
       "background": "color.action.secondary.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.action.primary.hover.foreground",
+      "background": "color.action.primary.hover.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.action.secondary.hover.foreground",
+      "background": "color.action.secondary.hover.background",
       "minimum": 4.5
     }
   ]

@@ -17,9 +17,10 @@ Semantic Colors、レイアウト基礎、コンポーネントは未決定で�
 ## 構成
 
 - [`tokens/`](tokens/) — AIやツールが参照する機械可読な正本
-- [`styles/`](styles/) — 正本から生成したCSS変数
+- [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
 - [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト
 - [`docs/foundations/`](docs/foundations/) — 人間向けの基礎ガイド
+- [`docs/components/`](docs/components/) — 採用済みコンポーネントの仕様
 - [`examples/`](examples/) — 承認済みトークンの実装見本
 - [`scripts/`](scripts/) — トークンの生成と機械検証
 - [`process-archive/`](process-archive/) — 選定過程の比較HTMLと資産
@@ -44,4 +45,5 @@ node scripts/validate-tokens.mjs
 
 制作目的、判断理由、未決事項は [docs/design-brief.md](docs/design-brief.md)、色の用途は
 [docs/foundations/colors.md](docs/foundations/colors.md)、文字の用途は
-[docs/foundations/typography.md](docs/foundations/typography.md) を参照してください。
+[docs/foundations/typography.md](docs/foundations/typography.md)、ボタンの仕様は
+[docs/components/buttons.md](docs/components/buttons.md) を参照してください。

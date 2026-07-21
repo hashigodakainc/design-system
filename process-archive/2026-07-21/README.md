@@ -22,6 +22,7 @@
 | 6 | [`06-primary-color/`](06-primary-color/) | 書体ペアを固定し、ブランドの主色だけを比較する | C（#00B8D9）とD（#00A0FF）を含む、明るくビビッドな主色5案 | `1c82982`〜`b95a264` |
 | 7 | [`07-secondary-color/`](07-secondary-color/) | Primaryと隣接させてSecondaryを比較する | Main C-F（#476A7A）とMain D-E（#C7F14A）を固定。不採用カードの配色面は色を残し、枠・見出し・操作のみ灰色化 | `8b4ad24`、`9852f93`、`3e07a45`と、その後のC-F絞り込み |
 | 8 | [`08-extended-neutral-color/`](08-extended-neutral-color/) | Extended Colorsと背景・文字・薄い背景を同じ適用見本で比較する | 候補4案を既定表示。書体ペアを切り替え可能。D-E-Dを主案として選定した時点の最終状態 | `32fc89c`〜`a79d3b7`、`f4ca362` |
+| 9 | [`09-button-hierarchy/`](09-button-hierarchy/) | ボタンのブランドカラー案とニュートラルな3階層案を比較する | 枠線型・塗り型のPrimary / Secondary Color案と、採用したPrimary / Secondary / Tertiaryの3階層案 | 案3採用時のコミット |
 
 ## 閲覧方法
 
@@ -44,7 +45,7 @@
 
 ## 保存範囲の制約
 
-- 保存したのは8段階のHTMLと、それらが現在参照するローカルフォント・ライセンスである。
+- 保存したのは9段階のHTMLと、それらが現在参照するローカルフォント・ライセンスである。
 - 日本語フォント候補の読み込み確認用 `font-candidates.html` と、最終HTMLから参照されない旧候補の
   フォントファイルは含めていない。
 - 一時プレビューの比較UIは本番実装ではない。
