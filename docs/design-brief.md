@@ -271,3 +271,7 @@ Hashigodakaを、**人間味のある力強い実装パートナー**として�
   候補としていた。after: **C-F-A、C-F-C、D-E-C、D-E-Dの4案を残し、C-F-B、C-F-D、
   D-E-A、D-E-Bを不採用とする。** 次の比較ではPrimary・Secondaryとの組み合わせごとに残った
   2案を同条件で精査し、Extended Colorsを最終選定できる状態にするため。
+- **2026-07-21:** before: Extended Colors比較では書体ペアD-I（Sora × LINE Seed JP・700）を
+  全案の固定条件としていた。after: **比較画面上でD-IとH-J（Geologica × M PLUS 1・800）を
+  全カード共通に切り替えられるようにする。** 色案を複製して組み合わせ数を増やさず、同じ配色を
+  2つの最終書体候補へ当てたときのブランド全体の調和を確認できるようにするため。
