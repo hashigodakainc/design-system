@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ja" data-candidate="d">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashigodaka — Wordmark finalists</title>
+  <style>
+    @font-face {
+      font-family: "Candidate D";
+      src: url("../assets/fonts/sora.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Candidate F";
+      src: url("../assets/fonts/outfit.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 300 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Candidate H";
+      src: url("../assets/fonts/geologica.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 300 800;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --ui-bg: #151618;
+      --ui-panel: #202226;
+      --ui-line: #35383e;
+      --ui-text: #f4f4f1;
+      --ui-muted: #a5a8ad;
+      --paper: #f4f2ed;
+      --white: #fff;
+      --ink: #111214;
+      --muted: #666761;
+      --hairline: rgba(17, 18, 20, .17);
+      --wordmark-font: "Candidate D";
+      --wordmark-weight: 650;
+      --wordmark-tracking: -.045em;
+    }
+    html[data-candidate="d"] { --wordmark-font: "Candidate D"; --wordmark-tracking: -.055em; }
+    html[data-candidate="f"] { --wordmark-font: "Candidate F"; --wordmark-tracking: -.045em; }
+    html[data-candidate="h"] { --wordmark-font: "Candidate H"; --wordmark-tracking: -.045em; }
+
+    * { box-sizing: border-box; }
+    html { background: var(--ui-bg); }
+    body {
+      margin: 0;
+      color: var(--ui-text);
+      background: var(--ui-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, summary, a { font: inherit; }
+    button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    .comparison-bar {
+      min-height: 100px;
+      display: grid;
+      grid-template-columns: minmax(250px, 1fr) auto minmax(250px, 1fr);
+      align-items: center;
+      gap: 26px;
+      padding: 17px 26px;
+      border-bottom: 1px solid var(--ui-line);
+    }
+    .kicker {
+      margin: 0 0 5px;
+      color: var(--ui-muted);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: .13em;
+    }
+    .comparison-title { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .01em; }
+    .fixed-conditions {
+      justify-self: end;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 18px;
+      margin: 0;
+    }
+    .fixed-conditions div { display: grid; gap: 2px; }
+    .fixed-conditions dt { color: var(--ui-muted); font-size: 8px; font-weight: 750; letter-spacing: .13em; }
+    .fixed-conditions dd { margin: 0; font-size: 10px; font-weight: 650; }
+
+    .candidate-switcher {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px;
+      border: 1px solid var(--ui-line);
+      border-radius: 999px;
+      background: var(--ui-panel);
+    }
+    .candidate-button {
+      min-width: 68px;
+      min-height: 52px;
+      display: grid;
+      grid-template-columns: 29px auto;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 14px 6px 8px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--ui-muted);
+      background: transparent;
+      cursor: pointer;
+      transition: color .18s ease, background .18s ease;
+    }
+    .candidate-button:hover { color: var(--ui-text); }
+    .candidate-button[aria-pressed="true"] { color: #111214; background: #fff; }
+    .candidate-glyph {
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-family: var(--button-font);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: -.05em;
+    }
+    .candidate-button b { font-size: 13px; }
+
+    .page-grid {
+      padding: 24px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        var(--ui-bg);
+      background-size: 24px 24px;
+    }
+    .specimen {
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--paper);
+      border-radius: 3px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.3);
+    }
+
+    .specimen-head {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 0 38px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--white);
+    }
+    .specimen-id { font-size: 10px; font-weight: 750; letter-spacing: .15em; }
+    .specimen-state { color: var(--muted); font-size: 10px; font-weight: 650; }
+
+    .hero-wordmark {
+      min-height: 530px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 76px 48px 88px;
+      isolation: isolate;
+    }
+    .hero-wordmark::before,
+    .hero-wordmark::after {
+      content: "";
+      position: absolute;
+      right: 4%;
+      left: 4%;
+      height: 1px;
+      z-index: -1;
+      background: var(--hairline);
+    }
+    .hero-wordmark::before { top: 42%; }
+    .hero-wordmark::after { top: 66%; }
+    .measure-label {
+      position: absolute;
+      left: 4%;
+      color: var(--muted);
+      background: var(--paper);
+      padding-right: 8px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+    .measure-label.cap { top: calc(42% - 5px); }
+    .measure-label.base { top: calc(66% - 5px); }
+    .main-wordmark {
+      display: block;
+      max-width: 100%;
+      color: var(--ink);
+      font-family: var(--wordmark-font);
+      font-size: clamp(70px, 10.2vw, 152px);
+      font-weight: var(--wordmark-weight);
+      font-optical-sizing: auto;
+      font-variation-settings: "wght" 650;
+      letter-spacing: var(--wordmark-tracking);
+      line-height: 1;
+      white-space: nowrap;
+      text-rendering: geometricPrecision;
+    }
+    .round-status {
+      position: absolute;
+      right: 38px;
+      bottom: 28px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 650;
+      letter-spacing: .08em;
+    }
+
+    .applications {
+      display: grid;
+      grid-template-columns: 1.28fr .72fr;
+      border-top: 1px solid var(--hairline);
+    }
+    .application-stack { display: grid; }
+    .sample {
+      min-height: 120px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 34px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--white);
+    }
+    .sample:last-child { border-bottom: 0; }
+    .sample-label { color: var(--muted); font-size: 9px; font-weight: 750; letter-spacing: .12em; }
+    .sample-wordmark {
+      font-family: var(--wordmark-font);
+      font-weight: var(--wordmark-weight);
+      font-optical-sizing: auto;
+      font-variation-settings: "wght" 650;
+      letter-spacing: var(--wordmark-tracking);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .sample-wordmark.header-size { font-size: 27px; }
+    .sample-wordmark.small-size { font-size: 15px; letter-spacing: -.025em; }
+    .sample.reverse {
+      color: #fff;
+      background: var(--ink);
+      border-bottom-color: rgba(255,255,255,.2);
+    }
+    .sample.reverse .sample-label { color: rgba(255,255,255,.55); }
+    .sample-wordmark.sign-size { font-size: clamp(34px, 4.4vw, 66px); }
+
+    .glyph-panel {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 30px 34px 25px;
+      color: #fff;
+      background: var(--ink);
+      border-left: 1px solid var(--hairline);
+    }
+    .glyph-label { color: rgba(255,255,255,.55); font-size: 9px; font-weight: 750; letter-spacing: .12em; }
+    .glyphs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      min-width: 0;
+      margin: 10px 0;
+      font-family: var(--wordmark-font);
+      font-size: clamp(64px, 8vw, 116px);
+      font-weight: var(--wordmark-weight);
+      font-optical-sizing: auto;
+      font-variation-settings: "wght" 650;
+      letter-spacing: -.06em;
+      line-height: 1;
+    }
+    .glyphs span { display: grid; place-items: center; min-width: 0; }
+    .glyph-foot { color: rgba(255,255,255,.56); font-size: 9px; line-height: 1.7; }
+
+    .meta-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      padding: 24px 34px 28px;
+      color: var(--ui-text);
+      background: var(--ui-bg);
+      border-top: 1px solid var(--ui-line);
+    }
+    .selection-guide h2 { margin: 0 0 8px; font-size: 13px; }
+    .selection-guide p { max-width: 700px; margin: 0; color: var(--ui-muted); font-size: 11px; line-height: 1.75; }
+    details { justify-self: end; width: min(100%, 520px); color: var(--ui-muted); font-size: 10px; }
+    summary { color: var(--ui-text); cursor: pointer; font-size: 11px; font-weight: 700; }
+    .source-grid { display: grid; grid-template-columns: auto 1fr auto; gap: 7px 13px; margin-top: 12px; }
+    .source-grid a { color: var(--ui-text); }
+
+    @media (max-width: 1080px) {
+      .comparison-bar { grid-template-columns: 1fr auto; }
+      .fixed-conditions { display: none; }
+      .main-wordmark { font-size: clamp(60px, 10.4vw, 112px); }
+      .applications { grid-template-columns: 1fr; }
+      .glyph-panel { min-height: 310px; border-top: 1px solid var(--hairline); border-left: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .comparison-bar { grid-template-columns: 1fr; gap: 13px; padding: 15px 14px; }
+      .candidate-switcher { width: 100%; }
+      .candidate-button { min-width: 0; flex: 1; grid-template-columns: 1fr; justify-items: center; gap: 2px; padding: 5px; }
+      .candidate-glyph { width: 27px; height: 27px; }
+      .candidate-button b { font-size: 10px; }
+      .page-grid { padding: 10px; }
+      .specimen-head { min-height: 62px; padding: 0 18px; }
+      .specimen-state { max-width: 170px; text-align: right; line-height: 1.5; }
+      .hero-wordmark { min-height: 360px; padding: 64px 18px 72px; }
+      .main-wordmark { font-size: clamp(44px, 14.3vw, 62px); }
+      .round-status { right: 18px; bottom: 20px; left: 18px; text-align: right; line-height: 1.5; }
+      .sample { min-height: 100px; grid-template-columns: 74px 1fr; gap: 12px; padding: 20px 18px; }
+      .sample-wordmark.header-size { font-size: 22px; }
+      .sample-wordmark.sign-size { font-size: clamp(31px, 9.4vw, 42px); }
+      .sample-wordmark.small-size { font-size: 13px; }
+      .glyph-panel { min-height: 250px; padding: 24px 18px 20px; }
+      .glyphs { font-size: clamp(56px, 19vw, 82px); }
+      .meta-section { grid-template-columns: 1fr; padding: 22px 18px; }
+      details { justify-self: stretch; }
+      .source-grid { grid-template-columns: auto 1fr; }
+      .source-grid span:last-child { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="comparison-bar" aria-label="比較用コントロール">
+    <div>
+      <p class="kicker">比較用・実装外 / LOGO FINALISTS</p>
+      <p class="comparison-title">D・F・Hの3書体 — ロゴ単体で比較</p>
+    </div>
+    <div class="candidate-switcher" role="group" aria-label="ロゴ書体候補">
+      <button class="candidate-button" type="button" data-candidate-option="d" data-testid="candidate-d" aria-pressed="true" style="--button-font:'Candidate D'">
+        <span class="candidate-glyph" aria-hidden="true">Hg</span><b>D</b>
+      </button>
+      <button class="candidate-button" type="button" data-candidate-option="f" data-testid="candidate-f" aria-pressed="false" style="--button-font:'Candidate F'">
+        <span class="candidate-glyph" aria-hidden="true">Hg</span><b>F</b>
+      </button>
+      <button class="candidate-button" type="button" data-candidate-option="h" data-testid="candidate-h" aria-pressed="false" style="--button-font:'Candidate H'">
+        <span class="candidate-glyph" aria-hidden="true">Hg</span><b>H</b>
+      </button>
+    </div>
+    <dl class="fixed-conditions">
+      <div><dt>TEXT</dt><dd>Hashigodaka</dd></div>
+      <div><dt>WEIGHT</dt><dd>650</dd></div>
+      <div><dt>COLOR</dt><dd>Monochrome</dd></div>
+    </dl>
+  </aside>
+
+  <main class="page-grid">
+    <article class="specimen" data-testid="wordmark-specimen">
+      <header class="specimen-head">
+        <span class="specimen-id">HASHIGODAKA / WORDMARK STUDY</span>
+        <span class="specimen-state">TYPEFACE SELECTION — OUTLINES UNMODIFIED</span>
+      </header>
+
+      <section class="hero-wordmark" aria-label="大型ワードマーク表示">
+        <span class="measure-label cap">CAP / X-HEIGHT REFERENCE</span>
+        <span class="measure-label base">BASELINE REFERENCE</span>
+        <div class="main-wordmark" data-wordmark>Hashigodaka</div>
+        <span class="round-status">FINALISTS: D / F / H — 字間・字形の個別調整は選定後</span>
+      </section>
+
+      <section class="applications" aria-label="サイズと背景の適用確認">
+        <div class="application-stack">
+          <div class="sample">
+            <span class="sample-label">HEADER / 27</span>
+            <span class="sample-wordmark header-size" data-wordmark>Hashigodaka</span>
+          </div>
+          <div class="sample reverse">
+            <span class="sample-label">SIGN / REVERSE</span>
+            <span class="sample-wordmark sign-size" data-wordmark>Hashigodaka</span>
+          </div>
+          <div class="sample">
+            <span class="sample-label">SMALL / 15</span>
+            <span class="sample-wordmark small-size" data-wordmark>Hashigodaka</span>
+          </div>
+        </div>
+        <div class="glyph-panel">
+          <span class="glyph-label">KEY GLYPHS / CHARACTER</span>
+          <div class="glyphs" aria-label="H、g、k、aの字形"><span>H</span><span>g</span><span>k</span><span>a</span></div>
+          <p class="glyph-foot">太さ、開口部、曲線と直線の関係、末端の処理を確認します。ここで選ぶのは完成ロゴではなく、調整の土台となる骨格です。</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="meta-section">
+    <div class="selection-guide">
+      <h2>D・F・Hをロゴ単体で残します</h2>
+      <p>現段階では文字骨格の候補を3案へ絞るところまでです。LPなど周辺レイアウトへの適用と最終判断は、次工程で行います。</p>
+    </div>
+    <details>
+      <summary>候補書体・出典・ライセンスを表示</summary>
+      <div class="source-grid">
+        <b>D</b><span>Sora — Sora Project Authors</span><a href="../assets/licenses/sora-OFL.txt">OFL 1.1</a>
+        <b>F</b><span>Outfit — Outfit Project Authors</span><a href="../assets/licenses/outfit-OFL.txt">OFL 1.1</a>
+        <b>H</b><span>Geologica — Geologica Project Authors</span><a href="../assets/licenses/geologica-OFL.txt">OFL 1.1</a>
+      </div>
+    </details>
+  </footer>
+
+  <script>
+    const candidates = ['d', 'f', 'h'];
+    const buttons = [...document.querySelectorAll('[data-candidate-option]')];
+
+    function setCandidate(key, updateHash = true) {
+      if (!candidates.includes(key)) return;
+      document.documentElement.dataset.candidate = key;
+      buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.candidateOption === key)));
+      if (updateHash) history.replaceState(null, '', `#${key}`);
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => setCandidate(button.dataset.candidateOption));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const next = buttons[(index + direction + buttons.length) % buttons.length];
+        next.focus();
+        setCandidate(next.dataset.candidateOption);
+      });
+    });
+
+    const initial = location.hash.slice(1).toLowerCase();
+    setCandidate(candidates.includes(initial) ? initial : 'd', false);
+  </script>
+</body>
+</html>

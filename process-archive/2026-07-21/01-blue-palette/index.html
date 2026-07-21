@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ja" data-palette="a">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashigodaka — Blue palette comparison</title>
+  <style>
+    :root {
+      --ui-bg: #16191e;
+      --ui-panel: #22262d;
+      --ui-line: #343a43;
+      --ui-text: #f4f6f8;
+      --ui-muted: #aeb5bf;
+      --paper: #f4f8fb;
+      --surface: #ffffff;
+      --ink: #071d33;
+      --muted: #43586b;
+      --primary: #006ce8;
+      --accent: #00cceb;
+      --deep: #061e35;
+      --soft: #dceefa;
+      --line: rgba(7, 29, 51, .16);
+      --on-primary: #ffffff;
+    }
+
+    html[data-palette="b"] {
+      --paper: #f3f6ff;
+      --surface: #ffffff;
+      --ink: #111c3f;
+      --muted: #4d5878;
+      --primary: #1748ed;
+      --accent: #79a5ff;
+      --deep: #0b1742;
+      --soft: #dfe8ff;
+      --line: rgba(17, 28, 63, .17);
+      --on-primary: #ffffff;
+    }
+
+    html[data-palette="c"] {
+      --paper: #eff9f9;
+      --surface: #ffffff;
+      --ink: #082d36;
+      --muted: #45666c;
+      --primary: #00778b;
+      --accent: #00cfc4;
+      --deep: #06313b;
+      --soft: #d5f1ef;
+      --line: rgba(8, 45, 54, .17);
+      --on-primary: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: light; background: var(--ui-bg); }
+    body {
+      margin: 0;
+      color: var(--ui-text);
+      background: var(--ui-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    .comparison-bar {
+      min-height: 96px;
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto minmax(220px, 1fr);
+      align-items: center;
+      gap: 24px;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--ui-line);
+      background: var(--ui-bg);
+    }
+
+    .comparison-meta { min-width: 0; }
+    .comparison-kicker {
+      margin: 0 0 5px;
+      color: var(--ui-muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+    .comparison-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: .01em;
+    }
+    .palette-switcher {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      padding: 5px;
+      border: 1px solid var(--ui-line);
+      border-radius: 999px;
+      background: var(--ui-panel);
+    }
+    .palette-button {
+      min-width: 122px;
+      min-height: 50px;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 13px 7px 9px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--ui-muted);
+      background: transparent;
+      cursor: pointer;
+      transition: color .18s ease, background .18s ease;
+    }
+    .palette-button[aria-pressed="true"] { color: #111318; background: #fff; }
+    .palette-button:hover { color: #fff; }
+    .palette-button[aria-pressed="true"]:hover { color: #111318; }
+    .swatch-pair {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 50%;
+    }
+    .palette-button[aria-pressed="true"] .swatch-pair { border-color: rgba(0,0,0,.14); }
+    .swatch-pair i { display: block; }
+    .button-copy { display: grid; gap: 1px; text-align: left; }
+    .button-copy b { font-size: 13px; line-height: 1; }
+    .button-copy small { font-size: 9px; line-height: 1.25; letter-spacing: .035em; opacity: .78; }
+
+    .stage {
+      padding: 24px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        var(--ui-bg);
+      background-size: 24px 24px;
+    }
+    .specimen {
+      min-height: calc(100vh - 144px);
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--paper);
+      border-radius: 4px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.28);
+      transition: color .22s ease, background .22s ease;
+    }
+
+    .site-header {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      padding: 0 42px;
+      color: var(--ink);
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-wordmark {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .015em;
+      text-decoration: none;
+    }
+    .site-nav { display: flex; gap: 30px; margin-left: auto; }
+    .site-nav a {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .header-cta {
+      min-height: 43px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 19px;
+      color: var(--on-primary);
+      background: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .22s ease;
+    }
+    .header-cta span { font-size: 18px; line-height: 1; }
+
+    .hero {
+      min-height: calc(100vh - 220px);
+      display: grid;
+      grid-template-columns: minmax(0, 56%) minmax(420px, 44%);
+      position: relative;
+      isolation: isolate;
+    }
+    .hero-copy {
+      min-height: 670px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px clamp(42px, 6vw, 92px) 64px;
+      position: relative;
+      z-index: 2;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 28px;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .14em;
+    }
+    .eyebrow::before { content: ""; width: 36px; height: 3px; background: var(--accent); }
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(52px, 5.6vw, 86px);
+      font-weight: 760;
+      letter-spacing: -.055em;
+      line-height: 1.08;
+    }
+    h1 .line { display: block; }
+    h1 .emphasis { color: var(--primary); position: relative; white-space: nowrap; }
+    h1 .emphasis::after {
+      content: "";
+      height: .12em;
+      position: absolute;
+      right: .01em;
+      bottom: .03em;
+      left: .02em;
+      z-index: -1;
+      background: var(--accent);
+      opacity: .42;
+    }
+    .lead {
+      max-width: 640px;
+      margin: 32px 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 500;
+      line-height: 1.95;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 22px; margin-top: 40px; }
+    .primary-action, .secondary-action {
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 0 26px;
+      font-size: 14px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .primary-action { color: var(--on-primary); background: var(--primary); }
+    .secondary-action { color: var(--ink); border-bottom: 1px solid var(--ink); }
+    .primary-action span { font-size: 19px; }
+    .scope-note {
+      margin: auto 0 0;
+      padding-top: 58px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 650;
+      letter-spacing: .06em;
+    }
+
+    .hero-visual {
+      min-height: 670px;
+      position: relative;
+      overflow: hidden;
+      color: var(--on-primary);
+      background: var(--deep);
+      transition: background .22s ease;
+    }
+    .visual-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .23;
+      background-image:
+        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .visual-orbit {
+      width: min(56vw, 760px);
+      aspect-ratio: 1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-45%, -50%);
+      border: clamp(52px, 6.8vw, 104px) solid var(--primary);
+      border-radius: 50%;
+      opacity: .95;
+    }
+    .visual-orbit::before {
+      content: "";
+      position: absolute;
+      inset: 14%;
+      border: clamp(16px, 2.4vw, 38px) solid var(--accent);
+      border-radius: 50%;
+    }
+    .visual-cut {
+      width: 64%;
+      height: 34%;
+      position: absolute;
+      right: -6%;
+      bottom: 15%;
+      background: var(--deep);
+      border-top: 1px solid rgba(255,255,255,.25);
+      transform: rotate(-18deg);
+      transform-origin: right bottom;
+    }
+    .visual-rail {
+      width: 76%;
+      height: 12px;
+      position: absolute;
+      left: 10%;
+      top: 61%;
+      background: var(--accent);
+      transform: rotate(-18deg);
+      box-shadow: 0 28px 0 rgba(255,255,255,.9), 0 56px 0 var(--primary);
+    }
+    .visual-label {
+      position: absolute;
+      top: 34px;
+      right: 36px;
+      left: 36px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.55);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+    }
+    .delivery-card {
+      width: min(330px, calc(100% - 56px));
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      padding: 23px 24px 22px;
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: 0 18px 45px rgba(0,0,0,.22);
+    }
+    .delivery-card-kicker { margin: 0 0 17px; color: var(--primary); font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+    .delivery-card ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: steps; }
+    .delivery-card li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: center; color: var(--ink); font-size: 12px; font-weight: 700; }
+    .delivery-card li::before { counter-increment: steps; content: "0" counter(steps); color: var(--primary); font-size: 9px; letter-spacing: .08em; }
+    .delivery-card-footer { margin: 18px 0 0; padding-top: 13px; color: var(--muted); border-top: 1px solid var(--line); font-size: 10px; line-height: 1.65; }
+
+    .principle-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      color: var(--ink);
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+    }
+    .principle {
+      min-height: 96px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 15px;
+      padding: 18px 34px;
+      border-right: 1px solid var(--line);
+    }
+    .principle:last-child { border-right: 0; }
+    .principle-num { color: var(--primary); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .principle strong { display: block; font-size: 13px; }
+    .principle small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+
+    .palette-readout {
+      display: flex;
+      gap: 6px;
+      justify-self: end;
+      padding: 7px;
+      color: var(--ui-text);
+      background: var(--ui-panel);
+      border: 1px solid var(--ui-line);
+      border-radius: 5px;
+    }
+    .color-chip { min-width: 76px; padding: 7px 9px; background: var(--ui-panel); }
+    .color-chip i { width: 100%; height: 5px; display: block; margin-bottom: 6px; background: var(--chip); }
+    .color-chip b { display: block; font-size: 8px; letter-spacing: .09em; }
+    .color-chip span { display: block; margin-top: 2px; color: var(--ui-muted); font-size: 8px; }
+
+    @media (max-width: 1100px) {
+      .comparison-bar { grid-template-columns: 1fr auto; }
+      .palette-readout { display: none; }
+      .palette-button { min-width: 100px; }
+      .site-nav { display: none; }
+      .hero { grid-template-columns: 58% 42%; }
+      .hero-copy { padding-right: 48px; padding-left: 48px; }
+      .visual-orbit { width: 720px; }
+    }
+
+    @media (max-width: 760px) {
+      .comparison-bar { grid-template-columns: 1fr; gap: 13px; padding: 15px 14px; }
+      .palette-switcher { width: 100%; }
+      .palette-button { min-width: 0; flex: 1; grid-template-columns: 21px 1fr; padding-right: 7px; padding-left: 7px; }
+      .swatch-pair { width: 21px; height: 21px; }
+      .button-copy small { display: none; }
+      .stage { padding: 10px; }
+      .specimen { min-height: 0; }
+      .site-header { height: 64px; padding: 0 18px; gap: 14px; }
+      .site-wordmark { font-size: 16px; }
+      .header-cta { min-height: 38px; margin-left: auto; padding: 0 12px; font-size: 11px; }
+      .header-cta span { display: none; }
+      .hero { min-height: 0; display: flex; flex-direction: column; }
+      .hero-copy { min-height: 580px; padding: 58px 23px 44px; }
+      .eyebrow { margin-bottom: 22px; font-size: 10px; }
+      h1 { font-size: clamp(40px, 10.8vw, 48px); line-height: 1.12; }
+      .lead { margin-top: 25px; font-size: 14px; line-height: 1.85; }
+      .hero-actions { align-items: flex-start; flex-direction: column; gap: 17px; margin-top: 32px; }
+      .primary-action { min-height: 54px; width: 100%; }
+      .secondary-action { min-height: 36px; padding: 0; }
+      .scope-note { padding-top: 42px; }
+      .hero-visual { min-height: 480px; }
+      .visual-orbit { width: 620px; left: 48%; }
+      .visual-label { right: 23px; left: 23px; }
+      .delivery-card { right: 18px; bottom: 18px; }
+      .principle-strip { grid-template-columns: 1fr; }
+      .principle { min-height: 78px; padding: 14px 22px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .principle:last-child { border-bottom: 0; }
+      .palette-readout { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="comparison-bar" aria-label="比較用コントロール">
+    <div class="comparison-meta">
+      <p class="comparison-kicker">比較用・実装外 / ROUND 01 / 仮ワードマーク・固定構図</p>
+      <p class="comparison-title">青系パレット比較 — 色以外は全案共通</p>
+    </div>
+    <div class="palette-switcher" role="group" aria-label="カラーパレット">
+      <button class="palette-button" type="button" data-palette-option="a" aria-pressed="true" data-testid="palette-a">
+        <span class="swatch-pair" aria-hidden="true"><i style="background:#006CE8"></i><i style="background:#00CCEB"></i></span>
+        <span class="button-copy"><b>A</b><small>#006CE8 / #00CCEB</small></span>
+      </button>
+      <button class="palette-button" type="button" data-palette-option="b" aria-pressed="false" data-testid="palette-b">
+        <span class="swatch-pair" aria-hidden="true"><i style="background:#1748ED"></i><i style="background:#79A5FF"></i></span>
+        <span class="button-copy"><b>B</b><small>#1748ED / #79A5FF</small></span>
+      </button>
+      <button class="palette-button" type="button" data-palette-option="c" aria-pressed="false" data-testid="palette-c">
+        <span class="swatch-pair" aria-hidden="true"><i style="background:#00778B"></i><i style="background:#00CFC4"></i></span>
+        <span class="button-copy"><b>C</b><small>#00778B / #00CFC4</small></span>
+      </button>
+    </div>
+    <div class="palette-readout" aria-live="polite">
+      <div class="color-chip" style="--chip:var(--deep)"><i></i><b>DEEP</b><span data-token="deep">#061E35</span></div>
+      <div class="color-chip" style="--chip:var(--primary)"><i></i><b>PRIMARY</b><span data-token="primary">#006CE8</span></div>
+      <div class="color-chip" style="--chip:var(--accent)"><i></i><b>ACCENT</b><span data-token="accent">#00CCEB</span></div>
+      <div class="color-chip" style="--chip:var(--paper)"><i></i><b>PAPER</b><span data-token="paper">#F4F8FB</span></div>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <article class="specimen" data-testid="hero-specimen">
+      <header class="site-header">
+        <a class="site-wordmark" href="#" aria-label="株式会社ハシゴダカ">Hashigodaka</a>
+        <nav class="site-nav" aria-label="グローバルナビゲーション">
+          <a href="#">私たちについて</a>
+          <a href="#">支援内容</a>
+          <a href="#">実績・事例</a>
+          <a href="#">会社情報</a>
+        </nav>
+        <a class="header-cta" href="#">開発の相談をする <span aria-hidden="true">→</span></a>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">MANAGED BUILD / AI-NATIVE DELIVERY</p>
+          <h1 id="hero-title">
+            <span class="line">事業の要求を、</span>
+            <span class="line"><span class="emphasis">出荷できる</span></span>
+            <span class="line">ソフトウェアへ。</span>
+          </h1>
+          <p class="lead">ハシゴダカは、顧客の事業判断を受け取り、技術設計から実装、テスト、リリースまでを担う外部開発組織です。AIは生産手段として使い、成果物と品質には私たちが責任を持ちます。</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#">開発の相談をする <span aria-hidden="true">→</span></a>
+            <a class="secondary-action" href="#">支援内容を見る</a>
+          </div>
+          <p class="scope-note">※ デザイン比較用の仮コピーです。公開文言としては未確定です。</p>
+        </div>
+
+        <div class="hero-visual" aria-label="設計からリリースまでを一つの流れとして示す抽象グラフィック">
+          <div class="visual-grid" aria-hidden="true"></div>
+          <div class="visual-orbit" aria-hidden="true"></div>
+          <div class="visual-cut" aria-hidden="true"></div>
+          <div class="visual-rail" aria-hidden="true"></div>
+          <div class="visual-label"><span>HASHIGODAKA / BUILD SYSTEM</span><span>2026</span></div>
+          <div class="delivery-card">
+            <p class="delivery-card-kicker">FROM DECISION TO DELIVERY</p>
+            <ol>
+              <li>要求と受け入れ基準</li>
+              <li>技術設計と実装</li>
+              <li>テストと品質保証</li>
+              <li>本番リリース</li>
+            </ol>
+            <p class="delivery-card-footer">AIを使う場合も、成果物と出荷品質の責任はハシゴダカが担います。</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="principle-strip" aria-label="支援の原則">
+        <div class="principle"><span class="principle-num">01</span><div><strong>事業判断から始める</strong><small>作るものより先に、目的と優先順位を揃える。</small></div></div>
+        <div class="principle"><span class="principle-num">02</span><div><strong>実装まで一気通貫</strong><small>設計・開発・テストを分断しない。</small></div></div>
+        <div class="principle"><span class="principle-num">03</span><div><strong>出荷品質に責任を持つ</strong><small>AIの出力ではなく、完成した成果物を届ける。</small></div></div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const palettes = {
+      a: { deep: '#061E35', primary: '#006CE8', accent: '#00CCEB', paper: '#F4F8FB' },
+      b: { deep: '#0B1742', primary: '#1748ED', accent: '#79A5FF', paper: '#F3F6FF' },
+      c: { deep: '#06313B', primary: '#00778B', accent: '#00CFC4', paper: '#EFF9F9' }
+    };
+    const buttons = [...document.querySelectorAll('[data-palette-option]')];
+
+    function setPalette(key, updateHash = true) {
+      if (!palettes[key]) return;
+      document.documentElement.dataset.palette = key;
+      buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.paletteOption === key)));
+      Object.entries(palettes[key]).forEach(([token, value]) => {
+        const output = document.querySelector(`[data-token="${token}"]`);
+        if (output) output.textContent = value;
+      });
+      if (updateHash) history.replaceState(null, '', `#${key}`);
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => setPalette(button.dataset.paletteOption));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const next = buttons[(index + direction + buttons.length) % buttons.length];
+        next.focus();
+        setPalette(next.dataset.paletteOption);
+      });
+    });
+
+    const initial = location.hash.slice(1).toLowerCase();
+    setPalette(palettes[initial] ? initial : 'a', false);
+  </script>
+</body>
+</html>

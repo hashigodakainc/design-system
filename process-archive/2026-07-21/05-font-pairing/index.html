@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashigodaka — Logo × Japanese type pairing</title>
+  <style>
+    @font-face { font-family:"Logo D"; src:url("../assets/fonts/sora.ttf") format("truetype"); font-weight:100 800; font-display:swap; }
+    @font-face { font-family:"Logo H"; src:url("../assets/fonts/geologica.ttf") format("truetype"); font-weight:100 900; font-display:swap; }
+    @font-face { font-family:"JP C"; src:url("../assets/fonts/m-plus-1p-regular.ttf") format("truetype"); font-weight:400; font-display:swap; }
+    @font-face { font-family:"JP C"; src:url("../assets/fonts/m-plus-1p-bold.ttf") format("truetype"); font-weight:700; font-display:swap; }
+    @font-face { font-family:"JP C"; src:url("../assets/fonts/m-plus-1p-extrabold.ttf") format("truetype"); font-weight:800; font-display:swap; }
+    @font-face { font-family:"JP F"; src:url("../assets/fonts/murecho.ttf") format("truetype"); font-weight:100 900; font-display:swap; }
+    @font-face { font-family:"JP H"; src:url("../assets/fonts/m-plus-2.ttf") format("truetype"); font-weight:100 900; font-display:swap; }
+    @font-face { font-family:"JP I"; src:url("../assets/fonts/line-seed-jp-regular.ttf") format("truetype"); font-weight:400; font-display:swap; }
+    @font-face { font-family:"JP I"; src:url("../assets/fonts/line-seed-jp-bold.ttf") format("truetype"); font-weight:700; font-display:swap; }
+    @font-face { font-family:"JP J"; src:url("../assets/fonts/m-plus-1.ttf") format("truetype"); font-weight:100 900; font-display:swap; }
+
+    :root {
+      color-scheme: light;
+      --ui-bg:#151618;
+      --ui-panel:#202226;
+      --ui-line:#373a40;
+      --ui-text:#f5f5f1;
+      --ui-muted:#a8abb1;
+      --paper:#f2f0eb;
+      --card:#fff;
+      --ink:#111214;
+      --muted:#62645f;
+      --line:rgba(17,18,20,.16);
+    }
+
+    * { box-sizing:border-box; }
+    html { background:var(--ui-bg); }
+    body {
+      margin:0;
+      color:var(--ui-text);
+      background:var(--ui-bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    a, summary { font:inherit; }
+    a:focus-visible, summary:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+
+    .comparison-head {
+      min-height:96px;
+      display:grid;
+      grid-template-columns:minmax(320px,1fr) auto;
+      align-items:center;
+      gap:24px;
+      padding:18px 26px;
+      border-bottom:1px solid var(--ui-line);
+    }
+    .kicker { margin:0 0 6px; color:var(--ui-muted); font-size:10px; font-weight:750; letter-spacing:.14em; }
+    .title { margin:0; font-size:15px; font-weight:720; }
+    .axis-guide { display:flex; gap:22px; margin:0; }
+    .axis-guide div { display:grid; grid-template-columns:auto auto; gap:7px; align-items:baseline; }
+    .axis-guide dt { color:var(--ui-muted); font-size:9px; font-weight:750; letter-spacing:.12em; }
+    .axis-guide dd { margin:0; font-size:11px; font-weight:650; }
+
+    .stage {
+      padding:20px;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        var(--ui-bg);
+      background-size:24px 24px;
+    }
+    .sheet { overflow:hidden; color:var(--ink); background:var(--paper); border-radius:4px; box-shadow:0 24px 80px rgba(0,0,0,.32); }
+    .matrix-head, .matrix-row { display:grid; grid-template-columns:112px repeat(2,minmax(0,1fr)); }
+    .matrix-head { min-height:66px; background:var(--ink); color:#fff; }
+    .corner, .font-head, .row-head { display:flex; align-items:center; border-right:1px solid rgba(255,255,255,.14); }
+    .corner { padding:0 18px; color:rgba(255,255,255,.55); font-size:9px; font-weight:750; letter-spacing:.13em; }
+    .font-head { justify-content:space-between; gap:10px; padding:0 16px; }
+    .font-head b { font-size:18px; }
+    .font-head span { color:rgba(255,255,255,.56); font-size:9px; font-weight:700; letter-spacing:.08em; }
+
+    .matrix-row { border-bottom:1px solid var(--line); }
+    .matrix-row:last-child { border-bottom:0; }
+    .row-head {
+      align-items:flex-start;
+      flex-direction:column;
+      gap:6px;
+      padding:20px 18px;
+      color:#fff;
+      background:var(--ink);
+      border-top:1px solid rgba(255,255,255,.14);
+    }
+    .row-head b { font-size:28px; line-height:1; }
+    .row-head span { color:rgba(255,255,255,.55); font-size:8px; font-weight:750; letter-spacing:.11em; }
+
+    .pair-card {
+      position:relative;
+      min-width:0;
+      min-height:290px;
+      display:flex;
+      flex-direction:column;
+      padding:19px 18px 17px;
+      background:var(--card);
+      border-right:1px solid var(--line);
+      cursor:zoom-in;
+      transition:box-shadow .18s ease, transform .18s ease;
+    }
+    .pair-card:hover { z-index:1; box-shadow:inset 0 0 0 2px var(--ink); }
+    .pair-card.is-selected { z-index:1; background:#f7f7f2; box-shadow:inset 0 0 0 3px var(--ink); }
+    .pair-card:last-child { border-right:0; }
+    .excluded-cell {
+      min-height:290px;
+      display:grid;
+      place-content:center;
+      gap:7px;
+      padding:24px;
+      color:var(--muted);
+      background:#edede8;
+      border-right:1px solid var(--line);
+      text-align:center;
+    }
+    .excluded-cell b { color:var(--ink); font-size:12px; }
+    .excluded-cell span { font-size:9px; line-height:1.6; }
+    .excluded-cell.font-i { grid-column:2; }
+    .excluded-cell.font-j { grid-column:3; }
+    .cell-meta { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:20px; color:var(--muted); font-size:8px; font-weight:750; letter-spacing:.1em; }
+    .cell-meta b { color:var(--ink); font-size:10px; }
+    .card-actions { display:flex; align-items:center; gap:5px; }
+    .card-action {
+      min-height:28px;
+      padding:0 8px;
+      color:var(--ink);
+      background:transparent;
+      border:1px solid var(--line);
+      border-radius:2px;
+      cursor:pointer;
+      font:inherit;
+      font-size:8px;
+      font-weight:750;
+      letter-spacing:.06em;
+    }
+    .card-action:hover { background:#ecece7; }
+    .card-action:focus-visible { outline:3px solid var(--ink); outline-offset:2px; }
+    .compare-toggle[aria-pressed="true"] { color:#fff; background:var(--ink); }
+    .compare-toggle:disabled { opacity:.32; cursor:not-allowed; }
+    .wordmark {
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      overflow:visible;
+      font-family:var(--logo-font);
+      font-size:clamp(22px,2vw,31px);
+      font-weight:650;
+      font-optical-sizing:auto;
+      font-variation-settings:"wght" 650;
+      letter-spacing:var(--logo-tracking);
+      white-space:nowrap;
+    }
+    .rule { height:1px; margin:14px 0 18px; background:var(--line); }
+    .jp-copy { font-family:var(--jp-font); font-feature-settings:"palt" 1; }
+    .jp-title { margin:0; font-size:clamp(18px,1.55vw,23px); font-weight:var(--heading-weight); letter-spacing:-.04em; line-height:1.42; }
+    .jp-body { margin:13px 0 0; color:var(--muted); font-size:11px; font-weight:400; letter-spacing:.015em; line-height:1.85; }
+    .weights { display:flex; gap:12px; margin:auto 0 0; padding-top:18px; color:var(--muted); font-family:var(--jp-font); font-size:8px; letter-spacing:.05em; }
+    .weights b { color:var(--ink); font-weight:var(--heading-weight); }
+
+    .logo-d { --logo-font:"Logo D"; --logo-tracking:-.055em; }
+    .logo-h { --logo-font:"Logo H"; --logo-tracking:-.045em; }
+    .jp-c { --jp-font:"JP C"; }
+    .jp-f { --jp-font:"JP F"; }
+    .jp-h { --jp-font:"JP H"; }
+    .jp-i { --jp-font:"JP I"; }
+    .jp-j { --jp-font:"JP J"; }
+
+    .notes { display:grid; grid-template-columns:1fr 1fr; gap:28px; padding:24px 28px; border-top:1px solid var(--ui-line); color:var(--ui-text); background:var(--ui-bg); }
+    .notes h2 { margin:0 0 7px; font-size:13px; }
+    .notes p { margin:0; color:var(--ui-muted); font-size:10px; line-height:1.75; }
+    details { justify-self:end; width:min(100%,560px); color:var(--ui-muted); font-size:10px; }
+    summary { color:var(--ui-text); cursor:pointer; font-size:11px; font-weight:700; }
+    .source-grid { display:grid; grid-template-columns:auto 1fr auto; gap:7px 13px; margin-top:12px; }
+    .source-grid a { color:var(--ui-text); }
+
+    .compare-panel {
+      position:sticky;
+      bottom:0;
+      z-index:5;
+      display:grid;
+      grid-template-columns:minmax(250px,1fr) auto;
+      align-items:center;
+      gap:24px;
+      min-height:76px;
+      padding:13px 22px;
+      color:var(--ui-text);
+      background:var(--ui-panel);
+      border-top:1px solid var(--ui-line);
+      box-shadow:0 -12px 30px rgba(0,0,0,.24);
+    }
+    .compare-panel h2 { margin:0 0 4px; font-size:12px; }
+    .compare-panel p { margin:0; color:var(--ui-muted); font-size:10px; }
+    .compare-codes { color:var(--ui-text); font-weight:750; }
+    .compare-controls { display:flex; align-items:center; gap:8px; }
+    .compare-control {
+      min-height:38px;
+      padding:0 14px;
+      color:var(--ui-text);
+      background:transparent;
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:3px;
+      cursor:pointer;
+      font:inherit;
+      font-size:10px;
+      font-weight:750;
+    }
+    .compare-control.primary { color:var(--ink); background:var(--ui-text); border-color:var(--ui-text); }
+    .compare-control:disabled { opacity:.35; cursor:not-allowed; }
+    .compare-control:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+
+    .pair-dialog {
+      width:min(1120px,calc(100vw - 48px));
+      max-width:none;
+      max-height:calc(100vh - 24px);
+      padding:0;
+      overflow:auto;
+      color:var(--ink);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:5px;
+      box-shadow:0 32px 100px rgba(0,0,0,.52);
+    }
+    .pair-dialog::backdrop { background:rgba(8,9,11,.78); backdrop-filter:blur(4px); }
+    .dialog-head {
+      position:sticky;
+      top:0;
+      z-index:3;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      min-height:64px;
+      padding:13px 18px 13px 28px;
+      color:var(--ui-text);
+      background:var(--ink);
+      border-bottom:1px solid rgba(255,255,255,.14);
+    }
+    .dialog-head p { margin:0; font-size:11px; font-weight:750; letter-spacing:.08em; }
+    .dialog-head span { color:rgba(255,255,255,.55); font-size:9px; }
+    .dialog-close {
+      min-width:74px;
+      min-height:36px;
+      padding:0 14px;
+      color:var(--ui-text);
+      background:transparent;
+      border:1px solid rgba(255,255,255,.38);
+      border-radius:3px;
+      cursor:pointer;
+      font:inherit;
+      font-size:10px;
+      font-weight:750;
+      letter-spacing:.06em;
+    }
+    .dialog-close:hover { background:rgba(255,255,255,.1); }
+    .dialog-close:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+    .pair-dialog .pair-card {
+      min-height:0;
+      padding:64px 72px 58px;
+      border:0;
+      cursor:default;
+      box-shadow:none;
+    }
+    .pair-dialog .pair-card:hover { box-shadow:none; }
+    .pair-dialog .cell-meta { margin-bottom:42px; font-size:11px; }
+    .pair-dialog .cell-meta b { font-size:15px; }
+    .pair-dialog .wordmark { min-height:112px; font-size:clamp(68px,7.4vw,108px); }
+    .pair-dialog .rule { margin:30px 0 38px; }
+    .pair-dialog .jp-title { max-width:14em; font-size:clamp(44px,5.2vw,68px); line-height:1.3; }
+    .pair-dialog .jp-body { max-width:46em; margin-top:28px; font-size:18px; line-height:1.9; }
+    .pair-dialog .weights { padding-top:40px; font-size:12px; }
+    .pair-dialog.is-comparing { width:min(1400px,calc(100vw - 24px)); }
+    .pair-dialog.is-comparing #dialog-content { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .pair-dialog.is-comparing .pair-card { padding:40px 42px 38px; border-right:1px solid var(--line); }
+    .pair-dialog.is-comparing .pair-card:last-child { border-right:0; }
+    .pair-dialog.is-comparing .cell-meta { margin-bottom:28px; }
+    .pair-dialog.is-comparing .wordmark { min-height:82px; font-size:clamp(54px,5vw,72px); }
+    .pair-dialog.is-comparing .rule { margin:22px 0 28px; }
+    .pair-dialog.is-comparing .jp-title { font-size:clamp(36px,3.3vw,46px); }
+    .pair-dialog.is-comparing .jp-body { margin-top:20px; font-size:15px; }
+    .pair-dialog.is-comparing .weights { padding-top:28px; font-size:10px; }
+
+    @media (max-width:1000px) {
+      .matrix-head, .matrix-row { grid-template-columns:92px repeat(2,minmax(0,1fr)); }
+      .pair-card { min-height:310px; padding:16px 13px; }
+      .jp-title { font-size:17px; }
+      .jp-body { font-size:10px; }
+    }
+
+    @media (max-width:760px) {
+      .comparison-head { grid-template-columns:1fr; gap:12px; padding:15px 14px; }
+      .axis-guide { justify-content:space-between; gap:10px; }
+      .axis-guide div { display:block; }
+      .axis-guide dd { margin-top:3px; }
+      .stage { padding:10px; }
+      .matrix-head { display:none; }
+      .matrix-row { display:grid; grid-template-columns:1fr; }
+      .row-head { position:sticky; top:0; z-index:2; min-height:58px; align-items:center; flex-direction:row; padding:12px 16px; border-right:0; }
+      .row-head b { font-size:22px; }
+      .pair-card { min-height:270px; border-right:0; border-bottom:1px solid var(--line); padding:19px 18px; }
+      .excluded-cell { display:none; }
+      .pair-card:last-child { border-bottom:0; }
+      .pair-card::before { content:"日本語フォント " attr(data-font); margin-bottom:14px; color:var(--muted); font-size:8px; font-weight:750; letter-spacing:.11em; }
+      .cell-meta { align-items:flex-start; }
+      .card-actions { flex-direction:column; align-items:stretch; }
+      .wordmark { font-size:30px; }
+      .jp-title { font-size:22px; }
+      .jp-body { font-size:12px; }
+      .notes { grid-template-columns:1fr; padding:22px 18px; }
+      details { justify-self:stretch; }
+      .pair-dialog { width:calc(100vw - 8px); max-height:calc(100vh - 8px); }
+      .dialog-head { padding-left:16px; }
+      .pair-dialog .pair-card { padding:36px 22px 32px; }
+      .pair-dialog .wordmark { min-height:68px; font-size:44px; }
+      .pair-dialog .jp-title { font-size:34px; }
+      .pair-dialog .jp-body { font-size:14px; }
+      .compare-panel { position:static; grid-template-columns:1fr; gap:10px; padding:14px; }
+      .compare-controls { display:grid; grid-template-columns:1fr 1fr; }
+      .compare-control { width:100%; }
+      .pair-dialog.is-comparing { width:calc(100vw - 4px); }
+      .pair-dialog.is-comparing #dialog-content { grid-template-columns:1fr; }
+      .pair-dialog.is-comparing .pair-card { padding:32px 22px 28px; border-right:0; border-bottom:1px solid var(--line); }
+      .pair-dialog.is-comparing .wordmark { min-height:62px; font-size:38px; }
+      .pair-dialog.is-comparing .jp-title { font-size:29px; }
+      .pair-dialog.is-comparing .jp-body { font-size:13px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="comparison-head">
+    <div>
+      <p class="kicker">比較用・実装外 / TYPE PAIRING ROUND 01</p>
+      <p class="title">ロゴタイプ × 日本語フォント — 最終候補2案</p>
+    </div>
+    <dl class="axis-guide">
+      <div><dt>縦軸</dt><dd>ロゴ D / H</dd></div>
+      <div><dt>横軸</dt><dd>日本語 I / J</dd></div>
+      <div><dt>固定</dt><dd>コピー・サイズ・色・余白</dd></div>
+    </dl>
+  </header>
+
+  <main class="stage">
+    <section class="sheet" aria-label="ロゴと日本語フォントの全組み合わせ">
+      <div class="matrix-head" aria-hidden="true">
+        <div class="corner">LOGO × JP</div>
+        <div class="font-head"><b>I</b><span>SHARPER KANA</span></div>
+        <div class="font-head"><b>J</b><span>STRAIGHTER KANA</span></div>
+      </div>
+      <div id="pairing-matrix"></div>
+    </section>
+  </main>
+
+  <section class="compare-panel" aria-labelledby="compare-panel-title">
+    <div>
+      <h2 id="compare-panel-title">2案を拡大比較</h2>
+      <p><span class="compare-codes" id="compare-codes">未選択</span> — 最終候補2案を選択済みです。必要に応じて選び直せます。</p>
+    </div>
+    <div class="compare-controls">
+      <button class="compare-control" id="clear-comparison" type="button" disabled>選択を解除</button>
+      <button class="compare-control primary" id="open-comparison" type="button" disabled>2案を拡大比較</button>
+    </div>
+  </section>
+
+  <footer class="notes">
+    <div>
+      <h2>まず組み合わせコードで選んでください</h2>
+      <p>各カードの「拡大」から単体表示、「比較＋」から2案の並列表示ができます。特に「で」「き」の丸みと、ロゴとの線幅の釣り合いをI・Jで比較してください。</p>
+    </div>
+    <details>
+      <summary>日本語フォント名・出典・ライセンスを表示</summary>
+      <div class="source-grid">
+        <b>I</b><span>LINE Seed JP — heading 700</span><a href="../assets/licenses/line-seed-jp-OFL.txt">OFL 1.1</a>
+        <b>J</b><span>M PLUS 1 — heading 800</span><a href="../assets/licenses/m-plus-fonts-OFL.txt">OFL 1.1</a>
+      </div>
+    </details>
+  </footer>
+
+  <dialog class="pair-dialog" id="pair-dialog" aria-labelledby="pair-dialog-title">
+    <header class="dialog-head">
+      <div>
+        <p id="pair-dialog-title">組み合わせを拡大表示</p>
+        <span>比較用・実装外</span>
+      </div>
+      <form method="dialog"><button class="dialog-close" value="close">閉じる</button></form>
+    </header>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <script>
+    const logos = ['d', 'h'];
+    const japaneseFonts = [
+      { id: 'i', family: 'i', headingWeight: 700 },
+      { id: 'j', family: 'j', headingWeight: 800 },
+    ];
+    const matrix = document.querySelector('#pairing-matrix');
+    const title = '事業の要求を、出荷できるソフトウェアへ。';
+    const body = 'ハシゴダカは、事業判断を受け取り、技術設計から実装、テスト、リリースまでを担う外部開発組織です。';
+
+    matrix.innerHTML = logos.map(logo => `
+      <section class="matrix-row logo-${logo}" aria-labelledby="row-${logo}">
+        <header class="row-head" id="row-${logo}"><b>${logo.toUpperCase()}</b><span>LOGOTYPE</span></header>
+        ${japaneseFonts.map(font => {
+          if (logo === 'h' && font.id === 'i') return `
+            <div class="excluded-cell font-i" aria-label="H-Iは候補外">
+              <b>H-I — 候補外</b>
+              <span>ロゴと日本語書体の<br>角ばりが不一致</span>
+            </div>
+          `;
+          if (logo === 'd' && font.id === 'j') return `
+            <div class="excluded-cell font-j" aria-label="D-Jは候補外">
+              <b>D-J — 候補外</b>
+              <span>最終比較から除外</span>
+            </div>
+          `;
+          return `
+          <article class="pair-card jp-${font.family}" style="--heading-weight:${font.headingWeight}" data-font="${font.id.toUpperCase()}" data-code="${logo.toUpperCase()}-${font.id.toUpperCase()}" data-testid="pair-${logo}-${font.id}">
+            <div class="cell-meta">
+              <b>${logo.toUpperCase()}-${font.id.toUpperCase()}</b>
+              <div class="card-actions">
+                <button class="card-action expand-card" type="button" aria-label="${logo.toUpperCase()}-${font.id.toUpperCase()}を拡大表示">拡大 ↗</button>
+                <button class="card-action compare-toggle" type="button" aria-pressed="false" aria-label="${logo.toUpperCase()}-${font.id.toUpperCase()}を比較に追加">比較 ＋</button>
+              </div>
+            </div>
+            <div class="wordmark">Hashigodaka</div>
+            <div class="rule"></div>
+            <div class="jp-copy">
+              <h2 class="jp-title">${title}</h2>
+              <p class="jp-body">${body}</p>
+              <div class="weights"><b>見出し ${font.headingWeight}</b><span>本文 400</span></div>
+            </div>
+          </article>`;
+        }).join('')}
+      </section>
+    `).join('');
+
+    const dialog = document.querySelector('#pair-dialog');
+    const dialogTitle = document.querySelector('#pair-dialog-title');
+    const dialogContent = document.querySelector('#dialog-content');
+    const compareCodes = document.querySelector('#compare-codes');
+    const clearComparison = document.querySelector('#clear-comparison');
+    const openComparison = document.querySelector('#open-comparison');
+    const selectedCards = [...matrix.querySelectorAll('.pair-card')];
+    let returnFocus = null;
+
+    function cloneCard(card) {
+      const expandedCard = card.cloneNode(true);
+      expandedCard.querySelector('.card-actions')?.remove();
+      expandedCard.querySelector('.cell-meta').insertAdjacentHTML('beforeend', '<span>EXPANDED VIEW</span>');
+      expandedCard.classList.remove('is-selected');
+      return expandedCard;
+    }
+
+    function openPairing(card, trigger) {
+      returnFocus = trigger;
+      dialog.classList.remove('is-comparing');
+      const expandedCard = cloneCard(card);
+      dialogTitle.textContent = `${card.dataset.code} — 組み合わせを拡大表示`;
+      dialogContent.replaceChildren(expandedCard);
+      dialog.showModal();
+    }
+
+    function updateComparison() {
+      const cards = [...matrix.querySelectorAll('.pair-card')];
+      cards.forEach(card => {
+        const selected = selectedCards.includes(card);
+        const toggle = card.querySelector('.compare-toggle');
+        card.classList.toggle('is-selected', selected);
+        toggle.setAttribute('aria-pressed', String(selected));
+        toggle.textContent = selected ? '選択中 ✓' : '比較 ＋';
+        toggle.disabled = selectedCards.length === 2 && !selected;
+      });
+      compareCodes.textContent = selectedCards.length ? selectedCards.map(card => card.dataset.code).join(' × ') : '未選択';
+      clearComparison.disabled = selectedCards.length === 0;
+      openComparison.disabled = selectedCards.length !== 2;
+    }
+
+    function toggleComparison(card) {
+      const index = selectedCards.indexOf(card);
+      if (index >= 0) selectedCards.splice(index, 1);
+      else if (selectedCards.length < 2) selectedCards.push(card);
+      updateComparison();
+    }
+
+    function openPairComparison() {
+      if (selectedCards.length !== 2) return;
+      returnFocus = openComparison;
+      dialog.classList.add('is-comparing');
+      dialogTitle.textContent = `${selectedCards.map(card => card.dataset.code).join(' × ')} — 2案を拡大比較`;
+      dialogContent.replaceChildren(...selectedCards.map(cloneCard));
+      dialog.showModal();
+    }
+
+    matrix.addEventListener('click', event => {
+      const card = event.target.closest('.pair-card');
+      if (!card) return;
+      const compareButton = event.target.closest('.compare-toggle');
+      if (compareButton) {
+        toggleComparison(card);
+        return;
+      }
+      const expandButton = event.target.closest('.expand-card');
+      if (expandButton) {
+        openPairing(card, expandButton);
+        return;
+      }
+      openPairing(card, card.querySelector('.expand-card'));
+    });
+
+    clearComparison.addEventListener('click', () => {
+      selectedCards.splice(0);
+      updateComparison();
+    });
+
+    openComparison.addEventListener('click', openPairComparison);
+
+    dialog.addEventListener('click', event => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('close', () => {
+      returnFocus?.focus();
+      returnFocus = null;
+    });
+
+    updateComparison();
+  </script>
+</body>
+</html>
