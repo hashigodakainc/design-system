@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-hsg-font-pair="di">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Hashigodakaのデザイン原則、基礎、ブランド、コンポーネントを共有するガイドライン。">
   <title>Hashigodaka Design System</title>
   <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/typography.css">
   <link rel="stylesheet" href="./site.css">
 </head>
 <body>
@@ -97,12 +98,102 @@
     </section>
 
     <section class="section compact-section" id="typography">
-      <div class="section-heading"><p class="section-number">03</p><div><h2>タイポグラフィ</h2><p>文字体系は最終候補を実装文脈で比較中です。</p></div></div>
+      <div class="section-heading"><p class="section-number">03</p><div><h2>タイポグラフィ</h2><p>書体候補は比較中ですが、用途別の階層とスタイリングは共通仕様として利用できます。</p></div></div>
+      <div class="type-switcher">
+        <div>
+          <p class="type-switcher-label">書体ペア</p>
+          <div class="type-switcher-buttons" role="group" aria-label="サイト全体へ適用する書体ペア">
+            <button type="button" data-font-pair="di" aria-pressed="true">D-I</button>
+            <button type="button" data-font-pair="hj" aria-pressed="false">H-J</button>
+          </div>
+        </div>
+        <p>切り替えると、このページ全体の見出し・本文・UIへ反映されます。サイズと行間は変わりません。</p>
+      </div>
       <div class="candidate-grid">
         <article><p class="candidate-label">候補 D-I</p><h3 class="type-di">Hashigodaka</h3><p class="type-sample type-di-jp">構想から実装まで、一つのチームで。</p><p>Sora × LINE Seed JP 700</p></article>
         <article><p class="candidate-label">候補 H-J</p><h3 class="type-hj">Hashigodaka</h3><p class="type-sample type-hj-jp">構想から実装まで、一つのチームで。</p><p>Geologica × M PLUS 1 800</p></article>
       </div>
-      <p class="pending-note">正式なロゴ調整と書体ライセンス確認が完了するまでは、製品実装へ固定しません。</p>
+      <p class="pending-note">正式なロゴ調整と書体ライセンス確認が完了するまでは、フォントファミリーだけを製品実装へ固定しません。</p>
+
+      <h3 class="subheading type-subheading">用途別スタイル</h3>
+      <div class="type-role-list">
+        <article class="type-role">
+          <div class="type-role-name"><strong>Display</strong><code>.hsg-type-display</code></div>
+          <p class="hsg-type-display type-role-sample">人間味のある、<br>力強い実装へ。</p>
+          <dl><div><dt>Size</dt><dd>64 / 44</dd></div><div><dt>Line</dt><dd>1.12</dd></div><div><dt>Tracking</dt><dd>−0.04em</dd></div></dl>
+          <p class="type-role-usage">LPの主見出しなど、ページに一つだけ置く最上位表現。原則2〜3行まで。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Heading 1</strong><code>.hsg-type-heading-1</code></div>
+          <p class="hsg-type-heading-1 type-role-sample">構想を、動く仕組みに変える。</p>
+          <dl><div><dt>Size</dt><dd>40 / 32</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <p class="type-role-usage">記事・下層ページのタイトル。ページの内容を具体的に表す。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Heading 2</strong><code>.hsg-type-heading-2</code></div>
+          <p class="hsg-type-heading-2 type-role-sample">事業と技術をつなぐ支援</p>
+          <dl><div><dt>Size</dt><dd>28 / 24</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <p class="type-role-usage">主要セクションの見出し。見出し階層を飛ばさず、内容構造に沿って使う。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Heading 3</strong><code>.hsg-type-heading-3</code></div>
+          <p class="hsg-type-heading-3 type-role-sample">プロジェクト設計</p>
+          <dl><div><dt>Size</dt><dd>20</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <p class="type-role-usage">カードや小セクションの見出し。本文の強調だけを目的に使わない。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Body Large</strong><code>.hsg-type-body-large</code></div>
+          <p class="hsg-type-body-large type-role-sample">事業の構想と実装の間に入り、実際に使われる仕組みを一緒につくります。</p>
+          <dl><div><dt>Size</dt><dd>18</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <p class="type-role-usage">ページ冒頭のリード文。本文より大きく、見出しより静かに導入する。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Body</strong><code>.hsg-type-body</code></div>
+          <p class="hsg-type-body type-role-sample">目的を共有し、必要な機能を整理し、設計から開発までを一つの流れとして進めます。読みやすさを優先し、一行を長くしすぎません。</p>
+          <dl><div><dt>Size</dt><dd>16</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <p class="type-role-usage">標準本文。和文は一行35〜45字程度を目安にし、長文では段落を分ける。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Body Small</strong><code>.hsg-type-body-small</code></div>
+          <p class="hsg-type-body-small type-role-sample">対象範囲や前提条件など、本文を補う説明に使用します。</p>
+          <dl><div><dt>Size</dt><dd>14</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <p class="type-role-usage">補足説明。重要情報を小さく押し込む目的では使わない。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Label</strong><code>.hsg-type-label</code></div>
+          <p class="hsg-type-label type-role-sample">お問い合わせ種別</p>
+          <dl><div><dt>Size</dt><dd>13</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Tracking</dt><dd>0.04em</dd></div></dl>
+          <p class="type-role-usage">入力項目名や意味のある分類名。装飾的な英大文字や等幅書体に置き換えない。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Action</strong><code>.hsg-type-action</code></div>
+          <p class="hsg-type-action type-role-sample"><span class="inline-action">プロジェクトを相談する</span></p>
+          <dl><div><dt>Size</dt><dd>15</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Weight</dt><dd>700</dd></div></dl>
+          <p class="type-role-usage">ボタンと主要リンク。動作が予測できる具体的な動詞を使う。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Caption</strong><code>.hsg-type-caption</code></div>
+          <p class="hsg-type-caption type-role-sample">2026年7月更新　写真：Hashigodaka社内撮影</p>
+          <dl><div><dt>Size</dt><dd>12</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Tracking</dt><dd>0.04em</dd></div></dl>
+          <p class="type-role-usage">日付、出典、画像注釈などのメタデータ。本文に必要な情報は入れない。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Code</strong><code>.hsg-type-code</code></div>
+          <p class="hsg-type-code type-role-sample">var(--hsg-color-brand-primary)</p>
+          <dl><div><dt>Size</dt><dd>14</dd></div><div><dt>Line</dt><dd>1.7</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <p class="type-role-usage">コード、変数名、ファイル名など、コードとして読む識別子だけに使う。</p>
+        </article>
+      </div>
+
+      <div class="type-rules">
+        <h3>運用ルール</h3>
+        <div class="rule-list">
+          <p><strong>階層は意味で選ぶ</strong><span>見た目を小さくしたいという理由だけで、見出しレベルを飛ばさない。</span></p>
+          <p><strong>本文幅を制御する</strong><span>標準本文は和文35〜45字程度を目安にし、読み返しやすい行長を保つ。</span></p>
+          <p><strong>強調を重ねない</strong><span>太字、色、大きさを同時に重ねず、情報の優先度に必要な一手だけを使う。</span></p>
+          <p><strong>等幅はコードだけ</strong><span>小見出し、状態、日付を技術的に見せる装飾として等幅書体を使わない。</span></p>
+        </div>
+      </div>
     </section>
 
     <section class="section compact-section" id="layout">
@@ -130,12 +221,12 @@
     </section>
 
     <section class="section compact-section" id="tokens">
-      <div class="section-heading"><p class="section-number">08</p><div><h2>デザイントークン</h2><p>人向けガイドと実装を、同じ色定義でつなぎます。</p></div></div>
+      <div class="section-heading"><p class="section-number">08</p><div><h2>デザイントークン</h2><p>人向けガイドと実装を、同じ色・タイポグラフィ定義でつなぎます。</p></div></div>
       <div class="code-panel"><div class="code-title"><span>CSS</span><code>styles/tokens.css</code></div><pre><code>.action {
   color: var(--hsg-color-action-primary-foreground);
   background: var(--hsg-color-action-primary-background);
 }</code></pre></div>
-      <p>機械可読な正本は <code>tokens/colors.json</code>、CSS変数はそこから生成します。値を直接コピーするより、用途別トークンを参照してください。</p>
+      <p>機械可読な正本は <code>tokens/colors.json</code> と <code>tokens/typography.json</code> です。CSS変数と用途別クラスを生成し、値を直接コピーせず用途別トークンを参照します。</p>
     </section>
 
     <section class="section" id="status">
@@ -143,7 +234,8 @@
       <div class="status-table" role="table" aria-label="デザインシステム策定状況">
         <div class="status-row status-head" role="row"><span>領域</span><span>状態</span><span>利用方針</span></div>
         <div class="status-row" role="row"><strong>Brand / Neutral Colors</strong><span><b class="badge badge-progress">検証中</b></span><span>新規制作物で検証利用可</span></div>
-        <div class="status-row" role="row"><strong>Typography</strong><span><b class="badge badge-selecting">選定中</b></span><span>候補比較に限定</span></div>
+        <div class="status-row" role="row"><strong>Typography roles</strong><span><b class="badge badge-progress">検証中</b></span><span>用途別スタイルを利用可</span></div>
+        <div class="status-row" role="row"><strong>Font family</strong><span><b class="badge badge-selecting">選定中</b></span><span>D-I／H-Jの比較に限定</span></div>
         <div class="status-row" role="row"><strong>Logo</strong><span><b class="badge badge-pending">未策定</b></span><span>仮表示を資産利用しない</span></div>
         <div class="status-row" role="row"><strong>Semantic Colors</strong><span><b class="badge badge-pending">未策定</b></span><span>Extended Colorsで代用しない</span></div>
         <div class="status-row" role="row"><strong>Components</strong><span><b class="badge badge-pending">未策定</b></span><span>掲載例は検証用</span></div>

@@ -10,8 +10,9 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 ## 現在のフェーズ
 
 D-E-Dをカラースキームの主案として、ガイドラインサイトと再利用可能なデザイントークンの構築を
-開始しました。色は暫定利用できますが、書体、正式ロゴ、Semantic Colors、レイアウト基礎、
-コンポーネントは未決定です。現在の利用可否は [docs/status.md](docs/status.md) を参照してください。
+開始しました。色と用途別タイポグラフィは暫定利用できますが、フォントファミリー、正式ロゴ、
+Semantic Colors、レイアウト基礎、コンポーネントは未決定です。現在の利用可否は
+[docs/status.md](docs/status.md) を参照してください。
 
 ## 構成
 
@@ -34,7 +35,7 @@ D-E-Dをカラースキームの主案として、ガイドラインサイトと
 }
 ```
 
-トークンを変更したら、次の2つを実行します。
+カラーとタイポグラフィのトークンを変更したら、次の2つを実行します。
 
 ```sh
 node scripts/build-tokens.mjs
@@ -42,4 +43,5 @@ node scripts/validate-tokens.mjs
 ```
 
 制作目的、判断理由、未決事項は [docs/design-brief.md](docs/design-brief.md)、色の用途は
-[docs/foundations/colors.md](docs/foundations/colors.md) を参照してください。
+[docs/foundations/colors.md](docs/foundations/colors.md)、文字の用途は
+[docs/foundations/typography.md](docs/foundations/typography.md) を参照してください。

@@ -1,0 +1,72 @@
+{
+  "version": "0.1.0",
+  "status": "candidate",
+  "description": "最終候補D-IとH-Jで共有する用途別タイポグラフィトークン",
+  "fontPairs": [
+    {
+      "id": "di",
+      "label": "D-I",
+      "latinFamily": "{typography.family.candidate.di.heading}",
+      "bodyFamily": "{typography.family.candidate.di.body}",
+      "headingWeight": "{typography.weight.candidate.di.heading}"
+    },
+    {
+      "id": "hj",
+      "label": "H-J",
+      "latinFamily": "{typography.family.candidate.hj.heading}",
+      "bodyFamily": "{typography.family.candidate.hj.body}",
+      "headingWeight": "{typography.weight.candidate.hj.heading}"
+    }
+  ],
+  "tokens": [
+    { "name": "typography.family.candidate.di.heading", "type": "fontFamily", "value": "\"Hsg Candidate Sora\", sans-serif", "description": "D-Iの英字見出し・ロゴ候補。" },
+    { "name": "typography.family.candidate.di.body", "type": "fontFamily", "value": "\"Hsg Candidate Line Seed JP\", sans-serif", "description": "D-Iの和文本文・見出し候補。" },
+    { "name": "typography.family.candidate.hj.heading", "type": "fontFamily", "value": "\"Hsg Candidate Geologica\", sans-serif", "description": "H-Jの英字見出し・ロゴ候補。" },
+    { "name": "typography.family.candidate.hj.body", "type": "fontFamily", "value": "\"Hsg Candidate M Plus 1\", sans-serif", "description": "H-Jの和文本文・見出し候補。" },
+    { "name": "typography.family.code", "type": "fontFamily", "value": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "description": "コードとコード識別子だけに使う。" },
+
+    { "name": "typography.weight.candidate.di.heading", "type": "fontWeight", "value": "700", "description": "D-Iの見出しウェイト。" },
+    { "name": "typography.weight.candidate.hj.heading", "type": "fontWeight", "value": "800", "description": "H-Jの見出しウェイト。" },
+    { "name": "typography.weight.body", "type": "fontWeight", "value": "400", "description": "本文の基本ウェイト。" },
+    { "name": "typography.weight.emphasis", "type": "fontWeight", "value": "700", "description": "強調、ラベル、操作のウェイト。" },
+
+    { "name": "typography.size.display.desktop", "type": "dimension", "value": "64px", "description": "LPの主見出しなど、ページの主役となる表示。" },
+    { "name": "typography.size.display.mobile", "type": "dimension", "value": "44px", "description": "モバイルのDisplay。" },
+    { "name": "typography.size.heading.1.desktop", "type": "dimension", "value": "40px", "description": "ページタイトル。" },
+    { "name": "typography.size.heading.1.mobile", "type": "dimension", "value": "32px", "description": "モバイルのページタイトル。" },
+    { "name": "typography.size.heading.2.desktop", "type": "dimension", "value": "28px", "description": "主要セクション見出し。" },
+    { "name": "typography.size.heading.2.mobile", "type": "dimension", "value": "24px", "description": "モバイルの主要セクション見出し。" },
+    { "name": "typography.size.heading.3", "type": "dimension", "value": "20px", "description": "カードや小セクションの見出し。" },
+    { "name": "typography.size.body.large", "type": "dimension", "value": "18px", "description": "リード文、導入文。" },
+    { "name": "typography.size.body.default", "type": "dimension", "value": "16px", "description": "標準本文。" },
+    { "name": "typography.size.body.small", "type": "dimension", "value": "14px", "description": "補足本文。" },
+    { "name": "typography.size.label", "type": "dimension", "value": "13px", "description": "意味のあるラベル、入力項目名。" },
+    { "name": "typography.size.action", "type": "dimension", "value": "15px", "description": "ボタンと主要リンク。" },
+    { "name": "typography.size.caption", "type": "dimension", "value": "12px", "description": "注釈、出典、メタデータ。" },
+    { "name": "typography.size.code", "type": "dimension", "value": "14px", "description": "コードとコード識別子。" },
+
+    { "name": "typography.line-height.display", "type": "number", "value": "1.12", "description": "Displayの行間。" },
+    { "name": "typography.line-height.heading", "type": "number", "value": "1.35", "description": "見出しの行間。" },
+    { "name": "typography.line-height.body", "type": "number", "value": "1.8", "description": "和文本文の行間。" },
+    { "name": "typography.line-height.compact", "type": "number", "value": "1.5", "description": "ラベル、操作、注釈の行間。" },
+    { "name": "typography.line-height.code", "type": "number", "value": "1.7", "description": "コードの行間。" },
+
+    { "name": "typography.letter-spacing.display", "type": "letterSpacing", "value": "-0.04em", "description": "大見出しの詰め。" },
+    { "name": "typography.letter-spacing.heading", "type": "letterSpacing", "value": "-0.02em", "description": "見出しの詰め。" },
+    { "name": "typography.letter-spacing.body", "type": "letterSpacing", "value": "0", "description": "本文は書体本来の字間を使う。" },
+    { "name": "typography.letter-spacing.label", "type": "letterSpacing", "value": "0.04em", "description": "小さいラベルの識別性を補う。" }
+  ],
+  "roles": [
+    { "name": "display", "family": "body", "fontSize": "{typography.size.display.desktop}", "mobileFontSize": "{typography.size.display.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.display}", "letterSpacing": "{typography.letter-spacing.display}" },
+    { "name": "heading-1", "family": "body", "fontSize": "{typography.size.heading.1.desktop}", "mobileFontSize": "{typography.size.heading.1.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "heading-2", "family": "body", "fontSize": "{typography.size.heading.2.desktop}", "mobileFontSize": "{typography.size.heading.2.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "heading-3", "family": "body", "fontSize": "{typography.size.heading.3}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "body-large", "family": "body", "fontSize": "{typography.size.body.large}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
+    { "name": "body", "family": "body", "fontSize": "{typography.size.body.default}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
+    { "name": "body-small", "family": "body", "fontSize": "{typography.size.body.small}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
+    { "name": "label", "family": "body", "fontSize": "{typography.size.label}", "fontWeight": "{typography.weight.emphasis}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.label}" },
+    { "name": "action", "family": "body", "fontSize": "{typography.size.action}", "fontWeight": "{typography.weight.emphasis}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.body}" },
+    { "name": "caption", "family": "body", "fontSize": "{typography.size.caption}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.label}" },
+    { "name": "code", "family": "code", "fontSize": "{typography.size.code}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.code}", "letterSpacing": "{typography.letter-spacing.body}" }
+  ]
+}

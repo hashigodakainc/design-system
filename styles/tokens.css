@@ -1,4 +1,4 @@
-/* Generated from tokens/colors.json. Do not edit directly. */
+/* Generated from tokens/colors.json and tokens/typography.json. Do not edit directly. */
 :root {
   --hsg-color-brand-primary: #00A0FF;
   --hsg-color-brand-secondary: #C7F14A;
@@ -21,4 +21,36 @@
   --hsg-color-data-series-2: var(--hsg-color-brand-secondary);
   --hsg-color-data-series-3: var(--hsg-color-brand-extended-violet);
   --hsg-color-data-series-4: var(--hsg-color-brand-extended-orange);
+  --hsg-typography-family-candidate-di-heading: "Hsg Candidate Sora", sans-serif;
+  --hsg-typography-family-candidate-di-body: "Hsg Candidate Line Seed JP", sans-serif;
+  --hsg-typography-family-candidate-hj-heading: "Hsg Candidate Geologica", sans-serif;
+  --hsg-typography-family-candidate-hj-body: "Hsg Candidate M Plus 1", sans-serif;
+  --hsg-typography-family-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --hsg-typography-weight-candidate-di-heading: 700;
+  --hsg-typography-weight-candidate-hj-heading: 800;
+  --hsg-typography-weight-body: 400;
+  --hsg-typography-weight-emphasis: 700;
+  --hsg-typography-size-display-desktop: 64px;
+  --hsg-typography-size-display-mobile: 44px;
+  --hsg-typography-size-heading-1-desktop: 40px;
+  --hsg-typography-size-heading-1-mobile: 32px;
+  --hsg-typography-size-heading-2-desktop: 28px;
+  --hsg-typography-size-heading-2-mobile: 24px;
+  --hsg-typography-size-heading-3: 20px;
+  --hsg-typography-size-body-large: 18px;
+  --hsg-typography-size-body-default: 16px;
+  --hsg-typography-size-body-small: 14px;
+  --hsg-typography-size-label: 13px;
+  --hsg-typography-size-action: 15px;
+  --hsg-typography-size-caption: 12px;
+  --hsg-typography-size-code: 14px;
+  --hsg-typography-line-height-display: 1.12;
+  --hsg-typography-line-height-heading: 1.35;
+  --hsg-typography-line-height-body: 1.8;
+  --hsg-typography-line-height-compact: 1.5;
+  --hsg-typography-line-height-code: 1.7;
+  --hsg-typography-letter-spacing-display: -0.04em;
+  --hsg-typography-letter-spacing-heading: -0.02em;
+  --hsg-typography-letter-spacing-body: 0;
+  --hsg-typography-letter-spacing-label: 0.04em;
 }

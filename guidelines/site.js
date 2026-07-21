@@ -1,6 +1,7 @@
 const menuButton = document.querySelector('.menu-button');
 const sidebar = document.querySelector('.sidebar');
 const navLinks = [...document.querySelectorAll('nav a')];
+const fontPairButtons = [...document.querySelectorAll('[data-font-pair]')];
 
 menuButton?.addEventListener('click', () => {
   const open = sidebar.classList.toggle('is-open');
@@ -22,3 +23,11 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-20% 0px -65% 0px', threshold: [0, .2, .6] });
 
 sections.forEach((section) => observer.observe(section));
+
+fontPairButtons.forEach((button) => button.addEventListener('click', () => {
+  const pair = button.dataset.fontPair;
+  document.documentElement.dataset.hsgFontPair = pair;
+  fontPairButtons.forEach((candidate) => {
+    candidate.setAttribute('aria-pressed', String(candidate.dataset.fontPair === pair));
+  });
+}));

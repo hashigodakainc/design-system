@@ -1,0 +1,95 @@
+/* Generated from tokens/typography.json. Do not edit directly. */
+:root, [data-hsg-font-pair="di"] {
+  --hsg-typography-family-latin: var(--hsg-typography-family-candidate-di-heading);
+  --hsg-typography-family-body: var(--hsg-typography-family-candidate-di-body);
+  --hsg-typography-weight-heading: var(--hsg-typography-weight-candidate-di-heading);
+}
+[data-hsg-font-pair="hj"] {
+  --hsg-typography-family-latin: var(--hsg-typography-family-candidate-hj-heading);
+  --hsg-typography-family-body: var(--hsg-typography-family-candidate-hj-body);
+  --hsg-typography-weight-heading: var(--hsg-typography-weight-candidate-hj-heading);
+}
+
+.hsg-type-display {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-display-desktop);
+  font-weight: var(--hsg-typography-weight-heading);
+  line-height: var(--hsg-typography-line-height-display);
+  letter-spacing: var(--hsg-typography-letter-spacing-display);
+}
+.hsg-type-heading-1 {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-heading-1-desktop);
+  font-weight: var(--hsg-typography-weight-heading);
+  line-height: var(--hsg-typography-line-height-heading);
+  letter-spacing: var(--hsg-typography-letter-spacing-heading);
+}
+.hsg-type-heading-2 {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-heading-2-desktop);
+  font-weight: var(--hsg-typography-weight-heading);
+  line-height: var(--hsg-typography-line-height-heading);
+  letter-spacing: var(--hsg-typography-letter-spacing-heading);
+}
+.hsg-type-heading-3 {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-heading-3);
+  font-weight: var(--hsg-typography-weight-heading);
+  line-height: var(--hsg-typography-line-height-heading);
+  letter-spacing: var(--hsg-typography-letter-spacing-heading);
+}
+.hsg-type-body-large {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-body-large);
+  font-weight: var(--hsg-typography-weight-body);
+  line-height: var(--hsg-typography-line-height-body);
+  letter-spacing: var(--hsg-typography-letter-spacing-body);
+}
+.hsg-type-body {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-body-default);
+  font-weight: var(--hsg-typography-weight-body);
+  line-height: var(--hsg-typography-line-height-body);
+  letter-spacing: var(--hsg-typography-letter-spacing-body);
+}
+.hsg-type-body-small {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-body-small);
+  font-weight: var(--hsg-typography-weight-body);
+  line-height: var(--hsg-typography-line-height-body);
+  letter-spacing: var(--hsg-typography-letter-spacing-body);
+}
+.hsg-type-label {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-label);
+  font-weight: var(--hsg-typography-weight-emphasis);
+  line-height: var(--hsg-typography-line-height-compact);
+  letter-spacing: var(--hsg-typography-letter-spacing-label);
+}
+.hsg-type-action {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-action);
+  font-weight: var(--hsg-typography-weight-emphasis);
+  line-height: var(--hsg-typography-line-height-compact);
+  letter-spacing: var(--hsg-typography-letter-spacing-body);
+}
+.hsg-type-caption {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-caption);
+  font-weight: var(--hsg-typography-weight-body);
+  line-height: var(--hsg-typography-line-height-compact);
+  letter-spacing: var(--hsg-typography-letter-spacing-label);
+}
+.hsg-type-code {
+  font-family: var(--hsg-typography-family-code);
+  font-size: var(--hsg-typography-size-code);
+  font-weight: var(--hsg-typography-weight-body);
+  line-height: var(--hsg-typography-line-height-code);
+  letter-spacing: var(--hsg-typography-letter-spacing-body);
+}
+
+@media (max-width: 760px) {
+  .hsg-type-display { font-size: var(--hsg-typography-size-display-mobile); }
+  .hsg-type-heading-1 { font-size: var(--hsg-typography-size-heading-1-mobile); }
+  .hsg-type-heading-2 { font-size: var(--hsg-typography-size-heading-2-mobile); }
+}
