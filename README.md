@@ -24,6 +24,7 @@ D-E-Dをカラースキームの主案として、ガイドラインサイトと
 - [`examples/`](examples/) — 承認済みトークンの実装見本
 - [`scripts/`](scripts/) — トークンの生成と機械検証
 - [`process-archive/`](process-archive/) — 選定過程の比較HTMLと資産
+- [`sites/process-archive/`](sites/process-archive/) — 制作過程を共有するSitesアプリ。公開素材は`process-archive/`から生成
 
 ## カラーを使う
 
