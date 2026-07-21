@@ -11,7 +11,7 @@ test("publishes every archived comparison round from the design-system source", 
     .map((entry) => entry.name)
     .sort();
 
-  assert.equal(rounds.length, 10);
+  assert.equal(rounds.length, 11);
   await Promise.all(rounds.map((round) => access(new URL(`${round}/index.html`, publicArchive))));
   await access(new URL("process-timeline/index.html", publicArchive));
   await access(new URL("assets/fonts/sora.ttf", publicArchive));

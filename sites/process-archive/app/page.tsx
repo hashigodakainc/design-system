@@ -81,6 +81,15 @@ const rounds = [
     href: "/archive/2026-07-21/09-button-hierarchy/",
   },
   {
+    number: "10",
+    phase: "Identity",
+    title: "固有モチーフ探索",
+    description: "Hの骨格、梯子、蝶、橋渡し・共創・成長を単色の一体形へ圧縮し、力強さと有機性を比較。",
+    result: "01C-Cを暫定メイン候補とし、SVG初版を作成",
+    href: "/archive/2026-07-21/10-motif-exploration/",
+    featured: true,
+  },
+  {
     number: "TL",
     phase: "Process",
     title: "判断の時系列",
@@ -111,7 +120,7 @@ export default function Home() {
           <h1>デザインは、<br />比較の跡から<br />強くなる。</h1>
           <p className="lead">
             Hashigodakaのデザインシステムをつくる過程で、何を並べ、何を外し、何を残したか。
-            10の比較画面と判断の時系列を、検討の順番ごとに公開します。
+            11の比較画面と判断の時系列を、検討の順番ごとに公開します。
           </p>
         </div>
         <div className="hero-visual" aria-label="現在のメイン候補 D-E-D のカラーパレット">

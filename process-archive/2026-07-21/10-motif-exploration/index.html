@@ -77,6 +77,17 @@
     .current p { margin: 0; color: #d9d5dc; }
     .current ul { margin: 24px 0 0; padding-left: 1.25em; }
     .current li + li { margin-top: 8px; }
+    .asset-link {
+      display: inline-flex;
+      margin-top: 24px;
+      padding-bottom: 2px;
+      color: #fff;
+      border-bottom: 1px solid var(--blue);
+      font-family: "HSG Geologica", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
     .current img {
       display: block;
       width: 100%;
@@ -130,22 +141,23 @@
       <p class="hero-copy">H-Jの骨格から始め、橋渡し・共創・成長を一つの単色マークへ圧縮した過程です。生成案へのフィードバックで判断が変わった箇所を、画像と理由の組で保存します。</p>
     </section>
 
-    <p class="notice"><strong>位置づけ：</strong> 掲載画像はOpenAI Imagegenによる比較用ラスタ画像で、承認済みロゴ資産ではありません。画像内のワードマークはH-Jを参照した近似です。現在案の黄金比、曲線、重心は構図検討段階であり、採用後にSVGで数値再構築・小サイズ検証を行います。</p>
+    <p class="notice"><strong>位置づけ：</strong> タイムラインの比較画像はOpenAI Imagegenによるラスタ画像で、画像内のワードマークはH-Jを参照した近似です。現在案01C-Cのみ、選択した比較案を基にSVGで数値再構築しています。いずれも承認済みロゴ資産ではなく、SVGも小サイズ・横組み検証前の初版です。</p>
 
     <section class="current">
       <div>
         <p class="eyebrow">Current provisional direction</p>
-        <h2>06R-1AB</h2>
-        <p>06R-1Aの推進感と大小差へ、06R-1Bの安定した重心設計を統合した現時点の暫定方向です。</p>
+        <h2>01C-C</h2>
+        <p>有機的な羽根の探索で弱まった力強さを見直し、厚い面と安定した外形を持つ01C-Cを現時点のメイン候補とします。</p>
         <ul>
-          <li>小形状＝最初の実装、大形状＝蓄積した能力と事業変化</li>
-          <li>共有する曲線的な負形＝橋渡しと共創</li>
-          <li>左下から右上＝打ち上げ、加速、成長</li>
-          <li>線寸法比約1:1.618、面積比約1:2.618を再構築時の基準にする</li>
-          <li>二形状の合成重心を中央へ補正し、外周は連続した有機曲線にする</li>
+          <li>左右の厚い面と矩形に近い外周＝力強さと単体マークとしての安定</li>
+          <li>中央を横断する青い接続＝Hの横画、橋渡し、共創</li>
+          <li>上下の曲線的なくびれ＝蝶と、小さな意志が変化へ波及する余韻</li>
+          <li>外側は直線的に、内側だけを有機的にすることでH-Jの骨格と調和</li>
+          <li>次に小サイズでの抜けとワードマーク横組みの比率を検証する</li>
         </ul>
+        <a class="asset-link" href="assets/01c-c.svg">SVG初版を開く</a>
       </div>
-      <img src="assets/14-hybrid.png" alt="06R-1Aと06R-1Bを統合した暫定モチーフ案" width="1536" height="1024">
+      <img src="assets/01c-c.svg" alt="厚い左右の面と有機的な中央のくびれを持つ01C-C暫定モチーフ" width="256" height="256">
     </section>
 
     <section class="timeline" aria-label="モチーフ比較の判断過程">
@@ -229,12 +241,18 @@
 
       <article class="step">
         <div class="step-number">14</div>
-        <div><h2>推進感と安定性を統合</h2><p>06R-1Aの傾きと物語へ、06R-1Bの重心設計とコンパクトさを取り込んだ。</p><div class="decision"><span>現在地</span>06R-1ABを暫定方向とする。未選定・未ベクター化であり、次は数値再構築と適用検証。</div></div>
-        <figure><img loading="lazy" src="assets/14-hybrid.png" alt="推進感と安定性を統合した06R-1AB"><figcaption>現時点の比較用ラスタ案。正式資産ではない。</figcaption></figure>
+        <div><h2>推進感と安定性を統合</h2><p>06R-1Aの傾きと物語へ、06R-1Bの重心設計とコンパクトさを取り込んだ。</p><div class="decision"><span>当時の判断</span>06R-1ABを暫定方向とした。後続比較で力強さを優先し、01C-Cへ移行。</div></div>
+        <figure><img loading="lazy" src="assets/14-hybrid.png" alt="推進感と安定性を統合した06R-1AB"><figcaption>当時の比較用ラスタ案。正式資産ではない。</figcaption></figure>
+      </article>
+
+      <article class="step">
+        <div class="step-number">15</div>
+        <div><h2>力強い骨格へ戻る</h2><p>蝶の有機性を羽根全体へ広げるほど面が細くなり、H-Jの横で必要な力強さと単体時の安定感が弱まった。そこで初期案01C-Cを再評価した。</p><div class="decision"><span>現在地</span>01C-Cを現時点のメイン候補とする。厚い外形を保ち、有機曲線は中央のくびれへ限定する。SVGは数値再構築の初版であり、最終承認前。</div></div>
+        <figure><img loading="lazy" src="assets/01c-c.svg" alt="SVGで数値再構築した01C-C暫定モチーフ"><figcaption>選択した比較案を基に再構築したSVG初版。色はPrimary Blue #00A0FF。</figcaption></figure>
       </article>
     </section>
 
-    <footer>Source: Imagegen comparison outputs, docs/design-brief.md, and user feedback from the motif exploration session. The images are archived as decision evidence, not approved production assets.</footer>
+    <footer>Source: Imagegen comparison outputs, the provisional 01C-C SVG reconstruction, docs/design-brief.md, and user feedback from the motif exploration session. These assets are archived as decision evidence, not approved production assets.</footer>
   </main>
 </body>
 </html>

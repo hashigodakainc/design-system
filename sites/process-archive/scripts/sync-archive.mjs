@@ -10,8 +10,8 @@ await access(resolve(archiveSource, "README.md"));
 const rounds = (await readdir(archiveSource, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory() && /^\d{2}-/.test(entry.name));
 
-if (rounds.length !== 10) {
-  throw new Error(`Expected 10 archive rounds in ${archiveSource}, found ${rounds.length}`);
+if (rounds.length !== 11) {
+  throw new Error(`Expected 11 archive rounds in ${archiveSource}, found ${rounds.length}`);
 }
 
 await rm(archiveOutput, { recursive: true, force: true });
