@@ -52,5 +52,6 @@ node scripts/validate-tokens.mjs
 [docs/foundations/typography.md](docs/foundations/typography.md)、余白とグリッドは
 [docs/foundations/layout.md](docs/foundations/layout.md)、ボタンの仕様は
 [docs/components/buttons.md](docs/components/buttons.md)、バッジの仕様は
-[docs/components/badges.md](docs/components/badges.md)、固有モチーフは
+[docs/components/badges.md](docs/components/badges.md)、ブランドの意味と表現基準は
+[docs/brand/foundation.md](docs/brand/foundation.md)、固有モチーフは
 [docs/brand/motif.md](docs/brand/motif.md) を参照してください。
