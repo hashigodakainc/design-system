@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Teamモチーフ比較｜Hashigodaka</title>
+  <style>
+    :root{--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--muted:#625d69;--primary:#00a0ff;--secondary:#c7f14a}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--surface);color:var(--ink);font-family:"M PLUS 1","Noto Sans JP",system-ui,sans-serif}
+    body{min-width:960px}
+    .compare{position:fixed;inset:0 0 auto;z-index:10;height:76px;display:grid;grid-template-columns:240px 1fr 300px;align-items:center;padding:0 24px;background:rgba(250,249,252,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+    .eyebrow{margin:0;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.09em}
+    .title{margin:4px 0 0;font-size:16px;line-height:1.2}
+    .tabs{justify-self:center;display:flex;gap:6px;padding:5px;background:#fff;border:1px solid var(--border)}
+    .tabs a{min-width:70px;padding:10px 14px;color:var(--ink);text-align:center;text-decoration:none;font-size:13px;font-weight:700;border:1px solid transparent}
+    .tabs a[aria-current="true"]{border-color:var(--ink);background:var(--ink);color:var(--canvas)}
+    .note{justify-self:end;margin:0;color:var(--muted);font-size:11px;line-height:1.55;text-align:right}
+    main{padding:108px 28px 48px}
+    .frame{max-width:1440px;margin:0 auto;background:var(--canvas);box-shadow:0 18px 56px rgba(24,21,29,.12)}
+    .concept{position:relative;display:grid;grid-template-columns:340px minmax(0,1fr);min-height:760px;padding:82px 88px 70px;overflow:hidden;background:var(--canvas)}
+    .intro{position:relative;z-index:2;padding:32px 54px 32px 0;border-right:1px solid var(--border)}
+    .intro h2{position:relative;z-index:2;margin:0;font-family:"Geologica",sans-serif;font-size:64px;line-height:1.1;letter-spacing:-.06em}
+    .intro .jp{position:relative;z-index:2;margin-top:16px;color:var(--muted);font-size:13px}
+    .marks{position:relative;z-index:2;display:flex;gap:8px;margin-top:20px}.marks i{display:block;width:20px;height:3px;background:var(--primary)}.marks i+ i{background:var(--secondary)}
+    .intro p{position:relative;z-index:2;max-width:220px;margin:25px 0 0;color:var(--muted);font-size:13px;line-height:1.9}
+    .members{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:54px;padding-left:62px}
+    .member{padding:32px 0 46px;border-top:1px solid var(--border)}
+    .meta{display:grid;grid-template-columns:minmax(40px,84px) max-content;gap:12px;align-items:center;color:var(--primary);font-size:11px;font-weight:700;letter-spacing:.05em}.meta i{height:1px;background:var(--border)}
+    .member h3{margin:24px 0 0;font-size:46px;line-height:1.2;letter-spacing:-.05em}
+    .member p{margin:26px 0 0;color:var(--muted);font-size:12px;line-height:2}
+    .motif{position:absolute;z-index:1;color:var(--primary);pointer-events:none}.motif svg{display:block;width:100%;height:auto}
+    .variant-a .motif{left:-250px;bottom:-275px;width:700px}
+    .variant-b .motif{top:-250px;left:-235px;width:680px;color:var(--surface)}
+    .variant-c .motif{top:295px;left:-72px;width:570px}
+    .variant-c .members{z-index:1}.variant-c .member{position:relative;z-index:2}.variant-c .member::before{position:absolute;z-index:-1;inset:0 -2px;background:rgba(250,249,252,.94);content:""}
+    .variant-d .motif{top:330px;left:-18px;width:860px}
+    .variant-d .members{background:var(--canvas)}
+    .caption{display:grid;grid-template-columns:90px 1fr;gap:24px;max-width:1440px;margin:18px auto 0;padding:18px 0 0;border-top:1px solid var(--border)}
+    .caption strong{font-size:13px}
+    .caption p{max-width:840px;margin:0;color:var(--muted);font-size:12px;line-height:1.8}
+    [data-panel]{display:none}
+    [data-panel].active{display:block}
+  </style>
+</head>
+<body>
+  <header class="compare">
+    <div><p class="eyebrow">比較用・実装外</p><h1 class="title">Team 左カラム・モチーフ比較</h1></div>
+    <nav class="tabs" aria-label="比較案">
+      <a href="#A" data-tab="A">A</a><a href="#B" data-tab="B">B</a><a href="#C" data-tab="C">C</a><a href="#D" data-tab="D">D</a>
+    </nav>
+    <p class="note">右側のプロフィール構成は固定<br>比較対象はモチーフの色・切り取り・越境のみ</p>
+  </header>
+  <main>
+    <section data-panel="A">
+      <div class="frame" data-concept="a"></div>
+      <div class="caption"><strong>A</strong><p>Primaryの大判モチーフを左下から画面外へ逃がす。色の強さは残しつつ、全形を説明せず一部分を背景のリズムとして使う。</p></div>
+    </section>
+    <section data-panel="B">
+      <div class="frame" data-concept="b"></div>
+      <div class="caption"><strong>B</strong><p>Surfaceの低コントラストなモチーフを左上から切り取り、負形を見出しの余白に利用する。誌面性を壊さず、形の存在だけを残す。</p></div>
+    </section>
+    <section data-panel="C">
+      <div class="frame" data-concept="c"></div>
+      <div class="caption"><strong>C</strong><p>Primaryのモチーフを左カラムから縦罫線へ越境させ、見出しとプロフィール領域の境界を意図的に崩す。右側本文には重ねない。</p></div>
+    </section>
+    <section data-panel="D">
+      <div class="frame" data-concept="d"></div>
+      <div class="caption"><strong>D</strong><p>01C-Cの左上にある厚い面と内側のくびれだけを選び、大きく拡大して左カラム内で切る。Aの配置は残したまま、切り取る部位を比較する案。</p></div>
+    </section>
+  </main>
+  <script>
+    const motif='<div class="motif" aria-hidden="true"><svg viewBox="0 0 256 256"><path fill="currentColor" d="M44 42Q40 42 40 47v162q0 6 5 3l57-33q12-7 12-26 0-17 14-17t14 17q0 19 12 26l57 33q5 3 5-3V47q0-5-4-5l-58 33q-12 7-12 26 0 19-14 19t-14-19q0-19-12-26Z"/></svg></div>';
+    const people=[
+      ['代表取締役CEO','髙橋基希','首都大学東京（現・東京都立大学）卒業。株式会社gumiにて投資業務および投資先の経営支援に従事し、double jump.tokyoの企業価値向上やMCH株式会社の設立に携わる。2022年5月、PAO TECH PTE. LTD.を共同創業。ポルトガルおよびタイを拠点に、複数のプロダクト開発・運営を手がける。'],
+      ['取締役COO','及川駿','米国Green River Collegeにて宇宙工学を専攻。2021年、在学中に帰国し、日本初のゲーム特化型NFTマーケットプレイスを手がけるスタートアップにCTOとして参画。AIを活用した開発やセキュリティ領域のプロダクト開発に取り組む。'],
+      ['執行役員CTO','山口遼大','埼玉大学経済学部卒業。システム開発およびプロジェクトマネジメントを経て、スマートコントラクトからバックエンド、インフラまで、プロダクト開発を幅広く主導。高度なセキュリティ基盤の設計・実装を手がける。'],
+      ['VP of Engineering','赤澤直樹','2016年よりフリーランスエンジニアとして、データ解析・機械学習分野を中心に活動。Web3・AI領域におけるプロダクト開発および技術戦略をリードし、AIネイティブな開発体制の構築を推進。']
+    ];
+    const members=people.map(p=>`<article class="member"><div class="meta"><i></i><strong>${p[0]}</strong></div><h3>${p[1]}</h3><p>${p[2]}</p></article>`).join('');
+    document.querySelectorAll('[data-concept]').forEach(el=>{const v=el.dataset.concept;el.innerHTML=`<div class="concept variant-${v}">${motif}<div class="intro"><h2>Team</h2><div class="jp">チーム</div><div class="marks"><i></i><i></i></div><p>多様な専門性を持つプロフェッショナルが、成果にこだわり、伴走します。</p></div><div class="members">${members}</div></div>`});
+    const keys=['A','B','C','D'];
+    function show(){
+      const key=keys.includes(location.hash.slice(1))?location.hash.slice(1):'A';
+      document.querySelectorAll('[data-panel]').forEach(el=>el.classList.toggle('active',el.dataset.panel===key));
+      document.querySelectorAll('[data-tab]').forEach(el=>el.setAttribute('aria-current',el.dataset.tab===key?'true':'false'));
+      document.title=`${key}｜Teamモチーフ比較｜Hashigodaka`;
+      scrollTo({top:0,behavior:'instant'});
+    }
+    addEventListener('hashchange',show);show();
+    addEventListener('keydown',e=>{const key=location.hash.slice(1)||'A';const i=keys.indexOf(key);if(e.key==='ArrowRight')location.hash=keys[(i+1)%keys.length];if(e.key==='ArrowLeft')location.hash=keys[(i+keys.length-1)%keys.length]});
+  </script>
+</body>
+</html>

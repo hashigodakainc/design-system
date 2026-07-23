@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">Transforming service grid</title>
+  <desc id="desc">A quiet orthogonal grid transforms through one blue focal point into a skewed grid.</desc>
+
+  <rect width="320" height="320" fill="#FAF9FC"/>
+
+  <!-- Four continuous rows: orthogonal at the origin, progressively skewed after the transform. -->
+  <polyline points="34,192 62,192 90,192 120,192 156,158 194,128 236,107 278,86"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="34,218 62,218 90,218 120,218 160,178 200,148 242,127 284,106"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="34,244 62,244 90,244 120,244 164,198 206,168 248,147 290,126"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="34,270 62,270 90,270 120,270 168,218 212,188 254,167 296,146"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+
+  <!-- Columns expose the intermediate states rather than jumping between two finished grids. -->
+  <line x1="34" y1="192" x2="34" y2="270" stroke="#DCD8E1" stroke-width="1.25"/>
+  <line x1="62" y1="192" x2="62" y2="270" stroke="#DCD8E1" stroke-width="1.25"/>
+  <line x1="90" y1="192" x2="90" y2="270" stroke="#DCD8E1" stroke-width="1.25"/>
+  <line x1="120" y1="192" x2="120" y2="270" stroke="#DCD8E1" stroke-width="1.25"/>
+  <polyline points="156,158 160,178 164,198 168,218"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="194,128 200,148 206,168 212,188"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="236,107 242,127 248,147 254,167"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+  <polyline points="278,86 284,106 290,126 296,146"
+    fill="none" stroke="#DCD8E1" stroke-width="1.25" stroke-linejoin="round"/>
+
+  <!-- Two restrained basis lines reveal what changes through the same focal point. -->
+  <polyline points="34,218 120,218 160,178"
+    fill="none" stroke="#C7F14A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="160,178 200,148 242,127 284,106"
+    fill="none" stroke="#6C4ED9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- The transform itself is the only Primary/Ink focal mark. -->
+  <circle cx="160" cy="178" r="8" fill="#FAF9FC" stroke="#00A0FF" stroke-width="4"/>
+  <circle cx="160" cy="178" r="2.5" fill="#18151D"/>
+</svg>

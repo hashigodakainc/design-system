@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ホームページ Imagegen 9案比較</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111015;
+      --panel: #1b1a20;
+      --line: #37343e;
+      --text: #faf9fc;
+      --muted: #aaa6b2;
+      --blue: #00a0ff;
+      --lime: #c7f14a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    }
+    button { font: inherit; }
+    .shell { min-height: 100vh; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(17,16,21,.94);
+      backdrop-filter: blur(14px);
+    }
+    .title { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+    h1 { margin: 0; font-size: 17px; letter-spacing: .01em; }
+    .notice {
+      color: var(--lime);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+    .view-switch { display: flex; gap: 6px; }
+    .view-switch button,
+    .nav-button {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .view-switch button[aria-pressed="true"] {
+      background: var(--text);
+      border-color: var(--text);
+      color: #18151d;
+    }
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 284px minmax(0, 1fr);
+      align-items: start;
+    }
+    .rail {
+      position: sticky;
+      top: 67px;
+      height: calc(100vh - 67px);
+      overflow: auto;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .concept-list { display: grid; gap: 10px; }
+    .concept-button {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+    .concept-button:hover { background: #24222a; }
+    .concept-button[aria-current="true"] {
+      border-color: var(--blue);
+      background: #202631;
+    }
+    .thumb {
+      display: block;
+      width: 56px;
+      height: 82px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 5px;
+      background: white;
+    }
+    .concept-no { display: block; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+    .concept-name { display: block; margin-top: 3px; font-size: 13px; font-weight: 700; line-height: 1.4; }
+    .rail-help { margin: 18px 4px 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .stage { padding: 28px clamp(20px, 5vw, 72px) 80px; }
+    .stage-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      max-width: 1024px;
+      margin: 0 auto 18px;
+    }
+    .stage-kicker { margin: 0 0 6px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .stage h2 { margin: 0; font-size: clamp(22px, 3vw, 38px); }
+    .stage-description { max-width: 520px; margin: 9px 0 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .stage-reference { margin: 8px 0 0; font-size: 12px; }
+    .stage-reference a { color: var(--blue); text-underline-offset: 3px; }
+    .pager { display: flex; gap: 8px; flex: 0 0 auto; }
+    .nav-button:disabled { opacity: .35; cursor: default; }
+    .main-image {
+      display: block;
+      width: min(100%, 1024px);
+      height: auto;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 28px 80px rgba(0,0,0,.35);
+    }
+    .grid-view { display: none; padding: 24px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+    .grid-card {
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+    .grid-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .grid-card img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; object-position: top; background: white; }
+    .grid-caption { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 15px; }
+    .grid-caption strong { font-size: 14px; }
+    .grid-caption span { color: var(--blue); font-size: 11px; font-weight: 800; }
+    body[data-view="grid"] .detail-layout { display: none; }
+    body[data-view="grid"] .grid-view { display: block; }
+    @media (max-width: 900px) {
+      .topbar { align-items: flex-start; padding: 13px 14px; }
+      .title { display: block; }
+      h1 { font-size: 14px; }
+      .notice { display: block; margin-top: 3px; }
+      .detail-layout { display: block; }
+      .rail {
+        position: sticky;
+        top: 63px;
+        z-index: 8;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        overflow-x: auto;
+      }
+      .concept-list { display: flex; width: max-content; }
+      .concept-button { grid-template-columns: 36px auto; width: 158px; }
+      .thumb { width: 36px; height: 52px; }
+      .rail-help { display: none; }
+      .stage { padding: 22px 12px 50px; }
+      .stage-head { align-items: flex-start; }
+      .pager { display: none; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .grid-view { padding: 12px; }
+      .grid-caption { padding: 10px; }
+    }
+    @media (max-width: 520px) {
+      .view-switch button { padding: 7px 9px; font-size: 12px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-view="detail">
+  <div class="shell">
+    <header class="topbar">
+      <div class="title">
+        <h1>ホームページ Imagegen 9案比較</h1>
+        <span class="notice">比較用・実装外</span>
+      </div>
+      <div class="view-switch" aria-label="表示切り替え">
+        <button type="button" data-view-button="detail" aria-pressed="true">単体</button>
+        <button type="button" data-view-button="grid" aria-pressed="false">一覧</button>
+      </div>
+    </header>
+
+    <section class="detail-layout">
+      <aside class="rail" aria-label="案の選択">
+        <div class="concept-list" id="concept-list"></div>
+        <p class="rail-help">数字キー1〜9で切替<br>← → で前後へ移動</p>
+      </aside>
+      <main class="stage">
+        <div class="stage-head">
+          <div>
+            <p class="stage-kicker" id="stage-kicker"></p>
+            <h2 id="stage-title"></h2>
+            <p class="stage-description" id="stage-description"></p>
+            <p class="stage-reference" id="stage-reference" hidden>参考：<a id="stage-reference-link" target="_blank" rel="noreferrer"></a></p>
+          </div>
+          <div class="pager">
+            <button class="nav-button" id="prev" type="button">← 前へ</button>
+            <button class="nav-button" id="next" type="button">次へ →</button>
+          </div>
+        </div>
+        <img class="main-image" id="main-image" alt="">
+      </main>
+    </section>
+
+    <section class="grid-view" aria-label="9案一覧">
+      <div class="grid" id="grid"></div>
+    </section>
+  </div>
+
+  <script>
+    const concepts = [
+      { id: 1, name: '編集的タイポグラフィ', description: '大きな文字、広い白場、巨大な01C-Cで力強く編集的に見せる。' },
+      { id: 2, name: 'システムと変革', description: '色面と接続構造で、実装工程と変革の流れを視覚化する。' },
+      { id: 3, name: '人と実務', description: '人物写真を中心に、伴走する人と責任主体を強く見せる。', candidate: true },
+      { id: 4, name: '成果と事例', description: '数値、実績、案件の証拠を前面に出し、信頼性からブランドを立ち上げる。' },
+      { id: 5, name: 'シネマティック', description: '暗いヒーローと写真の緊張感で、仕事への覚悟と集中を伝える。' },
+      { id: 6, name: '日本的エディトリアル', description: '章立て、縦横の組版、余白の切れで日本的な編集性をつくる。' },
+      { id: 7, name: '人物中心の実務編集', description: '矩形写真と人物のスケールで専門家を主役にし、01C-Cは独立した全形のブランドグラフィックとして添える。' },
+      { id: 8, name: '全形モチーフの反復', description: '同じグリッド位置へ全形の01C-Cを反復し、変形せずに長いページの連続性を作る。' },
+      { id: 9, name: '余白と全形記号の緩急', description: '余白と情報密度の差でテンポを作り、全形の01C-Cを章の読み始めへ置く。' }
+    ];
+    const src = id => `assets/concept-${String(id).padStart(2, '0')}.png`;
+    let selected = Math.min(9, Math.max(1, Number(location.hash.replace('#', '')) || 1));
+
+    const list = document.querySelector('#concept-list');
+    const grid = document.querySelector('#grid');
+    concepts.forEach(c => {
+      const button = document.createElement('button');
+      button.className = 'concept-button';
+      button.type = 'button';
+      button.dataset.id = c.id;
+      button.innerHTML = `<img class="thumb" src="${src(c.id)}" alt=""><span><span class="concept-no">案 ${c.id}${c.candidate ? ' · 候補' : ''}</span><span class="concept-name">${c.name}</span></span>`;
+      button.addEventListener('click', () => select(c.id));
+      list.append(button);
+
+      const card = document.createElement('button');
+      card.className = 'grid-card';
+      card.type = 'button';
+      card.innerHTML = `<img src="${src(c.id)}" alt="案${c.id} ${c.name}"><span class="grid-caption"><strong>${c.name}</strong><span>案 ${c.id}${c.candidate ? ' · 候補' : ''}</span></span>`;
+      card.addEventListener('click', () => { setView('detail'); select(c.id); window.scrollTo(0, 0); });
+      grid.append(card);
+    });
+
+    function select(id) {
+      selected = Math.min(9, Math.max(1, id));
+      const c = concepts[selected - 1];
+      location.hash = String(selected);
+      document.querySelector('#stage-kicker').textContent = `案 ${selected} / 9${c.candidate ? ' · 候補' : ''}`;
+      document.querySelector('#stage-title').textContent = c.name;
+      document.querySelector('#stage-description').textContent = c.description;
+      const reference = document.querySelector('#stage-reference');
+      const referenceLink = document.querySelector('#stage-reference-link');
+      reference.hidden = !c.source;
+      referenceLink.textContent = c.source || '';
+      referenceLink.href = c.sourceUrl || '#';
+      const image = document.querySelector('#main-image');
+      image.src = src(selected);
+      image.alt = `案${selected} ${c.name}のホームページ完成イメージ`;
+      document.querySelectorAll('.concept-button').forEach(b => b.setAttribute('aria-current', b.dataset.id == selected ? 'true' : 'false'));
+      document.querySelector('#prev').disabled = selected === 1;
+      document.querySelector('#next').disabled = selected === 9;
+    }
+
+    function setView(view) {
+      document.body.dataset.view = view;
+      document.querySelectorAll('[data-view-button]').forEach(b => b.setAttribute('aria-pressed', b.dataset.viewButton === view ? 'true' : 'false'));
+    }
+
+    document.querySelectorAll('[data-view-button]').forEach(b => b.addEventListener('click', () => setView(b.dataset.viewButton)));
+    document.querySelector('#prev').addEventListener('click', () => select(selected - 1));
+    document.querySelector('#next').addEventListener('click', () => select(selected + 1));
+    addEventListener('keydown', event => {
+      if (/^[1-9]$/.test(event.key)) select(Number(event.key));
+      if (event.key === 'ArrowLeft') select(selected - 1);
+      if (event.key === 'ArrowRight') select(selected + 1);
+    });
+    addEventListener('hashchange', () => {
+      const id = Number(location.hash.replace('#', ''));
+      if (id >= 1 && id <= 9 && id !== selected) select(id);
+    });
+    select(selected);
+  </script>
+</body>
+</html>

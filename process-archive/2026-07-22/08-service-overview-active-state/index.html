@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Service スクロール連動図比較｜Hashigodaka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@700;800&family=M+PLUS+1:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#00a0ff;--secondary:#c7f14a;--violet:#6c4ed9;--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--muted:#625d69}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;background:var(--surface);color:var(--ink);font-family:"M PLUS 1",sans-serif}button{font:inherit}a{color:inherit;text-decoration:none}
+    .compare{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 32px;background:var(--ink);color:var(--canvas)}
+    .compare__meta{display:flex;align-items:center;gap:16px;white-space:nowrap}.compare__meta b{font-family:"Geologica",sans-serif;font-size:15px}.compare__meta span{color:rgba(250,249,252,.64);font-size:11px}.compare__tabs{display:flex;gap:8px}.compare__tabs button{min-width:154px;padding:10px 12px;border:1px solid rgba(250,249,252,.26);background:transparent;color:var(--canvas);cursor:pointer;text-align:left}.compare__tabs b{display:block;font-family:"Geologica",sans-serif;font-size:13px}.compare__tabs span{display:block;margin-top:2px;color:rgba(250,249,252,.62);font-size:10px}.compare__tabs button[aria-selected="true"]{border-color:var(--secondary);background:var(--secondary);color:var(--ink)}.compare__tabs button[aria-selected="true"] span{color:var(--ink)}
+    .site-header{position:relative;z-index:20;height:72px;background:rgba(250,249,252,.96);border-bottom:1px solid var(--border)}.site-header__inner{display:flex;align-items:center;max-width:1440px;height:100%;margin:auto;padding:0 64px}.wordmark{font-family:"Geologica",sans-serif;font-size:23px;font-weight:800;letter-spacing:-.05em}.site-header nav{display:flex;gap:34px;margin-left:auto;font-size:13px;font-weight:700}.site-header .cta{margin-left:36px;padding:12px 20px;background:var(--ink);color:var(--canvas)}
+    main{padding:104px 64px 140px}.service{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(560px,1.28fr);gap:clamp(64px,8vw,128px);max-width:1440px;margin:auto;align-items:start}.overview{position:sticky;top:108px;padding-top:20px}.overview h1{margin:0;font-family:"Geologica",sans-serif;font-size:clamp(56px,6vw,88px);line-height:.95;letter-spacing:-.06em}.overview>p{margin:18px 0 0;font-size:13px;font-weight:700}
+    .geometry{width:min(100%,320px);margin:28px 0 0}.geometry svg{display:block;width:100%;height:auto}.geometry svg[hidden]{display:none}
+    .service-node{transform-box:fill-box;transform-origin:center;transition:opacity .38s ease,transform .38s cubic-bezier(.22,1,.36,1)}
+    .service-node:not(.is-active){opacity:.2;transform:translateX(-72px) scale(.88)}.service-node.is-active{opacity:1;transform:translateX(-72px) scale(1)}
+    .service-label{fill:var(--muted);font-family:"M PLUS 1",sans-serif;font-size:12px;font-weight:700;letter-spacing:-.02em;transition:fill .38s ease,opacity .38s ease}.service-label:not(.is-active){opacity:.28}.service-label.is-active{fill:var(--ink);opacity:1}
+    .service-node .node-fill{transition:fill-opacity .38s ease}.service-node.is-active .node-fill{fill-opacity:.12}
+    .service-node .node-core{transition:r .38s cubic-bezier(.22,1,.36,1),fill-opacity .38s ease}.service-node.is-active .node-core{r:7px;fill-opacity:1}
+    .service-node--circle,.service-node--circle:not(.is-active),.service-node--circle.is-active{transform:none}.service-node--circle:not(.is-active){opacity:.48}.service-node--circle.is-active{opacity:1}
+    .circle-base,.circle-progress{fill:none}.circle-base{stroke:var(--border);stroke-width:1}.circle-progress{stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1s cubic-bezier(.65,0,.35,1)}.service-node--circle.is-active .circle-progress{stroke-dashoffset:0}
+    .circle-title{fill:var(--ink);font-family:"M PLUS 1",sans-serif;font-size:12.5px;font-weight:700;letter-spacing:-.04em;text-anchor:middle}
+    .arc-main{stroke-dasharray:118 42;stroke-dashoffset:25;transition:stroke-dasharray .5s ease,stroke-width .38s ease,stroke-dashoffset .5s ease}.service-node.is-active .arc-main{stroke-dasharray:152 8;stroke-dashoffset:0;stroke-width:4}
+    .arc-ghost{transition:r .38s ease,opacity .38s ease}.service-node.is-active .arc-ghost{r:34px;opacity:.32}
+    .frame-main{transition:stroke-width .38s ease,transform .38s cubic-bezier(.22,1,.36,1)}.service-node.is-active .frame-main{stroke-width:4;transform:rotate(0deg)}
+    .frame-corner{stroke-dasharray:0 90;transition:stroke-dasharray .5s ease}.service-node.is-active .frame-corner{stroke-dasharray:24 66}
+    .axis-line{stroke-dasharray:1 8;transition:stroke-dasharray .5s ease,opacity .38s ease}.service-node.is-active .axis-line{stroke-dasharray:56 0;opacity:1}.axis-orbit{stroke-dasharray:5 7;transition:r .38s ease,opacity .38s ease}.service-node.is-active .axis-orbit{r:26px;opacity:.52}
+    .service-list{display:grid;gap:32px}.card{min-height:650px;padding:32px;border:1px solid var(--border);background:var(--canvas);scroll-margin-top:100px}.visual{overflow:hidden;width:100%;aspect-ratio:16/7;border:1px solid var(--border);background:var(--canvas)}.visual img{display:block;width:100%;height:100%;object-fit:cover}.number{margin:34px 8px 0;font-family:"Geologica",sans-serif;font-size:68px;font-weight:800;line-height:1;letter-spacing:-.05em}.card[data-service="1"] .number{color:var(--primary)}.card[data-service="2"] .number{color:var(--secondary)}.card[data-service="3"] .number{color:var(--violet)}.card h2{margin:28px 8px 0;font-size:clamp(30px,3vw,42px);line-height:1.35;letter-spacing:-.02em}.lead{margin:24px 8px 0;font-size:17px;font-weight:700;line-height:1.8}.body{margin:18px 8px 10px;color:var(--muted);font-size:14px;line-height:1.9}
+    .scroll-hint{display:flex;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:10px}.scroll-hint::before{width:24px;height:1px;background:var(--border);content:""}
+    @media(max-width:980px){.compare{position:relative;align-items:flex-start;flex-direction:column;padding:16px 24px}.compare__tabs{width:100%}.compare__tabs button{flex:1;min-width:0}.site-header nav{display:none}.site-header__inner,main{padding-left:24px;padding-right:24px}.site-header .cta{margin-left:auto}.service{grid-template-columns:1fr}.overview{position:static}.geometry{width:min(100%,280px)}.card{min-height:0;padding:20px}.visual{aspect-ratio:16/8}.number{font-size:52px}.scroll-hint{display:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.service-node,.service-node *, .arc-main,.arc-ghost,.frame-main,.frame-corner,.axis-line,.axis-orbit{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <aside class="compare" aria-label="スクロール連動図案の比較操作">
+    <div class="compare__meta"><b>Service 左図比較</b><span>比較用UI・実装外</span></div>
+    <div class="compare__tabs" role="tablist" aria-label="幾何学SVG案">
+      <button type="button" role="tab" aria-selected="true" data-variant="A"><b>A</b><span>円周描画</span></button>
+      <button type="button" role="tab" aria-selected="false" data-variant="B"><b>B</b><span>方形</span></button>
+      <button type="button" role="tab" aria-selected="false" data-variant="C"><b>C</b><span>座標点</span></button>
+    </div>
+  </aside>
+  <header class="site-header"><div class="site-header__inner"><div class="wordmark">Hashigodaka</div><nav><a href="#service-01">サービス</a><a href="#">共創プロセス</a><a href="#">チーム</a><a href="#">採用情報</a><a href="#">ニュース</a></nav><a class="cta" href="#">営業に問い合わせる　→</a></div></header>
+  <main>
+    <section class="service">
+      <aside class="overview">
+        <h1>Service</h1><p>事業案内</p>
+        <figure class="geometry" aria-label="3つの独立した事業と現在位置">
+          <svg data-geometry="A" viewBox="0 0 320 320" role="img" aria-label="サービス名を内包し三角形に配置した3つの独立した同径円">
+            <g class="service-node service-node--circle is-active" data-node="1" style="color:#00A0FF"><circle class="circle-base" cx="160" cy="75" r="68"/><circle class="circle-progress" cx="160" cy="75" r="68" pathLength="100" transform="rotate(-90 160 75)"/><text class="circle-title" x="160" y="70"><tspan x="160">AI駆動型</tspan><tspan x="160" dy="18">システム開発</tspan></text></g>
+            <g class="service-node service-node--circle" data-node="2" style="color:#C7F14A"><circle class="circle-base" cx="76" cy="238" r="68"/><circle class="circle-progress" cx="76" cy="238" r="68" pathLength="100" transform="rotate(-90 76 238)"/><text class="circle-title" x="76" y="233"><tspan x="76">AI駆動開発の</tspan><tspan x="76" dy="18">内製化支援</tspan></text></g>
+            <g class="service-node service-node--circle" data-node="3" style="color:#6C4ED9"><circle class="circle-base" cx="244" cy="238" r="68"/><circle class="circle-progress" cx="244" cy="238" r="68" pathLength="100" transform="rotate(-90 244 238)"/><text class="circle-title" x="244" y="233"><tspan x="244">AI導入・</tspan><tspan x="244" dy="18">業務変革支援</tspan></text></g>
+          </svg>
+          <svg data-geometry="B" viewBox="0 0 320 330" role="img" aria-label="3つの独立した方形" hidden>
+            <g class="service-node is-active" data-node="1" style="color:#00A0FF"><rect class="node-fill" x="131" y="41" width="58" height="58" fill="currentColor" fill-opacity="0"/><rect class="frame-main" x="138" y="48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.5" transform="rotate(8 160 70)"/><rect class="frame-corner" x="130" y="40" width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5"/><circle class="node-core" cx="160" cy="70" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <g class="service-node" data-node="2" style="color:#C7F14A"><rect class="node-fill" x="131" y="136" width="58" height="58" fill="currentColor" fill-opacity="0"/><rect class="frame-main" x="138" y="143" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.5" transform="rotate(8 160 165)"/><rect class="frame-corner" x="130" y="135" width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5"/><circle class="node-core" cx="160" cy="165" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <g class="service-node" data-node="3" style="color:#6C4ED9"><rect class="node-fill" x="131" y="231" width="58" height="58" fill="currentColor" fill-opacity="0"/><rect class="frame-main" x="138" y="238" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.5" transform="rotate(8 160 260)"/><rect class="frame-corner" x="130" y="230" width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5"/><circle class="node-core" cx="160" cy="260" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <text class="service-label is-active" data-label="1" x="122" y="75">AI駆動型システム開発</text>
+            <text class="service-label" data-label="2" x="122" y="170">AI駆動開発の内製化支援</text>
+            <text class="service-label" data-label="3" x="122" y="265">AI導入・業務変革支援</text>
+          </svg>
+          <svg data-geometry="C" viewBox="0 0 320 330" role="img" aria-label="3つの独立した座標点" hidden>
+            <g class="service-node is-active" data-node="1" style="color:#00A0FF"><circle class="node-fill" cx="160" cy="70" r="29" fill="currentColor" fill-opacity="0"/><line class="axis-line" x1="130" y1="70" x2="190" y2="70" stroke="currentColor" stroke-width="1.5"/><line class="axis-line" x1="160" y1="40" x2="160" y2="100" stroke="currentColor" stroke-width="1.5"/><circle class="axis-orbit" cx="160" cy="70" r="21" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".18"/><circle class="node-core" cx="160" cy="70" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <g class="service-node" data-node="2" style="color:#C7F14A"><circle class="node-fill" cx="160" cy="165" r="29" fill="currentColor" fill-opacity="0"/><line class="axis-line" x1="130" y1="165" x2="190" y2="165" stroke="currentColor" stroke-width="1.5"/><line class="axis-line" x1="160" y1="135" x2="160" y2="195" stroke="currentColor" stroke-width="1.5"/><circle class="axis-orbit" cx="160" cy="165" r="21" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".18"/><circle class="node-core" cx="160" cy="165" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <g class="service-node" data-node="3" style="color:#6C4ED9"><circle class="node-fill" cx="160" cy="260" r="29" fill="currentColor" fill-opacity="0"/><line class="axis-line" x1="130" y1="260" x2="190" y2="260" stroke="currentColor" stroke-width="1.5"/><line class="axis-line" x1="160" y1="230" x2="160" y2="290" stroke="currentColor" stroke-width="1.5"/><circle class="axis-orbit" cx="160" cy="260" r="21" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".18"/><circle class="node-core" cx="160" cy="260" r="4" fill="currentColor" fill-opacity=".65"/></g>
+            <text class="service-label is-active" data-label="1" x="122" y="75">AI駆動型システム開発</text>
+            <text class="service-label" data-label="2" x="122" y="170">AI駆動開発の内製化支援</text>
+            <text class="service-label" data-label="3" x="122" y="265">AI導入・業務変革支援</text>
+          </svg>
+        </figure>
+        <div class="scroll-hint">スクロールして状態を確認</div>
+      </aside>
+      <div class="service-list">
+        <article class="card" id="service-01" data-service="1"><div class="visual"><img src="../assets/service-01-ai-multi-system.png" alt=""></div><div class="number">01</div><h2>AI駆動型システム開発</h2><p class="lead">AIとモダンな技術スタックを活用し、高速・高品質なシステムを開発</p><p class="body">現場の知識や業務のコンテキストを設計・開発へ反映し、ビジネスの変化に合わせて改善できるシステムを構築します。</p></article>
+        <article class="card" id="service-02" data-service="2"><div class="visual"><img src="../assets/service-02-pair-development.png" alt=""></div><div class="number">02</div><h2>AI駆動開発の内製化支援</h2><p class="lead">業務を最も理解する担当者が、自然言語でシステムを開発できる組織へ</p><p class="body">開発環境とガードレールを整備し、実践を通じて知識とノウハウを社内へ移管します。</p></article>
+        <article class="card" id="service-03" data-service="3"><div class="visual"><img src="../assets/service-03-handshake-transformation.png" alt=""></div><div class="number">03</div><h2>AI導入・業務変革支援</h2><p class="lead">AIを業務に組み込み、人とAIが協働する新しい働き方へ</p><p class="body">実際の業務と人を起点に、AIを前提とした業務プロセスへ再設計し、組織全体へ定着させます。</p></article>
+      </div>
+    </section>
+  </main>
+  <script>
+    const tabs=[...document.querySelectorAll('[data-variant]')];
+    const geometries=[...document.querySelectorAll('[data-geometry]')];
+    let activeService='1';
+    function updateActive(){document.querySelectorAll('[data-node],[data-label]').forEach(node=>node.classList.toggle('is-active',(node.dataset.node||node.dataset.label)===activeService))}
+    function selectVariant(key){tabs.forEach(tab=>tab.setAttribute('aria-selected',String(tab.dataset.variant===key)));geometries.forEach(geometry=>geometry.toggleAttribute('hidden',geometry.dataset.geometry!==key));history.replaceState(null,'',`#${key}`);updateActive()}
+    tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectVariant(tab.dataset.variant));tab.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;const next=(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].focus();selectVariant(tabs[next].dataset.variant)})});
+    const cards=[...document.querySelectorAll('[data-service]')];
+    const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!visible)return;activeService=visible.target.dataset.service;updateActive()},{threshold:[.2,.35,.5,.7],rootMargin:'-18% 0px -38%'});
+    cards.forEach(card=>observer.observe(card));
+    window.addEventListener('hashchange',()=>{const key=location.hash.slice(1);if(['A','B','C'].includes(key))selectVariant(key)});
+    selectVariant(['A','B','C'].includes(location.hash.slice(1))?location.hash.slice(1):'A');
+  </script>
+</body>
+</html>

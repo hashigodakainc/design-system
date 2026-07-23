@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Newsセクション比較｜Hashigodaka</title>
+  <style>
+    :root{--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--muted:#625d69;--primary:#00a0ff;--secondary:#c7f14a}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--surface);color:var(--ink);font-family:"M PLUS 1","Noto Sans JP",system-ui,sans-serif}body{min-width:960px}
+    .compare{position:fixed;inset:0 0 auto;z-index:10;height:76px;display:grid;grid-template-columns:180px 1fr 240px;align-items:center;padding:0 24px;background:rgba(250,249,252,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+    .eyebrow{margin:0;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.09em}.title{margin:4px 0 0;font-size:16px;line-height:1.2}
+    .tabs{justify-self:center;display:flex;gap:4px;padding:5px;background:#fff;border:1px solid var(--border)}.tabs a{min-width:40px;padding:10px 8px;color:var(--ink);text-align:center;text-decoration:none;font-size:13px;font-weight:700;border:1px solid transparent}.tabs a[aria-current="true"]{border-color:var(--ink);background:var(--ink);color:var(--canvas)}
+    .note{justify-self:end;margin:0;color:var(--muted);font-size:11px;line-height:1.55;text-align:right}main{padding:108px 28px 48px}.frame{max-width:1440px;margin:0 auto;background:var(--canvas);box-shadow:0 18px 56px rgba(24,21,29,.12)}.frame img{display:block;width:100%;height:auto}.caption{display:grid;grid-template-columns:90px 1fr;gap:24px;max-width:1440px;margin:18px auto 0;padding:18px 0 0;border-top:1px solid var(--border)}.caption strong{font-size:13px}.caption p{max-width:840px;margin:0;color:var(--muted);font-size:12px;line-height:1.8}[data-panel]{display:none}[data-panel].active{display:block}
+  </style>
+</head>
+<body>
+  <header class="compare">
+    <div><p class="eyebrow">比較用・実装外</p><h1 class="title">Newsセクション比較</h1></div>
+    <nav class="tabs" aria-label="比較案"><a href="#A" data-tab="A">A</a><a href="#B" data-tab="B">B</a><a href="#C" data-tab="C">C</a><a href="#D" data-tab="D">D</a><a href="#E" data-tab="E">E</a><a href="#F" data-tab="F">F</a><a href="#G" data-tab="G">G</a><a href="#H" data-tab="H">H</a><a href="#I" data-tab="I">I</a><a href="#J" data-tab="J">J</a></nav>
+    <p class="note">記事は「ホームページを公開しました」の1件で固定<br>比較対象は情報階層・色面・モチーフの扱い</p>
+  </header>
+  <main>
+    <section data-panel="A"><div class="frame"><img src="A.png" alt="A案：編集誌面型のNewsセクション"></div><div class="caption"><strong>A</strong><p>左にセクション見出し、右に一件の記事を大きく配置。罫線と白場で、記事数が一件でも意図的な編集誌面として見せる。</p></div></section>
+    <section data-panel="B"><div class="frame"><img src="B.png" alt="B案：タイポグラフィとモチーフのNewsセクション"></div><div class="caption"><strong>B</strong><p>日付と記事タイトルをポスターのように拡大し、Primaryの01C-Cを一つだけ大きく切り取る。News自体を記憶に残す案。</p></div></section>
+    <section data-panel="C"><div class="frame"><img src="C.png" alt="C案：非対称カラー面型のNewsセクション"></div><div class="caption"><strong>C</strong><p>小さなPrimary面を記事の起点にし、Canvasの広い白場へ日付・カテゴリ・タイトル・矢印を段差配置する。</p></div></section>
+    <section data-panel="D"><div class="frame"><img src="D.png" alt="D案：Ink全面帯型のNewsセクション"></div><div class="caption"><strong>D</strong><p>TeamとContactの間をInkの全面帯で切り替え、Canvas文字と小さなPrimaryだけで一件の記事を強く見せる。</p></div></section>
+    <section data-panel="E"><div class="frame"><img src="E.png" alt="E案：日付グリッド型のNewsセクション"></div><div class="caption"><strong>E</strong><p>巨大な2026と別軸の07.13で日付そのものをレイアウト構造にし、記事情報をその間へ組み込む。</p></div></section>
+    <section data-panel="F"><div class="frame"><img src="F.png" alt="F案：巨大NEWS文字背景型のNewsセクション"></div><div class="caption"><strong>F</strong><p>低コントラストの巨大なNEWS字面を端で切り取り、その前面へ小さく精密な記事情報を置く。</p></div></section>
+    <section data-panel="G"><div class="frame"><img src="G.png" alt="G案：大判01C-Cモチーフ背景型のNewsセクション"></div><div class="caption"><strong>G</strong><p>F案の情報配置と余白を維持し、背景の巨大なNEWS字面だけを低コントラストの01C-Cモチーフへ置き換える。</p></div></section>
+    <section data-panel="H"><div class="frame"><img src="H.png" alt="H案：左端アンカー型の01C-Cモチーフ背景"></div><div class="caption"><strong>H</strong><p>モチーフの全形を左端へ寄せ、News見出しから右の記事情報へ視線を渡す。</p></div></section>
+    <section data-panel="I"><div class="frame"><img src="I.png" alt="I案：右寄せ交差型の01C-Cモチーフ背景"></div><div class="caption"><strong>I</strong><p>左側に大きな余白を残し、右寄せしたモチーフへ記事ブロックを交差させる。</p></div></section>
+    <section data-panel="J"><div class="frame"><img src="J.png" alt="J案：下端クロップ型の01C-Cモチーフ背景"></div><div class="caption"><strong>J</strong><p>モチーフを下端から立ち上げ、Contactとの境界で切る例外的なクロップを比較する。</p></div></section>
+  </main>
+  <script>
+    const keys=['A','B','C','D','E','F','G','H','I','J'];function show(){const key=keys.includes(location.hash.slice(1))?location.hash.slice(1):'A';document.querySelectorAll('[data-panel]').forEach(el=>el.classList.toggle('active',el.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(el=>el.setAttribute('aria-current',el.dataset.tab===key?'true':'false'));document.title=`${key}｜Newsセクション比較｜Hashigodaka`;scrollTo({top:0,behavior:'instant'})}addEventListener('hashchange',show);show();addEventListener('keydown',e=>{const key=location.hash.slice(1)||'A';const i=keys.indexOf(key);if(e.key==='ArrowRight')location.hash=keys[(i+1)%keys.length];if(e.key==='ArrowLeft')location.hash=keys[(i+keys.length-1)%keys.length]});
+  </script>
+</body>
+</html>

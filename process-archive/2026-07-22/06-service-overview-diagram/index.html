@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Service 全体図比較｜Hashigodaka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@700;800&family=M+PLUS+1:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#00a0ff;--secondary:#c7f14a;--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--muted:#625d69}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--surface);color:var(--ink);font-family:"M PLUS 1",sans-serif}button{font:inherit}a{color:inherit;text-decoration:none}
+    .compare{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 32px;background:var(--ink);color:var(--canvas)}
+    .compare__meta{display:flex;align-items:center;gap:16px;white-space:nowrap}.compare__meta b{font-family:"Geologica",sans-serif;font-size:15px}.compare__meta span{color:rgba(250,249,252,.66);font-size:11px}.compare__tabs{display:flex;gap:8px}.compare__tabs button{min-width:166px;padding:10px 12px;border:1px solid rgba(250,249,252,.28);background:transparent;color:var(--canvas);cursor:pointer;text-align:left}.compare__tabs b{display:block;font-family:"Geologica",sans-serif;font-size:13px}.compare__tabs span{display:block;margin-top:2px;color:rgba(250,249,252,.62);font-size:10px}.compare__tabs button[aria-selected="true"]{border-color:var(--secondary);background:var(--secondary);color:var(--ink)}.compare__tabs button[aria-selected="true"] span{color:var(--ink)}
+    .site-header{height:72px;background:rgba(250,249,252,.96);border-bottom:1px solid var(--border)}.site-header__inner{display:flex;align-items:center;max-width:1440px;height:100%;margin:auto;padding:0 64px}.wordmark{font-family:"Geologica",sans-serif;font-size:23px;font-weight:800;letter-spacing:-.05em}.site-header nav{display:flex;gap:34px;margin-left:auto;font-size:13px;font-weight:700}.site-header .cta{margin-left:36px;padding:12px 20px;background:var(--ink);color:var(--canvas)}
+    main{padding:72px 64px 140px}.service{display:grid;grid-template-columns:minmax(300px,.72fr) minmax(580px,1.28fr);gap:clamp(64px,8vw,128px);max-width:1440px;margin:auto;align-items:start}.overview{position:sticky;top:116px}.overview h1{margin:0;font-family:"Geologica",sans-serif;font-size:clamp(56px,6vw,88px);line-height:.92;letter-spacing:-.06em}.overview>p{margin:18px 0 0;font-size:13px;font-weight:700}.overview__note{display:block;margin-top:13px;color:var(--muted);font-size:10px;line-height:1.7}
+    .diagram-shell{position:relative;margin-top:34px;aspect-ratio:1/1.04;border:1px solid var(--border);background:var(--canvas);overflow:hidden}.diagram{position:absolute;inset:0;padding:18px;transition:opacity .2s}.diagram[hidden]{display:none}.diagram svg{width:100%;height:100%;overflow:visible}.diagram text{font-family:"M PLUS 1",sans-serif;fill:var(--ink)}.diagram .latin{font-family:"Geologica",sans-serif}.diagram [data-service]{transition:opacity .25s,stroke-width .25s,filter .25s}.diagram[data-active="1"] [data-service]:not([data-service="1"]),.diagram[data-active="2"] [data-service]:not([data-service="2"]),.diagram[data-active="3"] [data-service]:not([data-service="3"]){opacity:.28}.diagram [data-service="1"].active,.diagram [data-service="2"].active,.diagram [data-service="3"].active{opacity:1}
+    .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}.legend span{padding:7px 6px;border:1px solid var(--border);background:var(--canvas);font-size:9px;line-height:1.4;text-align:center}.legend b{display:block;color:var(--primary);font-family:"Geologica",sans-serif;font-size:11px}
+    .service-list{display:grid;gap:32px}.card{min-height:640px;padding:32px;border:1px solid var(--border);background:var(--canvas);scroll-margin-top:110px}.visual{display:grid;place-items:center;overflow:hidden;width:100%;aspect-ratio:16/7;border:1px solid var(--border);background:var(--canvas)}.visual img{width:100%;height:100%;object-fit:cover}.visual--03{position:relative;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:72px 72px}.visual--03::before{position:absolute;width:46%;aspect-ratio:1;background:var(--primary);clip-path:polygon(0 16%,72% 0,100% 54%,74% 100%,10% 88%);content:""}.visual--03 svg{position:relative;width:32%;padding:18px;border:1px solid var(--ink);border-radius:50%;background:var(--canvas);fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.number{margin-top:34px;color:var(--primary);font-family:"Geologica",sans-serif;font-size:68px;font-weight:700;line-height:1;letter-spacing:-.05em}.card h2{margin:26px 0 0;font-size:clamp(30px,3vw,42px);line-height:1.35}.lead{margin:22px 0 0;font-size:17px;font-weight:700;line-height:1.8}.body{margin:16px 0 0;color:var(--muted);font-size:14px;line-height:1.9}
+    @media(max-width:980px){.compare{align-items:flex-start;flex-direction:column}.compare__tabs{width:100%}.compare__tabs button{flex:1;min-width:0}.site-header nav{display:none}.site-header__inner,main{padding-left:24px;padding-right:24px}.service{grid-template-columns:1fr}.overview{position:static}.diagram-shell{max-width:420px}.card{min-height:0}}
+  </style>
+</head>
+<body>
+  <aside class="compare" aria-label="事業全体図の比較操作">
+    <div class="compare__meta"><b>Service 全体図比較</b><span>比較用UI・実装外</span></div>
+    <div class="compare__tabs" role="tablist" aria-label="全体図案">
+      <button type="button" role="tab" aria-selected="true" data-variant="A"><b>A　三層構造</b><span>業務・組織・システム</span></button>
+      <button type="button" role="tab" aria-selected="false" data-variant="B"><b>B　変革レール</b><span>導入から継続改善へ</span></button>
+      <button type="button" role="tab" aria-selected="false" data-variant="C"><b>C　モチーフ生態系</b><span>人×AIから3方向へ</span></button>
+    </div>
+  </aside>
+  <header class="site-header"><div class="site-header__inner"><div class="wordmark">Hashigodaka</div><nav><a href="#">サービス</a><a href="#">共創プロセス</a><a href="#">チーム</a><a href="#">採用情報</a><a href="#">ニュース</a></nav><a class="cta" href="#">営業に問い合わせる　→</a></div></header>
+  <main>
+    <section class="service">
+      <aside class="overview">
+        <h1>Service</h1><p>事業案内</p><small class="overview__note">右のサービスに合わせて、全体図の該当領域が切り替わります。</small>
+        <div class="diagram-shell">
+          <div class="diagram diagram--a" data-diagram="A" data-active="1">
+            <svg viewBox="0 0 360 370" role="img" aria-label="業務、組織、システムの三層構造">
+              <path data-service="3" d="M32 79C44 44 85 50 118 34s78-18 100 11 23 59 57 64 43 25 39 48 16 37 39 38v36c-25 1-43 8-41 31s-8 41-35 44-42 34-77 33-49-20-84-13-56-10-64-39-29-47-15-72-1-45-12-67 0-45 7-69Z" fill="#ece8f0" stroke="#625d69" stroke-width="2"/>
+              <path data-service="2" d="M68 118c13-26 45-20 63-42s46-19 66 1 13 46 42 52 31 30 24 49 14 26 45 27v22c-31 1-46 9-42 30s-12 32-38 31-36 24-62 21-34-21-58-12-47-3-48-31-24-34-10-57-2-34-13-47 9-31 31-44Z" fill="#faf9fc" stroke="#00a0ff" stroke-width="2"/>
+              <path data-service="1" d="M105 153c15-19 36-10 52-28s40-15 53 7 4 37 28 42 20 27 6 43 6 24 57 25v16c-50 0-72 8-73 28s-23 24-42 12-28-4-47-1-33-7-31-27-19-28-5-43 5-27-4-38 0-24 6-36Z" fill="#00a0ff" stroke="#18151d" stroke-width="2"/>
+              <path d="M300 242h43M308 216h35M308 268h35" fill="none" stroke="#18151d" stroke-width="2"/><rect x="343" y="206" width="12" height="20" fill="#faf9fc" stroke="#18151d"/><rect x="343" y="232" width="12" height="20" fill="#c7f14a" stroke="#18151d"/><rect x="343" y="258" width="12" height="20" fill="#faf9fc" stroke="#18151d"/>
+              <circle cx="181" cy="184" r="19" fill="#c7f14a" stroke="#18151d" stroke-width="2"/>
+              <text x="42" y="91" font-size="11" font-weight="700">03　業務</text><text x="76" y="129" font-size="11" font-weight="700">02　組織</text><text x="111" y="164" font-size="11" font-weight="700" fill="#faf9fc">01　システム</text>
+              <text x="181" y="181" text-anchor="middle" font-size="8" font-weight="800">人 × AI</text><text x="181" y="193" text-anchor="middle" font-size="7">協働</text>
+              <text x="180" y="331" text-anchor="middle" font-size="9" fill="#625d69">同じ中心を共有する3つの実装対象</text>
+            </svg>
+          </div>
+          <div class="diagram diagram--b" data-diagram="B" data-active="1" hidden>
+            <svg viewBox="0 0 360 370" role="img" aria-label="導入から継続改善へ進む変革レール">
+              <path d="M54 309C98 309 91 228 150 228S203 133 260 133 269 73 315 73" fill="none" stroke="#dcd8e1" stroke-width="18" stroke-linecap="square"/>
+              <path d="M54 309C98 309 91 228 150 228S203 133 260 133 269 73 315 73" fill="none" stroke="#00a0ff" stroke-width="5"/>
+              <path d="M315 73l-18-10v20Z" fill="#00a0ff"/>
+              <g data-service="3"><rect x="37" y="280" width="92" height="58" fill="#faf9fc" stroke="#18151d" stroke-width="2"/><circle cx="54" cy="309" r="9" fill="#c7f14a" stroke="#18151d"/><text x="71" y="303" font-size="9" font-weight="800">03 業務変革</text><text x="71" y="317" font-size="7">現場から再設計</text></g>
+              <g data-service="1"><rect x="126" y="199" width="105" height="58" fill="#faf9fc" stroke="#18151d" stroke-width="2"/><circle cx="150" cy="228" r="9" fill="#00a0ff" stroke="#18151d"/><text x="168" y="222" font-size="9" font-weight="800">01 システム</text><text x="168" y="236" font-size="7">動く仕組みにする</text></g>
+              <g data-service="2"><rect x="235" y="104" width="95" height="58" fill="#faf9fc" stroke="#18151d" stroke-width="2"/><circle cx="260" cy="133" r="9" fill="#00a0ff" stroke="#18151d"/><text x="278" y="127" font-size="9" font-weight="800">02 内製化</text><text x="278" y="141" font-size="7">自ら改善を回す</text></g>
+              <path d="M286 166C305 220 271 297 180 322" fill="none" stroke="#625d69" stroke-width="1.5" stroke-dasharray="5 6"/><text x="233" y="278" font-size="7" fill="#625d69">学びを次の改善へ</text>
+            </svg>
+          </div>
+          <div class="diagram diagram--c" data-diagram="C" data-active="1" hidden>
+            <svg viewBox="0 0 360 370" role="img" aria-label="人とAIを中心に3サービスが広がるモチーフ生態系">
+              <path d="M51 48Q44 48 44 57v255q0 11 9 5l80-47q20-11 20-38 0-25 27-25t27 25q0 27 20 38l80 47q9 6 9-5V57q0-9-8-9l-81 47q-20 11-20 38 0 29-27 29t-27-29q0-27-20-38Z" fill="#00a0ff"/>
+              <path data-service="3" d="M44 57v121h109v-45q0-27-20-38L52 48q-8-4-8 9Z" fill="#00a0ff" stroke="#faf9fc" stroke-width="4"/>
+              <path data-service="1" d="M316 57v121H207v-45q0-27 20-38l81-47q8-4 8 9Z" fill="#00a0ff" stroke="#faf9fc" stroke-width="4"/>
+              <path data-service="2" d="M44 178v134q0 11 9 5l80-47q20-11 20-38v-54Zm272 0v134q0 11-9 5l-80-47q-20-11-20-38v-54Z" fill="#00a0ff" stroke="#faf9fc" stroke-width="4"/>
+              <circle cx="180" cy="184" r="23" fill="#c7f14a" stroke="#18151d" stroke-width="2"/><text x="180" y="181" text-anchor="middle" font-size="8" font-weight="800">人 × AI</text><text x="180" y="193" text-anchor="middle" font-size="7">共創</text>
+              <text x="77" y="92" font-size="9" font-weight="800">03 業務変革</text><text x="222" y="92" font-size="9" font-weight="800">01 システム</text><text x="180" y="293" text-anchor="middle" font-size="9" font-weight="800">02 内製化・改善</text>
+            </svg>
+          </div>
+        </div>
+        <div class="legend"><span><b>01</b>システム</span><span><b>02</b>組織</span><span><b>03</b>業務</span></div>
+      </aside>
+      <div class="service-list">
+        <article class="card" data-service-card="1"><div class="visual"><img src="../assets/service-01-ai-multi-system.png" alt="1人の開発者がAIを活用し複数のシステムを開発する様子"></div><div class="number">01</div><h2>AI駆動型システム開発</h2><p class="lead">AIとモダンな技術スタックを活用し、高速・高品質なシステムを開発</p><p class="body">現場の知識や業務のコンテキストを設計・開発へ反映し、ビジネスの変化に合わせて改善できるシステムを構築します。</p></article>
+        <article class="card" data-service-card="2"><div class="visual"><img src="../assets/service-02-pair-development.png" alt="2者がAIを活用して共同開発する様子"></div><div class="number">02</div><h2>AI駆動開発の内製化支援</h2><p class="lead">業務を最も理解する担当者が、自然言語でシステムを開発できる組織へ</p><p class="body">開発環境とガードレールを整備し、実践を通じて知識とノウハウを社内へ移管します。</p></article>
+        <article class="card" data-service-card="3"><div class="visual visual--03"><svg viewBox="0 0 200 200" aria-hidden="true"><rect x="26" y="45" width="48" height="38" rx="6"/><rect x="126" y="45" width="48" height="38" rx="6"/><rect x="76" y="120" width="48" height="38" rx="6"/><path d="M74 64h52M50 83v25c0 17 13 31 30 31m70-56v25c0 17-13 31-30 31"/><path d="m114 31 5 11 11 5-11 5-5 11-5-11-11-5 11-5 5-11Z"/></svg></div><div class="number">03</div><h2>AI導入・業務変革支援</h2><p class="lead">AIを業務に組み込み、人とAIが協働する新しい働き方へ</p><p class="body">実際の業務と人を起点に、AIを前提とした業務プロセスへ再設計し、組織全体へ定着させます。</p></article>
+      </div>
+    </section>
+  </main>
+  <script>
+    const tabs=[...document.querySelectorAll('[data-variant]')],diagrams=[...document.querySelectorAll('[data-diagram]')];
+    function selectVariant(key){tabs.forEach(tab=>tab.setAttribute('aria-selected',String(tab.dataset.variant===key)));diagrams.forEach(diagram=>diagram.hidden=diagram.dataset.diagram!==key);history.replaceState(null,'',`#${key}`)}
+    tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectVariant(tab.dataset.variant));tab.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;const next=(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].focus();selectVariant(tabs[next].dataset.variant)})});
+    function activateService(id){diagrams.forEach(diagram=>{diagram.dataset.active=id;diagram.querySelectorAll('[data-service]').forEach(node=>node.classList.toggle('active',node.dataset.service===id))})}
+    const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)activateService(visible.target.dataset.serviceCard)},{threshold:[.25,.45,.65],rootMargin:'-20% 0px -35%'});document.querySelectorAll('[data-service-card]').forEach(card=>observer.observe(card));
+    selectVariant(location.hash.slice(1)||'A');activateService('1');
+  </script>
+</body>
+</html>

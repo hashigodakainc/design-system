@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>チームセクション比較｜Hashigodaka</title>
+  <style>
+    :root{--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--primary:#00a0ff;--secondary:#c7f14a}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--surface);color:var(--ink);font-family:"M PLUS 1","Noto Sans JP",system-ui,sans-serif}
+    body{min-width:1100px}
+    .compare{position:fixed;inset:0 0 auto;z-index:10;height:76px;display:grid;grid-template-columns:260px 1fr 340px;align-items:center;padding:0 24px;background:rgba(250,249,252,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+    .eyebrow{margin:0;color:#625d69;font-size:10px;font-weight:700;letter-spacing:.09em}
+    .title{margin:4px 0 0;font-size:16px;line-height:1.2}
+    .tabs{justify-self:center;display:flex;gap:6px;padding:5px;background:#fff;border:1px solid var(--border)}
+    .tabs a{min-width:116px;padding:10px 16px;color:var(--ink);text-align:center;text-decoration:none;font-size:13px;font-weight:700;border:1px solid transparent}
+    .tabs a[aria-current="true"]{border-color:var(--ink);background:var(--ink);color:var(--canvas)}
+    .note{justify-self:end;margin:0;color:#625d69;font-size:11px;line-height:1.55;text-align:right}
+    main{padding:108px 28px 48px}
+    .frame{max-width:1440px;margin:0 auto;background:var(--canvas);box-shadow:0 18px 56px rgba(24,21,29,.12)}
+    .frame img{display:block;width:100%;height:auto}
+    .caption{display:grid;grid-template-columns:90px 1fr;gap:24px;max-width:1440px;margin:18px auto 0;padding:18px 0 0;border-top:1px solid var(--border)}
+    .caption strong{font-size:13px}
+    .caption p{max-width:760px;margin:0;color:#625d69;font-size:12px;line-height:1.8}
+    [data-panel]{display:none}
+    [data-panel].active{display:block}
+  </style>
+</head>
+<body>
+  <header class="compare">
+    <div><p class="eyebrow">比較用・実装外</p><h1 class="title">チームセクション構造比較</h1></div>
+    <nav class="tabs" aria-label="比較案">
+      <a href="#A" data-tab="A">A</a><a href="#B" data-tab="B">B</a><a href="#C" data-tab="C">C</a>
+    </nav>
+    <p class="note">写真なし／4名のプロフィール本文を常時表示<br>色・ヘッダー・コンテンツ条件は共通</p>
+  </header>
+  <main>
+    <section data-panel="A">
+      <div class="frame"><img src="A.png" alt="A案：2×2の編集誌面型チームセクション"></div>
+      <div class="caption"><strong>A</strong><p>2×2の現行骨格を保ち、名前の強さ、罫線、本文行長、白場で編集誌面化。4名を同時に比較しやすい密度。</p></div>
+    </section>
+    <section data-panel="B">
+      <div class="frame"><img src="B.png" alt="B案：横長4章型チームセクション"></div>
+      <div class="caption"><strong>B</strong><p>一人ずつ横長の章として積み重ねる構成。番号、氏名、プロフィールを一続きに読み、各人へ同じ画面占有量を与える。</p></div>
+    </section>
+    <section data-panel="C">
+      <div class="frame"><img src="C.png" alt="C案：名鑑索引と非対称誌面型チームセクション"></div>
+      <div class="caption"><strong>C</strong><p>左に名鑑索引、右に大きな氏名と本文を置く非対称構成。名前の記憶性と一覧性を分け、チーム全体を一枚の誌面として見せる。</p></div>
+    </section>
+  </main>
+  <script>
+    const keys=['A','B','C'];
+    function show(){
+      const key=keys.includes(location.hash.slice(1))?location.hash.slice(1):'A';
+      document.querySelectorAll('[data-panel]').forEach(el=>el.classList.toggle('active',el.dataset.panel===key));
+      document.querySelectorAll('[data-tab]').forEach(el=>el.setAttribute('aria-current',el.dataset.tab===key?'true':'false'));
+      document.title=`${key}｜チームセクション比較｜Hashigodaka`;
+      scrollTo({top:0,behavior:'instant'});
+    }
+    addEventListener('hashchange',show);show();
+    addEventListener('keydown',e=>{const key=location.hash.slice(1)||'A';const i=keys.indexOf(key);if(e.key==='ArrowRight')location.hash=keys[(i+1)%keys.length];if(e.key==='ArrowLeft')location.hash=keys[(i+keys.length-1)%keys.length]});
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const rounds = [
+const systemRounds = [
   {
     number: "00",
     phase: "Direction",
@@ -99,6 +99,24 @@ const rounds = [
   },
 ] as const;
 
+const siteRounds = [
+  { number: "00", phase: "Site direction", title: "ホームページ全体の方向", description: "完成イメージ9案から、人物と実務を主役にする方向を比較。", result: "3「人と実務」を基準方向に選定", href: "/archive/2026-07-22/00-homepage-direction/", featured: true },
+  { number: "01", phase: "Hero", title: "ファーストビュー", description: "写真、2行コピー、01C-Cの面積と重なりをA〜Eで比較。", result: "大判写真窓のEを採用", href: "/archive/2026-07-22/01-first-view-exploration/" },
+  { number: "02", phase: "Service", title: "サービスイラスト / Round 1", description: "人物を使ったサービス1の画風と構図を最初に発散。", result: "写実寄りを避け、フラット表現へ", href: "/archive/2026-07-22/02-service-illustration-round-01/" },
+  { number: "03", phase: "Service", title: "サービスイラスト / Round 2", description: "人体比率とデフォルメ度を広げ、D〜Hを比較。", result: "Hの画風を基準に選定", href: "/archive/2026-07-22/03-service-illustration-round-02/" },
+  { number: "04", phase: "Service", title: "サービス2の共同開発構図", description: "サービス1と構図を分け、2者が協力する動きをI〜Lで比較。", result: "共有画面へ働きかけるLを採用", href: "/archive/2026-07-22/04-service-02-composition/" },
+  { number: "05", phase: "Service", title: "サービス3の握手構図", description: "握手とAI・業務フローを一体化するM〜Pを比較。", result: "新しい流れへ接続するPを採用", href: "/archive/2026-07-22/05-service-03-composition/" },
+  { number: "06", phase: "Overview", title: "3事業の俯瞰図", description: "3事業を説明するレイヤー、フロー、モチーフ構成を比較。", result: "複雑な説明図から幾何学へ移行", href: "/archive/2026-07-22/06-service-overview-diagram/" },
+  { number: "07", phase: "Overview", title: "幾何学構造", description: "SVGで3事業を単純化し、独立性の表現を検証。", result: "意味の抽象化をやめ、同格性だけへ", href: "/archive/2026-07-22/07-service-overview-geometry/" },
+  { number: "08", phase: "Overview", title: "スクロール強調", description: "非接触の3円と、現在の事業を円周で強調する状態を比較。", result: "一度Aを適用後、俯瞰コピーへ置換", href: "/archive/2026-07-22/08-service-overview-active-state/" },
+  { number: "09", phase: "Team", title: "チームの情報設計", description: "写真を使わずプロフィール全文を見せるA〜Cを比較。", result: "非対称2カラムのCを採用", href: "/archive/2026-07-22/09-team-layout/" },
+  { number: "10", phase: "Team", title: "Teamの大判モチーフ", description: "空いた左カラムへ01C-Cを切り取って置く構成を比較。", result: "画面左端で切るAを採用", href: "/archive/2026-07-22/10-team-motif/" },
+  { number: "11", phase: "News", title: "Newsの情報階層とモチーフ", description: "一件の記事を見せるA〜Jと、大判01C-Cの配置を比較。", result: "下端クロップ型のJを採用", href: "/archive/2026-07-22/11-news-layout/", featured: true },
+  { number: "TL", phase: "Process", title: "サイト再設計の判断タイムライン", description: "セクションをまたぐ判断変更をbefore / after / 理由で整理。", result: "全体方向からNews採用までを横断", href: "/archive/2026-07-22/process-timeline/" },
+] as const;
+
+const rounds = [...systemRounds, ...siteRounds];
+
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
 }
@@ -116,11 +134,11 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="date">2026.07.21 — Work in progress</p>
+          <p className="date">2026.07.21–23 — Work in progress</p>
           <h1>デザインは、<br />比較の跡から<br />強くなる。</h1>
           <p className="lead">
             Hashigodakaのデザインシステムをつくる過程で、何を並べ、何を外し、何を残したか。
-            11の比較画面と判断の時系列を、検討の順番ごとに公開します。
+            23の比較画面と2つの判断タイムラインを、検討の順番ごとに公開します。
           </p>
         </div>
         <div className="hero-visual" aria-label="現在のメイン候補 D-E-D のカラーパレット">
@@ -139,8 +157,8 @@ export default function Home() {
         <div>
           <h2>完成案だけでなく、<br />選ぶための比較面を残す。</h2>
           <p>
-            01〜09は当時の操作可能なHTMLスナップショットです。00は第三者画像を再公開しない
-            再構成版、判断の時系列は失われた中間状態をbefore / after / 理由で補う横断記録です。
+            2026-07-21のデザインシステム策定と、07-22〜23のサイト再設計で使った操作可能な
+            HTMLスナップショットです。判断の時系列は失われた中間状態をbefore / after / 理由で補います。
             カードから実物を開き、色や書体の切り替え、拡大比較などを試せます。
           </p>
         </div>
@@ -148,7 +166,7 @@ export default function Home() {
 
       <section className="round-section" id="rounds">
         <div className="rounds-heading">
-          <p className="section-index">00–09 + Timeline / Process records</p>
+          <p className="section-index">2026.07.21–23 / 23 comparisons + 2 timelines</p>
           <h2>比較の記録</h2>
         </div>
         <div className="round-list">
@@ -156,7 +174,7 @@ export default function Home() {
             <a
               className={`round-card${round.featured ? " featured" : ""}`}
               href={round.href}
-              key={round.number}
+              key={round.href}
             >
               <span className="round-number">{round.number}</span>
               <span className="round-phase">{round.phase}</span>
