@@ -8,6 +8,8 @@ const archiveOutputRoot = resolve(siteRoot, "public", "archive");
 const archives = [
   { date: "2026-07-21", rounds: 11 },
   { date: "2026-07-22", rounds: 12 },
+  { date: "2026-07-24", rounds: 3 },
+  { date: "2026-07-28", rounds: 13 },
 ];
 
 await rm(archiveOutputRoot, { recursive: true, force: true });

@@ -115,7 +115,31 @@ const siteRounds = [
   { number: "TL", phase: "Process", title: "サイト再設計の判断タイムライン", description: "セクションをまたぐ判断変更をbefore / after / 理由で整理。", result: "全体方向からNews採用までを横断", href: "/archive/2026-07-22/process-timeline/" },
 ] as const;
 
-const rounds = [...systemRounds, ...siteRounds];
+const keyVisualRounds = [
+  { number: "00", phase: "Brand direction", title: "ブランド起点のキービジュアル", description: "企業の意思とAI時代の実装力の断絶を、01C-Cでつなぐ3方向を比較。", result: "写真を外し、大判モチーフを主役にする", href: "/archive/2026-07-24/00-key-visual-brand-direction/", featured: true },
+  { number: "01", phase: "Motion", title: "モチーフの状態変化", description: "Z軸方向へ倒した01C-Cで、無色からブランドカラーへ移る質感と動きを比較。", result: "粒子のEと拡散境界のGへ", href: "/archive/2026-07-24/01-key-visual-motif-motion/" },
+  { number: "02", phase: "Finalists", title: "E / G 最終比較", description: "大きさ、追従光、背景、コピーの出現方法をE/Gへ絞って調整。", result: "E3を採用。Gの背景はOur Conceptへ", href: "/archive/2026-07-24/02-key-visual-finalists/", featured: true },
+  { number: "TL", phase: "Process", title: "ブランド起点の判断タイムライン", description: "ブランド基盤、D-I確定、キービジュアルの採否をbefore / after / 理由で整理。", result: "意思から実装へつなぐE方向に収束", href: "/archive/2026-07-24/process-timeline/" },
+] as const;
+
+const informationArchitectureRounds = [
+  { number: "00", phase: "Our Concept", title: "Conceptの背景方向", description: "Hero後の考え方を、01C-Cと本文の関係が異なる3方向で比較。", result: "「作れる」を「届けられる」へつなぐA方向", href: "/archive/2026-07-28/00-our-concept-visual/" },
+  { number: "01", phase: "Our Concept", title: "ConceptのHTML実装", description: "背景画像、本文、行単位リヴィールを実ページ相当の組版で比較。", result: "通常フローのA方向を採用", href: "/archive/2026-07-28/01-our-concept-html/", featured: true },
+  { number: "02", phase: "Service", title: "サービスの視覚方向", description: "3サービスを同じ背景上でどう一覧化するかを比較。", result: "カード先行から情報設計の再検討へ", href: "/archive/2026-07-28/02-service-visual-direction/" },
+  { number: "03", phase: "Service", title: "1サービス＝1モチーフ", description: "意図と解決策を01C-Cの左右へ置く構造を検証。", result: "モチーフ内へ情報を押し込まない", href: "/archive/2026-07-28/03-service-motif-structure/" },
+  { number: "04", phase: "Service", title: "代替構造の探索", description: "モチーフ依存を弱め、意図と解決策を結ぶ複数構造を比較。", result: "顧客が読む順序を優先", href: "/archive/2026-07-28/04-service-alternative-structures/" },
+  { number: "05", phase: "Service", title: "対象組織＋詳細", description: "どんな組織へ何を支援するかを先に示す全体像を検証。", result: "対象と課題の後にサービス詳細", href: "/archive/2026-07-28/05-service-audience-detail/" },
+  { number: "06", phase: "Service", title: "3支援領域の詳細", description: "サービス名、説明、支援内容を顧客の語彙で整理。", result: "3領域の差を名称と対象で分離", href: "/archive/2026-07-28/06-service-lines-detail/" },
+  { number: "07", phase: "Service", title: "二層構成の確定", description: "上段の全体像と下段の縦並び詳細を一つの比較面へ。", result: "二層構成を固定", href: "/archive/2026-07-28/07-service-final-structure/" },
+  { number: "08", phase: "Service", title: "課題起点の再構成", description: "共感から解決策へ進む情報の順序を複数案で比較。", result: "悩みと解決状態の対応を先に示す", href: "/archive/2026-07-28/08-service-reframed/" },
+  { number: "09", phase: "Service", title: "スクロール構造", description: "上下の状態をスクロールで読み進める構成を検証。", result: "強調点が曖昧なため不採用", href: "/archive/2026-07-28/09-service-scroll-structure/" },
+  { number: "10", phase: "Service", title: "二層構成の視覚処理", description: "確定した情報構造を保ち、背景と強調方法だけを比較。", result: "背景装飾のないC方向", href: "/archive/2026-07-28/10-service-visual-treatment/" },
+  { number: "11", phase: "Service", title: "AS IS / TO BE", description: "課題と解決状態を同じ列で対応させる表構造を作成。", result: "列対応のAS IS / TO BEへ", href: "/archive/2026-07-28/11-service-asis-tobe-structure/" },
+  { number: "12", phase: "Service", title: "AS IS / TO BEの調整", description: "実ページ相当の文字量、余白、モバイル表示を調整。", result: "概要と個別詳細の役割を分離", href: "/archive/2026-07-28/12-service-asis-tobe-refinement/", featured: true },
+  { number: "TL", phase: "Process", title: "情報設計・実装の判断タイムライン", description: "Our ConceptからNewsまで、7月25〜28日の判断変更を横断。", result: "装飾から理解の順序へ", href: "/archive/2026-07-28/process-timeline/" },
+] as const;
+
+const rounds = [...systemRounds, ...siteRounds, ...keyVisualRounds, ...informationArchitectureRounds];
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -134,11 +158,11 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="date">2026.07.21–23 — Work in progress</p>
+          <p className="date">2026.07.21–28 — Work in progress</p>
           <h1>デザインは、<br />比較の跡から<br />強くなる。</h1>
           <p className="lead">
             Hashigodakaのデザインシステムをつくる過程で、何を並べ、何を外し、何を残したか。
-            23の比較画面と2つの判断タイムラインを、検討の順番ごとに公開します。
+            39の比較画面と4つの判断タイムラインを、検討の順番ごとに公開します。
           </p>
         </div>
         <div className="hero-visual" aria-label="現在のメイン候補 D-E-D のカラーパレット">
@@ -157,7 +181,8 @@ export default function Home() {
         <div>
           <h2>完成案だけでなく、<br />選ぶための比較面を残す。</h2>
           <p>
-            2026-07-21のデザインシステム策定と、07-22〜23のサイト再設計で使った操作可能な
+            2026-07-21のデザインシステム策定、07-22〜23のサイト再設計、07-24の
+            ブランド起点のキービジュアル再設計、07-25〜28の情報設計・実装で使った操作可能な
             HTMLスナップショットです。判断の時系列は失われた中間状態をbefore / after / 理由で補います。
             カードから実物を開き、色や書体の切り替え、拡大比較などを試せます。
           </p>
@@ -166,7 +191,7 @@ export default function Home() {
 
       <section className="round-section" id="rounds">
         <div className="rounds-heading">
-          <p className="section-index">2026.07.21–23 / 23 comparisons + 2 timelines</p>
+          <p className="section-index">2026.07.21–28 / 39 comparisons + 4 timelines</p>
           <h2>比較の記録</h2>
         </div>
         <div className="round-list">
@@ -196,7 +221,7 @@ export default function Home() {
           <p>
             現在は、鮮やかな青のPrimary、黄緑のSecondary、紫と橙のExtended Colors、
             白に近いCanvasと黒に近いInkを軸にガイドラインを構築中です。
-            ロゴタイプと日本語書体はD–I / H–Jの2案を引き続き検証しています。
+            ロゴタイプと日本語書体はD–I（Sora × LINE Seed JP）へ確定しました。
           </p>
         </div>
         <div className="palette" aria-label="D-E-D カラーパレット">

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>コーポレートサイト情報設計の判断タイムライン｜Hashigodaka</title>
+  <style>
+    :root{--canvas:#faf9fc;--ink:#18151d;--surface:#ece8f0;--border:#dcd8e1;--muted:#625d69;--primary:#00a0ff;--secondary:#c7f14a}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:var(--ink);font-family:system-ui,"Noto Sans JP",sans-serif;line-height:1.8}
+    header{padding:72px max(24px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--border)}
+    .eyebrow{margin:0;color:var(--primary);font-size:12px;font-weight:800;letter-spacing:.12em}
+    h1{max-width:860px;margin:20px 0 0;font-size:clamp(42px,7vw,84px);line-height:1.02;letter-spacing:-.06em}
+    .lead{max-width:780px;margin:28px 0 0;color:var(--muted);font-size:15px}
+    main{max-width:1120px;margin:auto;padding:76px 24px 120px}.phase{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;padding:48px 0;border-top:1px solid var(--border)}
+    .phase h2{position:sticky;top:24px;margin:0;font-size:14px;letter-spacing:.08em}.phase h2 span{display:block;margin-bottom:8px;color:var(--primary);font-size:11px}
+    .records{display:grid;gap:28px}.record{display:grid;grid-template-columns:118px 1fr;gap:24px}.record time{color:var(--muted);font:600 11px/1.6 ui-monospace,monospace}
+    .record h3{margin:0;font-size:19px;line-height:1.5}.change{display:grid;grid-template-columns:1fr 28px 1fr;gap:18px;margin-top:12px;padding:18px;background:var(--surface);font-size:13px}.change b{display:block;margin-bottom:6px;font-size:10px;letter-spacing:.1em}.change .arrow{align-self:center;color:var(--primary);font-size:24px;text-align:center}.reason{margin:12px 0 0;color:var(--muted);font-size:13px}.reason strong{color:var(--ink)}
+    .status{display:inline-block;margin-top:14px;padding:4px 8px;background:var(--ink);color:var(--canvas);font-size:10px;font-weight:700;letter-spacing:.08em}.status.open{background:var(--secondary);color:var(--ink)}
+    footer{display:flex;justify-content:space-between;gap:24px;padding:36px max(24px,calc((100vw - 1120px)/2));border-top:1px solid var(--border);color:var(--muted);font-size:11px}
+    @media(max-width:720px){.phase{grid-template-columns:1fr}.phase h2{position:static}.record{grid-template-columns:1fr}.change{grid-template-columns:1fr}.change .arrow{transform:rotate(90deg)}footer{display:block}}
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">2026.07.25–29 / Corporate site</p>
+    <h1>装飾から、<br>理解の順序へ。</h1>
+    <p class="lead">Our ConceptからNews、Follow Us、Contact完了状態まで、01C-Cを置くことよりも、顧客が何をどの順序で理解するかを優先した。比較HTMLに残る探索と、実サイト上で確定した情報設計・レスポンシブ・操作・検証環境の判断を、重複を避けて一つの時系列へまとめる。</p>
+  </header>
+  <main>
+    <section class="phase">
+      <h2><span>01 / Our Concept</span>考え方の提示</h2>
+      <div class="records">
+        <article class="record"><time>07.25 / Visual</time><div><h3>HeroのG案を転用せず、Concept専用の01C-Cへ</h3><div class="change"><div><b>BEFORE</b>Hero候補Gの拡散境界を背景として再利用</div><div class="arrow">→</div><div><b>AFTER</b>「作れる」を「届けられる」へつなぐ01C-Cを、本文と対になる大判背景へ</div></div><p class="reason"><strong>理由:</strong> Heroと同じ視覚効果を反復するより、会社の役割をセクション固有の構図へ翻訳した方が、コピーと図像の意味が一致するため。</p><span class="status">Selected A</span></div></article>
+        <article class="record"><time>07.25 / Scroll</time><div><h3>固定演出をやめ、通常フローで行をリヴィール</h3><div class="change"><div><b>BEFORE</b>セクションを固定し、長いスクロール距離で本文を進行</div><div class="arrow">→</div><div><b>AFTER</b>通常スクロールの中で、開始を遅らせた行単位リヴィール</div></div><p class="reason"><strong>理由:</strong> Serviceへの遷移でカクつきを生まず、アニメーションへ気づける開始点と余韻だけを残すため。</p></div></article>
+        <article class="record"><time>07.25 / Background</time><div><h3>画像の地色を透明にする</h3><div class="change"><div><b>BEFORE</b>画像側の白に近い背景色とHero背景がわずかに不一致</div><div class="arrow">→</div><div><b>AFTER</b>透過画像をHeroと同じCSS背景色へ重ねる</div></div><p class="reason"><strong>理由:</strong> レスポンシブ時も境界を出さず、背景色の正本をデザイントークンへ一本化するため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>02 / Service IA</span>二層の情報設計</h2>
+      <div class="records">
+        <article class="record"><time>07.25–27 / Overview</time><div><h3>サービス紹介を、顧客の課題から始める</h3><div class="change"><div><b>BEFORE</b>アイコン、サービス名、説明カードを3つ並べる</div><div class="arrow">→</div><div><b>AFTER</b>上段で対象組織のAS IS / TO BE、下段で3サービスの詳細を示す</div></div><p class="reason"><strong>理由:</strong> 3サービスがある理由を提供側の分類として押し付けず、自分の課題と選べる支援の対応として理解できるようにするため。</p><span class="status">Two-layer IA</span></div></article>
+        <article class="record"><time>07.27 / Language</time><div><h3>現象ではなく、顧客が口にする悩みを書く</h3><div class="change"><div><b>BEFORE</b>「要望を要件にできない」など内部診断の言葉</div><div class="arrow">→</div><div><b>AFTER</b>「開発が、前に進まない。」「AIのレビューに、追われている。」「AIが、チャットで止まっている。」</div></div><p class="reason"><strong>理由:</strong> 原因を断定する前に、顧客が自分の状況として認識できる入口をつくるため。</p></div></article>
+        <article class="record"><time>07.27 / Naming</time><div><h3>3事業の名称と対象を分離する</h3><div class="change"><div><b>BEFORE</b>AI活用という共通語が並び、1・2・3の差が曖昧</div><div class="arrow">→</div><div><b>AFTER</b>System Integration / Engineering Enablement / Business Automationと、対応する日本語サービス名</div></div><p class="reason"><strong>理由:</strong> 外部開発、社内開発体制、業務活用という支援対象の違いを、名称だけでも識別できるようにするため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>03 / Service visuals</span>説明図の統一</h2>
+      <div class="records">
+        <article class="record"><time>07.27 / Abstraction</time><div><h3>イラストを外し、一つの図に一つの主張を置く</h3><div class="change"><div><b>BEFORE</b>サービスごとの人物イラストや装飾モチーフ</div><div class="arrow">→</div><div><b>AFTER</b>01は担当範囲、02はハーネス支援、03は業務AI活用例を示す単純な図解</div></div><p class="reason"><strong>理由:</strong> スクロール量を増やさず、本文だけでは把握しづらい関係性に図の役割を限定するため。</p></div></article>
+        <article class="record"><time>07.27 / 01</time><div><h3>顧客とHashigodakaの担当範囲をシェブロンで示す</h3><div class="change"><div><b>BEFORE</b>抽象的な拡大図、循環図、2レーンのプロセス</div><div class="arrow">→</div><div><b>AFTER</b>要望→要件化→設計・開発→品質保証を、担当範囲の色分けと同じ大きさの矢羽根で表示</div></div><p class="reason"><strong>理由:</strong> 顧客が意思を持ち、Hashigodakaが正しく作り届ける責任範囲を、工程順に一読できるため。</p></div></article>
+        <article class="record"><time>07.27 / 02-03</time><div><h3>社内体制と業務活用を別の関係図へ</h3><div class="change"><div><b>BEFORE</b>全サービスを同じ形の抽象図へ統一</div><div class="arrow">→</div><div><b>AFTER</b>02は顧客を囲む仕様・テスト・レビュー基準・CI/CD、03は中心を囲む6つの業務AI活用例</div></div><p class="reason"><strong>理由:</strong> 装飾規則は揃えつつ、各サービスで説明すべき関係性まで同じ図形へ押し込まないため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>04 / Team</span>写真なしの編集組版</h2>
+      <div class="records">
+        <article class="record"><time>07.27 / Layout</time><div><h3>モチーフ主役から、4名の専門性が並ぶ紙面へ</h3><div class="change"><div><b>BEFORE</b>大判01C-Cと非対称2カラム、長いプロフィール</div><div class="arrow">→</div><div><b>AFTER</b>見出しと導入文、その下に写真なしで4名のプロフィール</div></div><p class="reason"><strong>理由:</strong> 空いた面を装飾で埋めず、何を得意とするチームで、どのような仕事を担うかを一覧性のある文章で示すため。</p><span class="status">No portraits</span></div></article>
+        <article class="record"><time>07.27 / Intro</time><div><h3>「専門家がいる」から「何をしてくれるか」へ</h3><div class="change"><div><b>BEFORE</b>事業・技術・組織づくりの専門性を列挙</div><div class="arrow">→</div><div><b>AFTER</b>専門性を横断し、構想から実装・運用まで成果へつなぐチームとして説明</div></div><p class="reason"><strong>理由:</strong> 能力の自己紹介ではなく、顧客に対して担う仕事まで伝えるため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>05 / Shared shell</span>ページ間の一貫性</h2>
+      <div class="records">
+        <article class="record"><time>07.27 / Header-Footer</time><div><h3>ページ別の複製から、共通Header / Footerへ</h3><div class="change"><div><b>BEFORE</b>Contact、Company、Newsでナビゲーションや見た目が個別管理</div><div class="arrow">→</div><div><b>AFTER</b>トップページと同じHeader / Footer生成を全ページで共有</div></div><p class="reason"><strong>理由:</strong> 会社概要の欠落や配色差をページごとに直すのではなく、情報と見た目の正本を一つにするため。</p></div></article>
+        <article class="record"><time>07.27 / Interaction</time><div><h3>Headerを下スクロールで隠す</h3><div class="change"><div><b>BEFORE</b>常時固定してコンテンツ上へ残る</div><div class="arrow">→</div><div><b>AFTER</b>下スクロール時に非表示、上スクロール時に再表示</div></div><p class="reason"><strong>理由:</strong> ナビゲーションの到達性を保ちながら、長いサービス説明とフォームの表示面積を確保するため。</p></div></article>
+        <article class="record"><time>07.28 / Footer</time><div><h3>Ink面から、白い情報面へ</h3><div class="change"><div><b>BEFORE</b>Ink背景、白いモチーフ、白いワードマーク</div><div class="arrow">→</div><div><b>AFTER</b>白背景、左の小さなワードマーク、右の黒いメニュー、下罫線とCopyright</div></div><p class="reason"><strong>理由:</strong> フッターを強いブランド面として閉じず、サイト全体の静かなナビゲーション終端として扱うため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>06 / Subpages</span>Contact・Company・News</h2>
+      <div class="records">
+        <article class="record"><time>07.27 / Contact</time><div><h3>情報量を減らし、縦一列のフォームへ</h3><div class="change"><div><b>BEFORE</b>左右2列の多数項目、常時送信可能</div><div class="arrow">→</div><div><b>AFTER</b>必須項目を縦一列、電話も必須、未完了時は非活性、形式エラーは入力中に表示</div></div><p class="reason"><strong>理由:</strong> 入力順序を迷わせず、送信後ではなく入力時に不足と誤りへ気づけるようにするため。</p></div></article>
+        <article class="record"><time>07.27 / Company</time><div><h3>写真なしの会社情報カードへ</h3><div class="change"><div><b>BEFORE</b>大きな文字とページ全幅の情報表</div><div class="arrow">→</div><div><b>AFTER</b>英語見出しの下へ、枠線のない白いカードで会社情報を整理</div></div><p class="reason"><strong>理由:</strong> 写真がなくても情報のまとまりを明確にし、ContactやNewsと見出し位置を共有するため。</p></div></article>
+        <article class="record"><time>07.28 / News page</time><div><h3>背景モチーフを外し、記事本文を読むページへ</h3><div class="change"><div><b>BEFORE</b>大判モチーフと大きな記事タイトル</div><div class="arrow">→</div><div><b>AFTER</b>モチーフなし、共通見出し、本文・段落・タイトルを小さく調整</div></div><p class="reason"><strong>理由:</strong> 下層ページではブランド装飾より、記事情報の読みやすさを主役にするため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>07 / Top News</span>カード単位の更新</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Row</time><div><h3>中央の小さな記事から、左右に伸びる一覧行へ</h3><div class="change"><div><b>BEFORE</b>モチーフ中央へ寄った短い記事リンク</div><div class="arrow">→</div><div><b>AFTER</b>左右ガターを守って全幅に伸びる行、上下罫線、左に日付・カテゴリ、右にタイトル</div></div><p class="reason"><strong>理由:</strong> Newsの情報を画面の中心に固めず、セクション幅を使って読みやすい一覧へするため。</p></div></article>
+        <article class="record"><time>07.28 / Hover</time><div><h3>行のホバーカード化を試す</h3><div class="change"><div><b>BEFORE</b>右矢印と固定罫線だけのリンク</div><div class="arrow">→</div><div><b>AFTER</b>角丸、左右への広がり、影で浮くカード反応</div></div><p class="reason"><strong>理由:</strong> クリック可能性を矢印に頼らず、面の反応で伝えるため。ただしカード単位は次の判断で更新した。</p></div></article>
+        <article class="record"><time>07.28 / Card unit</time><div><h3>記事行ではなく、Newsセクション全体をカードにする</h3><div class="change"><div><b>BEFORE</b>記事行そのものが白い面と影を持つホバーカード</div><div class="arrow">→</div><div><b>AFTER</b>Heroと同じ背景の上へ、見出しと記事一覧をまとめるセクションカード</div></div><p class="reason"><strong>理由:</strong> 一件ごとのリンクより、News全体を一つの情報群として上位階層でまとめるため。記事行は静かな一覧へ戻し、罫線と文字色の反応だけを残す。</p></div></article>
+        <article class="record"><time>07.28 / Surface</time><div><h3>白い大面へ広げ、背景モチーフを外す</h3><div class="change"><div><b>BEFORE</b>共通ガター内の薄いグレーカードに低濃度01C-C</div><div class="arrow">→</div><div><b>AFTER</b>画面端へ16〜24px、モバイル16pxだけ残す白いカード。モチーフなし</div></div><p class="reason"><strong>理由:</strong> 淡いPrimaryのセクション背景と白い情報面を明確に分け、見出しと記事一覧だけへ視線を絞るため。見出しの読み始めは他セクションと同じ共通ガターへ維持する。</p></div></article>
+        <article class="record"><time>07.28 / Contents</time><div><h3>記事数で伸びるカードと「もっと見る」</h3><div class="change"><div><b>BEFORE</b>1件でも固定最小高を持ち、遷移操作がない</div><div class="arrow">→</div><div><b>AFTER</b>最大3件まで内容量で可変。「もっと見る」はPC右上、モバイルは一覧後の右下</div></div><p class="reason"><strong>理由:</strong> 件数が少ない時の空白をなくし、一覧を邪魔しない位置へ次の閲覧段階を示すため。ボタンはPrimaryのホバー・フォーカス仕様へ揃える。</p></div></article>
+        <article class="record"><time>07.28 / Mobile rhythm</time><div><h3>見出しと記事一覧の空白だけを詰める</h3><div class="change"><div><b>BEFORE</b>モバイルのカード上余白190pxで、Newsだけ見出しと内容が離れる</div><div class="arrow">→</div><div><b>AFTER</b>上余白を152pxへ縮め、記事行と下部ボタンの余白は維持</div></div><p class="reason"><strong>理由:</strong> 可読性や操作領域を削らず、News内の情報同士の距離だけを他セクションの密度へ揃えるため。</p></div></article>
+        <article class="record"><time>07.28 / Destination</time><div><h3>「もっと見る」は詳細ではなく一覧へ</h3><div class="change"><div><b>BEFORE</b>遷移直後に最初の記事詳細を表示</div><div class="arrow">→</div><div><b>AFTER</b>トップと同形式のニュース一覧を表示し、記事行から個別詳細へ進む</div></div><p class="reason"><strong>理由:</strong> 情報を探す段階と本文を読む段階を分け、件数が増えても同じ導線を維持するため。</p><span class="status">Top News final</span></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>08 / UI foundation</span>部品とCSSの一本化</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Radius</time><div><h3>ボタンとカードの角丸を役割で分ける</h3><div class="change"><div><b>BEFORE</b>ボタンは2pxまたは直角、カードは0〜20pxが混在</div><div class="arrow">→</div><div><b>AFTER</b>Primary／Secondaryは4px、白いコンテンツカードは8px、Tertiaryは0</div></div><p class="reason"><strong>理由:</strong> 矩形の明快さを残しながら、操作部品と情報面の階層を最小限の丸みの差で識別するため。</p></div></article>
+        <article class="record"><time>07.28 / Legacy CSS</time><div><h3>新旧CSSの併用を終える</h3><div class="change"><div><b>BEFORE</b>現行CSSと旧responsive.cssが同時に読み込まれ、旧DOM用指定が干渉</div><div class="arrow">→</div><div><b>AFTER</b>必要なモバイル挙動だけ移植し、responsive.cssの参照と本体を削除</div></div><p class="reason"><strong>理由:</strong> 見た目の問題を上書きで抑えず、旧セレクタが現行UIへ届く競合経路そのものをなくすため。</p></div></article>
+        <article class="record"><time>07.28 / Naming</time><div><h3>世代表記を外し、現在の正本を一意にする</h3><div class="change"><div><b>BEFORE</b>完全移行後もhomepage-v2.css／contact-v2.cssという名称</div><div class="arrow">→</div><div><b>AFTER</b>homepage.css／contact.cssへ改名し、参照と文書も統一</div></div><p class="reason"><strong>理由:</strong> 並行する旧版がない状態で世代表記を残さず、どのファイルが現行の正本かを名称から判断できるようにするため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>09 / Top Contact</span>写真を気配まで退ける</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Reference</time><div><h3>抽象モチーフから、人が集まる全面写真へ</h3><div class="change"><div><b>BEFORE</b>Canvas上のコピーとPrimaryの抽象モチーフ</div><div class="arrow">→</div><div><b>AFTER</b>オフィス写真にPrimary面を重ね、白い見出し・説明・横長CTAを中央配置</div></div><p class="reason"><strong>理由:</strong> 参考例の構図をHashigodakaの色と矩形的なボタンへ翻訳し、人と協働する空気をContactの背景へ持ち込むため。</p></div></article>
+        <article class="record"><time>07.28 / Photo tone</time><div><h3>写真を「内容」ではなく「人の気配」にする</h3><div class="change"><div><b>BEFORE</b>カラー写真と弱い被覆。途中では1.5pxのぼかしも使用</div><div class="arrow">→</div><div><b>AFTER</b>ぼかしなし、グレースケール、コントラスト75%、Primary 95%／96%</div></div><p class="reason"><strong>理由:</strong> 輪郭を不自然ににじませず、人物の存在だけを残して白い情報を最初に読ませるため。</p></div></article>
+        <article class="record"><time>07.28 / Density</time><div><h3>写真面をコンテンツ量に合わせて詰める</h3><div class="change"><div><b>BEFORE</b>最大96px見出し、固定最小高、二段CTAと大きな上下余白</div><div class="arrow">→</div><div><b>AFTER</b>見出し68px／42px、固定高なし、外周余白半減、一段CTA 64px／56px</div></div><p class="reason"><strong>理由:</strong> 全面写真の存在感を高さで増幅せず、Contact見出し、説明、操作の必要量だけでセクションを成立させるため。</p><span class="status">Contact final</span></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>10 / News pages</span>一覧・詳細と共通規則</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Heading boundary</time><div><h3>見出しとコンテンツを罫線で分断しない</h3><div class="change"><div><b>BEFORE</b>News見出し領域の下端に横罫線</div><div class="arrow">→</div><div><b>AFTER</b>罫線を外し、大きな余白だけで一覧との階層を示す</div></div><p class="reason"><strong>理由:</strong> 見出しと一覧の距離で導入の区切りは十分に伝わり、記事行自身の罫線と役割が重複するため。</p></div></article>
+        <article class="record"><time>07.28 / Content cards</time><div><h3>News一覧・詳細を白いコンテンツカードへ</h3><div class="change"><div><b>BEFORE</b>見出し後のCanvasへ記事一覧・本文を直接配置</div><div class="arrow">→</div><div><b>AFTER</b>一覧と詳細を1120px・8px角丸の白いカードへ。詳細本文は820pxの読書幅</div></div><p class="reason"><strong>理由:</strong> Company Profileと同じ面の階層を使い、情報のまとまりと長文の可読幅を同時に守るため。一覧カード上端の二重に見える罫線は削除した。</p></div></article>
+        <article class="record"><time>07.28 / Detail controls</time><div><h3>カテゴリと戻る操作を共通部品へ揃える</h3><div class="change"><div><b>BEFORE</b>詳細だけ中立色の矩形カテゴリと独自の囲み枠ボタン</div><div class="arrow">→</div><div><b>AFTER</b>Primary 10%のカテゴリピルと、透明面・Ink下線のTertiary</div></div><p class="reason"><strong>理由:</strong> 一覧から詳細へ移ってもカテゴリの意味を同じ見た目で保ち、補助的な戻る操作をPrimary／Secondaryより低い優先度で示すため。</p></div></article>
+        <article class="record"><time>07.28 / Dividers</time><div><h3>情報区切り線をBorder 55%・1pxへ統一</h3><div class="change"><div><b>BEFORE</b>Border原色、Ink 8〜12%、Border 55%がページごとに混在</div><div class="arrow">→</div><div><b>AFTER</b>トップNewsと同じBorder 55%・1pxをNews、Company、Footer、モバイルメニューへ共通化</div></div><p class="reason"><strong>理由:</strong> 同じ役割の線を同じ視覚強度へ揃え、情報より前へ出さないため。ボタン、CTA、入力欄、カード外枠は役割が異なるため対象外とする。</p><span class="status">Latest decision</span></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>11 / Responsive composition</span>デスクトップの意図をモバイルへ</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Hero motif</time><div><h3>粒子を縮めるだけでなく、同じ構図として再投影する</h3><div class="change"><div><b>BEFORE</b>実viewport比へ同じ倍率で投影し、縦長画面では左右が切れ、粒子密度も高い</div><div class="arrow">→</div><div><b>AFTER</b>16:9構図を横幅へ合わせ、390pxでは粒子を37.5%へ均等に減らして画面高14%分上へ</div></div><p class="reason"><strong>理由:</strong> 01C-Cの輪郭、遠近感、粒子のリズムをデスクトップと同じものとして認識でき、コピー周辺の余白も確保できるため。ランダム間引きは局所的な疎密を生むため、4×4区画ごとに同数を残す。</p></div></article>
+        <article class="record"><time>07.28 / Hero-Concept type</time><div><h3>文字を小さくせず、利用幅と字間で孤立行を防ぐ</h3><div class="change"><div><b>BEFORE</b>Heroが3行になり、Conceptでは「へ。」「す。」だけが次行へ孤立</div><div class="arrow">→</div><div><b>AFTER</b>Heroを指定2行へ固定し、Concept見出しと対象本文行だけ字間・利用幅を補正</div></div><p class="reason"><strong>理由:</strong> 見出しの力と本文の読書余白を保ったまま、数pxの不足が生む不自然な折り返しだけを解消するため。本文全体を余白外へ広げない。</p></div></article>
+        <article class="record"><time>07.28 / Service cards</time><div><h3>モバイルのAS IS / TO BEを、枠ではなく状態ラベルで読む</h3><div class="change"><div><b>BEFORE</b>枠線付きカードと小さな矩形ラベル。途中で64pxの円形も比較</div><div class="arrow">→</div><div><b>AFTER</b>枠線なしの面へ、72×40px・4px角丸の長方形ラベルを左上に重ねる</div></div><p class="reason"><strong>理由:</strong> 円形バッジとして強く独立させず、カードへ接続した状態タブとして読ませるため。ラベル左端はService見出しの16pxへ揃え、カード本体を12px内側へ置く。</p></div></article>
+        <article class="record"><time>07.28 / Service hierarchy</time><div><h3>概要見出しの強さを保ち、補助情報を一段退ける</h3><div class="change"><div><b>BEFORE</b>AS IS見出しを縮小して折り返しを避け、本文と支援ピルも近い文字強度</div><div class="arrow">→</div><div><b>AFTER</b>見出しは19pxのまま利用幅を12px広げ、本文13〜14px、支援ピル11px・枠線なし</div></div><p class="reason"><strong>理由:</strong> 見た目に残る余白を見出しへ使い、課題→説明→支援内容の順序を文字サイズと面の軽さで明確にするため。</p></div></article>
+        <article class="record"><time>07.28 / Service spacing</time><div><h3>サービス内は近づけ、概要から詳細への切り替えは離す</h3><div class="change"><div><b>BEFORE</b>図と文章は32px離れ、全体像とService 01は48pxだけで連続</div><div class="arrow">→</div><div><b>AFTER</b>図と文章は16px、AS IS / TO BEの全体像からService 01までは112px</div></div><p class="reason"><strong>理由:</strong> 同じサービスの要素は一まとまりにし、概要から個別詳細へ移る大きな階層だけをサービス間より明確に離すため。</p></div></article>
+        <article class="record"><time>07.28 / Team mobile</time><div><h3>4名を2列で一覧し、全文はモーダルへ分ける</h3><div class="change"><div><b>BEFORE</b>モバイル1列、または2列化後も長い経歴本文をすべて表示</div><div class="arrow">→</div><div><b>AFTER</b>2×2配置、本文7行フェード、タップで経歴全文のプロフィールモーダル</div></div><p class="reason"><strong>理由:</strong> チーム全体の一覧性と、個別プロフィールの読みやすさを両立するため。閉じるボタン、背景タップ、Esc、キーボード操作へ対応する。</p></div></article>
+        <article class="record"><time>07.28 / Mobile gutter</time><div><h3>ページ種別ごとの外周差を16pxへ統一</h3><div class="change"><div><b>BEFORE</b>トップ24px、下層・Header・メニュー40pxなど、同じ画面幅で基準が分散</div><div class="arrow">→</div><div><b>AFTER</b>760px以下のトップ・下層・共通シェル・メニューを左右16pxへ</div></div><p class="reason"><strong>理由:</strong> ページ遷移やメニュー開閉で読み始めと操作位置を動かさないため。カード固有の内側余白とデスクトップの流動ガターは維持する。</p><span class="status">Mobile gutter 16px</span></div></article>
+        <article class="record"><time>07.28 / News mobile</time><div><h3>カード幅と記事の読み順をモバイルへ合わせる</h3><div class="change"><div><b>BEFORE</b>トップカード内の余白が混在し、メタ情報とタイトルが左右に分かれる。詳細カードは左右40px</div><div class="arrow">→</div><div><b>AFTER</b>トップは外周・内側とも16px。日付／カテゴリの次に15pxタイトル。詳細カードも左右16pxへ</div></div><p class="reason"><strong>理由:</strong> 限られた横幅をタイトルへ渡し、トップ・一覧・詳細の開始位置をページ見出しと一貫させるため。デスクトップタイトルも17pxへ一段下げた。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>12 / Motion and navigation</span>再訪しても破綻しない操作</h2>
+      <div class="records">
+        <article class="record"><time>07.28 / Shared mobile header</time><div><h3>詳細ページも「ロゴ＋メニュー」へ統一する</h3><div class="change"><div><b>BEFORE</b>ページ固有CSSが残り、トップと詳細でCTAやハンバーガー位置が異なる</div><div class="arrow">→</div><div><b>AFTER</b>共通シェルを表示規則の正本にし、ロゴ左端とハンバーガー／閉じる右端を16pxへ</div></div><p class="reason"><strong>理由:</strong> ページ固有の再描画後も同じ見た目と操作を保つため。開閉はdocumentへのイベント委譲とし、DOM差し替え後も動作させる。</p></div></article>
+        <article class="record"><time>07.28 / Mobile menu</time><div><h3>線と独立CTAを外し、5つの通常メニューへ</h3><div class="change"><div><b>BEFORE</b>罫線、右矢印、下部の問い合わせCTA、メールアドレスが役割を重複</div><div class="arrow">→</div><div><b>AFTER</b>20px・太字の5項目と下部Copyrightだけを、外周16pxの同じ左端へ</div></div><p class="reason"><strong>理由:</strong> 「お問い合わせ」を他の遷移先と同じナビゲーションとして扱い、線や矢印がなくても文字の強さと整列で選択肢を読めるため。</p></div></article>
+        <article class="record"><time>07.28 / Menu motion-focus</time><div><h3>開閉を対にし、初期フォーカスの一瞬のずれをなくす</h3><div class="change"><div><b>BEFORE</b>全画面と項目を同時表示し、閉じる時は即時。開いた直後に「×」の標準枠がずれて見える</div><div class="arrow">→</div><div><b>AFTER</b>白面を上から展開して項目を順次表示し、閉じる時は逆再生。初期フォーカスはメニュー面へ</div></div><p class="reason"><strong>理由:</strong> 開閉の因果を保ち、意図しないフォーカス枠のフラッシュだけを防ぐため。Tab後の可視フォーカス、循環、Esc、復帰先は維持する。</p></div></article>
+        <article class="record"><time>07.28 / Contact mobile</time><div><h3>写真を寄せ、情報は左から読ませる</h3><div class="change"><div><b>BEFORE</b>モバイルも中央揃えで、写真全体を広く見せる</div><div class="arrow">→</div><div><b>AFTER</b>見出し・説明を左揃え、背景高115%の寄った写真、ラベル「お問い合わせ」</div></div><p class="reason"><strong>理由:</strong> 人物は気配として残しながら、狭い画面では見出しからCTAまで一つの左軸で読ませるため。Footerの問い合わせもフォーム詳細へ直接遷移する。</p></div></article>
+        <article class="record"><time>07.28 / Contact CTA</time><div><h3>表示時に、CTA全体を左から右へ見せる</h3><div class="change"><div><b>BEFORE</b>ホバー時の背景面だけを左右または左から展開</div><div class="arrow">→</div><div><b>AFTER</b>25%可視後160ms待ち、枠・文字・矢印を一体で左から右へ560msリヴィール</div></div><p class="reason"><strong>理由:</strong> 操作前のスクロール体験としてCTAの出現を伝えるため。領域外で待機へ戻し、再スクロールでも繰り返す。ホバーは白面反転へ戻す。</p></div></article>
+        <article class="record"><time>07.28 / Scroll replay</time><div><h3>スクロール演出を一度きりにしない</h3><div class="change"><div><b>BEFORE</b>Service、Team、News、Contact本文は初回表示後に監視を解除</div><div class="arrow">→</div><div><b>AFTER</b>上下どちらの再スクロールでも、領域へ入るたび再生し、外で待機へ戻す</div></div><p class="reason"><strong>理由:</strong> ページを往復してもセクションの導入演出と現在位置の関係を保つため。Our ConceptとContact CTAも再演し、Hero初回演出、ホバー、モーダルは対象外とする。</p></div></article>
+        <article class="record"><time>07.28 / News detail</time><div><h3>記事カードを本文から始める</h3><div class="change"><div><b>BEFORE</b>カード先頭にパンくずと専用の上余白</div><div class="arrow">→</div><div><b>AFTER</b>パンくずを削除し、日付・カテゴリから開始。モバイルカードは左右16px</div></div><p class="reason"><strong>理由:</strong> 単一記事ではページ見出しと戻るTertiaryで現在地を示せるため、重複する階層表示を外して本文へ早く到達させる。</p><span class="status">Responsive final</span></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>13 / Social and end matter</span>サイトの終端を整える</h2>
+      <div class="records">
+        <article class="record"><time>07.29 / Follow Us</time><div><h3>SNSをFooterの小要素から、独立した情報カードへ</h3><div class="change"><div><b>BEFORE</b>Copyrightの上へZennアイコンだけを小さく配置</div><div class="arrow">→</div><div><b>AFTER</b>Contact直後に白いFollow Usカードを置き、Zenn・note・X・YouTubeを一覧</div></div><p class="reason"><strong>理由:</strong> 現在の発信先と今後の展開を、Footerの補足ではなく継続的に更新できる一つの情報群として示すため。</p></div></article>
+        <article class="record"><time>07.29 / Surface</time><div><h3>カードは白く保ち、外周をHeroと同じ色へ</h3><div class="change"><div><b>BEFORE</b>Follow UsをContactの写真面へ内包、または白背景上へ直接配置</div><div class="arrow">→</div><div><b>AFTER</b>カードをContact外へ戻し、Follow Us外周とFooterをPrimary 5%へ統一</div></div><p class="reason"><strong>理由:</strong> Contactの行動導線とSNSの継続接点を分けながら、ページ終端をHeroと呼応する一つの淡い面として閉じるため。</p></div></article>
+        <article class="record"><time>07.29 / Alignment</time><div><h3>カード幅・アイコン列・Footer終端を同じ基準へ</h3><div class="change"><div><b>BEFORE</b>アイコンが右へ離れ、Footerメニューの最右文字とも終端が揃わない</div><div class="arrow">→</div><div><b>AFTER</b>Follow Usカード幅をFooter幅へ揃え、アイコン列とメニューコンテナを同じ右端へ</div></div><p class="reason"><strong>理由:</strong> 左右カラムを中央へ寄せるのではなく、ページ終端の共通グリッドとして視覚上の開始・終了位置を共有するため。「お問い合わせ」は3列目へ分けた。</p></div></article>
+        <article class="record"><time>07.29 / Icons</time><div><h3>外形サイズとロゴの見かけの大きさを分ける</h3><div class="change"><div><b>BEFORE</b>公式SVGごとの余白・縦横比で、noteやYouTubeだけ小さく／低く見える</div><div class="arrow">→</div><div><b>AFTER</b>全アイコンを40×40pxの表示枠・画像要素下端へ揃え、内側の光学サイズだけ補正</div></div><p class="reason"><strong>理由:</strong> 画像要素自体を拡大して整列を崩さず、異なる公式ロゴを同じ行の中で同程度の重さに見せるため。モバイルでは枠自体も縮小する。</p></div></article>
+        <article class="record"><time>07.29 / Accounts</time><div><h3>開設済みと未対応を同じ一覧で区別する</h3><div class="change"><div><b>BEFORE</b>追加予定のSNSをすべてグレーアウト</div><div class="arrow">→</div><div><b>AFTER</b>Xとnoteを公式アカウントへ接続し、未開設のYouTubeだけを非活性表示</div></div><p class="reason"><strong>理由:</strong> 発信先が増えるたび構造を変えず、利用可能性だけを見た目と操作で正確に伝えるため。操作可能なアイコンは100ms待って88%へ縮むホバーを持つ。</p><span class="status">Social links live</span></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>14 / Final content and metadata</span>重複を外し、公開情報を整える</h2>
+      <div class="records">
+        <article class="record"><time>07.29 / Hero action</time><div><h3>Heroの相談ボタンを削除する</h3><div class="change"><div><b>BEFORE</b>Headerの「お問い合わせ」とHeroの「プロジェクトを相談する」が同時に表示</div><div class="arrow">→</div><div><b>AFTER</b>Heroはメッセージとモチーフに絞り、問い合わせは共通導線へ集約</div></div><p class="reason"><strong>理由:</strong> ファーストビューで同じ目的の操作を重複させず、企業の意思と実装力という主張を最初に読ませるため。</p></div></article>
+        <article class="record"><time>07.29 / Hero mobile</time><div><h3>文字サイズを変えず、メッセージをもう少し上へ</h3><div class="change"><div><b>BEFORE</b>画面下56pxで、コピーが下端へ寄って見える</div><div class="arrow">→</div><div><b>AFTER</b>80pxを経て96pxへ上げ、指定2行とモチーフ構図は維持</div></div><p class="reason"><strong>理由:</strong> 文字の力を弱めず、縦長画面でもモチーフとコピーの間、コピーと画面下の余白を安定させるため。</p></div></article>
+        <article class="record"><time>07.29 / Concept copy</time><div><h3>「レバレッジ」を外し、事業との関係を直接書く</h3><div class="change"><div><b>BEFORE</b>AIのレバレッジを事業の力として受け取れる状態をつくります。</div><div class="arrow">→</div><div><b>AFTER</b>AIの力を、事業の力として受け取れる状態をつくります。</div></div><p class="reason"><strong>理由:</strong> 抽象的な借用語を介さず、AIの力が事業の力へ変わるという役割を短く伝えるため。</p></div></article>
+        <article class="record"><time>07.28 / Concept mobile</time><div><h3>2行構成を保ったまま、狭い画面だけ一回り小さく</h3><div class="change"><div><b>BEFORE</b>520px以下でも約44〜48pxで、本文に対して圧迫感がある</div><div class="arrow">→</div><div><b>AFTER</b>520px以下をclamp(36px, 10.25vw, 40px)へ。2行、ウェイト、左右16pxは維持</div></div><p class="reason"><strong>理由:</strong> 「作れる」から「届けられる」への強さは保ちつつ、モバイル画面内の見出しと本文の比率を整えるため。</p></div></article>
+        <article class="record"><time>07.28–29 / News-Team</time><div><h3>最新情報とプロフィールの事実を更新する</h3><div class="change"><div><b>BEFORE</b>Primaryの新着マーク、細い文字矢印、旧プロフィール文</div><div class="arrow">→</div><div><b>AFTER</b>Secondaryの新着マーク、2.25pxのArrowRight、学歴・共同創業・事業歴を含む代表プロフィール</div></div><p class="reason"><strong>理由:</strong> 新着状態をカテゴリのPrimaryと区別し、操作アイコンの線質と経歴の事実関係を現在の情報へ揃えるため。</p></div></article>
+        <article class="record"><time>07.28 / Metadata</time><div><h3>画像以外の公開メタデータを一通り揃える</h3><div class="change"><div><b>BEFORE</b>固有title、description、旧ロゴfaviconだけを設定</div><div class="arrow">→</div><div><b>AFTER</b>canonical、OGP、Twitter summary、robots、theme color、JSON-LD、sitemapを公開5ページへ</div></div><p class="reason"><strong>理由:</strong> 共有画像が未確定でも、検索・共有・正規URLの基盤を公開前に整えられるため。og:imageとtwitter:imageは追加しない。</p></div></article>
+        <article class="record"><time>07.28 / Favicon</time><div><h3>ブラウザタブも新しいモチーフへ</h3><div class="change"><div><b>BEFORE</b>全ページで旧ロゴマークのPNGを使用</div><div class="arrow">→</div><div><b>AFTER</b>Primary Blueのmotif-01c-c.svgをトップ・News・Company・Contactで共用</div></div><p class="reason"><strong>理由:</strong> 本文とブラウザタブで同じ承認済み資産を参照し、favicon専用の重複画像を増やさないため。</p></div></article>
+      </div>
+    </section>
+
+    <section class="phase">
+      <h2><span>15 / Contact completion</span>送信後も同じデザインシステムで</h2>
+      <div class="records">
+        <article class="record"><time>07.29 / Success surface</time><div><h3>独立した装飾カードから、フォームと同じ白い面へ</h3><div class="change"><div><b>BEFORE</b>影付きの入れ子カード、16px角丸、青いTHANK YOUラベル</div><div class="arrow">→</div><div><b>AFTER</b>装飾ラベルと内側の影を外し、共通8px角丸のContactカードへ完了内容を直接配置</div></div><p class="reason"><strong>理由:</strong> 送信前後で別製品のようなUIへ切り替えず、カード、文字、余白の既存規則で状態変化を伝えるため。</p></div></article>
+        <article class="record"><time>07.29 / Next action</time><div><h3>完了後の選択肢を一つにする</h3><div class="change"><div><b>BEFORE</b>「トップへ戻る」「もう一度送る」の2つのアウトラインピルと代替メール案内</div><div class="arrow">→</div><div><b>AFTER</b>共通Primaryの「トップへ戻る」だけを表示</div></div><p class="reason"><strong>理由:</strong> 送信が完了した利用者へ再送を並列に促さず、次の行動を明確にするため。代替メール案内は送信前のフォームだけに残す。</p></div></article>
+        <article class="record"><time>07.29 / Responsive-motion</time><div><h3>一行見出しと段階的な完了表示へ</h3><div class="change"><div><b>BEFORE</b>モバイルで完了見出しが折り返し、状態が一度に切り替わる</div><div class="arrow">→</div><div><b>AFTER</b>320pxでも一行の20〜24px見出し。見出し・説明・Primaryを80ms差で560msフェードアップ</div></div><p class="reason"><strong>理由:</strong> 狭い画面でも完了メッセージを一まとまりとして読み、送信結果から次の行動までを順に認識できるため。動きを減らす設定では即時表示する。</p></div></article>
+        <article class="record"><time>07.29 / Storybook</time><div><h3>Contactだけを実ページのまま状態別に確認する</h3><div class="change"><div><b>BEFORE</b>送信完了状態はクエリ付きURLを手動で開いて確認</div><div class="arrow">→</div><div><b>AFTER</b>Storybook 10.5.5でフォーム／完了の2 storyを、ビルド済みcontact.htmlのiframeとして表示</div></div><p class="reason"><strong>理由:</strong> UIを複製して正本を増やさず、実装と同じCSS・DOM・レスポンシブ挙動を状態別に反復確認するため。プレビュー時だけTurnstileをスキップする。</p></div></article>
+        <article class="record"><time>07.29 / Integration</time><div><h3>サイトとStorybookのビルドを通して統合する</h3><div class="change"><div><b>BEFORE</b>レスポンシブ仕上げ、Contact完了状態、検証入口がローカル変更</div><div class="arrow">→</div><div><b>AFTER</b>サイトとStorybookのビルド、横はみ出しを確認し、Pull Request #4・#5をmerge</div></div><p class="reason"><strong>理由:</strong> 見た目の収束だけでなく、実ページと検証環境が同じ状態で再現できることを統合条件にするため。</p><span class="status">Merged #4 / 8ad2313 · #5 / e402c42</span></div></article>
+      </div>
+    </section>
+  </main>
+  <footer><span>Hashigodaka Design System / Process Archive</span><span>比較UIは実装外。確認できる判断だけを記録。</span></footer>
+</body>
+</html>

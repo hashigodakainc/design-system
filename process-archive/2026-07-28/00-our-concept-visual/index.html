@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Our Concept visual exploration</title>
+  <style>
+    :root {
+      --primary: #00a0ff;
+      --canvas: #faf9fc;
+      --ink: #18151d;
+      --border: #dcd8e1;
+      --muted: #625d69;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--canvas); color: var(--ink); }
+    body {
+      font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      overflow: hidden;
+    }
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--canvas);
+    }
+    .panel {
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    .panel.is-active { display: flex; }
+    .panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: var(--canvas);
+    }
+    .switcher {
+      position: fixed;
+      z-index: 10;
+      right: 24px;
+      bottom: 24px;
+      width: min(560px, calc(100vw - 48px));
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--canvas) 92%, transparent);
+      box-shadow: 0 16px 48px rgb(24 21 29 / 14%);
+      backdrop-filter: blur(18px);
+    }
+    .switcher__label {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .switcher__buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    button {
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--canvas);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+    button strong, button span { display: block; }
+    button strong { font-size: 15px; }
+    button span {
+      margin-top: 3px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    button[aria-pressed="true"] {
+      border-color: var(--primary);
+      outline: 2px solid color-mix(in srgb, var(--primary) 22%, transparent);
+      background: color-mix(in srgb, var(--primary) 7%, var(--canvas));
+    }
+    .note {
+      position: fixed;
+      z-index: 10;
+      left: 24px;
+      bottom: 24px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    @media (max-width: 760px) {
+      .switcher { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
+      .switcher__buttons { grid-template-columns: 1fr; }
+      .note { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="panel is-active" id="A" aria-label="案A 左右二領域の接続面">
+      <img src="./a.png" alt="案A 左右二領域の接続面">
+    </section>
+    <section class="panel" id="B" aria-label="案B 通過するレイヤー">
+      <img src="./b.png" alt="案B 通過するレイヤー">
+    </section>
+    <section class="panel" id="C" aria-label="案C 収束する場">
+      <img src="./c.png" alt="案C 収束する場">
+    </section>
+  </main>
+  <p class="note">生成画像内の文字は構図確認用。実装時はD-Iと確定コピーで再構築します。</p>
+  <aside class="switcher" aria-label="比較用・実装外">
+    <p class="switcher__label">比較用・実装外</p>
+    <div class="switcher__buttons">
+      <button type="button" data-target="A" aria-pressed="true">
+        <strong>A</strong><span>左右二領域の接続面</span>
+      </button>
+      <button type="button" data-target="B" aria-pressed="false">
+        <strong>B</strong><span>通過するレイヤー</span>
+      </button>
+      <button type="button" data-target="C" aria-pressed="false">
+        <strong>C</strong><span>収束する場</span>
+      </button>
+    </div>
+  </aside>
+  <script>
+    const panels = [...document.querySelectorAll(".panel")];
+    const buttons = [...document.querySelectorAll("[data-target]")];
+    function select(id) {
+      panels.forEach((panel) => panel.classList.toggle("is-active", panel.id === id));
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.target === id)));
+      history.replaceState(null, "", `#${id}`);
+    }
+    buttons.forEach((button) => button.addEventListener("click", () => select(button.dataset.target)));
+    const initial = location.hash.slice(1).toUpperCase();
+    if (["A", "B", "C"].includes(initial)) select(initial);
+  </script>
+</body>
+</html>

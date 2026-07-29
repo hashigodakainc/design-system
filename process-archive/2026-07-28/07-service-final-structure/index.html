@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service final structure visual study</title>
+  <script>
+    document.documentElement.dataset.previewErrors = "0";
+    document.documentElement.dataset.previewWarnings = "0";
+    let previewErrorCount = 0;
+    let previewWarningCount = 0;
+    window.addEventListener("error", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    window.addEventListener("unhandledrejection", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    const originalWarn = console.warn;
+    console.warn = (...args) => {
+      document.documentElement.dataset.previewWarnings = String(++previewWarningCount);
+      originalWarn(...args);
+    };
+  </script>
+  <style>
+    @font-face {
+      font-family: "Sora";
+      src: url("../key-visual-finalists-round-04/assets/sora.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-regular.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-bold.ttf") format("truetype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    :root {
+      --hero: #eef7fc;
+      --canvas: #faf9fc;
+      --ink: #18151d;
+      --muted: #625d69;
+      --border: #dcd8e1;
+      --primary: #00a0ff;
+      --gutter: clamp(24px, 4vw, 72px);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--hero);
+      font-family: "LINE Seed JP", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-head {
+      padding: 42px var(--gutter) 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+      gap: 48px;
+      align-items: end;
+    }
+    .page-head h1 {
+      margin: 0;
+      font: 700 clamp(36px, 5vw, 72px)/1 "Sora", sans-serif;
+      letter-spacing: -.055em;
+    }
+    .page-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .variant {
+      display: none;
+      padding: 0 var(--gutter) 160px;
+    }
+    .variant.is-active { display: block; }
+    .frame {
+      padding: 12px;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+    }
+    .frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--hero);
+    }
+    .caption {
+      padding: 26px 4px 0;
+      display: grid;
+      grid-template-columns: minmax(220px, .5fr) minmax(0, 1fr);
+      gap: 32px;
+    }
+    .caption h2 {
+      margin: 0;
+      font: 700 24px/1.25 "Sora", sans-serif;
+      letter-spacing: -.035em;
+    }
+    .caption p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .compare-menu {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 10;
+      width: min(560px, calc(100vw - 44px));
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--canvas) 94%, transparent);
+      box-shadow: 0 15px 42px rgb(24 21 29 / 14%);
+      backdrop-filter: blur(14px);
+    }
+    .compare-menu > p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    button {
+      min-width: 0;
+      padding: 11px 12px;
+      color: var(--ink);
+      text-align: left;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button strong {
+      display: block;
+      margin-bottom: 3px;
+      font: 700 17px/1 "Sora", sans-serif;
+    }
+    button span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    button[aria-pressed="true"] {
+      border-color: var(--primary);
+      box-shadow: inset 0 0 0 1px var(--primary);
+      background: color-mix(in srgb, var(--primary) 8%, var(--canvas));
+    }
+    @media (max-width: 720px) {
+      .page-head {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding-top: 30px;
+      }
+      .variant { padding-bottom: 150px; }
+      .frame { padding: 5px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; }
+      .compare-menu { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
+      button { padding-inline: 9px; }
+      button span { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-head">
+    <h1>Service<br>Structure Study</h1>
+    <p>共通構造は、上に「3列×2段の全体像」、下に「カード外のアイコン＋横長説明カード」を3組縦並び。構造は変えず、面・余白・タイポグラフィだけを比較します。</p>
+  </header>
+
+  <main>
+    <section class="variant" data-variant="A">
+      <div class="frame"><img src="assets/service-final-a.png" alt="案A"></div>
+      <div class="caption">
+        <h2>A / Structured editorial field</h2>
+        <p>厳密な3列グリッドと上下の面差で、悩みと解決状態の対応を最も明快に示す端正な案。</p>
+      </div>
+    </section>
+    <section class="variant" data-variant="B">
+      <div class="frame"><img src="assets/service-final-b.png" alt="案B"></div>
+      <div class="caption">
+        <h2>B / Open typographic bands</h2>
+        <p>細かな箱を減らし、大胆な文字と余白で上下の意味を分ける編集的で軽やかな案。</p>
+      </div>
+    </section>
+    <section class="variant" data-variant="C">
+      <div class="frame"><img src="assets/service-final-c.png" alt="案C"></div>
+      <div class="caption">
+        <h2>C / Layered color fields</h2>
+        <p>低濃度の色面と切り取りを使い、構造を保ちながらブランドらしい面のリズムを強める案。</p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="compare-menu" aria-label="比較用・実装外">
+    <p>比較用・実装外</p>
+    <div class="options">
+      <button type="button" data-target="A" aria-pressed="true"><strong>A</strong><span>厳密なグリッド</span></button>
+      <button type="button" data-target="B" aria-pressed="false"><strong>B</strong><span>文字と余白</span></button>
+      <button type="button" data-target="C" aria-pressed="false"><strong>C</strong><span>色面と切り取り</span></button>
+    </div>
+  </aside>
+
+  <script>
+    const variants = [...document.querySelectorAll(".variant")];
+    const buttons = [...document.querySelectorAll("button[data-target]")];
+    function selectVariant(name, updateHash = true) {
+      variants.forEach((variant) => variant.classList.toggle("is-active", variant.dataset.variant === name));
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.target === name)));
+      if (updateHash) history.replaceState(null, "", "#" + name);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    buttons.forEach((button) => button.addEventListener("click", () => selectVariant(button.dataset.target)));
+    window.addEventListener("hashchange", () => {
+      const name = location.hash.slice(1).toUpperCase();
+      selectVariant(["A", "B", "C"].includes(name) ? name : "A", false);
+    });
+    const initial = location.hash.slice(1).toUpperCase();
+    selectVariant(["A", "B", "C"].includes(initial) ? initial : "A", false);
+  </script>
+</body>
+</html>

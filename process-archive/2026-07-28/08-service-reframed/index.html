@@ -1,0 +1,1318 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service information architecture comparison</title>
+  <script>
+    document.documentElement.dataset.previewErrors = "0";
+    document.documentElement.dataset.previewWarnings = "0";
+    var previewErrorCount = 0;
+    var previewWarningCount = 0;
+    window.addEventListener("error", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    window.addEventListener("unhandledrejection", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    var originalWarn = console.warn;
+    console.warn = (...args) => {
+      document.documentElement.dataset.previewWarnings = String(++previewWarningCount);
+      originalWarn(...args);
+    };
+  </script>
+  <style>
+    @font-face {
+      font-family: "Sora";
+      src: url("../key-visual-finalists-round-04/assets/sora.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-regular.ttf") format("truetype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-bold.ttf") format("truetype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    :root {
+      --primary: #00a0ff;
+      --secondary: #c7f14a;
+      --violet: #6c4ed9;
+      --orange: #ff6b3d;
+      --canvas: #faf9fc;
+      --hero: #eef7fc;
+      --ink: #18151d;
+      --surface: #ece8f0;
+      --border: #dcd8e1;
+      --muted: #625d69;
+      --gutter: clamp(40px, 4vw, 72px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--hero);
+      font-family: "LINE Seed JP", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, a { font: inherit; }
+    .site-header {
+      height: 72px;
+      padding: 0 var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--hero);
+    }
+    .wordmark {
+      color: var(--ink);
+      font-family: "Sora", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.045em;
+      text-decoration: none;
+    }
+    .site-nav { display: flex; align-items: center; gap: 30px; }
+    .site-nav a {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .site-nav .contact-link {
+      padding: 15px 20px;
+      color: var(--canvas);
+      background: var(--ink);
+    }
+    .variant { display: none; min-height: 100vh; }
+    .variant.is-active { display: block; }
+    .intro {
+      min-height: 410px;
+      padding: 86px var(--gutter) 80px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .65fr);
+      gap: 8vw;
+      align-items: end;
+    }
+    .section-label {
+      margin: 0 0 28px;
+      font-family: "Sora", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .intro h1 {
+      max-width: 930px;
+      margin: 0;
+      font-size: clamp(48px, 6.2vw, 92px);
+      line-height: 1.15;
+      letter-spacing: -.055em;
+    }
+    .section-title {
+      margin: 0 0 34px;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(34px, 3.6vw, 54px);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+    .intro-copy {
+      max-width: 510px;
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 2;
+      color: var(--muted);
+    }
+    .content {
+      padding: 0 var(--gutter) 160px;
+    }
+    .content-inner {
+      width: 100%;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+      font-family: "Sora", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 3px;
+      background: currentColor;
+    }
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 230px;
+      margin-top: 30px;
+      padding: 18px 22px;
+      color: var(--canvas);
+      background: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .arrow { font-size: 21px; font-weight: 400; }
+
+    /* A — 顧客が詰まりを発見する */
+    .blocker-list {
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--canvas) 42%, transparent);
+    }
+    .blocker {
+      --accent: var(--primary);
+      display: grid;
+      grid-template-columns: minmax(270px, .78fr) 92px minmax(450px, 1.35fr);
+      min-height: 300px;
+      border-bottom: 1px solid var(--border);
+    }
+    .blocker:nth-child(2) { --accent: var(--violet); }
+    .blocker:nth-child(3) { --accent: var(--orange); }
+    .blocker-question {
+      padding: 52px 40px 52px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .blocker-no {
+      font-family: "Sora", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      color: var(--muted);
+    }
+    .blocker-question h2 {
+      max-width: 470px;
+      margin: 46px 0 0;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.35;
+      letter-spacing: -.035em;
+    }
+    .blocker-bridge {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .blocker-bridge::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--border);
+    }
+    .icon-disc {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      z-index: 1;
+      color: var(--ink);
+      background: var(--accent);
+    }
+    .icon-disc svg { width: 31px; height: 31px; stroke-width: 2; }
+    .blocker-answer {
+      padding: 52px 0 52px 46px;
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) minmax(220px, .75fr);
+      gap: 42px;
+      align-items: start;
+    }
+    .service-name {
+      margin: 0;
+      font-size: clamp(23px, 2.1vw, 32px);
+      line-height: 1.45;
+      letter-spacing: -.025em;
+    }
+    .service-description {
+      max-width: 620px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .detail-label {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .outcome {
+      margin: 0 0 24px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.75;
+    }
+    .examples {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .examples li {
+      padding: 9px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .examples li:last-child { border-bottom: 1px solid var(--border); }
+    .a-cta {
+      margin-top: 52px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* B — 任せられる責任を先に示す */
+    .responsibility {
+      color: var(--canvas);
+      background: var(--ink);
+      padding: 68px clamp(36px, 5vw, 76px) 62px;
+    }
+    .responsibility-top {
+      display: grid;
+      grid-template-columns: minmax(280px, .8fr) minmax(420px, 1.35fr);
+      gap: 8vw;
+      align-items: end;
+    }
+    .responsibility h2 {
+      margin: 0;
+      font-size: clamp(35px, 4vw, 60px);
+      line-height: 1.25;
+      letter-spacing: -.045em;
+    }
+    .responsibility-description {
+      margin: 0 0 7px;
+      max-width: 660px;
+      color: color-mix(in srgb, var(--canvas) 70%, transparent);
+      font-size: 15px;
+      line-height: 1.95;
+    }
+    .capability-list {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid color-mix(in srgb, var(--canvas) 22%, transparent);
+    }
+    .capability {
+      min-height: 190px;
+      padding: 25px 28px 25px 0;
+      border-right: 1px solid color-mix(in srgb, var(--canvas) 22%, transparent);
+    }
+    .capability + .capability { padding-left: 28px; }
+    .capability:last-child { border-right: 0; padding-right: 0; }
+    .capability-no {
+      color: var(--secondary);
+      font-family: "Sora", sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+    }
+    .capability strong {
+      display: block;
+      margin: 36px 0 10px;
+      font-size: 19px;
+    }
+    .capability p {
+      margin: 0;
+      color: color-mix(in srgb, var(--canvas) 62%, transparent);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .service-applications {
+      padding-top: 72px;
+    }
+    .applications-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+    .applications-heading h2 {
+      margin: 0;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -.045em;
+    }
+    .applications-heading p {
+      max-width: 490px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .application-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .application {
+      --accent: var(--primary);
+      min-height: 490px;
+      padding: 34px 32px 30px;
+      display: flex;
+      flex-direction: column;
+      background: var(--canvas);
+      border-top: 8px solid var(--accent);
+    }
+    .application:nth-child(2) { --accent: var(--violet); }
+    .application:nth-child(3) { --accent: var(--orange); }
+    .application-context {
+      margin: 0 0 46px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .application h3 {
+      margin: 0;
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.45;
+      letter-spacing: -.025em;
+    }
+    .application-copy {
+      margin: 17px 0 28px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+    .application-footer {
+      margin-top: auto;
+      padding-top: 23px;
+      border-top: 1px solid var(--border);
+    }
+    .application-footer dl { margin: 0; }
+    .application-footer div {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      gap: 12px;
+      padding: 7px 0;
+    }
+    .application-footer dt {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+    .application-footer dd {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .b-cta {
+      margin-top: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+    .b-cta p {
+      max-width: 580px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* C — 共感を十分に置いてから解決策へ */
+    .empathy-stage {
+      padding: 70px clamp(36px, 5vw, 76px) 76px;
+      background: var(--canvas);
+    }
+    .empathy-heading {
+      display: block;
+    }
+    .empathy-heading h2 {
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(34px, 4.2vw, 62px);
+      line-height: 1.25;
+      letter-spacing: -.045em;
+    }
+    .empathy-heading p {
+      max-width: 620px;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.95;
+    }
+    .voices {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .voice {
+      min-height: 220px;
+      padding: 34px 32px 32px 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .voice + .voice { padding-left: 32px; }
+    .voice:last-child { border-right: 0; padding-right: 0; }
+    .voice blockquote {
+      margin: 0;
+      font-size: clamp(22px, 2.2vw, 31px);
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: -.025em;
+    }
+    .recognition {
+      min-height: 390px;
+      padding: 90px clamp(36px, 6vw, 92px);
+      display: flex;
+      align-items: center;
+      color: var(--canvas);
+      background: var(--ink);
+    }
+    .recognition h2 {
+      max-width: 890px;
+      margin: 0;
+      font-size: clamp(38px, 5.2vw, 76px);
+      line-height: 1.22;
+      letter-spacing: -.05em;
+    }
+    .solutions-stage {
+      padding: 86px 0 0;
+    }
+    .solutions-heading {
+      display: block;
+      margin-bottom: 48px;
+    }
+    .solutions-heading h2 {
+      margin: 0;
+      font-size: clamp(38px, 4.4vw, 64px);
+      line-height: 1.2;
+      letter-spacing: -.05em;
+    }
+    .solutions-heading p {
+      max-width: 590px;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .solution-list {
+      background: color-mix(in srgb, var(--canvas) 45%, transparent);
+      border-top: 1px solid var(--border);
+    }
+    .solution {
+      --accent: var(--primary);
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      min-height: 230px;
+      border-bottom: 1px solid var(--border);
+    }
+    .solution:nth-child(2) { --accent: var(--violet); }
+    .solution:nth-child(3) { --accent: var(--orange); }
+    .solution-marker {
+      padding: 42px 30px 42px 0;
+      display: flex;
+      align-items: center;
+    }
+    .solution-marker .icon-disc {
+      width: 64px;
+      height: 64px;
+    }
+    .solution-marker .icon-disc svg { width: 28px; height: 28px; }
+    .solution-main {
+      padding: 42px 44px;
+      border-left: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(280px, .7fr) minmax(380px, 1.3fr);
+      gap: 7vw;
+      align-items: center;
+    }
+    .solution-main .service-name { max-width: 440px; }
+    .c-cta {
+      margin-top: 48px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    #variant-c .intro {
+      grid-template-columns: 1fr;
+    }
+    #variant-c .intro h1 {
+      max-width: 1220px;
+    }
+    #variant-c .service-description {
+      max-width: 760px;
+      margin-top: 0;
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    /* D — 悩みと解決策の全体像から、サービスの具体へ */
+    #variant-d .intro {
+      min-height: 350px;
+      grid-template-columns: 1fr;
+      padding-bottom: 58px;
+    }
+    #variant-d .intro h1 {
+      max-width: 1040px;
+    }
+    .d-overview {
+      padding: 0;
+      background: var(--canvas);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .d-map-row {
+      --accent: var(--secondary);
+      display: grid;
+      grid-template-columns: minmax(280px, .82fr) 116px minmax(420px, 1.18fr);
+      min-height: 190px;
+      align-items: stretch;
+    }
+    .d-map-row + .d-map-row {
+      border-top: 1px solid var(--border);
+    }
+    .d-map-row:nth-child(2) { --accent: var(--violet); }
+    .d-map-row:nth-child(3) { --accent: var(--orange); }
+    .d-pain,
+    .d-answer {
+      display: flex;
+      align-items: center;
+    }
+    .d-pain {
+      padding: 38px 44px 38px clamp(36px, 5vw, 72px);
+      background: color-mix(in srgb, var(--surface) 55%, var(--canvas));
+    }
+    .d-answer {
+      padding: 38px clamp(36px, 5vw, 72px) 38px 44px;
+    }
+    .d-pain p,
+    .d-answer p {
+      max-width: 600px;
+      margin: 0;
+      font-size: clamp(22px, 2vw, 30px);
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: -.025em;
+    }
+    .d-answer p {
+      font-size: clamp(24px, 2.25vw, 34px);
+    }
+    .d-bridge {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .d-bridge::before {
+      content: "";
+      position: absolute;
+      inset: 18px 0;
+      background: var(--accent);
+      clip-path: polygon(0 18%, 30% 18%, 30% 0, 70% 0, 70% 18%, 100% 18%, 100% 82%, 70% 82%, 70% 100%, 30% 100%, 30% 82%, 0 82%);
+    }
+    .d-bridge svg {
+      width: 38px;
+      height: 38px;
+      position: relative;
+      z-index: 1;
+      color: var(--canvas);
+      stroke-width: 2.2;
+    }
+    .d-details {
+      padding: 96px 0 0;
+    }
+    .d-details h2 {
+      max-width: 780px;
+      margin: 0 0 50px;
+      font-size: clamp(38px, 4.4vw, 64px);
+      line-height: 1.2;
+      letter-spacing: -.05em;
+    }
+    .d-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .d-card {
+      --accent: var(--secondary);
+      min-height: 430px;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      background: var(--canvas);
+      border-top: 7px solid var(--accent);
+    }
+    .d-card:nth-child(2) { --accent: var(--violet); }
+    .d-card:nth-child(3) { --accent: var(--orange); }
+    .d-card-icon {
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 52px;
+      color: var(--ink);
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .d-card-icon svg {
+      width: 31px;
+      height: 31px;
+      stroke-width: 2.2;
+    }
+    .d-card h3 {
+      margin: 0;
+      font-size: clamp(25px, 2.2vw, 33px);
+      line-height: 1.4;
+      letter-spacing: -.03em;
+    }
+    .d-card > p {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+    .d-card-list {
+      margin: auto 0 0;
+      padding: 28px 0 0;
+      list-style: none;
+    }
+    .d-card-list li {
+      position: relative;
+      padding: 8px 0 8px 22px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+    .d-card-list li::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+    }
+    .d-cta {
+      margin-top: 48px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .compare-menu {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 20;
+      width: min(650px, calc(100vw - 44px));
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--canvas) 94%, transparent);
+      box-shadow: 0 15px 42px rgba(24, 21, 29, .14);
+      backdrop-filter: blur(14px);
+    }
+    .compare-title {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .compare-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .compare-button {
+      min-height: 61px;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--canvas);
+      text-align: left;
+      cursor: pointer;
+    }
+    .compare-button strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: "Sora", sans-serif;
+      font-size: 15px;
+    }
+    .compare-button span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .compare-button[aria-pressed="true"] {
+      border-color: var(--primary);
+      box-shadow: inset 0 0 0 1px var(--primary);
+      background: color-mix(in srgb, var(--primary) 8%, var(--canvas));
+    }
+
+    @media (max-width: 1050px) {
+      .blocker {
+        grid-template-columns: minmax(220px, .72fr) 76px minmax(390px, 1.2fr);
+      }
+      .blocker-answer {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+      .application { padding-inline: 25px; }
+    }
+    @media (max-width: 780px) {
+      :root { --gutter: 24px; }
+      .site-header { height: 64px; }
+      .site-nav a:not(.contact-link) { display: none; }
+      .site-nav .contact-link { padding: 12px 14px; font-size: 11px; }
+      .intro {
+        min-height: auto;
+        padding-top: 66px;
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+      .intro h1 { font-size: clamp(42px, 13vw, 62px); }
+      .blocker {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        padding-bottom: 38px;
+      }
+      .blocker-question { padding: 37px 0 20px; }
+      .blocker-question h2 { margin-top: 25px; font-size: 30px; }
+      .blocker-bridge {
+        width: 64px;
+        min-height: 64px;
+        justify-self: start;
+      }
+      .blocker-bridge::before { display: none; }
+      .icon-disc { width: 58px; height: 58px; }
+      .icon-disc svg { width: 27px; height: 27px; }
+      .blocker-answer {
+        padding: 20px 0 0;
+        grid-template-columns: 1fr;
+      }
+      .a-cta { justify-content: flex-start; }
+      .responsibility { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+      .responsibility-top { grid-template-columns: 1fr; gap: 30px; }
+      .capability-list { grid-template-columns: 1fr 1fr; }
+      .capability { border-bottom: 1px solid color-mix(in srgb, var(--canvas) 22%, transparent); }
+      .capability:nth-child(2) { border-right: 0; }
+      .capability:nth-child(3) { padding-left: 0; }
+      .application-grid { grid-template-columns: 1fr; }
+      .application { min-height: 0; }
+      .applications-heading, .b-cta { align-items: flex-start; flex-direction: column; }
+      .voices { grid-template-columns: 1fr; }
+      .voice {
+        min-height: 0;
+        padding: 30px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .voice + .voice { padding-left: 0; }
+      .voice:last-child { border-bottom: 0; }
+      .recognition {
+        margin-inline: calc(var(--gutter) * -1);
+        padding-inline: var(--gutter);
+      }
+      .solution {
+        grid-template-columns: 72px 1fr;
+      }
+      .solution-marker { padding: 30px 14px 30px 0; }
+      .solution-main {
+        padding: 30px 0 25px 24px;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .c-cta { justify-content: flex-start; }
+      #variant-d .intro { padding-bottom: 42px; }
+      .d-map-row {
+        grid-template-columns: 1fr 68px;
+        min-height: 0;
+      }
+      .d-pain {
+        min-height: 150px;
+        padding: 28px 24px;
+      }
+      .d-answer {
+        grid-column: 1 / -1;
+        min-height: 150px;
+        padding: 30px 24px;
+        border-top: 1px solid var(--border);
+      }
+      .d-bridge {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .d-bridge::before {
+        inset: 18px 0;
+        clip-path: polygon(0 16%, 30% 16%, 30% 0, 70% 0, 70% 16%, 100% 16%, 100% 84%, 70% 84%, 70% 100%, 30% 100%, 30% 84%, 0 84%);
+      }
+      .d-bridge svg { width: 29px; height: 29px; }
+      .d-pain p,
+      .d-answer p { font-size: 22px; }
+      .d-details { padding-top: 72px; }
+      .d-details h2 { margin-bottom: 36px; }
+      .d-card-grid { grid-template-columns: 1fr; }
+      .d-card { min-height: 0; padding: 28px 24px 32px; }
+      .d-card-icon { margin-bottom: 32px; }
+      .d-card-list { margin-top: 24px; }
+      .d-cta { justify-content: flex-start; }
+      .content { padding-bottom: 180px; }
+      .compare-menu { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
+      .compare-options { gap: 6px; }
+      .compare-button { min-width: 0; padding-inline: 9px; }
+      .compare-button span { font-size: 9px; line-height: 1.3; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#">Hashigodaka</a>
+    <nav class="site-nav" aria-label="サイトナビゲーション">
+      <a href="#service">サービス</a>
+      <a href="#team">チーム</a>
+      <a href="#news">ニュース</a>
+      <a class="contact-link" href="#contact">営業に問い合わせる&nbsp; →</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="variant is-active" id="variant-a" data-variant="A">
+      <div class="intro">
+        <div>
+          <p class="section-label">Service</p>
+          <h1>どこで、<br>止まっていますか。</h1>
+        </div>
+        <p class="intro-copy">AIを活かしたいと思っていても、止まる場所は企業ごとに異なります。いま前へ進めたいことから、必要な支援を選べます。</p>
+      </div>
+      <div class="content">
+        <div class="content-inner">
+          <div class="blocker-list">
+            <article class="blocker">
+              <div class="blocker-question">
+                <span class="blocker-no">BLOCKER 01</span>
+                <h2>作りたいものはある。<br>でも、形にできない。</h2>
+              </div>
+              <div class="blocker-bridge" aria-hidden="true">
+                <span class="icon-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="blocker-answer">
+                <div>
+                  <p class="eyebrow" style="color:var(--primary)">System Development</p>
+                  <h3 class="service-name">AIを活用した<br>システム開発</h3>
+                  <p class="service-description">要望や業務知識を実装可能な要件へ整理し、AIによる速度を活かして設計・開発。テストとリリース基準まで含め、品質に責任を持って届けます。</p>
+                </div>
+                <div>
+                  <p class="detail-label">支援後に変わること</p>
+                  <p class="outcome">意思決定からリリースまでの距離が短くなる。</p>
+                  <p class="detail-label">具体例</p>
+                  <ul class="examples">
+                    <li>顧客要望から業務システムを新規開発</li>
+                    <li>テストの薄い既存システムを再構築</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article class="blocker">
+              <div class="blocker-question">
+                <span class="blocker-no">BLOCKER 02</span>
+                <h2>AIで開発したい。<br>でも、組織で続かない。</h2>
+              </div>
+              <div class="blocker-bridge" aria-hidden="true">
+                <span class="icon-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="blocker-answer">
+                <div>
+                  <p class="eyebrow" style="color:var(--violet)">Development Enablement</p>
+                  <h3 class="service-name">社内AI開発体制の<br>構築支援</h3>
+                  <p class="service-description">ツールを入れるだけでなく、AIと人の役割、レビュー、自動検証、運用ルールを設計。実案件で伴走し、自社で改善を続けられる開発体制を整えます。</p>
+                </div>
+                <div>
+                  <p class="detail-label">支援後に変わること</p>
+                  <p class="outcome">AI開発が個人技ではなく、組織の能力になる。</p>
+                  <p class="detail-label">具体例</p>
+                  <ul class="examples">
+                    <li>AI開発ガイドラインとレビュー基準を整備</li>
+                    <li>CI/CDと自動検証を実案件へ導入</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article class="blocker">
+              <div class="blocker-question">
+                <span class="blocker-no">BLOCKER 03</span>
+                <h2>AIを導入した。<br>でも、仕事が変わらない。</h2>
+              </div>
+              <div class="blocker-bridge" aria-hidden="true">
+                <span class="icon-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v3"/><path d="M18.4 5.6 16.3 7.7"/><path d="M21 12h-3"/><path d="M18.4 18.4 16.3 16.3"/><path d="M12 21v-3"/><path d="M5.6 18.4 7.7 16.3"/><path d="M3 12h3"/><path d="M5.6 5.6 7.7 7.7"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="blocker-answer">
+                <div>
+                  <p class="eyebrow" style="color:var(--orange)">AI Adoption</p>
+                  <h3 class="service-name">業務への<br>AI導入支援</h3>
+                  <p class="service-description">実際の業務を棚卸しし、効果と実現性の高いテーマを選定。AIエージェントや自動化を現場で試し、一部の個人ではなく組織で使われる状態へ広げます。</p>
+                </div>
+                <div>
+                  <p class="detail-label">支援後に変わること</p>
+                  <p class="outcome">AIがチャット相手から、日々の仕事を進める力になる。</p>
+                  <p class="detail-label">具体例</p>
+                  <ul class="examples">
+                    <li>定型的な情報整理・報告作業を自動化</li>
+                    <li>実務を題材にAIエージェントを検証</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="a-cta"><a class="primary-button" href="#contact">相談内容を整理する <span class="arrow">→</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant" id="variant-b" data-variant="B">
+      <div class="intro">
+        <div>
+          <p class="section-label">Service</p>
+          <h1>意思を、<br>使われる成果まで。</h1>
+        </div>
+        <p class="intro-copy">Hashigodakaは、AIツールや人員だけを提供する会社ではありません。合意した成果に必要な実装と仕組みを引き受けます。</p>
+      </div>
+      <div class="content">
+        <div class="content-inner">
+          <section class="responsibility">
+            <div class="responsibility-top">
+              <div>
+                <p class="eyebrow" style="color:var(--secondary)">What we take on</p>
+                <h2>正しく作り、<br>現場まで届ける。</h2>
+              </div>
+              <p class="responsibility-description">支援の形が開発代行でも、社内体制づくりでも、業務導入でも、共通するのは「AIで作れた」で終わらせないことです。顧客と合意した責任範囲に応じ、成果が使われるための工程を設計します。</p>
+            </div>
+            <div class="capability-list">
+              <div class="capability">
+                <span class="capability-no">01 / TRANSLATE</span>
+                <strong>実装できる言葉へ</strong>
+                <p>要望、業務知識、制約を、判断可能な要件へ整理します。</p>
+              </div>
+              <div class="capability">
+                <span class="capability-no">02 / IMPLEMENT</span>
+                <strong>AIで速く形へ</strong>
+                <p>AIとモダンな技術を使い、検証可能な成果を早く作ります。</p>
+              </div>
+              <div class="capability">
+                <span class="capability-no">03 / ASSURE</span>
+                <strong>人が責任を持てる品質へ</strong>
+                <p>レビュー、テスト、自動検証により、速度と品質を両立します。</p>
+              </div>
+              <div class="capability">
+                <span class="capability-no">04 / DELIVER</span>
+                <strong>使われ続ける状態へ</strong>
+                <p>リリース、運用、定着まで、支援ごとの完了条件につなげます。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="service-applications">
+            <div class="applications-heading">
+              <div>
+                <p class="eyebrow">Three ways to work with us</p>
+                <h2>3つの支援形態</h2>
+              </div>
+              <p>すべてを順番に利用する必要はありません。必要な成果と、社内で誰が実装主体になるかに応じて選べます。</p>
+            </div>
+            <div class="application-grid">
+              <article class="application">
+                <p class="application-context">Hashigodakaが開発を担う</p>
+                <h3>AIを活用した<br>システム開発</h3>
+                <p class="application-copy">作りたいものを要件へ落とし、設計・開発・品質保証・リリースまでを一貫して担います。</p>
+                <div class="application-footer">
+                  <dl>
+                    <div><dt>向いている</dt><dd>すぐに開発を進めたい企業</dd></div>
+                    <div><dt>残るもの</dt><dd>運用可能なシステムと開発基盤</dd></div>
+                    <div><dt>具体例</dt><dd>新規業務システム／既存システム再構築</dd></div>
+                  </dl>
+                </div>
+              </article>
+              <article class="application">
+                <p class="application-context">顧客のチームが開発主体になる</p>
+                <h3>社内AI開発体制の<br>構築支援</h3>
+                <p class="application-copy">AIを使った開発プロセスと品質保証の仕組みを、実案件での伴走を通じて社内へ実装します。</p>
+                <div class="application-footer">
+                  <dl>
+                    <div><dt>向いている</dt><dd>開発を自社の力にしたい組織</dd></div>
+                    <div><dt>残るもの</dt><dd>開発環境、基準、運用できるチーム</dd></div>
+                    <div><dt>具体例</dt><dd>AI開発基盤／レビュー・CI整備</dd></div>
+                  </dl>
+                </div>
+              </article>
+              <article class="application">
+                <p class="application-context">現場の担当者が業務を変える</p>
+                <h3>業務への<br>AI導入支援</h3>
+                <p class="application-copy">業務から活用テーマを見つけ、AIエージェントや自動化を試し、現場で使われる形へ定着させます。</p>
+                <div class="application-footer">
+                  <dl>
+                    <div><dt>向いている</dt><dd>AI活用を実務へ広げたい企業</dd></div>
+                    <div><dt>残るもの</dt><dd>稼働するAI活用例と展開の仕組み</dd></div>
+                    <div><dt>具体例</dt><dd>業務自動化／AIエージェント導入検証</dd></div>
+                  </dl>
+                </div>
+              </article>
+            </div>
+            <div class="b-cta">
+              <p>依頼内容がまだ固まっていない場合も、いまの状況と実現したいことから支援範囲を整理します。</p>
+              <a class="primary-button" href="#contact">営業に問い合わせる <span class="arrow">→</span></a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant" id="variant-c" data-variant="C">
+      <div class="intro">
+        <div>
+          <p class="section-title">Service</p>
+          <h1>AIを活かしたい。<br>なのに、前へ進まない。</h1>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content-inner">
+          <section class="empathy-stage">
+            <div class="empathy-heading">
+              <h2>こんなところで、<br>止まっていませんか。</h2>
+            </div>
+            <div class="voices">
+              <article class="voice">
+                <blockquote>「作りたいものはある。でも、要件にできず開発が進まない。」</blockquote>
+              </article>
+              <article class="voice">
+                <blockquote>「AIで開発を始めた。でも、品質に自信が持てない。」</blockquote>
+              </article>
+              <article class="voice">
+                <blockquote>「AIを導入した。でも、現場の仕事は変わっていない。」</blockquote>
+              </article>
+            </div>
+          </section>
+
+          <section class="recognition">
+            <h2>「AIでできること」と、<br>「現場へ届けること」の<br>間に断絶があります。</h2>
+          </section>
+
+          <section class="solutions-stage">
+            <div class="solutions-heading">
+              <h2>止まっている場所から、<br>実装を前へ。</h2>
+            </div>
+            <div class="solution-list">
+              <article class="solution">
+                <div class="solution-marker">
+                  <span class="icon-disc" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="solution-main">
+                  <h3 class="service-name">AIを活用した<br>システム開発</h3>
+                  <p class="service-description">要望や業務知識を実装可能な要件へ整理し、設計・開発・品質保証・リリースまでを一貫して担います。</p>
+                </div>
+              </article>
+              <article class="solution">
+                <div class="solution-marker">
+                  <span class="icon-disc" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="solution-main">
+                  <h3 class="service-name">社内AI開発体制の<br>構築支援</h3>
+                  <p class="service-description">AIと人の役割、レビュー、自動検証、運用ルールを整え、実案件での伴走を通じて社内へ定着させます。</p>
+                </div>
+              </article>
+              <article class="solution">
+                <div class="solution-marker">
+                  <span class="icon-disc" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3v3"/><path d="M18.4 5.6 16.3 7.7"/><path d="M21 12h-3"/><path d="M18.4 18.4 16.3 16.3"/><path d="M12 21v-3"/><path d="M5.6 18.4 7.7 16.3"/><path d="M3 12h3"/><path d="M5.6 5.6 7.7 7.7"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="solution-main">
+                  <h3 class="service-name">業務への<br>AI導入支援</h3>
+                  <p class="service-description">実際の業務から活用テーマを選び、AIエージェントや自動化を試し、現場で使われる形へ広げます。</p>
+                </div>
+              </article>
+            </div>
+            <div class="c-cta"><a class="primary-button" href="#contact">いまの悩みを相談する <span class="arrow">→</span></a></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="variant" id="variant-d" data-variant="D">
+      <div class="intro">
+        <div>
+          <p class="section-title">Service</p>
+          <h1>悩みから、<br>必要な支援がわかる。</h1>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content-inner">
+          <section class="d-overview" aria-label="悩みと解決策の全体像">
+            <article class="d-map-row">
+              <div class="d-pain">
+                <p>作りたいものはある。<br>でも、要件にできず開発が進まない。</p>
+              </div>
+              <div class="d-bridge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/>
+                </svg>
+              </div>
+              <div class="d-answer">
+                <p>要件化から開発、品質保証まで任せて、届けられるシステムへ。</p>
+              </div>
+            </article>
+            <article class="d-map-row">
+              <div class="d-pain">
+                <p>AIで開発を始めた。<br>でも、品質に自信が持てない。</p>
+              </div>
+              <div class="d-bridge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>
+                </svg>
+              </div>
+              <div class="d-answer">
+                <p>人とAIの役割、レビュー、検証基準を整え、社内で続く開発体制へ。</p>
+              </div>
+            </article>
+            <article class="d-map-row">
+              <div class="d-pain">
+                <p>AIを導入した。<br>でも、現場の仕事は変わっていない。</p>
+              </div>
+              <div class="d-bridge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v3"/><path d="M18.4 5.6 16.3 7.7"/><path d="M21 12h-3"/><path d="M18.4 18.4 16.3 16.3"/><path d="M12 21v-3"/><path d="M5.6 18.4 7.7 16.3"/><path d="M3 12h3"/><path d="M5.6 5.6 7.7 7.7"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+              <div class="d-answer">
+                <p>業務から使いどころを選び、試して、組織で使われる仕組みへ。</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="d-details">
+            <h2>3つの支援で、<br>実装を前へ。</h2>
+            <div class="d-card-grid">
+              <article class="d-card">
+                <span class="d-card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/>
+                  </svg>
+                </span>
+                <h3>AIを活用した<br>システム開発</h3>
+                <p>要望や業務知識を実装可能な要件へ整理し、設計・開発・品質保証・リリースまでを一貫して担います。</p>
+                <ul class="d-card-list">
+                  <li>新規システム・プロダクト開発</li>
+                  <li>既存システムの改善・再構築</li>
+                </ul>
+              </article>
+              <article class="d-card">
+                <span class="d-card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>
+                  </svg>
+                </span>
+                <h3>社内AI開発体制の<br>構築支援</h3>
+                <p>AIと人の役割、レビュー、自動検証、運用ルールを整え、実案件での伴走を通じて社内へ定着させます。</p>
+                <ul class="d-card-list">
+                  <li>AI開発環境・プロセスの整備</li>
+                  <li>レビュー・CI・品質基準の構築</li>
+                </ul>
+              </article>
+              <article class="d-card">
+                <span class="d-card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v3"/><path d="M18.4 5.6 16.3 7.7"/><path d="M21 12h-3"/><path d="M18.4 18.4 16.3 16.3"/><path d="M12 21v-3"/><path d="M5.6 18.4 7.7 16.3"/><path d="M3 12h3"/><path d="M5.6 5.6 7.7 7.7"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </span>
+                <h3>業務への<br>AI導入支援</h3>
+                <p>実際の業務から活用テーマを選び、AIエージェントや自動化を試し、現場で使われる形へ広げます。</p>
+                <ul class="d-card-list">
+                  <li>業務自動化・AIエージェント検証</li>
+                  <li>利用ルール・社内展開の支援</li>
+                </ul>
+              </article>
+            </div>
+            <div class="d-cta"><a class="primary-button" href="#contact">いまの状況を相談する <span class="arrow">→</span></a></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="compare-menu" aria-label="比較用・実装外">
+    <p class="compare-title">比較用・実装外</p>
+    <div class="compare-options">
+      <button class="compare-button" type="button" data-target="A" aria-pressed="true">
+        <strong>A</strong><span>詰まりから選ぶ</span>
+      </button>
+      <button class="compare-button" type="button" data-target="B" aria-pressed="false">
+        <strong>B</strong><span>任せられる責任から知る</span>
+      </button>
+      <button class="compare-button" type="button" data-target="C" aria-pressed="false">
+        <strong>C</strong><span>共感してから解決へ</span>
+      </button>
+      <button class="compare-button" type="button" data-target="D" aria-pressed="false">
+        <strong>D</strong><span>全体像から具体へ</span>
+      </button>
+    </div>
+  </aside>
+
+  <script>
+    const variants = [...document.querySelectorAll(".variant")];
+    const buttons = [...document.querySelectorAll(".compare-button")];
+    function selectVariant(name, updateHash = true) {
+      variants.forEach((variant) => variant.classList.toggle("is-active", variant.dataset.variant === name));
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.target === name)));
+      if (updateHash) history.replaceState(null, "", "#" + name);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    buttons.forEach((button) => button.addEventListener("click", () => selectVariant(button.dataset.target)));
+    window.addEventListener("hashchange", () => {
+      const selected = location.hash.slice(1).toUpperCase();
+      selectVariant(["A", "B", "C", "D"].includes(selected) ? selected : "A", false);
+    });
+    const initial = location.hash.slice(1).toUpperCase();
+    selectVariant(["A", "B", "C", "D"].includes(initial) ? initial : "A", false);
+  </script>
+</body>
+</html>

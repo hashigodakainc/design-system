@@ -4,6 +4,8 @@ import test from "node:test";
 
 const publicArchive = new URL("../public/archive/2026-07-21/", import.meta.url);
 const publicSiteArchive = new URL("../public/archive/2026-07-22/", import.meta.url);
+const publicKeyVisualArchive = new URL("../public/archive/2026-07-24/", import.meta.url);
+const publicInformationArchitectureArchive = new URL("../public/archive/2026-07-28/", import.meta.url);
 
 test("publishes every archived comparison round from the design-system source", async () => {
   const entries = await readdir(publicArchive, { withFileTypes: true });
@@ -56,4 +58,49 @@ test("keeps reference company identities out of the public process narrative", a
   for (const name of thirdPartyNames) {
     assert.equal(publicNarrative.some((html) => html.includes(name)), false, `${name} must stay internal`);
   }
+});
+
+test("publishes the brand-led key visual rounds and decision timeline", async () => {
+  const entries = await readdir(publicKeyVisualArchive, { withFileTypes: true });
+  const rounds = entries
+    .filter((entry) => entry.isDirectory() && /^\d{2}-/.test(entry.name))
+    .map((entry) => entry.name)
+    .sort();
+
+  assert.deepEqual(rounds, [
+    "00-key-visual-brand-direction",
+    "01-key-visual-motif-motion",
+    "02-key-visual-finalists",
+  ]);
+  await Promise.all(rounds.map((round) => access(new URL(`${round}/index.html`, publicKeyVisualArchive))));
+  await access(new URL("process-timeline/index.html", publicKeyVisualArchive));
+  await access(new URL("assets/fonts/sora.ttf", publicKeyVisualArchive));
+  await access(new URL("assets/fonts/line-seed-jp-regular.ttf", publicKeyVisualArchive));
+  await access(new URL("assets/licenses/sora-OFL.txt", publicKeyVisualArchive));
+  await access(new URL("assets/licenses/line-seed-jp-OFL.txt", publicKeyVisualArchive));
+
+  const publicNarrative = await Promise.all([
+    readFile(new URL("README.md", publicKeyVisualArchive), "utf8"),
+    readFile(new URL("process-timeline/index.html", publicKeyVisualArchive), "utf8"),
+  ]);
+  assert.equal(publicNarrative.some((html) => html.includes("127.0.0.1")), false);
+});
+
+test("publishes the information architecture rounds and latest News decision", async () => {
+  const entries = await readdir(publicInformationArchitectureArchive, { withFileTypes: true });
+  const rounds = entries
+    .filter((entry) => entry.isDirectory() && /^\d{2}-/.test(entry.name))
+    .map((entry) => entry.name)
+    .sort();
+
+  assert.equal(rounds.length, 13);
+  await Promise.all(rounds.map((round) => access(new URL(`${round}/index.html`, publicInformationArchitectureArchive))));
+  await access(new URL("process-timeline/index.html", publicInformationArchitectureArchive));
+
+  const publicNarrative = await Promise.all([
+    readFile(new URL("README.md", publicInformationArchitectureArchive), "utf8"),
+    readFile(new URL("process-timeline/index.html", publicInformationArchitectureArchive), "utf8"),
+  ]);
+  assert.equal(publicNarrative.some((html) => html.includes("127.0.0.1")), false);
+  assert.equal(publicNarrative.some((html) => html.includes("記事行ではなく、Newsセクション全体をカードにする")), true);
 });

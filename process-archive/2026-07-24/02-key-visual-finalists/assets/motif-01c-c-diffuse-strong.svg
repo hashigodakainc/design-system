@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <filter id="diffuse-edge" x="-14%" y="-14%" width="128%" height="128%">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.026"
+      numOctaves="2"
+      seed="23"
+      result="flow"
+    />
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="flow"
+      scale="3.2"
+      xChannelSelector="R"
+      yChannelSelector="G"
+      result="organic-edge"
+    />
+    <feGaussianBlur in="organic-edge" stdDeviation="5.2"/>
+  </filter>
+  <path
+    fill="#000"
+    filter="url(#diffuse-edge)"
+    d="M44 42Q40 42 40 47v162q0 6 5 3l57-33q12-7 12-26 0-17 14-17t14 17q0 19 12 26l57 33q5 3 5-3V47q0-5-4-5l-58 33q-12 7-12 26 0 19-14 19t-14-19q0-19-12-26Z"
+  />
+</svg>

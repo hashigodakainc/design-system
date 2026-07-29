@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service AS IS / TO BE study</title>
+  <script>
+    document.documentElement.dataset.previewErrors = "0";
+    document.documentElement.dataset.previewWarnings = "0";
+    let previewErrorCount = 0;
+    let previewWarningCount = 0;
+    window.addEventListener("error", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    window.addEventListener("unhandledrejection", () => {
+      document.documentElement.dataset.previewErrors = String(++previewErrorCount);
+    });
+    const originalWarn = console.warn;
+    console.warn = (...args) => {
+      document.documentElement.dataset.previewWarnings = String(++previewWarningCount);
+      originalWarn(...args);
+    };
+  </script>
+  <style>
+    @font-face {
+      font-family: "Sora";
+      src: url("../key-visual-finalists-round-04/assets/sora.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-regular.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "LINE Seed JP";
+      src: url("../key-visual-finalists-round-04/assets/line-seed-jp-bold.ttf") format("truetype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    :root {
+      --hero: #eef7fc;
+      --canvas: #faf9fc;
+      --ink: #18151d;
+      --muted: #625d69;
+      --line: #dcd8e1;
+      --primary: #00a0ff;
+      --secondary: #c7f14a;
+      --violet: #6c4ed9;
+      --orange: #ff6b3d;
+      --gutter: clamp(24px, 4vw, 72px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--hero);
+      font-family: "LINE Seed JP", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .shell {
+      width: 100%;
+      padding-inline: var(--gutter);
+    }
+    .study-label {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 20;
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      background: rgb(250 249 252 / 90%);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+    }
+    .intro {
+      min-height: 100vh;
+      padding-block: clamp(70px, 9vh, 128px);
+      display: grid;
+      align-content: center;
+    }
+    .intro__heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 560px);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: clamp(64px, 9vh, 112px);
+    }
+    .intro h1 {
+      margin: 0;
+      font: 700 clamp(58px, 7vw, 112px)/.92 "Sora", sans-serif;
+      letter-spacing: -.065em;
+    }
+    .intro__lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.25vw, 21px);
+      line-height: 1.9;
+    }
+    .overview {
+      overflow: hidden;
+      background: transparent;
+    }
+    .overview__row,
+    .overview__transition {
+      display: grid;
+      grid-template-columns: clamp(96px, 8.5vw, 132px) repeat(3, minmax(0, 1fr));
+    }
+    .overview__row {
+      border: 1px solid var(--line);
+    }
+    .overview__side {
+      padding: 28px 18px;
+      display: grid;
+      place-content: center;
+      gap: 10px;
+      color: var(--canvas);
+      text-align: center;
+      background: var(--ink);
+    }
+    .overview__side strong {
+      font: 700 clamp(18px, 1.6vw, 25px)/1 "Sora", sans-serif;
+      letter-spacing: .04em;
+    }
+    .overview__side span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .overview__side--tobe {
+      color: var(--canvas);
+      background: var(--primary);
+    }
+    .overview__cell {
+      position: relative;
+      padding: clamp(28px, 3.3vw, 52px);
+      display: flex;
+      align-items: center;
+      border-left: 1px solid var(--line);
+    }
+    .overview__transition {
+      min-height: 54px;
+    }
+    .overview__marker {
+      display: grid;
+      place-items: center;
+    }
+    .overview__marker::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 16px solid var(--accent);
+    }
+    .overview__row--pain .overview__cell {
+      color: var(--ink);
+      background: var(--canvas);
+      min-height: 170px;
+    }
+    .overview__row--state .overview__cell {
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 7%, var(--hero));
+      min-height: 230px;
+    }
+    .overview__row--pain p {
+      max-width: 19em;
+      margin: 0;
+      color: color-mix(in srgb, var(--ink) 82%, var(--hero));
+      font-size: clamp(18px, 1.55vw, 24px);
+      font-weight: 700;
+      line-height: 1.65;
+      letter-spacing: -.02em;
+    }
+    .overview__row--state p {
+      max-width: 16em;
+      margin: 0;
+      font-size: clamp(28px, 2.55vw, 41px);
+      font-weight: 700;
+      line-height: 1.45;
+      letter-spacing: -.035em;
+    }
+    .service {
+      min-height: 100vh;
+      padding-block: clamp(96px, 13vh, 180px);
+      display: grid;
+      grid-template-columns: minmax(240px, .55fr) minmax(600px, 1.45fr);
+      gap: clamp(56px, 7vw, 120px);
+      align-items: center;
+      border-top: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+    }
+    .service__visual {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+    }
+    .service__visual::before {
+      content: "";
+      position: absolute;
+      width: min(27vw, 360px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+    }
+    .service__icon {
+      position: relative;
+      z-index: 1;
+      width: min(11vw, 150px);
+      height: auto;
+      color: var(--accent);
+      stroke-width: 1.6;
+    }
+    .service__card {
+      position: relative;
+      padding: clamp(44px, 6vw, 88px);
+      background: color-mix(in srgb, var(--canvas) 78%, transparent);
+    }
+    .service__card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 8px;
+      height: 100%;
+      background: var(--accent);
+    }
+    .service__eyebrow {
+      display: none;
+    }
+    .service h2 {
+      max-width: 14em;
+      margin: 0 0 34px;
+      font-size: clamp(44px, 4.6vw, 72px);
+      line-height: 1.24;
+      letter-spacing: -.045em;
+    }
+    .service__description {
+      max-width: 39em;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(17px, 1.35vw, 21px);
+      line-height: 2;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .9s cubic-bezier(.22, 1, .36, 1),
+                  transform .9s cubic-bezier(.22, 1, .36, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 820px) {
+      .study-label { right: 12px; bottom: 12px; }
+      .intro {
+        min-height: auto;
+        padding-block: 80px 100px;
+      }
+      .intro__heading {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-bottom: 64px;
+      }
+      .overview__row,
+      .overview__transition {
+        display: contents;
+      }
+      .overview {
+        display: grid;
+        gap: 18px;
+        overflow: visible;
+      }
+      .overview__side,
+      .overview__transition-spacer {
+        display: none;
+      }
+      .overview__cell {
+        min-height: 0;
+        padding: 28px 24px;
+        border: 1px solid var(--line);
+      }
+      .overview__cell::before {
+        position: absolute;
+        left: 22px;
+        top: -10px;
+        z-index: 1;
+        padding: 4px 9px;
+        font: 700 10px/1 "Sora", sans-serif;
+        letter-spacing: .08em;
+        background: var(--hero);
+      }
+      .overview__row--pain .overview__cell::before {
+        content: "AS IS";
+        color: var(--ink);
+      }
+      .overview__row--state .overview__cell::before {
+        content: "TO BE";
+        color: var(--accent);
+      }
+      .overview__marker {
+        min-height: 20px;
+      }
+      .overview__marker::before {
+        border-left-width: 11px;
+        border-right-width: 11px;
+        border-top-width: 11px;
+      }
+      .overview__row--pain .overview__cell:nth-child(2) { grid-row: 1; }
+      .overview__transition .overview__marker:nth-child(2) { grid-row: 2; }
+      .overview__row--state .overview__cell:nth-child(2) { grid-row: 3; }
+      .overview__row--pain .overview__cell:nth-child(3) { grid-row: 4; }
+      .overview__transition .overview__marker:nth-child(3) { grid-row: 5; }
+      .overview__row--state .overview__cell:nth-child(3) { grid-row: 6; }
+      .overview__row--pain .overview__cell:nth-child(4) { grid-row: 7; }
+      .overview__transition .overview__marker:nth-child(4) { grid-row: 8; }
+      .overview__row--state .overview__cell:nth-child(4) { grid-row: 9; }
+      .overview__row--pain p { font-size: 18px; }
+      .overview__row--state p { font-size: 25px; }
+      .service {
+        min-height: auto;
+        padding-block: 104px;
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+      .service__visual { min-height: 300px; }
+      .service__visual::before { width: min(82vw, 340px); }
+      .service__icon { width: min(36vw, 148px); }
+      .service__card { padding: 40px 32px 44px; }
+      .service h2 { font-size: clamp(34px, 11vw, 48px); }
+      .service__description { font-size: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <span class="study-label">AS IS / TO BE・比較用・実装外</span>
+
+  <main>
+    <section class="intro shell">
+      <div class="intro__heading reveal">
+        <h1>Service</h1>
+        <p class="intro__lead">AI活用の課題は、組織によって異なります。<br>必要な支援から選べます。</p>
+      </div>
+
+      <div class="overview reveal" aria-label="3サービスの全体像">
+        <div class="overview__row overview__row--pain">
+          <div class="overview__side">
+            <strong>AS IS</strong>
+            <span>現在</span>
+          </div>
+          <div class="overview__cell" style="--accent: var(--primary)">
+            <p>作りたいものはある。<br>でも、要件にできず<br>開発が進まない。</p>
+          </div>
+          <div class="overview__cell" style="--accent: var(--violet)">
+            <p>AIで開発を始めた。<br>でも、品質に<br>自信が持てない。</p>
+          </div>
+          <div class="overview__cell" style="--accent: var(--orange)">
+            <p>AIを導入した。<br>でも、現場の仕事は<br>変わっていない。</p>
+          </div>
+        </div>
+        <div class="overview__transition" aria-hidden="true">
+          <div class="overview__transition-spacer"></div>
+          <div class="overview__marker" style="--accent: var(--primary)"></div>
+          <div class="overview__marker" style="--accent: var(--violet)"></div>
+          <div class="overview__marker" style="--accent: var(--orange)"></div>
+        </div>
+        <div class="overview__row overview__row--state">
+          <div class="overview__side overview__side--tobe">
+            <strong>TO BE</strong>
+            <span>解決後</span>
+          </div>
+          <div class="overview__cell" style="--accent: var(--primary)">
+            <p>要件化から品質保証まで整い、<br>届けられるシステムへ。</p>
+          </div>
+          <div class="overview__cell" style="--accent: var(--violet)">
+            <p>人とAIの役割と検証基準が整い、<br>社内で続けられる開発体制へ。</p>
+          </div>
+          <div class="overview__cell" style="--accent: var(--orange)">
+            <p>業務に合った使い方が定着し、<br>現場で使われる仕組みへ。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service shell" style="--accent: var(--primary)">
+      <div class="service__visual reveal" aria-hidden="true">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 16 4-4-4-4"/>
+          <path d="m6 8-4 4 4 4"/>
+          <path d="m14.5 4-5 16"/>
+          <rect width="20" height="18" x="2" y="3" rx="2"/>
+        </svg>
+      </div>
+      <article class="service__card reveal">
+        <p class="service__eyebrow">System Development</p>
+        <h2>AIを活用した<br>システム開発</h2>
+        <p class="service__description">要望や業務知識を実装可能な要件へ整理し、設計・開発・品質保証・リリースまでを一貫して担います。</p>
+      </article>
+    </section>
+
+    <section class="service shell" style="--accent: var(--violet)">
+      <div class="service__visual reveal" aria-hidden="true">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <article class="service__card reveal">
+        <p class="service__eyebrow">AI Development Enablement</p>
+        <h2>社内AI開発体制の<br>構築支援</h2>
+        <p class="service__description">AIと人の役割、レビュー、自動検証、運用ルールを整え、実案件での伴走を通じて社内へ定着させます。</p>
+      </article>
+    </section>
+
+    <section class="service shell" style="--accent: var(--orange)">
+      <div class="service__visual reveal" aria-hidden="true">
+        <svg class="service__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="8" height="8" x="3" y="3" rx="2"/>
+          <rect width="8" height="8" x="13" y="13" rx="2"/>
+          <path d="M11 7h4a2 2 0 0 1 2 2v4"/>
+          <path d="m14 10 3 3 3-3"/>
+        </svg>
+      </div>
+      <article class="service__card reveal">
+        <p class="service__eyebrow">AI Adoption</p>
+        <h2>業務への<br>AI導入支援</h2>
+        <p class="service__description">実際の業務から活用テーマを選び、AIエージェントや自動化を試し、現場で使われる形へ広げます。</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
