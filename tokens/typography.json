@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
-  "status": "candidate",
-  "description": "最終候補D-IとH-Jで共有する用途別タイポグラフィトークン",
+  "status": "selected",
+  "description": "選定書体D-Iを既定とし、過去比較の再現用にH-J互換指定も残す用途別タイポグラフィトークン",
   "fontPairs": [
     {
       "id": "di",
