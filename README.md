@@ -24,14 +24,12 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 ## 構成
 
 - [`tokens/`](tokens/) — 値・成熟度・未決事項の機械可読な正本
-- [`assets/`](assets/) — 再利用可能なブランド資産と機械可読な索引
+- [`assets/`](assets/) — 再利用可能なブランド資産（モチーフ・フォント）と機械可読な索引
 - [`docs/guidelines.md`](docs/guidelines.md) — 横断的なデザイン判断の正本
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
 - [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
 - [`examples/`](examples/) — 承認済みトークンの実装見本
 - [`scripts/`](scripts/) — トークンの生成と機械検証
-- [`process-archive/`](process-archive/) — 選定過程の比較HTML・資産・探索フェーズの文書
-- [`sites/process-archive/`](sites/process-archive/) — 制作過程を共有するSitesアプリ。公開素材は`process-archive/`から生成
 
 ## カラーを使う
 

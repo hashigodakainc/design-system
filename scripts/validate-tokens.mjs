@@ -100,18 +100,20 @@ for (const asset of assetSource.assets) {
   }
   if (!asset.path.startsWith("assets/") || asset.path.includes("..")) failures.push(`Unsafe asset path: ${asset.path}`);
   try {
-    resolveReference(asset.defaultColor);
-    const source = await readFile(resolve(root, asset.path), "utf8");
+    if (asset.defaultColor) resolveReference(asset.defaultColor);
+    for (const file of [asset.path, asset.license, ...(asset.variants ?? [])].filter(Boolean)) {
+      await readFile(resolve(root, file));
+    }
     if (asset.format === "image/svg+xml") {
+      const source = await readFile(resolve(root, asset.path), "utf8");
       if (!source.includes("<svg")) failures.push(`SVG asset is invalid: ${asset.id}`);
       if (!source.includes(`viewBox="${asset.viewBox}"`)) failures.push(`SVG viewBox does not match manifest: ${asset.id}`);
       if (!source.includes("currentColor")) failures.push(`SVG asset must use currentColor: ${asset.id}`);
+      if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
     }
-    await readFile(resolve(root, asset.sourceArchive, "index.html"), "utf8");
   } catch (error) {
     failures.push(`Asset ${asset.id}: ${error.message}`);
   }
-  if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
 }
 
 // 成熟度（status / pending）の整合を検査する。

@@ -1,6 +1,6 @@
-@font-face { font-family: "Hsg Sora"; src: url("../process-archive/2026-07-21/assets/fonts/sora.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Hsg Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Hsg Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Hsg Sora"; src: url("../assets/fonts/sora.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Hsg Line Seed JP"; src: url("../assets/fonts/line-seed-jp-regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Hsg Line Seed JP"; src: url("../assets/fonts/line-seed-jp-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
 :root { color-scheme: light; scroll-behavior: smooth; }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--hsg-color-text-primary); background: var(--hsg-color-background-canvas); font-family: var(--hsg-typography-family-body); font-size: var(--hsg-typography-size-body-default); font-weight: var(--hsg-typography-weight-body); line-height: var(--hsg-typography-line-height-body); letter-spacing: var(--hsg-typography-letter-spacing-body); }
