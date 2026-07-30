@@ -3,6 +3,18 @@
   "status": "candidate",
   "sourceDecision": "D-E-D",
   "description": "Hashigodakaの主案D-E-Dを実装検証するためのカラートークン",
+  "pending": [
+    {
+      "topic": "ブランドカラーD-E-Dの最終確定",
+      "until": "B2B LPと図解への適用確認",
+      "interim": "新規制作物での検証利用は可。外部配布用の恒久資産としての固定は不可。"
+    },
+    {
+      "topic": "Semantic Colors（Success / Warning / Error / Info）",
+      "until": "未選定。策定時期未定",
+      "interim": "Extended Colorsやバッジ色で代用しない。バッジの色名は見た目のバリエーションであり、状態の意味を固定しない。"
+    }
+  ],
   "tokens": [
     {
       "name": "color.brand.primary",
