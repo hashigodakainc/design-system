@@ -261,10 +261,27 @@ function loadTokenCategories(): {
     };
 
     if (category === "typography") {
-      data.roles = raw.roles.map((role) => ({
-        ...role,
-        resolved: resolveJsonAliases(role, (name) => resolveAlias(name)),
-      }));
+      data.roles = raw.roles.map((role, index) => {
+        const source = `${raw.path}:roles[${index}]`;
+        const family = stringField(role, "family", source);
+        const familyToken = `typography.family.${family}`;
+        if (!tokenValues.has(familyToken)) {
+          throw new Error(`Unknown typography family: ${family}`);
+        }
+
+        const resolved = resolveJsonAliases(role, (name) => resolveAlias(name));
+        if (!isJsonObject(resolved)) {
+          throw new Error(`${source} must resolve to an object.`);
+        }
+
+        return {
+          ...role,
+          resolved: {
+            ...resolved,
+            family: resolveAlias(familyToken),
+          },
+        };
+      });
     }
     categories.set(category, data);
   }

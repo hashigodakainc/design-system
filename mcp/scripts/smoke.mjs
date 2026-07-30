@@ -116,6 +116,14 @@ try {
     11,
     "get_tokens must include typography roles.",
   );
+  assert(
+    typographyCategory.roles.some(
+      (role) =>
+        role.family === "body" &&
+        role.resolved?.family.includes("Hsg Line Seed JP"),
+    ),
+    "Typography roles must preserve symbolic family values and resolve resolved.family to a font name.",
+  );
 
   const assetResult = await client.callTool({
     name: "get_asset",
