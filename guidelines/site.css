@@ -211,3 +211,5 @@ footer p { margin: 0; }
 .pending-item { padding: 22px 24px; border-left: 5px solid var(--hsg-color-brand-primary); background: var(--hsg-color-neutral-surface); }
 .pending-item h4 { margin: 0 0 10px; font-size: var(--hsg-typography-size-body-default); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); }
 .pending-item p { margin: 0 0 4px; color: var(--hsg-color-neutral-muted); font-size: var(--hsg-typography-size-body-small); line-height: var(--hsg-typography-line-height-body); }
+
+.nowrap { white-space: nowrap; }
