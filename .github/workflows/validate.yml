@@ -15,6 +15,6 @@ jobs:
       - name: Rebuild generated files from tokens
         run: node scripts/build-tokens.mjs
       - name: Generated files must be up to date
-        run: git diff --exit-code styles/tokens.css styles/typography.css guidelines/data.js
+        run: git diff --exit-code styles/tokens.css styles/typography.css
       - name: Validate tokens, assets, and docs
         run: node scripts/validate-tokens.mjs

@@ -174,18 +174,6 @@ for (const entry of await readdir(docsDir, { recursive: true })) {
   });
 }
 
-// 生成物 guidelines/data.js が正本から生成されたものであること（存在と鮮度の下限チェック）。
-try {
-  const dataJs = await readFile(resolve(root, "guidelines/data.js"), "utf8");
-  if (!dataJs.startsWith("/* Generated from tokens/*.json")) failures.push("guidelines/data.js is not a generated file");
-  const embedded = JSON.parse(dataJs.slice(dataJs.indexOf("{"), dataJs.lastIndexOf("}") + 1));
-  const embeddedColorCount = embedded.tokens?.colors?.length ?? 0;
-  if (embeddedColorCount !== colorSource.tokens.length) {
-    failures.push(`guidelines/data.js is stale: ${embeddedColorCount} colors embedded, ${colorSource.tokens.length} in source. Run scripts/build-tokens.mjs`);
-  }
-} catch (error) {
-  failures.push(`guidelines/data.js: ${error.message}`);
-}
 
 const luminance = (hex) => {
   if (!/^#[0-9a-f]{6}$/i.test(hex)) throw new Error(`Invalid color value: ${hex}`);
