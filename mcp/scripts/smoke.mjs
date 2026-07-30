@@ -53,11 +53,15 @@ try {
       ?.description?.includes(svgAsset.id),
     "get_asset description must include valid asset ids.",
   );
+  const guidelineTool = tools.find((tool) => tool.name === "read_guideline");
   assert(
-    tools
-      .find((tool) => tool.name === "read_guideline")
-      ?.description?.includes("guidelines"),
+    guidelineTool?.description?.includes("guidelines"),
     "read_guideline description must include valid document ids.",
+  );
+  assert.equal(
+    guidelineTool.outputSchema,
+    undefined,
+    "read_guideline must not expose an output schema.",
   );
 
   const tokensResult = await client.callTool({
@@ -67,6 +71,15 @@ try {
   assert.equal(tokensResult.isError, undefined);
   const tokensOutput = tokensResult.structuredContent;
   assert(tokensOutput && typeof tokensOutput === "object");
+  const tokensText = tokensResult.content.find(
+    (content) => content.type === "text",
+  );
+  assert(tokensText);
+  assert.deepEqual(
+    JSON.parse(tokensText.text),
+    tokensOutput,
+    "get_tokens text JSON must equal structuredContent.",
+  );
   assert(Array.isArray(tokensOutput.categories));
   assert.equal(tokensOutput.categories.length, 3);
   const colorCategory = tokensOutput.categories.find(
@@ -97,6 +110,15 @@ try {
   assert.equal(assetResult.isError, undefined);
   const assetOutput = assetResult.structuredContent;
   assert(assetOutput && typeof assetOutput === "object");
+  const assetText = assetResult.content.find(
+    (content) => content.type === "text",
+  );
+  assert(assetText);
+  assert.deepEqual(
+    JSON.parse(assetText.text),
+    assetOutput,
+    "get_asset text JSON must equal structuredContent.",
+  );
   assert.equal(assetOutput.asset.id, svgAsset.id);
   if (svgAsset.format === "image/svg+xml") {
     assert.match(assetOutput.svgSource, /<svg[\s>]/);
@@ -107,17 +129,14 @@ try {
     arguments: { id: "guidelines" },
   });
   assert.equal(guidelineResult.isError, undefined);
-  const guidelineOutput = guidelineResult.structuredContent;
-  assert(guidelineOutput && typeof guidelineOutput === "object");
-  assert.equal(guidelineOutput.source.path, "docs/guidelines.md");
-  assert.equal(Object.hasOwn(guidelineOutput, "markdown"), false);
+  assert.equal(guidelineResult.structuredContent, undefined);
   const guidelineText = guidelineResult.content.find(
     (content) => content.type === "text",
   );
   assert(guidelineText);
-  assert.match(
-    guidelineText.text,
-    /^# Hashigodaka デザインガイドライン/m,
+  assert(
+    guidelineText.text.includes("# Hashigodaka デザインガイドライン"),
+    "read_guideline text must include the guideline heading.",
   );
 
   console.log(

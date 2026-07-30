@@ -30,6 +30,10 @@ pnpm smoke
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 
+`get_tokens` と `get_asset` は `structuredContent` を返し、後方互換のため同一内容を
+直列化したJSONをtext contentにも含めます。`read_guideline` はMarkdown本文をtext content
+だけで返します。
+
 資産IDとガイドラインIDは起動時に正本を走査し、tool descriptionと入力enumへ反映します。
 正本を更新した場合はサーバーを再起動してください。
 

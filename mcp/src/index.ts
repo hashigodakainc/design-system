@@ -5,7 +5,6 @@ import * as z from "zod/v4";
 import {
   type Category,
   loadRepositoryData,
-  summarizePending,
 } from "./data.js";
 
 const repository = loadRepositoryData();
@@ -111,18 +110,12 @@ export function createServer(): McpServer {
         pending,
         categories: selected,
       };
-      const counts = selected
-        .map(
-          (data) =>
-            `${data.category}: ${data.tokens.length}件 (status=${data.source.status ?? "未定義"})`,
-        )
-        .join(", ");
 
       return {
         content: [
           {
             type: "text",
-            text: `取得したトークン: ${counts}。関連する未決事項: ${summarizePending(pending)}。全データは structuredContent に含まれます。`,
+            text: JSON.stringify(output),
           },
         ],
         structuredContent: output,
@@ -159,16 +152,12 @@ export function createServer(): McpServer {
       if (asset === undefined) {
         throw new Error(`Asset not loaded: ${id}`);
       }
-      const entryStatus =
-        typeof asset.asset.status === "string"
-          ? asset.asset.status
-          : asset.source.status;
 
       return {
         content: [
           {
             type: "text",
-            text: `資産 ${id} を取得しました (status=${entryStatus ?? "未定義"})。関連する未決事項: ${summarizePending(asset.pending)}。${asset.svgSource === undefined ? "バイナリ本文は返しません。" : "SVGソース本文を含みます。"}`,
+            text: JSON.stringify(asset),
           },
         ],
         structuredContent: asset,
@@ -186,12 +175,6 @@ export function createServer(): McpServer {
           .enum(repository.guidelineIds)
           .describe(`ガイドラインID。有効値: ${repository.guidelineIds.join(", ")}`),
       }),
-      outputSchema: z.object({
-        id: z.string(),
-        source: sourceSchema,
-        status: z.array(statusSummarySchema),
-        pending: z.array(pendingSummarySchema),
-      }),
       annotations: {
         readOnlyHint: true,
         destructiveHint: false,
@@ -208,15 +191,9 @@ export function createServer(): McpServer {
         content: [
           {
             type: "text",
-            text: `${guideline.source.path} の全文です。文書には status / pending フィールドがないため status=null、pending=[] として返します。\n\n${guideline.markdown}`,
+            text: guideline.markdown,
           },
         ],
-        structuredContent: {
-          id: guideline.id,
-          source: guideline.source,
-          status: guideline.status,
-          pending: guideline.pending,
-        },
       };
     },
   );
