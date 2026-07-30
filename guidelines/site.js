@@ -50,10 +50,19 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
   const displayName = (name) => name.split('.').pop()
     .replace(/(^|-)([a-z])/g, (_, sep, ch) => (sep ? ' ' : '') + ch.toUpperCase());
 
+  const luminance = (hex) => {
+    const [r, g, b] = hex.slice(1).match(/../g).map((channel) => {
+      const value = parseInt(channel, 16) / 255;
+      return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+
   const renderSwatch = (token, kind) => {
     const article = el('article', kind);
     const color = el(kind === 'swatch' ? 'div' : 'span', kind === 'swatch' ? 'swatch-color' : '');
     color.style.background = `var(${cssVar(token.name)})`;
+    if (luminance(resolveValue(token.value)) > 0.8) color.classList.add('chip-pale');
     const body = el('div');
     body.append(
       el('p', '', displayName(token.name)),

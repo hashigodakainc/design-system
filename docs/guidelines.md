@@ -91,10 +91,10 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - レスポンシブ対応は縮小ではなく再配置として設計する。
 - 写真、図形、大見出しを同時に主役にせず、余白で視線の順序を作る。
 
-## 固有モチーフ（01C-C）
+## 固有モチーフ
 
 用途・制約の正本は `assets/manifest.json`、SVG正本は
-[`assets/motifs/01c-c.svg`](../assets/motifs/01c-c.svg) である。
+[`assets/motifs/brand-motif.svg`](../assets/motifs/brand-motif.svg) である。
 
 - 一つの面では原則として一つだけ使い、写真や別の大きな抽象図形と主役を競わせない。
 - 単色で使う。既定は `color.brand.primary`、モノクロ要件では `color.neutral.ink`、暗い面への

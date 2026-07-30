@@ -4,11 +4,11 @@
   "description": "Hashigodakaの再利用可能なブランド資産の機械可読な索引。",
   "assets": [
     {
-      "id": "motif.01c-c",
+      "id": "motif.brand",
       "kind": "motif",
-      "label": "01C-C",
+      "label": "ブランドモチーフ",
       "status": "approved",
-      "path": "assets/motifs/01c-c.svg",
+      "path": "assets/motifs/brand-motif.svg",
       "format": "image/svg+xml",
       "viewBox": "0 0 256 256",
       "sourceDecision": "01C-C",
