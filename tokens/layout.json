@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "status": "candidate",
+  "status": "selected",
   "description": "Hashigodakaの余白、コンテンツ幅、グリッド、ブレークポイントの正本。",
   "tokens": [
     { "name": "space.0", "type": "dimension", "value": "0px" },
