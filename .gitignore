@@ -6,3 +6,4 @@ sites/process-archive/.wrangler/
 sites/process-archive/public/archive/
 sites/process-archive/next-env.d.ts
 sites/process-archive/*.tsbuildinfo
+.playwright-cli/

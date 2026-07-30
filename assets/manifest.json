@@ -4,15 +4,14 @@
   "description": "Hashigodakaの再利用可能なブランド資産の機械可読な索引。",
   "assets": [
     {
-      "id": "motif.01c-c",
+      "id": "motif.brand",
       "kind": "motif",
-      "label": "01C-C",
-      "status": "candidate",
-      "path": "assets/motifs/01c-c.svg",
+      "label": "ブランドモチーフ",
+      "status": "approved",
+      "path": "assets/motifs/brand-motif.svg",
       "format": "image/svg+xml",
       "viewBox": "0 0 256 256",
       "sourceDecision": "01C-C",
-      "sourceArchive": "process-archive/2026-07-21/10-motif-exploration/",
       "defaultColor": "{color.brand.primary}",
       "colorMode": "single-color",
       "usage": [
@@ -23,12 +22,35 @@
         "正式ロゴやファビコンとして使わない",
         "縦横比を変えない",
         "複数色へ分解しない",
-        "回転、反転、輪郭の改変をしない"
+        "回転、反転、輪郭の改変をしない",
+        "32px未満では使わない"
+      ]
+    },
+    {
+      "id": "font.latin",
+      "kind": "font",
+      "label": "Sora",
+      "status": "selected",
+      "path": "assets/fonts/sora.ttf",
+      "format": "font/ttf",
+      "license": "assets/fonts/sora-OFL.txt",
+      "usage": [
+        "英字ワードマークと英字だけの表示の基準書体"
+      ]
+    },
+    {
+      "id": "font.body",
+      "kind": "font",
+      "label": "LINE Seed JP",
+      "status": "selected",
+      "path": "assets/fonts/line-seed-jp-regular.ttf",
+      "format": "font/ttf",
+      "license": "assets/fonts/line-seed-jp-OFL.txt",
+      "variants": [
+        "assets/fonts/line-seed-jp-bold.ttf"
       ],
-      "pendingValidation": [
-        "32px未満で中央の接続と負形が保持されるか",
-        "H-Jワードマークとの横組み比率と光学重心",
-        "B2B LPと図解での反復パターン"
+      "usage": [
+        "和文を含む見出し、本文、UIの書体"
       ]
     }
   ]

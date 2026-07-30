@@ -1,32 +1,14 @@
 {
   "version": "0.1.0",
   "status": "selected",
-  "description": "選定書体D-Iを既定とし、過去比較の再現用にH-J互換指定も残す用途別タイポグラフィトークン",
-  "fontPairs": [
-    {
-      "id": "di",
-      "label": "D-I",
-      "latinFamily": "{typography.family.candidate.di.heading}",
-      "bodyFamily": "{typography.family.candidate.di.body}",
-      "headingWeight": "{typography.weight.candidate.di.heading}"
-    },
-    {
-      "id": "hj",
-      "label": "H-J",
-      "latinFamily": "{typography.family.candidate.hj.heading}",
-      "bodyFamily": "{typography.family.candidate.hj.body}",
-      "headingWeight": "{typography.weight.candidate.hj.heading}"
-    }
-  ],
+  "sourceDecision": "D-I",
+  "description": "Hashigodakaの用途別タイポグラフィトークンの正本",
   "tokens": [
-    { "name": "typography.family.candidate.di.heading", "type": "fontFamily", "value": "\"Hsg Candidate Sora\", sans-serif", "description": "D-Iの英字見出し・ロゴ候補。" },
-    { "name": "typography.family.candidate.di.body", "type": "fontFamily", "value": "\"Hsg Candidate Line Seed JP\", sans-serif", "description": "D-Iの和文本文・見出し候補。" },
-    { "name": "typography.family.candidate.hj.heading", "type": "fontFamily", "value": "\"Hsg Candidate Geologica\", sans-serif", "description": "H-Jの英字見出し・ロゴ候補。" },
-    { "name": "typography.family.candidate.hj.body", "type": "fontFamily", "value": "\"Hsg Candidate M Plus 1\", sans-serif", "description": "H-Jの和文本文・見出し候補。" },
+    { "name": "typography.family.latin", "type": "fontFamily", "value": "\"Hsg Sora\", sans-serif", "description": "英字ワードマークと英字だけの表示の基準書体。" },
+    { "name": "typography.family.body", "type": "fontFamily", "value": "\"Hsg Line Seed JP\", sans-serif", "description": "和文を含む見出し、本文、UIの書体。" },
     { "name": "typography.family.code", "type": "fontFamily", "value": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "description": "コードとコード識別子だけに使う。" },
 
-    { "name": "typography.weight.candidate.di.heading", "type": "fontWeight", "value": "700", "description": "D-Iの見出しウェイト。" },
-    { "name": "typography.weight.candidate.hj.heading", "type": "fontWeight", "value": "800", "description": "H-Jの見出しウェイト。" },
+    { "name": "typography.weight.heading", "type": "fontWeight", "value": "700", "description": "見出しのウェイト。" },
     { "name": "typography.weight.body", "type": "fontWeight", "value": "400", "description": "本文の基本ウェイト。" },
     { "name": "typography.weight.emphasis", "type": "fontWeight", "value": "700", "description": "強調、ラベル、操作のウェイト。" },
 
@@ -57,10 +39,10 @@
     { "name": "typography.letter-spacing.label", "type": "letterSpacing", "value": "0.04em", "description": "小さいラベルの識別性を補う。" }
   ],
   "roles": [
-    { "name": "display", "family": "body", "fontSize": "{typography.size.display.desktop}", "mobileFontSize": "{typography.size.display.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.display}", "letterSpacing": "{typography.letter-spacing.display}" },
-    { "name": "heading-1", "family": "body", "fontSize": "{typography.size.heading.1.desktop}", "mobileFontSize": "{typography.size.heading.1.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
-    { "name": "heading-2", "family": "body", "fontSize": "{typography.size.heading.2.desktop}", "mobileFontSize": "{typography.size.heading.2.mobile}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
-    { "name": "heading-3", "family": "body", "fontSize": "{typography.size.heading.3}", "fontWeight": "heading", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "display", "family": "body", "fontSize": "{typography.size.display.desktop}", "mobileFontSize": "{typography.size.display.mobile}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.display}", "letterSpacing": "{typography.letter-spacing.display}" },
+    { "name": "heading-1", "family": "body", "fontSize": "{typography.size.heading.1.desktop}", "mobileFontSize": "{typography.size.heading.1.mobile}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "heading-2", "family": "body", "fontSize": "{typography.size.heading.2.desktop}", "mobileFontSize": "{typography.size.heading.2.mobile}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "heading-3", "family": "body", "fontSize": "{typography.size.heading.3}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
     { "name": "body-large", "family": "body", "fontSize": "{typography.size.body.large}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "body", "family": "body", "fontSize": "{typography.size.body.default}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "body-small", "family": "body", "fontSize": "{typography.size.body.small}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },

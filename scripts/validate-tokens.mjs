@@ -10,7 +10,6 @@ const assetSource = JSON.parse(await readFile(resolve(root, "assets/manifest.jso
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
-const exampleHtml = await readFile(resolve(root, "examples/color-foundations.html"), "utf8");
 const guidelineHtml = await readFile(resolve(root, "guidelines/index.html"), "utf8");
 const guidelineCss = await readFile(resolve(root, "guidelines/site.css"), "utf8");
 const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
@@ -36,7 +35,7 @@ for (const token of allTokens) {
 }
 
 const combinedCss = `${generatedCss}\n${generatedTypographyCss}`;
-for (const source of [exampleHtml, guidelineHtml, guidelineCss, componentCss]) {
+for (const source of [guidelineHtml, guidelineCss, componentCss]) {
   for (const match of source.matchAll(/var\((--hsg-[a-z0-9-]+)\)/g)) {
     if (!combinedCss.includes(`${match[1]}:`)) failures.push(`A consumer uses an unknown CSS variable: ${match[1]}`);
   }
@@ -64,33 +63,18 @@ for (const token of allTokens) {
   }
 }
 
-const pairIds = new Set();
-for (const pair of typographySource.fontPairs) {
-  if (pairIds.has(pair.id)) failures.push(`Duplicate font pair: ${pair.id}`);
-  pairIds.add(pair.id);
-  try {
-    resolveReference(pair.latinFamily);
-    resolveReference(pair.bodyFamily);
-    resolveReference(pair.headingWeight);
-  } catch (error) {
-    failures.push(error.message);
-  }
-  if (!generatedTypographyCss.includes(`[data-hsg-font-pair="${pair.id}"]`)) {
-    failures.push(`Generated typography CSS is missing font pair: ${pair.id}`);
-  }
-}
-
 const roleNames = new Set();
 for (const role of typographySource.roles) {
   if (roleNames.has(role.name)) failures.push(`Duplicate typography role: ${role.name}`);
   roleNames.add(role.name);
   if (!["latin", "body", "code"].includes(role.family)) failures.push(`Unknown family role: ${role.family}`);
   try {
+    resolveValue(`typography.family.${role.family}`);
     resolveReference(role.fontSize);
     resolveReference(role.lineHeight);
     resolveReference(role.letterSpacing);
     if (role.mobileFontSize) resolveReference(role.mobileFontSize);
-    if (role.fontWeight !== "heading") resolveReference(role.fontWeight);
+    resolveReference(role.fontWeight);
   } catch (error) {
     failures.push(error.message);
   }
@@ -102,26 +86,83 @@ for (const role of typographySource.roles) {
   }
 }
 
+const assetStatuses = new Set(["candidate", "selected", "approved", "deprecated", "undecided"]);
 const assetIds = new Set();
 for (const asset of assetSource.assets) {
   if (assetIds.has(asset.id)) failures.push(`Duplicate asset: ${asset.id}`);
   assetIds.add(asset.id);
-  if (!asset.path.startsWith("assets/") || asset.path.includes("..")) failures.push(`Unsafe asset path: ${asset.path}`);
-  if (!new Set(["candidate", "approved", "deprecated"]).has(asset.status)) failures.push(`Unknown asset status: ${asset.id}`);
+  if (!assetStatuses.has(asset.status)) failures.push(`Unknown asset status: ${asset.id}`);
+  if (asset.status === "undecided") {
+    if (asset.path) failures.push(`Undecided asset must not have a path: ${asset.id}`);
+    if (!asset.pending?.length) failures.push(`Undecided asset must declare pending: ${asset.id}`);
+    continue;
+  }
+  const assetFiles = [asset.path, asset.license, ...(asset.variants ?? [])].filter(Boolean);
+  for (const file of assetFiles) {
+    if (!file.startsWith("assets/") || file.includes("..")) failures.push(`Unsafe asset path: ${file} (${asset.id})`);
+  }
   try {
-    resolveReference(asset.defaultColor);
-    const source = await readFile(resolve(root, asset.path), "utf8");
+    if (asset.defaultColor) resolveReference(asset.defaultColor);
+    for (const file of assetFiles) {
+      await readFile(resolve(root, file));
+    }
     if (asset.format === "image/svg+xml") {
+      const source = await readFile(resolve(root, asset.path), "utf8");
       if (!source.includes("<svg")) failures.push(`SVG asset is invalid: ${asset.id}`);
       if (!source.includes(`viewBox="${asset.viewBox}"`)) failures.push(`SVG viewBox does not match manifest: ${asset.id}`);
       if (!source.includes("currentColor")) failures.push(`SVG asset must use currentColor: ${asset.id}`);
+      if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
     }
-    await readFile(resolve(root, asset.sourceArchive, "index.html"), "utf8");
   } catch (error) {
     failures.push(`Asset ${asset.id}: ${error.message}`);
   }
-  if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
 }
+
+// 成熟度（status / pending）の整合を検査する。
+const sourceStatuses = new Set(["candidate", "selected", "approved"]);
+const statusedSources = [
+  ["tokens/colors.json", colorSource],
+  ["tokens/typography.json", typographySource],
+  ["tokens/layout.json", layoutSource],
+  ["assets/manifest.json", assetSource],
+];
+const validatePending = (label, pending) => {
+  if (pending === undefined) return;
+  if (!Array.isArray(pending)) {
+    failures.push(`${label}: pending must be an array`);
+    return;
+  }
+  for (const entry of pending) {
+    for (const field of ["topic", "until", "interim"]) {
+      if (typeof entry[field] !== "string" || !entry[field].trim()) {
+        failures.push(`${label}: pending entry is missing "${field}" (${entry.topic ?? "unnamed"})`);
+      }
+    }
+  }
+};
+for (const [label, source] of statusedSources) {
+  if (!sourceStatuses.has(source.status)) failures.push(`${label}: unknown status "${source.status}"`);
+  validatePending(label, source.pending);
+}
+for (const asset of assetSource.assets) validatePending(`asset ${asset.id}`, asset.pending);
+
+// docs/ の散文には値を再掲しない（横断判断のみ）。生値の再流入を検知する。
+const { readdir } = await import("node:fs/promises");
+const docsDir = resolve(root, "docs");
+for (const entry of await readdir(docsDir, { recursive: true })) {
+  if (!entry.endsWith(".md")) continue;
+  const body = await readFile(resolve(docsDir, entry), "utf8");
+  const lines = body.split("\n");
+  lines.forEach((line, index) => {
+    if (/#[0-9a-fA-F]{3,8}\b/.test(line)) {
+      failures.push(`docs/${entry}:${index + 1}: raw color value in docs (define values in tokens/*.json and reference by token name)`);
+    }
+    if (/\d+(px|rem|em|vw|vh)\b/.test(line)) {
+      failures.push(`docs/${entry}:${index + 1}: raw dimension value in docs (define values in tokens/*.json and reference by token name)`);
+    }
+  });
+}
+
 
 const luminance = (hex) => {
   if (!/^#[0-9a-f]{6}$/i.test(hex)) throw new Error(`Invalid color value: ${hex}`);

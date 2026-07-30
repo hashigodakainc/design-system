@@ -1,0 +1,20 @@
+name: Validate design system
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Rebuild generated files from tokens
+        run: node scripts/build-tokens.mjs
+      - name: Generated files must be up to date
+        run: git diff --exit-code styles/tokens.css styles/typography.css
+      - name: Validate tokens, assets, and docs
+        run: node scripts/validate-tokens.mjs
