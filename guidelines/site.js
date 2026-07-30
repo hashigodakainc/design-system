@@ -92,7 +92,11 @@ document.querySelectorAll('.type-role').forEach((article) => {
 const typographyPending = document.querySelector('[data-render="typography-pending"]');
 if (typographyPending) {
   const pending = data.sources.find((source) => source.id === 'typography')?.pending ?? [];
-  typographyPending.textContent = pending.map((entry) => entry.interim).join(' ');
+  if (pending.length) {
+    typographyPending.textContent = pending.map((entry) => entry.interim).join(' ');
+  } else {
+    typographyPending.remove();
+  }
 }
 
 const spaceScale = document.querySelector('[data-render="space-scale"]');

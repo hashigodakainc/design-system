@@ -4,13 +4,8 @@ window.HSG_DATA = {
     {
       "id": "colors",
       "label": "カラー",
-      "status": "candidate",
+      "status": "selected",
       "pending": [
-        {
-          "topic": "ブランドカラーD-E-Dの最終確定",
-          "until": "B2B LPと図解への適用確認",
-          "interim": "新規制作物での検証利用は可。外部配布用の恒久資産としての固定は不可。"
-        },
         {
           "topic": "Semantic Colors（Success / Warning / Error / Info）",
           "until": "未選定。策定時期未定",
@@ -22,13 +17,7 @@ window.HSG_DATA = {
       "id": "typography",
       "label": "タイポグラフィ",
       "status": "selected",
-      "pending": [
-        {
-          "topic": "フォントの利用ライセンス",
-          "until": "Sora / LINE Seed JPの取得元、版、Web配信・埋め込みを含むライセンス境界の確認",
-          "interim": "用途別スタイルとD-Iは実装検証に利用可。フォントファイルの再配布と、配布資料への埋め込みを含む恒久的な固定は保留。"
-        }
-      ]
+      "pending": []
     },
     {
       "id": "layout",
@@ -912,7 +901,7 @@ window.HSG_DATA = {
       "id": "motif.01c-c",
       "kind": "motif",
       "label": "01C-C",
-      "status": "candidate",
+      "status": "approved",
       "path": "assets/motifs/01c-c.svg",
       "usage": [
         "写真がない場面の主役となるブランドグラフィック",
@@ -923,28 +912,9 @@ window.HSG_DATA = {
         "縦横比を変えない",
         "複数色へ分解しない",
         "回転、反転、輪郭の改変をしない",
-        "32px未満では使わない（未検証のため）"
+        "32px未満では使わない"
       ],
-      "pending": [
-        {
-          "topic": "01C-Cのメインモチーフとしての正式採用",
-          "until": "32px未満の小サイズ、D-Iワードマークとの横組み（比率と光学重心）、B2B LPと図解での反復パターンの検証",
-          "interim": "写真がない場面の主役グラフィックとして検証利用可。正式ロゴ、ファビコン、ワードマークとの固定ロックアップにはまだ使わない。"
-        }
-      ]
-    },
-    {
-      "id": "logo.wordmark",
-      "kind": "logo",
-      "label": "Hashigodaka wordmark",
-      "status": "undecided",
-      "pending": [
-        {
-          "topic": "正式ワードマーク",
-          "until": "選定書体Soraを基にした字形・字間・接続の調整と、シンボルマークを併設するかの判断",
-          "interim": "候補書体で表示した「Hashigodaka」をロゴ資産として使わない。ロゴが必要な枠はテキスト表記で代用し、01C-Cをロゴの代わりに使わない。"
-        }
-      ]
+      "pending": []
     }
   ]
 };

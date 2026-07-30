@@ -7,7 +7,7 @@
       "id": "motif.01c-c",
       "kind": "motif",
       "label": "01C-C",
-      "status": "candidate",
+      "status": "approved",
       "path": "assets/motifs/01c-c.svg",
       "format": "image/svg+xml",
       "viewBox": "0 0 256 256",
@@ -24,27 +24,7 @@
         "縦横比を変えない",
         "複数色へ分解しない",
         "回転、反転、輪郭の改変をしない",
-        "32px未満では使わない（未検証のため）"
-      ],
-      "pending": [
-        {
-          "topic": "01C-Cのメインモチーフとしての正式採用",
-          "until": "32px未満の小サイズ、D-Iワードマークとの横組み（比率と光学重心）、B2B LPと図解での反復パターンの検証",
-          "interim": "写真がない場面の主役グラフィックとして検証利用可。正式ロゴ、ファビコン、ワードマークとの固定ロックアップにはまだ使わない。"
-        }
-      ]
-    },
-    {
-      "id": "logo.wordmark",
-      "kind": "logo",
-      "label": "Hashigodaka wordmark",
-      "status": "undecided",
-      "pending": [
-        {
-          "topic": "正式ワードマーク",
-          "until": "選定書体Soraを基にした字形・字間・接続の調整と、シンボルマークを併設するかの判断",
-          "interim": "候補書体で表示した「Hashigodaka」をロゴ資産として使わない。ロゴが必要な枠はテキスト表記で代用し、01C-Cをロゴの代わりに使わない。"
-        }
+        "32px未満では使わない"
       ]
     }
   ]
