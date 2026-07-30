@@ -1,5 +1,7 @@
 # Hashigodakaデザインシステム 制作ブリーフ
 
+> **アーカイブ（2026-07-30 移設）**: この文書は探索フェーズの制作ブリーフの記録である。恒常運用の正本は `docs/guidelines.md`（横断判断）、`tokens/*.json`・`assets/manifest.json`（値・成熟度・未決事項）を参照する。
+
 ## 目的
 
 Hashigodakaの暗黙のデザイン感覚を、メンバーとAIエージェントが再利用できる組織資産へ変換する。
@@ -46,7 +48,7 @@ Hashigodakaを、**人間味のある力強い実装パートナー**として�
 
 会社の存在意義、顧客との責任境界、人とAIの役割はHashigodaka Wikiの
 [ハシゴダカの存在意義とブランドの骨格](https://github.com/hashigodakainc/wiki/blob/main/company/brand-foundation.md)
-を正本とし、デザインへの翻訳は[ブランドの意味](brand/foundation.md)に従う。
+を正本とし、デザインへの翻訳は[ブランドの意味](../docs/guidelines.md)に従う。
 
 ### 中心となる印象
 
