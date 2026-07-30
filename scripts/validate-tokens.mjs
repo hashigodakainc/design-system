@@ -97,10 +97,13 @@ for (const asset of assetSource.assets) {
     if (!asset.pending?.length) failures.push(`Undecided asset must declare pending: ${asset.id}`);
     continue;
   }
-  if (!asset.path.startsWith("assets/") || asset.path.includes("..")) failures.push(`Unsafe asset path: ${asset.path}`);
+  const assetFiles = [asset.path, asset.license, ...(asset.variants ?? [])].filter(Boolean);
+  for (const file of assetFiles) {
+    if (!file.startsWith("assets/") || file.includes("..")) failures.push(`Unsafe asset path: ${file} (${asset.id})`);
+  }
   try {
     if (asset.defaultColor) resolveReference(asset.defaultColor);
-    for (const file of [asset.path, asset.license, ...(asset.variants ?? [])].filter(Boolean)) {
+    for (const file of assetFiles) {
       await readFile(resolve(root, file));
     }
     if (asset.format === "image/svg+xml") {

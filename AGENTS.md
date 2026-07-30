@@ -30,8 +30,9 @@ AIエージェントが利用できるデザイントークン、資産、実装
   定義します。成熟度・未決事項も同じJSONの `status` / `pending` フィールドが正本です。
 - `docs/` の散文には横断的な恒久判断だけを書き、値を再掲しません（トークン名で参照。
   `scripts/validate-tokens.mjs` が生値の再流入を検知します）。
-- `styles/tokens.css`・`styles/typography.css`・`guidelines/data.js` は生成物です。
-  手編集せず、トークン変更後に `node scripts/build-tokens.mjs` で再生成してください。
+- `styles/tokens.css`・`styles/typography.css` は生成物です。手編集せず、トークン変更後に
+  `node scripts/build-tokens.mjs` で再生成してください。ガイドラインサイトは正本JSONを
+  直接読み込んで描画します。
 - ハーネス中立なMarkdown、JSON、CSS、画像資産などを正本とし、CodexやClaude Code向けの
   固有設定は薄いアダプターとして分離します。
 - 特定のWebサイトやプロダクトだけに必要な判断を、会社共通の原則として一般化しません。

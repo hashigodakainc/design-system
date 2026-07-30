@@ -19,7 +19,7 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 - 値（色・寸法・書体・資産メタデータ）と成熟度の正本は `tokens/*.json` と
   `assets/manifest.json` だけに置きます。
 - [`docs/guidelines.md`](docs/guidelines.md) には横断的な判断だけを書き、値を再掲しません。
-- `styles/tokens.css`・`styles/typography.css`・`guidelines/data.js` は生成物です。
+- `styles/tokens.css`・`styles/typography.css` は生成物です。ガイドラインサイトは正本JSONを直接読み込んで描画します。
 
 ## 構成
 
