@@ -100,9 +100,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
       ['Line', resolveValue(role.lineHeight)],
       letterSpacing !== '0'
         ? ['Tracking', letterSpacing.replace('-', '−')]
-        : ['Weight', role.fontWeight === 'heading'
-            ? resolveValue(tokenByName.get('typography.weight.candidate.di.heading').value)
-            : resolveValue(role.fontWeight)],
+        : ['Weight', resolveValue(role.fontWeight)],
     ];
     specs.forEach(([term, value]) => {
       const wrap = el('div');

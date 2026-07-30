@@ -46,13 +46,10 @@
   --hsg-color-data-series-2: var(--hsg-color-brand-secondary);
   --hsg-color-data-series-3: var(--hsg-color-brand-extended-violet);
   --hsg-color-data-series-4: var(--hsg-color-brand-extended-orange);
-  --hsg-typography-family-candidate-di-heading: "Hsg Candidate Sora", sans-serif;
-  --hsg-typography-family-candidate-di-body: "Hsg Candidate Line Seed JP", sans-serif;
-  --hsg-typography-family-candidate-hj-heading: "Hsg Candidate Geologica", sans-serif;
-  --hsg-typography-family-candidate-hj-body: "Hsg Candidate M Plus 1", sans-serif;
+  --hsg-typography-family-latin: "Hsg Sora", sans-serif;
+  --hsg-typography-family-body: "Hsg Line Seed JP", sans-serif;
   --hsg-typography-family-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --hsg-typography-weight-candidate-di-heading: 700;
-  --hsg-typography-weight-candidate-hj-heading: 800;
+  --hsg-typography-weight-heading: 700;
   --hsg-typography-weight-body: 400;
   --hsg-typography-weight-emphasis: 700;
   --hsg-typography-size-display-desktop: 64px;

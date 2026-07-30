@@ -64,33 +64,18 @@ for (const token of allTokens) {
   }
 }
 
-const pairIds = new Set();
-for (const pair of typographySource.fontPairs) {
-  if (pairIds.has(pair.id)) failures.push(`Duplicate font pair: ${pair.id}`);
-  pairIds.add(pair.id);
-  try {
-    resolveReference(pair.latinFamily);
-    resolveReference(pair.bodyFamily);
-    resolveReference(pair.headingWeight);
-  } catch (error) {
-    failures.push(error.message);
-  }
-  if (!generatedTypographyCss.includes(`[data-hsg-font-pair="${pair.id}"]`)) {
-    failures.push(`Generated typography CSS is missing font pair: ${pair.id}`);
-  }
-}
-
 const roleNames = new Set();
 for (const role of typographySource.roles) {
   if (roleNames.has(role.name)) failures.push(`Duplicate typography role: ${role.name}`);
   roleNames.add(role.name);
   if (!["latin", "body", "code"].includes(role.family)) failures.push(`Unknown family role: ${role.family}`);
   try {
+    resolveValue(`typography.family.${role.family}`);
     resolveReference(role.fontSize);
     resolveReference(role.lineHeight);
     resolveReference(role.letterSpacing);
     if (role.mobileFontSize) resolveReference(role.mobileFontSize);
-    if (role.fontWeight !== "heading") resolveReference(role.fontWeight);
+    resolveReference(role.fontWeight);
   } catch (error) {
     failures.push(error.message);
   }

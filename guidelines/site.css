@@ -1,8 +1,6 @@
-@font-face { font-family: "Hsg Candidate Sora"; src: url("../process-archive/2026-07-21/assets/fonts/sora.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Hsg Candidate Geologica"; src: url("../process-archive/2026-07-21/assets/fonts/geologica.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Hsg Candidate Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Hsg Candidate Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Hsg Candidate M Plus 1"; src: url("../process-archive/2026-07-21/assets/fonts/m-plus-1.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Hsg Sora"; src: url("../process-archive/2026-07-21/assets/fonts/sora.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Hsg Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Hsg Line Seed JP"; src: url("../process-archive/2026-07-21/assets/fonts/line-seed-jp-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
 :root { color-scheme: light; scroll-behavior: smooth; }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--hsg-color-text-primary); background: var(--hsg-color-background-canvas); font-family: var(--hsg-typography-family-body); font-size: var(--hsg-typography-size-body-default); font-weight: var(--hsg-typography-weight-body); line-height: var(--hsg-typography-line-height-body); letter-spacing: var(--hsg-typography-letter-spacing-body); }
@@ -73,21 +71,21 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .bad-sample span:nth-child(2) { background: var(--hsg-color-brand-secondary); }
 .bad-sample span:nth-child(3) { background: var(--hsg-color-brand-extended-violet); }
 .bad-sample span:nth-child(4) { background: var(--hsg-color-brand-extended-orange); }
-.candidate-grid, .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-left: var(--hsg-layout-content-indent); }
-.candidate-grid article, .two-column article { padding: 32px; background: var(--hsg-color-neutral-surface); }
-.candidate-label, .demo-label { color: #706a76; font-size: var(--hsg-typography-size-label); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); letter-spacing: var(--hsg-typography-letter-spacing-label); }
-.candidate-grid h3 { margin: 34px 0 12px; font-size: clamp(34px,4vw,54px); letter-spacing: -.055em; }
-.type-di { font-family: "Hsg Candidate Sora",sans-serif; font-weight: 700; }
+.specimen-grid, .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-left: var(--hsg-layout-content-indent); }
+.specimen-grid article, .two-column article { padding: 32px; background: var(--hsg-color-neutral-surface); }
+.specimen-label, .demo-label { color: #706a76; font-size: var(--hsg-typography-size-label); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); letter-spacing: var(--hsg-typography-letter-spacing-label); }
+.specimen-grid h3 { margin: 34px 0 12px; font-size: clamp(34px,4vw,54px); letter-spacing: -.055em; }
+.specimen-latin { font-family: var(--hsg-typography-family-latin); font-weight: var(--hsg-typography-weight-heading); }
 .type-sample { min-height: 3em; margin-bottom: 24px !important; color: var(--hsg-color-neutral-ink) !important; font-size: var(--hsg-typography-size-body-large); line-height: var(--hsg-typography-line-height-body); }
-.type-di-jp { font-family: "Hsg Candidate Line Seed JP",sans-serif; font-weight: 700; }
-.candidate-grid article > p:last-child, .two-column p { margin: 0; color: var(--hsg-color-neutral-muted); }
+.specimen-jp { font-family: var(--hsg-typography-family-body); font-weight: var(--hsg-typography-weight-heading); }
+.specimen-grid article > p:last-child, .two-column p { margin: 0; color: var(--hsg-color-neutral-muted); }
 .motif-panel { display: grid; grid-template-columns: minmax(280px,.8fr) minmax(320px,1.2fr); margin: var(--hsg-space-5) 0 0 var(--hsg-layout-content-indent); background: var(--hsg-color-neutral-surface); }
 .motif-preview { display: grid; min-height: 420px; place-items: center; margin: 0; padding: var(--hsg-space-8); background: var(--hsg-color-neutral-surface); }
 .motif-preview img { display: block; width: min(100%,300px); height: auto; }
 .motif-copy { padding: var(--hsg-space-7); }
 .motif-title { display: flex; gap: var(--hsg-space-4); align-items: center; justify-content: space-between; margin: var(--hsg-space-4) 0 var(--hsg-space-5); }
 .motif-title h3 { margin: 0; }
-.motif-copy > p:not(.candidate-label) { color: var(--hsg-color-neutral-muted); }
+.motif-copy > p { color: var(--hsg-color-neutral-muted); }
 .motif-copy ul { margin: var(--hsg-space-5) 0; padding-left: 1.25em; color: var(--hsg-color-neutral-muted); }
 .motif-copy li + li { margin-top: var(--hsg-space-2); }
 .motif-links { display: flex; flex-wrap: wrap; gap: var(--hsg-space-4); }
@@ -185,10 +183,10 @@ footer p { margin: 0; }
   .hero-graphic { width: 100%; }
   .section, .compact-section { padding: var(--hsg-layout-section-space-medium) var(--hsg-layout-page-gutter-mobile); scroll-margin-top: var(--hsg-layout-mobile-header-height); }
   .section-heading { margin-bottom: 38px; }
-  .principle-grid, .guidance-grid, .candidate-grid, .two-column { grid-template-columns: 1fr; }
+  .principle-grid, .guidance-grid, .specimen-grid, .two-column { grid-template-columns: 1fr; }
   .principle-card { min-height: 220px; }
   .principle-card:nth-child(5) { grid-column: auto; }
-  .candidate-grid, .two-column, .motif-panel, .pending-note, .rule-list, .status-panel, .component-demo, .badge-demo, .button-guidance, .code-panel, #tokens > p, .status-table, .pending-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
+  .specimen-grid, .two-column, .motif-panel, .pending-note, .rule-list, .status-panel, .component-demo, .badge-demo, .button-guidance, .code-panel, #tokens > p, .status-table, .pending-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .type-role-usage { grid-column: auto; margin-top: 0; }
   .type-role dl { grid-template-columns: repeat(3,1fr); }

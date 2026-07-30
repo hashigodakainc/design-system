@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "status": "selected",
   "sourceDecision": "D-E-D",
-  "description": "HashigodakaのブランドカラーD-E-Dのカラートークン",
+  "description": "Hashigodakaのブランドカラーのカラートークン",
   "pending": [
     {
       "topic": "Semantic Colors（Success / Warning / Error / Info）",
