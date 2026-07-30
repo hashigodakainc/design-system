@@ -41,11 +41,15 @@ try {
     instructions.includes(pendingTopic),
     "Instructions must include the aggregated pending topic.",
   );
+  assert(
+    instructions.includes('get_stylesheet の name="components"'),
+    "Instructions must direct consumers to the component stylesheet.",
+  );
 
   const { tools } = await client.listTools();
   assert.deepEqual(
     tools.map((tool) => tool.name).sort(),
-    ["get_asset", "get_tokens", "read_guideline"],
+    ["get_asset", "get_stylesheet", "get_tokens", "read_guideline"],
   );
   assert(
     tools
@@ -62,6 +66,16 @@ try {
     guidelineTool.outputSchema,
     undefined,
     "read_guideline must not expose an output schema.",
+  );
+  const stylesheetTool = tools.find((tool) => tool.name === "get_stylesheet");
+  assert(
+    stylesheetTool?.description?.includes("components"),
+    "get_stylesheet description must include valid stylesheet names.",
+  );
+  assert.equal(
+    stylesheetTool.outputSchema,
+    undefined,
+    "get_stylesheet must not expose an output schema.",
   );
 
   const tokensResult = await client.callTool({
@@ -139,8 +153,23 @@ try {
     "read_guideline text must include the guideline heading.",
   );
 
+  const stylesheetResult = await client.callTool({
+    name: "get_stylesheet",
+    arguments: { name: "components" },
+  });
+  assert.equal(stylesheetResult.isError, undefined);
+  assert.equal(stylesheetResult.structuredContent, undefined);
+  const stylesheetText = stylesheetResult.content.find(
+    (content) => content.type === "text",
+  );
+  assert(stylesheetText);
+  assert(
+    stylesheetText.text.includes(".hsg-button"),
+    "get_stylesheet components text must include .hsg-button.",
+  );
+
   console.log(
-    "smoke: instructions and get_tokens/get_asset/read_guideline passed",
+    "smoke: instructions and get_tokens/get_asset/read_guideline/get_stylesheet passed",
   );
 } finally {
   await client.close();

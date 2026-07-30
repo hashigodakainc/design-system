@@ -198,6 +198,41 @@ export function createServer(): McpServer {
     },
   );
 
+  server.registerTool(
+    "get_stylesheet",
+    {
+      title: "Get implementation stylesheet",
+      description: `Hashigodakaの実装CSS本文を取得します。有効なname: ${repository.stylesheetNames.join(", ")}。styles/*.cssは再起動時に自動走査されます。`,
+      inputSchema: z.object({
+        name: z
+          .enum(repository.stylesheetNames)
+          .describe(
+            `スタイルシート名。有効値: ${repository.stylesheetNames.join(", ")}`,
+          ),
+      }),
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+      },
+    },
+    async ({ name }) => {
+      const stylesheet = repository.stylesheets.get(name);
+      if (stylesheet === undefined) {
+        throw new Error(`Stylesheet not loaded: ${name}`);
+      }
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: stylesheet,
+          },
+        ],
+      };
+    },
+  );
+
   return server;
 }
 

@@ -2,7 +2,7 @@
 
 Hashigodakaデザインシステムの正本を、AIエージェントから参照するためのstdio MCPサーバーです。
 MCP専用のデータは持たず、起動時にリポジトリ直下の `tokens/*.json`、
-`assets/manifest.json`、`docs/*.md` と資産ファイルを直接読み込みます。
+`assets/manifest.json`、`docs/*.md`、`styles/*.css` と資産ファイルを直接読み込みます。
 
 ## セットアップと起動
 
@@ -18,7 +18,7 @@ pnpm start
 `pnpm start` は `node dist/index.js` をstdioサーバーとして起動します。標準出力はMCPの
 通信専用です。
 
-実際のstdio接続と3つのtoolを確認するスモークテストは、ビルド後に実行します。
+実際のstdio接続と4つのtoolを確認するスモークテストは、ビルド後に実行します。
 
 ```sh
 pnpm smoke
@@ -29,13 +29,14 @@ pnpm smoke
 - `get_tokens` — color / typography / layout のトークン、解決前後のalias、status、pendingを返す
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
+- `get_stylesheet` — `styles/*.css` のCSS本文を返す
 
 `get_tokens` と `get_asset` は `structuredContent` を返し、後方互換のため同一内容を
-直列化したJSONをtext contentにも含めます。`read_guideline` はMarkdown本文をtext content
-だけで返します。
+直列化したJSONをtext contentにも含めます。`read_guideline` と `get_stylesheet` はそれぞれ
+Markdown本文とCSS本文をtext contentだけで返します。
 
-資産IDとガイドラインIDは起動時に正本を走査し、tool descriptionと入力enumへ反映します。
-正本を更新した場合はサーバーを再起動してください。
+資産ID、ガイドラインID、スタイルシート名は起動時に正本を走査し、tool descriptionと入力enumへ
+反映します。正本を更新した場合はサーバーを再起動してください。
 
 ## Claude Codeへ登録
 
