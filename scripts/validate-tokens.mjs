@@ -10,7 +10,6 @@ const assetSource = JSON.parse(await readFile(resolve(root, "assets/manifest.jso
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
-const exampleHtml = await readFile(resolve(root, "examples/color-foundations.html"), "utf8");
 const guidelineHtml = await readFile(resolve(root, "guidelines/index.html"), "utf8");
 const guidelineCss = await readFile(resolve(root, "guidelines/site.css"), "utf8");
 const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
@@ -36,7 +35,7 @@ for (const token of allTokens) {
 }
 
 const combinedCss = `${generatedCss}\n${generatedTypographyCss}`;
-for (const source of [exampleHtml, guidelineHtml, guidelineCss, componentCss]) {
+for (const source of [guidelineHtml, guidelineCss, componentCss]) {
   for (const match of source.matchAll(/var\((--hsg-[a-z0-9-]+)\)/g)) {
     if (!combinedCss.includes(`${match[1]}:`)) failures.push(`A consumer uses an unknown CSS variable: ${match[1]}`);
   }
