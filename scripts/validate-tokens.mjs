@@ -102,12 +102,18 @@ for (const role of typographySource.roles) {
   }
 }
 
+const assetStatuses = new Set(["candidate", "selected", "approved", "deprecated", "undecided"]);
 const assetIds = new Set();
 for (const asset of assetSource.assets) {
   if (assetIds.has(asset.id)) failures.push(`Duplicate asset: ${asset.id}`);
   assetIds.add(asset.id);
+  if (!assetStatuses.has(asset.status)) failures.push(`Unknown asset status: ${asset.id}`);
+  if (asset.status === "undecided") {
+    if (asset.path) failures.push(`Undecided asset must not have a path: ${asset.id}`);
+    if (!asset.pending?.length) failures.push(`Undecided asset must declare pending: ${asset.id}`);
+    continue;
+  }
   if (!asset.path.startsWith("assets/") || asset.path.includes("..")) failures.push(`Unsafe asset path: ${asset.path}`);
-  if (!new Set(["candidate", "approved", "deprecated"]).has(asset.status)) failures.push(`Unknown asset status: ${asset.id}`);
   try {
     resolveReference(asset.defaultColor);
     const source = await readFile(resolve(root, asset.path), "utf8");
@@ -121,6 +127,64 @@ for (const asset of assetSource.assets) {
     failures.push(`Asset ${asset.id}: ${error.message}`);
   }
   if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
+}
+
+// 成熟度（status / pending）の整合を検査する。
+const sourceStatuses = new Set(["candidate", "selected", "approved"]);
+const statusedSources = [
+  ["tokens/colors.json", colorSource],
+  ["tokens/typography.json", typographySource],
+  ["tokens/layout.json", layoutSource],
+  ["assets/manifest.json", assetSource],
+];
+const validatePending = (label, pending) => {
+  if (pending === undefined) return;
+  if (!Array.isArray(pending)) {
+    failures.push(`${label}: pending must be an array`);
+    return;
+  }
+  for (const entry of pending) {
+    for (const field of ["topic", "until", "interim"]) {
+      if (typeof entry[field] !== "string" || !entry[field].trim()) {
+        failures.push(`${label}: pending entry is missing "${field}" (${entry.topic ?? "unnamed"})`);
+      }
+    }
+  }
+};
+for (const [label, source] of statusedSources) {
+  if (!sourceStatuses.has(source.status)) failures.push(`${label}: unknown status "${source.status}"`);
+  validatePending(label, source.pending);
+}
+for (const asset of assetSource.assets) validatePending(`asset ${asset.id}`, asset.pending);
+
+// docs/ の散文には値を再掲しない（横断判断のみ）。生値の再流入を検知する。
+const { readdir } = await import("node:fs/promises");
+const docsDir = resolve(root, "docs");
+for (const entry of await readdir(docsDir, { recursive: true })) {
+  if (!entry.endsWith(".md")) continue;
+  const body = await readFile(resolve(docsDir, entry), "utf8");
+  const lines = body.split("\n");
+  lines.forEach((line, index) => {
+    if (/#[0-9a-fA-F]{3,8}\b/.test(line)) {
+      failures.push(`docs/${entry}:${index + 1}: raw color value in docs (define values in tokens/*.json and reference by token name)`);
+    }
+    if (/\d+(px|rem|em|vw|vh)\b/.test(line)) {
+      failures.push(`docs/${entry}:${index + 1}: raw dimension value in docs (define values in tokens/*.json and reference by token name)`);
+    }
+  });
+}
+
+// 生成物 guidelines/data.js が正本から生成されたものであること（存在と鮮度の下限チェック）。
+try {
+  const dataJs = await readFile(resolve(root, "guidelines/data.js"), "utf8");
+  if (!dataJs.startsWith("/* Generated from tokens/*.json")) failures.push("guidelines/data.js is not a generated file");
+  const embedded = JSON.parse(dataJs.slice(dataJs.indexOf("{"), dataJs.lastIndexOf("}") + 1));
+  const embeddedColorCount = embedded.tokens?.colors?.length ?? 0;
+  if (embeddedColorCount !== colorSource.tokens.length) {
+    failures.push(`guidelines/data.js is stale: ${embeddedColorCount} colors embedded, ${colorSource.tokens.length} in source. Run scripts/build-tokens.mjs`);
+  }
+} catch (error) {
+  failures.push(`guidelines/data.js: ${error.message}`);
 }
 
 const luminance = (hex) => {

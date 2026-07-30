@@ -43,19 +43,6 @@
     <p class="sidebar-note">初版 0.1<br>2026年7月</p>
   </aside>
 
-  <div class="font-pair-float" aria-label="比較用の書体表示切り替え">
-    <div class="font-pair-float-title">
-      <span>比較用</span>
-      <strong>書体表示</strong>
-    </div>
-    <div class="font-pair-float-buttons" role="group" aria-label="ガイドライン全体へ適用する書体ペア">
-      <button type="button" data-font-pair="di" aria-pressed="true" title="Sora × LINE Seed JP">D-I</button>
-      <button type="button" data-font-pair="hj" aria-pressed="false" title="Geologica × M PLUS 1">H-J</button>
-    </div>
-    <a href="#typography">仕様</a>
-    <span class="visually-hidden" data-font-pair-status aria-live="polite">D-Iを表示中</span>
-  </div>
-
   <main id="main">
     <section class="hero" id="overview">
       <div class="hero-copy">
@@ -95,18 +82,9 @@
         <div><h2>カラー</h2><p>D-E-Dを主案として、実際の制作物で検証しています。</p></div>
       </div>
       <div class="notice"><strong>暫定利用できます。</strong> B2B LPと図解での適用確認後に最終確定します。</div>
-      <div class="swatches" aria-label="ブランドカラーパレット">
-        <article class="swatch swatch-primary"><div class="swatch-color"></div><div><p>Primary</p><strong>#00A0FF</strong><small>主役のグラフィック、ブランド表現</small></div></article>
-        <article class="swatch swatch-secondary"><div class="swatch-color"></div><div><p>Secondary</p><strong>#C7F14A</strong><small>Primaryと対比する限定的なブランド表現</small></div></article>
-        <article class="swatch swatch-violet"><div class="swatch-color"></div><div><p>Extended Violet</p><strong>#6C4ED9</strong><small>図解、チャート、抽象モチーフ</small></div></article>
-        <article class="swatch swatch-orange"><div class="swatch-color"></div><div><p>Extended Orange</p><strong>#FF6B3D</strong><small>図解、チャート、抽象モチーフ</small></div></article>
-      </div>
+      <div class="swatches" aria-label="ブランドカラーパレット" data-render="brand-swatches"></div>
       <h3 class="subheading">Neutral Colors</h3>
-      <div class="neutral-grid">
-        <article class="neutral neutral-canvas"><span></span><div><p>Canvas</p><strong>#FAF9FC</strong><small>ページ背景</small></div></article>
-        <article class="neutral neutral-ink"><span></span><div><p>Ink</p><strong>#18151D</strong><small>見出し、本文、罫線</small></div></article>
-        <article class="neutral neutral-surface"><span></span><div><p>Surface</p><strong>#ECE8F0</strong><small>カード、図表、区切り面</small></div></article>
-      </div>
+      <div class="neutral-grid" data-render="neutral-swatches"></div>
       <div class="guidance-grid">
         <article><h3>推奨</h3><div class="use-sample good-sample"><span class="sample-copy">白い面を主役にする</span><span class="hsg-button hsg-button-primary">相談する</span></div><p>Canvasを基盤にし、ブランドのPrimary Colorは一つの強いグラフィックへ絞ります。</p></article>
         <article><h3>避ける</h3><div class="use-sample bad-sample"><span></span><span></span><span></span><span></span></div><p>4色を同じ面積で装飾に使い、情報の優先順位を曖昧にしません。</p></article>
@@ -114,79 +92,78 @@
     </section>
 
     <section class="section compact-section" id="typography">
-      <div class="section-heading"><p class="section-number">03</p><div><h2>タイポグラフィ</h2><p>書体候補は比較中ですが、用途別の階層とスタイリングは共通仕様として利用できます。</p></div></div>
+      <div class="section-heading"><p class="section-number">03</p><div><h2>タイポグラフィ</h2><p>選定書体D-I（Sora × LINE Seed JP）を基準に、用途別の階層とスタイリングを共通仕様として提供します。</p></div></div>
       <div class="candidate-grid">
-        <article><p class="candidate-label">候補 D-I</p><h3 class="type-di">Hashigodaka</h3><p class="type-sample type-di-jp">構想から実装まで、一つのチームで。</p><p>Sora × LINE Seed JP 700</p></article>
-        <article><p class="candidate-label">候補 H-J</p><h3 class="type-hj">Hashigodaka</h3><p class="type-sample type-hj-jp">構想から実装まで、一つのチームで。</p><p>Geologica × M PLUS 1 800</p></article>
+        <article><p class="candidate-label">選定書体 D-I</p><h3 class="type-di">Hashigodaka</h3><p class="type-sample type-di-jp">構想から実装まで、一つのチームで。</p><p>Sora × LINE Seed JP</p></article>
       </div>
-      <p class="pending-note">画面右下の比較用メニューで、ガイドライン全体の書体を切り替えられます。正式なロゴ調整と書体ライセンス確認が完了するまでは、フォントファミリーだけを製品実装へ固定しません。</p>
+      <p class="pending-note" data-render="typography-pending"></p>
 
       <h3 class="subheading type-subheading">用途別スタイル</h3>
       <div class="type-role-list">
         <article class="type-role">
           <div class="type-role-name"><strong>Display</strong><code>.hsg-type-display</code></div>
           <p class="hsg-type-display type-role-sample">人間味のある、<br>力強い実装へ。</p>
-          <dl><div><dt>Size</dt><dd>64 / 44</dd></div><div><dt>Line</dt><dd>1.12</dd></div><div><dt>Tracking</dt><dd>−0.04em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">LPの主見出しなど、ページに一つだけ置く最上位表現。原則2〜3行まで。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Heading 1</strong><code>.hsg-type-heading-1</code></div>
           <p class="hsg-type-heading-1 type-role-sample">構想を、動く仕組みに変える。</p>
-          <dl><div><dt>Size</dt><dd>40 / 32</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">記事・下層ページのタイトル。ページの内容を具体的に表す。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Heading 2</strong><code>.hsg-type-heading-2</code></div>
           <p class="hsg-type-heading-2 type-role-sample">事業と技術をつなぐ支援</p>
-          <dl><div><dt>Size</dt><dd>28 / 24</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">主要セクションの見出し。見出し階層を飛ばさず、内容構造に沿って使う。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Heading 3</strong><code>.hsg-type-heading-3</code></div>
           <p class="hsg-type-heading-3 type-role-sample">プロジェクト設計</p>
-          <dl><div><dt>Size</dt><dd>20</dd></div><div><dt>Line</dt><dd>1.35</dd></div><div><dt>Tracking</dt><dd>−0.02em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">カードや小セクションの見出し。本文の強調だけを目的に使わない。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Body Large</strong><code>.hsg-type-body-large</code></div>
           <p class="hsg-type-body-large type-role-sample">事業の構想と実装の間に入り、実際に使われる仕組みを一緒につくります。</p>
-          <dl><div><dt>Size</dt><dd>18</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">ページ冒頭のリード文。本文より大きく、見出しより静かに導入する。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Body</strong><code>.hsg-type-body</code></div>
           <p class="hsg-type-body type-role-sample">目的を共有し、必要な機能を整理し、設計から開発までを一つの流れとして進めます。読みやすさを優先し、一行を長くしすぎません。</p>
-          <dl><div><dt>Size</dt><dd>16</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">標準本文。和文は一行35〜45字程度を目安にし、長文では段落を分ける。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Body Small</strong><code>.hsg-type-body-small</code></div>
           <p class="hsg-type-body-small type-role-sample">対象範囲や前提条件など、本文を補う説明に使用します。</p>
-          <dl><div><dt>Size</dt><dd>14</dd></div><div><dt>Line</dt><dd>1.8</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">補足説明。重要情報を小さく押し込む目的では使わない。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Label</strong><code>.hsg-type-label</code></div>
           <p class="hsg-type-label type-role-sample">お問い合わせ種別</p>
-          <dl><div><dt>Size</dt><dd>13</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Tracking</dt><dd>0.04em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">入力項目名や意味のある分類名。装飾的な英大文字や等幅書体に置き換えない。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Action</strong><code>.hsg-type-action</code></div>
           <p class="hsg-type-action type-role-sample"><span class="hsg-button hsg-button-primary">プロジェクトを相談する</span></p>
-          <dl><div><dt>Size</dt><dd>15</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Weight</dt><dd>700</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">ボタンと主要リンク。動作が予測できる具体的な動詞を使う。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Caption</strong><code>.hsg-type-caption</code></div>
           <p class="hsg-type-caption type-role-sample">2026年7月更新　写真：Hashigodaka社内撮影</p>
-          <dl><div><dt>Size</dt><dd>12</dd></div><div><dt>Line</dt><dd>1.5</dd></div><div><dt>Tracking</dt><dd>0.04em</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">日付、出典、画像注釈などのメタデータ。本文に必要な情報は入れない。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Code</strong><code>.hsg-type-code</code></div>
           <p class="hsg-type-code type-role-sample">var(--hsg-color-brand-primary)</p>
-          <dl><div><dt>Size</dt><dd>14</dd></div><div><dt>Line</dt><dd>1.7</dd></div><div><dt>Weight</dt><dd>400</dd></div></dl>
+          <dl data-render="role-specs"></dl>
           <p class="type-role-usage">コード、変数名、ファイル名など、コードとして読む識別子だけに使う。</p>
         </article>
       </div>
@@ -208,28 +185,17 @@
       <div class="layout-foundation">
         <article class="layout-block">
           <div class="layout-block-heading"><div><p class="demo-label">Spacing scale</p><h3>余白の共通尺度</h3></div><p>迷ったときは隣接する要素間の関係が伝わる、最小の値を選びます。</p></div>
-          <div class="space-scale" aria-label="余白スケール">
-            <div><span style="--space-size:4px"></span><strong>4</strong></div>
-            <div><span style="--space-size:8px"></span><strong>8</strong></div>
-            <div><span style="--space-size:12px"></span><strong>12</strong></div>
-            <div><span style="--space-size:16px"></span><strong>16</strong></div>
-            <div><span style="--space-size:24px"></span><strong>24</strong></div>
-            <div><span style="--space-size:32px"></span><strong>32</strong></div>
-            <div><span style="--space-size:48px"></span><strong>48</strong></div>
-            <div><span style="--space-size:64px"></span><strong>64</strong></div>
-            <div><span style="--space-size:96px"></span><strong>96</strong></div>
-            <div><span style="--space-size:128px"></span><strong>128</strong></div>
-          </div>
+          <div class="space-scale" aria-label="余白スケール" data-render="space-scale"></div>
         </article>
 
         <div class="layout-spec-grid">
-          <article class="layout-block"><p class="demo-label">Page gutter</p><h3>24 / 48 / 64px</h3><p>Mobile / Tablet / Desktop。画面端から本文や主要要素までの最低余白です。</p></article>
-          <article class="layout-block"><p class="demo-label">Content width</p><h3>720 / 1120 / 1440px</h3><p>Reading / Standard / Wide。文章、通常ページ、広いビジュアルの最大幅を分けます。</p></article>
-          <article class="layout-block"><p class="demo-label">Section space</p><h3>48 / 64 / 96px</h3><p>Small / Medium / Large。セクションの重要度と情報量に応じて使い分けます。</p></article>
+          <article class="layout-block"><p class="demo-label">Page gutter</p><h3 data-layout-values="layout.page.gutter.mobile,layout.page.gutter.tablet,layout.page.gutter.desktop"></h3><p>Mobile / Tablet / Desktop。画面端から本文や主要要素までの最低余白です。</p></article>
+          <article class="layout-block"><p class="demo-label">Content width</p><h3 data-layout-values="layout.content.width.reading,layout.content.width.standard,layout.content.width.wide"></h3><p>Reading / Standard / Wide。文章、通常ページ、広いビジュアルの最大幅を分けます。</p></article>
+          <article class="layout-block"><p class="demo-label">Section space</p><h3 data-layout-values="layout.section.space.small,layout.section.space.medium,layout.section.space.large"></h3><p>Small / Medium / Large。セクションの重要度と情報量に応じて使い分けます。</p></article>
         </div>
 
         <article class="layout-block">
-          <div class="layout-block-heading"><div><p class="demo-label">Responsive grid</p><h3>4 / 8 / 12 columns</h3></div><p>760px以下をMobile、1050px以下をTabletとして構造を切り替えます。</p></div>
+          <div class="layout-block-heading"><div><p class="demo-label">Responsive grid</p><h3 data-layout-values="layout.grid.columns.mobile,layout.grid.columns.tablet,layout.grid.columns.desktop" data-layout-suffix=" columns"></h3></div><p data-render="breakpoint-note"></p></div>
           <div class="grid-specimens">
             <div><span>Mobile · 4</span><div class="grid-columns grid-columns-4" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
             <div><span>Tablet · 8</span><div class="grid-columns grid-columns-8" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
@@ -256,7 +222,7 @@
           <div class="motif-title"><h3>01C-C</h3><span class="hsg-badge hsg-badge-primary">検証中</span></div>
           <p>厚い左右の面で力強さを、中央の接続でH・橋渡し・共創を、上下のくびれで蝶とバタフライエフェクトを表します。</p>
           <ul><li>単色、縦横比固定で使う</li><li>既定色はPrimary。モノクロ時はInk、暗い面ではCanvasへ反転する</li><li>回転、反転、切り取り、左右別色への分解をしない</li><li>32px未満、正式ロゴ、固定ロックアップにはまだ使わない</li></ul>
-          <div class="motif-links"><a href="../assets/motifs/01c-c.svg">SVGを開く</a><a href="../docs/brand/motif.md">利用ガイド</a><a href="../process-archive/2026-07-21/10-motif-exploration/">選定過程</a></div>
+          <div class="motif-links"><a href="../assets/motifs/01c-c.svg">SVGを開く</a><a href="../docs/guidelines.md">利用ガイド</a><a href="../process-archive/2026-07-21/10-motif-exploration/">選定過程</a></div>
         </div>
       </article>
     </section>
@@ -286,22 +252,14 @@
 
     <section class="section" id="status">
       <div class="section-heading"><p class="section-number">09</p><div><h2>策定状況</h2><p>利用できるものと、まだ固定しないものを明確にします。</p></div></div>
-      <div class="status-table" role="table" aria-label="デザインシステム策定状況">
-        <div class="status-row status-head" role="row"><span>領域</span><span>状態</span><span>利用方針</span></div>
-        <div class="status-row" role="row"><strong>Brand / Neutral Colors</strong><span><b class="hsg-badge hsg-badge-primary">検証中</b></span><span>新規制作物で検証利用可</span></div>
-        <div class="status-row" role="row"><strong>Typography roles</strong><span><b class="hsg-badge hsg-badge-primary">検証中</b></span><span>用途別スタイルを利用可</span></div>
-        <div class="status-row" role="row"><strong>Font family</strong><span><b class="hsg-badge hsg-badge-violet">選定中</b></span><span>D-I／H-Jの比較に限定</span></div>
-        <div class="status-row" role="row"><strong>Logo</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>仮表示を資産利用しない</span></div>
-        <div class="status-row" role="row"><strong>Motif / 01C-C</strong><span><b class="hsg-badge hsg-badge-primary">検証中</b></span><span>写真のない場面で検証利用可</span></div>
-        <div class="status-row" role="row"><strong>Semantic Colors</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>Extended Colorsで代用しない</span></div>
-        <div class="status-row" role="row"><strong>Layout foundations</strong><span><b class="hsg-badge hsg-badge-primary">検証中</b></span><span>余白・幅・グリッドを利用可</span></div>
-        <div class="status-row" role="row"><strong>Button / Badge</strong><span><b class="hsg-badge hsg-badge-secondary">利用可</b></span><span>基本仕様を利用可</span></div>
-        <div class="status-row" role="row"><strong>Other Components</strong><span><b class="hsg-badge hsg-badge-neutral">未策定</b></span><span>掲載例は検証用</span></div>
-      </div>
+      <div class="status-table" role="table" aria-label="デザインシステム策定状況" data-render="status-table"></div>
+      <h3 class="subheading">未決事項と暫定運用</h3>
+      <div class="pending-list" data-render="pending-list"></div>
     </section>
 
     <footer><p>Hashigodaka Design System</p><p>判断と実装を、同じ場所から。</p></footer>
   </main>
+  <script src="./data.js"></script>
   <script src="./site.js"></script>
 </body>
 </html>
