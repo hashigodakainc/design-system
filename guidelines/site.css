@@ -41,7 +41,6 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; fo
 .section-heading div > p { max-width: 650px; margin: 0; color: var(--hsg-color-neutral-muted); font-size: var(--hsg-typography-size-body-default); line-height: var(--hsg-typography-line-height-body); }
 .principle-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid var(--hsg-color-neutral-border); border-left: 1px solid var(--hsg-color-neutral-border); }
 .principle-card { min-height: 260px; padding: 34px; border-right: 1px solid var(--hsg-color-neutral-border); border-bottom: 1px solid var(--hsg-color-neutral-border); }
-.principle-card h3 span { margin-right: 12px; color: var(--hsg-color-brand-primary); }
 .principle-card:nth-child(5) { grid-column: 1 / -1; min-height: 220px; }
 .principle-card h3 { margin-bottom: 10px; font-size: var(--hsg-typography-size-heading-3); line-height: var(--hsg-typography-line-height-heading); letter-spacing: var(--hsg-typography-letter-spacing-heading); }
 .principle-card p { max-width: 520px; margin-bottom: 0; color: #514c57; font-size: var(--hsg-typography-size-body-default); line-height: var(--hsg-typography-line-height-body); }
