@@ -15,9 +15,11 @@ const colors = JSON.parse(await readFile(colorsPath, "utf8"));
 const svgAsset =
   manifest.assets.find((asset) => asset.format === "image/svg+xml") ??
   manifest.assets[0];
+const wordmarkAsset = manifest.assets.find((asset) => asset.id === "wordmark");
 const pendingTopic = colors.pending?.[0]?.topic;
 
 assert(svgAsset, "The asset manifest must contain at least one asset.");
+assert(wordmarkAsset, "The asset manifest must contain the wordmark asset.");
 assert(pendingTopic, "colors.json must expose the current pending topic.");
 
 const client = new Client({
@@ -145,6 +147,18 @@ try {
   if (svgAsset.format === "image/svg+xml") {
     assert.match(assetOutput.svgSource, /<svg[\s>]/);
   }
+
+  const wordmarkResult = await client.callTool({
+    name: "get_asset",
+    arguments: { id: "wordmark" },
+  });
+  assert.equal(wordmarkResult.isError, undefined);
+  const wordmarkOutput = wordmarkResult.structuredContent;
+  assert(wordmarkOutput && typeof wordmarkOutput === "object");
+  assert.equal(wordmarkOutput.asset.id, "wordmark");
+  assert.equal(wordmarkOutput.asset.viewBox, wordmarkAsset.viewBox);
+  assert.match(wordmarkOutput.svgSource, /<svg[\s>]/);
+  assert.match(wordmarkOutput.svgSource, /fill="currentColor"/);
 
   const guidelineResult = await client.callTool({
     name: "read_guideline",

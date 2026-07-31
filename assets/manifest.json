@@ -27,6 +27,28 @@
       ]
     },
     {
+      "id": "wordmark",
+      "kind": "wordmark",
+      "label": "Hashigodaka ワードマーク",
+      "status": "selected",
+      "path": "assets/wordmarks/wordmark.svg",
+      "format": "image/svg+xml",
+      "viewBox": "0 0 6484 987",
+      "sourceDecision": "D-I（Sora）の現行組みを2026-07-31採用。字形調整は将来任意。",
+      "defaultColor": "{color.neutral.ink}",
+      "colorMode": "single-color",
+      "usage": [
+        "サイトヘッダーでの社名表示",
+        "資料のロゴ枠や会社名を示すブランド表示"
+      ],
+      "restrictions": [
+        "縦横比を変えない",
+        "回転、反転、字形の改変をしない",
+        "複数色へ分解しない",
+        "モチーフとの固定ロックアップとして扱わない"
+      ]
+    },
+    {
       "id": "font.latin",
       "kind": "font",
       "label": "Sora",
