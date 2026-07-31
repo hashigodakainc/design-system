@@ -38,6 +38,10 @@ Markdown本文とCSS本文をtext contentだけで返します。
 資産ID、ガイドラインID、スタイルシート名は起動時に正本を走査し、tool descriptionと入力enumへ
 反映します。正本を更新した場合はサーバーを再起動してください。
 
+ワードマークを再調整する場合は、`assets/manifest.json` の wordmark にある `generator` を編集し、
+`pnpm build:wordmark` を実行してから変更をpushします。SVGとmanifestの`viewBox`はコマンドが
+同時に更新します。
+
 ## Claude Codeへ登録
 
 先に `pnpm build` を実行し、`/absolute/path/to/design-system` を実際の絶対パスへ
