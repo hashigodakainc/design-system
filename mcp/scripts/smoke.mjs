@@ -64,6 +64,10 @@ try {
     guidelineTool?.description?.includes("guidelines"),
     "read_guideline description must include valid document ids.",
   );
+  assert(
+    guidelineTool?.description?.includes("media"),
+    "read_guideline description must include the media document id.",
+  );
   assert.equal(
     guidelineTool.outputSchema,
     undefined,
@@ -173,6 +177,21 @@ try {
   assert(
     guidelineText.text.includes("# Hashigodaka デザインガイドライン"),
     "read_guideline text must include the guideline heading.",
+  );
+
+  const mediaResult = await client.callTool({
+    name: "read_guideline",
+    arguments: { id: "media" },
+  });
+  assert.equal(mediaResult.isError, undefined);
+  assert.equal(mediaResult.structuredContent, undefined);
+  const mediaText = mediaResult.content.find(
+    (content) => content.type === "text",
+  );
+  assert(mediaText);
+  assert(
+    mediaText.text.includes("# Hashigodaka 資料ガイドライン"),
+    "read_guideline text must include the media guideline heading.",
   );
 
   const stylesheetResult = await client.callTool({

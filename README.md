@@ -26,6 +26,7 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 - [`tokens/`](tokens/) — 値・成熟度・未決事項の機械可読な正本
 - [`assets/`](assets/) — 再利用可能なブランド資産（モチーフ・フォント）と機械可読な索引
 - [`docs/guidelines.md`](docs/guidelines.md) — 横断的なデザイン判断の正本
+- [`docs/media.md`](docs/media.md) — Webページ以外のビジネス成果物へ適用する横断判断
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
 - [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
 - [`mcp/`](mcp/) — AIエージェントが正本を参照するstdio MCPサーバー
