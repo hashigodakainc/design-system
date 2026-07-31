@@ -430,7 +430,7 @@ function buildInstructions(
 
   return [
     "Hashigodakaデザインシステムの正本を提供する参照専用MCPサーバーです。",
-    "制作前に read_guideline の id=\"guidelines\" を読み、値は get_tokens からトークン名で参照し、資産は get_asset で利用条件とともに取得してください。",
+    "制作前に、Web実装では read_guideline の id=\"guidelines\" を読み、スライド・提案書・図解・SNS画像などの資料では id=\"guidelines\" に加えて id=\"media\" も読んでください。値は get_tokens からトークン名で参照し、資産は get_asset で利用条件とともに取得してください。",
     "採用済みコンポーネント（ボタン・バッジ）を使う場合は get_stylesheet の name=\"components\" を取得して実装をコピーし、再発明しないでください。CSS変数を使う実装では name=\"tokens\" / \"typography\" も取得できます。",
     `正本の状態: ${statuses.join(", ")}。`,
     pendingText,

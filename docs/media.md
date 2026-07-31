@@ -14,8 +14,9 @@ Web以外の媒体はCSS変数を参照できないため、制作時に必要�
 - 英字だけの表示には `typography.family.latin`、和文を含む見出しと本文には
   `typography.family.body` を使う。Display、Heading、Bodyなど、`tokens/typography.json` の
   用途別ロールに対応させて階層を作る。
-- SoraとLINE Seed JPのフォントファイルは、MCPの `get_asset` で `font.latin` と
-  `font.body` を指定して取得する。
+- 書体名と用途は `tokens/typography.json` のトークンを参照する。フォントファイル本体は
+  配布物の `assets/fonts/` から取得し、MCPの `get_asset`（`font.latin` / `font.body`）は
+  メタデータとライセンスの所在の確認に使う。
 - `color.background.canvas` を基盤とし、Canvas相当の余白と白い面積を広く取る。
   `color.brand.primary` は一つの強いブランド表現へ絞り、`color.brand.secondary` と
   Extended ColorsはPrimaryより小さい面積で使う。

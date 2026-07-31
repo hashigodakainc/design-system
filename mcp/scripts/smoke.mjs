@@ -40,6 +40,10 @@ try {
   assert(instructions, "The initialize response must include instructions.");
   assert.match(instructions, /Hashigodakaデザインシステム/);
   assert(
+    instructions.includes('id="media"'),
+    "Instructions must direct media consumers to the media guideline.",
+  );
+  assert(
     instructions.includes(pendingTopic),
     "Instructions must include the aggregated pending topic.",
   );
