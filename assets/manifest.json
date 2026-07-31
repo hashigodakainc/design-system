@@ -34,6 +34,12 @@
       "path": "assets/wordmarks/wordmark.svg",
       "format": "image/svg+xml",
       "viewBox": "0 0 6484 987",
+      "generator": {
+        "text": "Hashigodaka",
+        "font": "assets/fonts/sora.ttf",
+        "weight": 700,
+        "letterSpacing": "{typography.letter-spacing.heading}"
+      },
       "sourceDecision": "D-I（Sora）の現行組みを2026-07-31採用。字形調整は将来任意。",
       "defaultColor": "{color.neutral.ink}",
       "colorMode": "single-color",

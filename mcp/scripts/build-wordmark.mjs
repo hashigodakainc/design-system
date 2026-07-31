@@ -5,14 +5,9 @@ import { fileURLToPath } from "node:url";
 import opentype from "opentype.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const fontPath = resolve(root, "assets/fonts/sora.ttf");
 const manifestPath = resolve(root, "assets/manifest.json");
 const colorsPath = resolve(root, "tokens/colors.json");
 const typographyPath = resolve(root, "tokens/typography.json");
-const outputPath = resolve(root, "assets/wordmarks/wordmark.svg");
-
-const text = "Hashigodaka";
-const weight = 700;
 const precision = 3;
 
 const [manifest, colors, typography] = await Promise.all(
@@ -22,59 +17,95 @@ const [manifest, colors, typography] = await Promise.all(
 );
 
 const wordmarkAsset = manifest.assets.find((asset) => asset.id === "wordmark");
-if (!wordmarkAsset?.defaultColor) {
+if (!wordmarkAsset) {
+  throw new Error('Asset "wordmark" is missing from assets/manifest.json');
+}
+if (!wordmarkAsset.defaultColor) {
   throw new Error(
     "wordmark.defaultColor is missing from assets/manifest.json",
   );
 }
+if (!wordmarkAsset.path) {
+  throw new Error("wordmark.path is missing from assets/manifest.json");
+}
 
-const colorTokens = new Map(
-  colors.tokens.map((token) => [token.name, token.value]),
-);
-const resolveColor = (value, references = []) => {
-  const match = /^\{([^{}]+)\}$/.exec(value);
-  if (!match) {
-    return value;
+const generator = wordmarkAsset.generator;
+if (
+  !generator ||
+  typeof generator.text !== "string" ||
+  !generator.text ||
+  typeof generator.font !== "string" ||
+  !generator.font ||
+  typeof generator.weight !== "number" ||
+  typeof generator.letterSpacing !== "string"
+) {
+  throw new Error(
+    "wordmark.generator must define text, font, weight, and letterSpacing in assets/manifest.json",
+  );
+}
+
+for (const [label, path] of [
+  ["wordmark.path", wordmarkAsset.path],
+  ["wordmark.generator.font", generator.font],
+]) {
+  if (!path.startsWith("assets/") || path.includes("..")) {
+    throw new Error(`${label} must be a safe assets/ path, received "${path}"`);
   }
+}
+
+const resolveToken = (value, tokens, context, references = []) => {
+  const match = /^\{([^{}]+)\}$/.exec(value);
+  if (!match) return value;
 
   const tokenName = match[1];
   if (references.includes(tokenName)) {
     throw new Error(
-      `Circular color token reference: ${[...references, tokenName].join(" -> ")}`,
+      `Circular token reference: ${[...references, tokenName].join(" -> ")}`,
     );
   }
-
-  const tokenValue = colorTokens.get(tokenName);
+  const tokenValue = tokens.get(tokenName);
   if (tokenValue === undefined) {
     throw new Error(
-      `Color token "${tokenName}" referenced by wordmark.defaultColor is missing from tokens/colors.json`,
+      `Token "${tokenName}" referenced by ${context} is missing`,
     );
   }
-
-  return resolveColor(tokenValue, [...references, tokenName]);
+  return resolveToken(tokenValue, tokens, context, [...references, tokenName]);
 };
-const defaultColor = resolveColor(wordmarkAsset.defaultColor);
 
-const letterSpacingToken = typography.tokens.find(
-  (token) => token.name === "typography.letter-spacing.heading",
+const colorTokens = new Map(
+  colors.tokens.map((token) => [token.name, token.value]),
+);
+const defaultColor = resolveToken(
+  wordmarkAsset.defaultColor,
+  colorTokens,
+  "wordmark.defaultColor",
 );
 
-if (!letterSpacingToken) {
+if (!/^\{[^{}]+\}$/.test(generator.letterSpacing)) {
   throw new Error(
-    "typography.letter-spacing.heading is missing from tokens/typography.json",
+    `wordmark.generator.letterSpacing must be a token reference, received "${generator.letterSpacing}"`,
   );
 }
-
+const typographyTokens = new Map(
+  typography.tokens.map((token) => [token.name, token.value]),
+);
+const letterSpacingValue = resolveToken(
+  generator.letterSpacing,
+  typographyTokens,
+  "wordmark.generator.letterSpacing",
+);
 const letterSpacingMatch = /^(-?(?:\d+|\d*\.\d+))em$/.exec(
-  letterSpacingToken.value,
+  letterSpacingValue,
 );
 if (!letterSpacingMatch) {
   throw new Error(
-    `Expected typography.letter-spacing.heading to use em units, received "${letterSpacingToken.value}"`,
+    `Expected wordmark.generator.letterSpacing to resolve to em units, received "${letterSpacingValue}"`,
   );
 }
 const letterSpacing = Number(letterSpacingMatch[1]);
 
+const fontPath = resolve(root, generator.font);
+const outputPath = resolve(root, wordmarkAsset.path);
 const fontBuffer = await readFile(fontPath);
 const fontArrayBuffer = fontBuffer.buffer.slice(
   fontBuffer.byteOffset,
@@ -85,25 +116,33 @@ const weightAxis = font.tables.fvar?.axes?.find((axis) => axis.tag === "wght");
 
 if (
   !weightAxis ||
-  weight < weightAxis.minValue ||
-  weight > weightAxis.maxValue ||
+  generator.weight < weightAxis.minValue ||
+  generator.weight > weightAxis.maxValue ||
   !font.variation
 ) {
-  throw new Error("Sora does not expose a usable variable wght axis.");
+  throw new Error(
+    `${generator.font} does not expose a usable variable wght axis for weight ${generator.weight}.`,
+  );
 }
 
-font.variation.set({ wght: weight });
+font.variation.set({ wght: generator.weight });
 
 const fontSize = font.unitsPerEm;
 const renderOptions = {
   kerning: true,
   letterSpacing,
-  variation: { wght: weight },
+  variation: { wght: generator.weight },
 };
-const initialPath = font.getPath(text, 0, 0, fontSize, renderOptions);
+const initialPath = font.getPath(
+  generator.text,
+  0,
+  0,
+  fontSize,
+  renderOptions,
+);
 const initialBox = initialPath.getBoundingBox();
 const fittedPath = font.getPath(
-  text,
+  generator.text,
   -initialBox.x1,
   -initialBox.y1,
   fontSize,
@@ -124,22 +163,34 @@ const pathData = fittedPath.toPathData({
   flipY: false,
   optimize: true,
 });
+const escapeXml = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+const escapedText = escapeXml(generator.text);
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" color="${defaultColor}" role="img" aria-labelledby="wordmark-title wordmark-desc">
-  <title id="wordmark-title">Hashigodaka wordmark</title>
-  <desc id="wordmark-desc">Hashigodaka set in Sora Bold.</desc>
+  <title id="wordmark-title">${escapedText} wordmark</title>
+  <desc id="wordmark-desc">${escapedText} wordmark.</desc>
   <path fill="currentColor" d="${pathData}"/>
 </svg>
 `;
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, svg);
+wordmarkAsset.viewBox = viewBox;
+await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
 console.log(
-  `wordmark: Sora variable font wght=${weight} (axis ${weightAxis.minValue}-${weightAxis.maxValue})`,
+  `wordmark: ${generator.font} variable font wght=${generator.weight} (axis ${weightAxis.minValue}-${weightAxis.maxValue})`,
 );
 console.log(
   `wordmark: defaultColor=${wordmarkAsset.defaultColor} -> ${defaultColor}`,
 );
-console.log(`wordmark: letter-spacing=${letterSpacingToken.value}`);
+console.log(
+  `wordmark: letter-spacing=${generator.letterSpacing} -> ${letterSpacingValue}`,
+);
 console.log(`wordmark: viewBox="${viewBox}"`);
