@@ -12,9 +12,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Enable Corepack
+        run: corepack enable
       - name: Rebuild generated files from tokens
         run: node scripts/build-tokens.mjs
       - name: Generated files must be up to date
         run: git diff --exit-code styles/tokens.css styles/typography.css
       - name: Validate tokens, assets, and docs
         run: node scripts/validate-tokens.mjs
+      - name: Install MCP dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: mcp
+      - name: Build MCP server
+        run: pnpm build
+        working-directory: mcp
+      - name: Rebuild wordmark
+        run: pnpm build:wordmark
+        working-directory: mcp
+      - name: Smoke test MCP server
+        run: pnpm smoke
+        working-directory: mcp
+      - name: Generated wordmark files must be up to date
+        run: git diff --exit-code assets/wordmarks/wordmark.svg assets/manifest.json
