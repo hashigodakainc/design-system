@@ -1,28 +1,66 @@
 # Hashigodaka Design System MCP
 
-Hashigodakaデザインシステムの正本を、AIエージェントから参照するためのstdio MCPサーバーです。
-MCP専用のデータは持たず、起動時にリポジトリ直下の `tokens/*.json`、
-`assets/manifest.json`、`docs/*.md`、`styles/*.css` と資産ファイルを直接読み込みます。
+Hashigodakaデザインシステムの正本を、AIエージェントから参照するためのMCPサーバーです。
+同じ4つのtoolを、ローカル開発向けのstdioとCloudflare Workers向けのStreamable HTTPで
+提供します。
 
-## セットアップと起動
+## データの読み込み
 
-Node.js 20以上と pnpm 11.18.0を使用します。
+- stdioは起動時にリポジトリ直下の `tokens/*.json`、`assets/manifest.json`、
+  `assets/**`、`docs/*.md`、`styles/*.css` を直接読み込みます。
+- Workerは `pnpm build:snapshot` が生成する
+  `src/generated/design-snapshot.json` をbundleへ同梱します。
+- フォントとSVGはWranglerのstatic assets bindingから配信します。Workerの `get_asset` は
+  資産メタデータへ `https://mcp-design.hashigodaka.co.jp/assets/...` の絶対URLを加え、
+  SVGでは従来の本文も返します。
+
+snapshotは正本から再生成するビルド成果物であり、gitでは管理しません。正本の更新をWorkerへ
+反映するにはsnapshotの再生成と再デプロイが必要です。
+
+## セットアップ
+
+Node.js 22以上と、`package.json` の `packageManager` に記録したpnpmを使用します。
 
 ```sh
 cd mcp
 pnpm install
+pnpm typecheck
 pnpm build
-pnpm start
-```
-
-`pnpm start` は `node dist/index.js` をstdioサーバーとして起動します。標準出力はMCPの
-通信専用です。
-
-実際のstdio接続と4つのtoolを確認するスモークテストは、ビルド後に実行します。
-
-```sh
 pnpm smoke
 ```
+
+## stdio
+
+ビルド後に次のコマンドで起動します。標準出力はMCP通信専用です。
+
+```sh
+pnpm start:stdio
+```
+
+Claude CodeまたはCodexへ登録する場合は、`/absolute/path/to/design-system` を実際の絶対パスへ
+置き換えます。
+
+```sh
+claude mcp add hashigodaka-design-system -- node /absolute/path/to/design-system/mcp/dist/stdio.js
+codex mcp add hashigodaka-design-system -- node /absolute/path/to/design-system/mcp/dist/stdio.js
+```
+
+## Cloudflare Worker
+
+ローカルのworkerdでRemote MCPとstatic assetsを確認します。
+
+```sh
+pnpm dev
+```
+
+既定のMCP endpointは `http://127.0.0.1:8787/mcp`、health endpointは
+`http://127.0.0.1:8787/health` です。Workerは既存client向けの
+`initialize`（2025-era、stateless）と、`server/discover` による2026-eraの両方を受け付けます。
+
+`wrangler.jsonc` にはWorker名 `hashigodaka-design-mcp`、Custom Domain
+`mcp-design.hashigodaka.co.jp`、`nodejs_compat`、static assets bindingを定義しています。
+本番デプロイと公開endpointの検証は後続フェーズで行います。このフェーズでは
+`wrangler deploy` を実行しません。
 
 ## 提供するtool
 
@@ -31,32 +69,12 @@ pnpm smoke
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 - `get_stylesheet` — `styles/*.css` のCSS本文を返す
 
-`get_tokens` と `get_asset` は `structuredContent` を返し、後方互換のため同一内容を
-直列化したJSONをtext contentにも含めます。`read_guideline` と `get_stylesheet` はそれぞれ
-Markdown本文とCSS本文をtext contentだけで返します。
+`get_tokens` と `get_asset` は `structuredContent` を返し、同一内容を直列化したJSONをtext
+contentにも含めます。`read_guideline` と `get_stylesheet` はMarkdown本文とCSS本文をtext
+contentだけで返します。
 
-資産ID、ガイドラインID、スタイルシート名は起動時に正本を走査し、tool descriptionと入力enumへ
-反映します。正本を更新した場合はサーバーを再起動してください。
+資産ID、ガイドラインID、スタイルシート名は正本から組み立て、tool descriptionと入力enumへ
+反映します。stdioでは正本更新後にサーバーを再起動し、Workerではsnapshotを再生成してください。
 
-ワードマークを再調整する場合は、`assets/manifest.json` の wordmark にある `generator` を編集し、
-`pnpm build:wordmark` を実行してから変更をpushします。SVGとmanifestの`viewBox`はコマンドが
-同時に更新します。
-
-## Claude Codeへ登録
-
-先に `pnpm build` を実行し、`/absolute/path/to/design-system` を実際の絶対パスへ
-置き換えます。
-
-```sh
-claude mcp add hashigodaka-design-system -- node /absolute/path/to/design-system/mcp/dist/index.js
-```
-
-プロジェクト設定として共有する場合は `--scope project` を追加します。
-
-## Codexへ登録
-
-先に `pnpm build` を実行し、同様に絶対パスを指定します。
-
-```sh
-codex mcp add hashigodaka-design-system -- node /absolute/path/to/design-system/mcp/dist/index.js
-```
+ワードマークを再調整する場合は、`assets/manifest.json` のwordmarkにある `generator` を編集し、
+`pnpm build:wordmark` を実行します。SVGとmanifestの `viewBox` はコマンドが同時に更新します。

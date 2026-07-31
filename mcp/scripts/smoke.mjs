@@ -6,12 +6,17 @@ import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/client";
 import { StdioClientTransport } from "@modelcontextprotocol/client/stdio";
 
-const serverPath = new URL("../dist/index.js", import.meta.url);
+const serverPath = new URL("../dist/stdio.js", import.meta.url);
 const manifestPath = new URL("../../assets/manifest.json", import.meta.url);
 const colorsPath = new URL("../../tokens/colors.json", import.meta.url);
+const motifPath = new URL(
+  "../../assets/motifs/brand-motif.svg",
+  import.meta.url,
+);
 
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const colors = JSON.parse(await readFile(colorsPath, "utf8"));
+const motif = await readFile(motifPath, "utf8");
 const svgAsset =
   manifest.assets.find((asset) => asset.format === "image/svg+xml") ??
   manifest.assets[0];
@@ -50,6 +55,24 @@ try {
   assert(
     instructions.includes('get_stylesheet の name="components"'),
     "Instructions must direct consumers to the component stylesheet.",
+  );
+  const serverVersion = client.getServerVersion();
+  const svgIcon = serverVersion?.icons?.find(
+    (icon) => icon.mimeType === "image/svg+xml",
+  );
+  assert(svgIcon, "The server identity must include an SVG icon.");
+  const decodedIcon = Buffer.from(
+    svgIcon.src.split(",")[1],
+    "base64",
+  ).toString("utf8");
+  assert(
+    decodedIcon.includes("motif-title"),
+    "The decoded server icon must include motif-title.",
+  );
+  assert.equal(
+    decodedIcon,
+    motif,
+    "The inline server icon must match assets/motifs/brand-motif.svg.",
   );
 
   const { tools } = await client.listTools();
@@ -152,6 +175,11 @@ try {
     "get_asset text JSON must equal structuredContent.",
   );
   assert.equal(assetOutput.asset.id, svgAsset.id);
+  assert.equal(
+    assetOutput.asset.url,
+    undefined,
+    "stdio get_asset must preserve the existing metadata without remote URLs.",
+  );
   if (svgAsset.format === "image/svg+xml") {
     assert.match(assetOutput.svgSource, /<svg[\s>]/);
   }

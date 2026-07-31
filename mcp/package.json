@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/stdio.js",
   "scripts": {
-    "build": "tsc",
+    "build": "pnpm build:snapshot && tsc -p tsconfig.build.json",
+    "build:snapshot": "node --import tsx scripts/build-snapshot.ts",
     "build:wordmark": "node scripts/build-wordmark.mjs",
-    "start": "node dist/index.js",
-    "smoke": "node scripts/smoke.mjs"
+    "dev": "pnpm build:snapshot && wrangler dev",
+    "start": "node dist/stdio.js",
+    "start:stdio": "node dist/stdio.js",
+    "smoke": "node scripts/smoke.mjs",
+    "typecheck": "pnpm build:snapshot && tsc --noEmit"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "packageManager": "pnpm@11.18.0",
   "dependencies": {
@@ -19,9 +23,12 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260722.1",
     "@modelcontextprotocol/client": "2.0.0",
     "@types/node": "26.1.2",
     "opentype.js": "^2.0.0",
-    "typescript": "7.0.2"
+    "tsx": "^4.23.1",
+    "typescript": "7.0.2",
+    "wrangler": "^4.113.0"
   }
 }

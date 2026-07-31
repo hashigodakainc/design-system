@@ -1,6 +1,3 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { basename, extname } from "node:path";
-
 export type JsonPrimitive = boolean | null | number | string;
 export type JsonValue = JsonPrimitive | JsonObject | JsonValue[];
 export type JsonObject = { [key: string]: JsonValue };
@@ -66,7 +63,15 @@ export interface RepositoryData {
   tokenCategories: Map<Category, TokenCategoryData>;
 }
 
-const repositoryUrl = new URL("../../", import.meta.url);
+export interface RepositorySource {
+  listFiles(directory: string, extension: string): string[];
+  readText(path: string): string;
+}
+
+export interface RepositoryDataOptions {
+  assetBaseUrl?: string;
+}
+
 const categoryPaths: Record<Category, string> = {
   color: "tokens/colors.json",
   typography: "tokens/typography.json",
@@ -77,8 +82,8 @@ function isJsonObject(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function readJson(relativePath: string): JsonObject {
-  const contents = readFileSync(new URL(relativePath, repositoryUrl), "utf8");
+function readJson(source: RepositorySource, relativePath: string): JsonObject {
+  const contents = source.readText(relativePath);
   const value: unknown = JSON.parse(contents);
 
   if (!isJsonObject(value)) {
@@ -185,7 +190,30 @@ function pendingLabel(summary: PendingSummary): string {
   return `${summary.source}: ${parts.join(" / ")}`;
 }
 
-function loadTokenCategories(): {
+function absoluteAssetUrl(baseUrl: string, path: string): string {
+  const normalizedBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+  return new URL(path, normalizedBase).href;
+}
+
+function withAssetUrls(
+  entry: JsonObject,
+  baseUrl: string,
+  assetPath: string,
+): JsonObject {
+  const variants = entry.variants;
+  const variantUrls =
+    Array.isArray(variants) && variants.every((value) => typeof value === "string")
+      ? variants.map((path) => absoluteAssetUrl(baseUrl, path))
+      : [];
+
+  return {
+    ...entry,
+    url: absoluteAssetUrl(baseUrl, assetPath),
+    ...(variantUrls.length > 0 ? { variantUrls } : {}),
+  };
+}
+
+function loadTokenCategories(source: RepositorySource): {
   categories: Map<Category, TokenCategoryData>;
   jsonFiles: Map<string, JsonObject>;
 } {
@@ -198,7 +226,7 @@ function loadTokenCategories(): {
 
   for (const category of Object.keys(categoryPaths) as Category[]) {
     const path = categoryPaths[category];
-    const file = readJson(path);
+    const file = readJson(source, path);
     const tokens = objectArrayField(file, "tokens", path);
     const roles =
       category === "typography" ? objectArrayField(file, "roles", path) : [];
@@ -289,13 +317,16 @@ function loadTokenCategories(): {
   return { categories, jsonFiles };
 }
 
-function loadAssets(): {
+function loadAssets(
+  source: RepositorySource,
+  options: RepositoryDataOptions,
+): {
   assetIds: [string, ...string[]];
   assets: Map<string, AssetData>;
   manifest: JsonObject;
 } {
   const manifestPath = "assets/manifest.json";
-  const manifest = readJson(manifestPath);
+  const manifest = readJson(source, manifestPath);
   const entries = objectArrayField(manifest, "assets", manifestPath);
   const manifestSource = sourceMetadata(manifestPath, manifest);
   const assets = new Map<string, AssetData>();
@@ -314,9 +345,14 @@ function loadAssets(): {
         pending: item,
       })),
     ];
+    const assetPath = stringField(entry, "path", `${manifestPath}:${id}`);
+    const asset =
+      options.assetBaseUrl === undefined
+        ? entry
+        : withAssetUrls(entry, options.assetBaseUrl, assetPath);
     const data: AssetData = {
       id,
-      asset: entry,
+      asset,
       source: manifestSource,
       status: [
         { source: manifestPath, status: manifestSource.status },
@@ -326,11 +362,7 @@ function loadAssets(): {
     };
 
     if (entry.format === "image/svg+xml") {
-      const assetPath = stringField(entry, "path", `${manifestPath}:${id}`);
-      data.svgSource = readFileSync(
-        new URL(assetPath, repositoryUrl),
-        "utf8",
-      );
+      data.svgSource = source.readText(assetPath);
     }
     assets.set(id, data);
   }
@@ -347,24 +379,20 @@ function loadAssets(): {
   };
 }
 
-function loadGuidelines(): {
+function loadGuidelines(sourceLoader: RepositorySource): {
   guidelineIds: [string, ...string[]];
   guidelines: Map<string, GuidelineData>;
 } {
-  const docsDirectory = new URL("docs/", repositoryUrl);
-  const markdownFiles = readdirSync(docsDirectory, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && extname(entry.name) === ".md")
-    .map((entry) => entry.name)
-    .sort();
+  const markdownFiles = sourceLoader.listFiles("docs", ".md");
   const guidelines = new Map<string, GuidelineData>();
 
   for (const filename of markdownFiles) {
-    const id = basename(filename, ".md");
+    const id = filename.slice(0, -".md".length);
     const path = `docs/${filename}`;
     const source: SourceMetadata = { path, status: null, pending: [] };
     guidelines.set(id, {
       id,
-      markdown: readFileSync(new URL(path, repositoryUrl), "utf8"),
+      markdown: sourceLoader.readText(path),
       source,
       status: [{ source: path, status: null }],
       pending: [],
@@ -382,21 +410,17 @@ function loadGuidelines(): {
   };
 }
 
-function loadStylesheets(): {
+function loadStylesheets(source: RepositorySource): {
   stylesheetNames: [string, ...string[]];
   stylesheets: Map<string, string>;
 } {
-  const stylesDirectory = new URL("styles/", repositoryUrl);
-  const cssFiles = readdirSync(stylesDirectory, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && extname(entry.name) === ".css")
-    .map((entry) => entry.name)
-    .sort();
+  const cssFiles = source.listFiles("styles", ".css");
   const stylesheets = new Map<string, string>();
 
   for (const filename of cssFiles) {
-    const name = basename(filename, ".css");
+    const name = filename.slice(0, -".css".length);
     const path = `styles/${filename}`;
-    stylesheets.set(name, readFileSync(new URL(path, repositoryUrl), "utf8"));
+    stylesheets.set(name, source.readText(path));
   }
 
   const stylesheetNames = [...stylesheets.keys()];
@@ -437,11 +461,14 @@ function buildInstructions(
   ].join("\n");
 }
 
-export function loadRepositoryData(): RepositoryData {
-  const { categories, jsonFiles } = loadTokenCategories();
-  const { assetIds, assets, manifest } = loadAssets();
-  const { guidelineIds, guidelines } = loadGuidelines();
-  const { stylesheetNames, stylesheets } = loadStylesheets();
+export function loadRepositoryData(
+  source: RepositorySource,
+  options: RepositoryDataOptions = {},
+): RepositoryData {
+  const { categories, jsonFiles } = loadTokenCategories(source);
+  const { assetIds, assets, manifest } = loadAssets(source, options);
+  const { guidelineIds, guidelines } = loadGuidelines(source);
+  const { stylesheetNames, stylesheets } = loadStylesheets(source);
 
   return {
     assetIds,
