@@ -12,6 +12,7 @@
     "start": "node dist/stdio.js",
     "start:stdio": "node dist/stdio.js",
     "smoke": "node scripts/smoke.mjs",
+    "smoke:remote": "node scripts/remote-smoke.mjs",
     "typecheck": "pnpm build:snapshot && tsc --noEmit"
   },
   "engines": {

@@ -59,8 +59,23 @@ pnpm dev
 
 `wrangler.jsonc` にはWorker名 `hashigodaka-design-mcp`、Custom Domain
 `mcp-design.hashigodaka.co.jp`、`nodejs_compat`、static assets bindingを定義しています。
-本番デプロイと公開endpointの検証は後続フェーズで行います。このフェーズでは
-`wrangler deploy` を実行しません。
+
+`main` へMCPの正本または実装がpushされると、`Deploy design system MCP` workflowがsnapshotを
+再生成してWorkerをデプロイし、公開endpointで4 toolとstatic assetをsmoke testします。手動検証は
+次のコマンドで実行できます。
+
+```sh
+pnpm smoke:remote
+# 別endpointを検証する場合
+MCP_BASE_URL=https://example.workers.dev pnpm smoke:remote
+```
+
+workflowの初回実行前に、GitHub repositoryへ次を設定します。
+
+- Variable `CLOUDFLARE_ACCOUNT_ID`: HashigodakaのCloudflare Account ID
+- Secret `CLOUDFLARE_API_TOKEN`: Hashigodaka Accountに限定したWorkers Scripts Edit token
+
+Cloudflare側では `mcp-design.hashigodaka.co.jp` のCustom Domainを有効にします。
 
 ## 提供するtool
 
