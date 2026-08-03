@@ -9,25 +9,29 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 
 ## 現在のフェーズ
 
-D-E-Dをカラースキームの主案、01C-Cを固有モチーフの暫定メイン候補として、ガイドラインサイトと
-再利用可能なデザイントークン・資産の構築を進めています。色、用途別タイポグラフィ、レイアウト基礎、
-採用済みコンポーネント、固有モチーフは検証利用できますが、フォントファミリー、正式ロゴ、
-Semantic Colorsは未決定です。現在の利用可否は
-[docs/status.md](docs/status.md) を参照してください。
+ブランドカラー、選定書体（Sora × LINE Seed JP）、固有モチーフを確定済みの基盤として、ガイドラインサイトと再利用可能なデザイントークン・資産の構築を進めています。
+現在の利用可否と未決事項は、各正本JSON（`tokens/*.json`・`assets/manifest.json`）の
+`status` / `pending` フィールドと、[ガイドラインサイトの策定状況](guidelines/)を
+参照してください。
+
+## 情報の配置
+
+- 値（色・寸法・書体・資産メタデータ）と成熟度の正本は `tokens/*.json` と
+  `assets/manifest.json` だけに置きます。
+- Webを含む全媒体に共通する横断的な判断は [`docs/guidelines.md`](docs/guidelines.md)、
+  Web以外の媒体に固有の横断的な判断は [`docs/media.md`](docs/media.md) に書き、値を再掲しません。
+- `styles/tokens.css`・`styles/typography.css` は生成物です。ガイドラインサイトは正本JSONを直接読み込んで描画します。
 
 ## 構成
 
-- [`tokens/`](tokens/) — AIやツールが参照する機械可読な正本
+- [`tokens/`](tokens/) — 値・成熟度・未決事項の機械可読な正本
+- [`assets/`](assets/) — 再利用可能なブランド資産（モチーフ・フォント）と機械可読な索引
+- [`docs/guidelines.md`](docs/guidelines.md) — 横断的なデザイン判断の正本
+- [`docs/media.md`](docs/media.md) — Webページ以外のビジネス成果物へ適用する横断判断
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
-- [`assets/`](assets/) — 再利用可能なブランド資産と機械可読な索引
-- [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト
-- [`docs/foundations/`](docs/foundations/) — 人間向けの基礎ガイド
-- [`docs/brand/`](docs/brand/) — ロゴ、モチーフなどブランド資産の利用ガイド
-- [`docs/components/`](docs/components/) — 採用済みコンポーネントの仕様
-- [`examples/`](examples/) — 承認済みトークンの実装見本
+- [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
+- [`mcp/`](mcp/) — AIエージェントが正本を参照するRemote MCPサーバー
 - [`scripts/`](scripts/) — トークンの生成と機械検証
-- [`process-archive/`](process-archive/) — 選定過程の比較HTMLと資産
-- [`sites/process-archive/`](sites/process-archive/) — 制作過程を共有するSitesアプリ。公開素材は`process-archive/`から生成
 
 ## カラーを使う
 
@@ -40,18 +44,14 @@ Semantic Colorsは未決定です。現在の利用可否は
 }
 ```
 
-カラー、タイポグラフィ、レイアウトのトークンを変更したら、次の2つを実行します。
+## 更新の手順
 
-```sh
-node scripts/build-tokens.mjs
-node scripts/validate-tokens.mjs
-```
+1. 値・成熟度の変更は `tokens/*.json`・`assets/manifest.json` を編集する
+2. `node scripts/build-tokens.mjs` で生成物を再生成する
+3. 横断的な判断が変わった場合のみ、全媒体共通なら `docs/guidelines.md`、Web以外の媒体に
+   固有なら `docs/media.md` を更新する
+4. `node scripts/validate-tokens.mjs` で検証する（CIでも自動実行）
+5. `main` へコミットしてpushする
 
-制作目的、判断理由、未決事項は [docs/design-brief.md](docs/design-brief.md)、色の用途は
-[docs/foundations/colors.md](docs/foundations/colors.md)、文字の用途は
-[docs/foundations/typography.md](docs/foundations/typography.md)、余白とグリッドは
-[docs/foundations/layout.md](docs/foundations/layout.md)、ボタンの仕様は
-[docs/components/buttons.md](docs/components/buttons.md)、バッジの仕様は
-[docs/components/badges.md](docs/components/badges.md)、ブランドの意味と表現基準は
-[docs/brand/foundation.md](docs/brand/foundation.md)、固有モチーフは
-[docs/brand/motif.md](docs/brand/motif.md) を参照してください。
+情報配置と更新ワークフローの合意の正本は
+[Issue #1](https://github.com/hashigodakainc/design-system/issues/1) を参照してください。

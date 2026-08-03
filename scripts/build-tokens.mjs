@@ -32,31 +32,11 @@ const referenceName = (value) => {
   return cssName(match[1]);
 };
 
-const pairLines = typographySource.fontPairs.flatMap((pair, index) => {
-  const selectors = index === 0
-    ? `:root, [data-hsg-font-pair="${pair.id}"]`
-    : `[data-hsg-font-pair="${pair.id}"]`;
-  return [
-    `${selectors} {`,
-    `  --hsg-typography-family-latin: var(${referenceName(pair.latinFamily)});`,
-    `  --hsg-typography-family-body: var(${referenceName(pair.bodyFamily)});`,
-    `  --hsg-typography-weight-heading: var(${referenceName(pair.headingWeight)});`,
-    "}",
-  ];
-});
-
-const familyValue = (role) => role.family === "code"
-  ? `var(${cssName("typography.family.code")})`
-  : `var(--hsg-typography-family-${role.family})`;
-const weightValue = (role) => role.fontWeight === "heading"
-  ? "var(--hsg-typography-weight-heading)"
-  : `var(${referenceName(role.fontWeight)})`;
-
 const roleLines = typographySource.roles.flatMap((role) => [
   `.hsg-type-${role.name} {`,
-  `  font-family: ${familyValue(role)};`,
+  `  font-family: var(${cssName(`typography.family.${role.family}`)});`,
   `  font-size: var(${referenceName(role.fontSize)});`,
-  `  font-weight: ${weightValue(role)};`,
+  `  font-weight: var(${referenceName(role.fontWeight)});`,
   `  line-height: var(${referenceName(role.lineHeight)});`,
   `  letter-spacing: var(${referenceName(role.letterSpacing)});`,
   "}",
@@ -65,8 +45,6 @@ const roleLines = typographySource.roles.flatMap((role) => [
 const responsiveRoles = typographySource.roles.filter((role) => role.mobileFontSize);
 const typographyLines = [
   "/* Generated from tokens/typography.json. Do not edit directly. */",
-  ...pairLines,
-  "",
   ...roleLines,
   "",
   "@media (max-width: 760px) {",
@@ -76,5 +54,6 @@ const typographyLines = [
 ];
 
 await writeFile(typographyOutputPath, typographyLines.join("\n"), "utf8");
+
 console.log(`Generated ${outputPath}`);
 console.log(`Generated ${typographyOutputPath}`);

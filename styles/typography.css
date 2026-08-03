@@ -1,15 +1,4 @@
 /* Generated from tokens/typography.json. Do not edit directly. */
-:root, [data-hsg-font-pair="di"] {
-  --hsg-typography-family-latin: var(--hsg-typography-family-candidate-di-heading);
-  --hsg-typography-family-body: var(--hsg-typography-family-candidate-di-body);
-  --hsg-typography-weight-heading: var(--hsg-typography-weight-candidate-di-heading);
-}
-[data-hsg-font-pair="hj"] {
-  --hsg-typography-family-latin: var(--hsg-typography-family-candidate-hj-heading);
-  --hsg-typography-family-body: var(--hsg-typography-family-candidate-hj-body);
-  --hsg-typography-weight-heading: var(--hsg-typography-weight-candidate-hj-heading);
-}
-
 .hsg-type-display {
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-display-desktop);

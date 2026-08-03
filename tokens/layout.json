@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "status": "candidate",
+  "status": "selected",
   "description": "Hashigodakaの余白、コンテンツ幅、グリッド、ブレークポイントの正本。",
   "tokens": [
     { "name": "space.0", "type": "dimension", "value": "0px" },
@@ -32,6 +32,13 @@
     { "name": "layout.grid.gutter.mobile", "type": "dimension", "value": "{space.4}" },
     { "name": "layout.grid.gutter.tablet", "type": "dimension", "value": "{space.5}" },
     { "name": "layout.grid.gutter.desktop", "type": "dimension", "value": "{space.5}" },
+
+    { "name": "radius.small", "type": "dimension", "value": "2px", "description": "バッジなど小さな要素の角丸。" },
+    { "name": "radius.medium", "type": "dimension", "value": "4px", "description": "矩形の明快さを保ちながら角の硬さだけを和らげる角丸。" },
+    { "name": "radius.action", "type": "dimension", "value": "{radius.medium}", "description": "PrimaryとSecondaryボタンの角丸。ボックス形状を作らないTertiaryには使わない。" },
+    { "name": "radius.badge", "type": "dimension", "value": "{radius.small}", "description": "バッジの角丸。" },
+    { "name": "focus.outline.width", "type": "dimension", "value": "3px", "description": "キーボードフォーカスを示すInkアウトラインの太さ。" },
+    { "name": "focus.outline.offset", "type": "dimension", "value": "3px", "description": "フォーカスアウトラインと要素の間隔。" },
 
     { "name": "layout.breakpoint.mobile", "type": "dimension", "value": "760px" },
     { "name": "layout.breakpoint.tablet", "type": "dimension", "value": "1050px" },
