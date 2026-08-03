@@ -56,9 +56,8 @@ jobs:
         working-directory: mcp
         run: |
           pnpm typecheck
+          pnpm test
           pnpm build
-          pnpm smoke
-          pnpm exec wrangler deploy --dry-run
 
       - name: Deploy Worker
         working-directory: mcp

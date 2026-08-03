@@ -30,7 +30,7 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 - [`docs/media.md`](docs/media.md) — Webページ以外のビジネス成果物へ適用する横断判断
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
 - [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
-- [`mcp/`](mcp/) — AIエージェントが正本を参照するstdio MCPサーバー
+- [`mcp/`](mcp/) — AIエージェントが正本を参照するRemote MCPサーバー
 - [`scripts/`](scripts/) — トークンの生成と機械検証
 
 ## カラーを使う

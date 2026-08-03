@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "dist/stdio.js",
   "scripts": {
-    "build": "pnpm build:snapshot && tsc -p tsconfig.build.json",
+    "build": "pnpm build:snapshot && WRANGLER_LOG_PATH=/tmp/design-system-mcp-wrangler-build.log wrangler deploy --dry-run",
     "build:snapshot": "node --import tsx scripts/build-snapshot.ts",
     "build:wordmark": "node scripts/build-wordmark.mjs",
     "dev": "pnpm build:snapshot && wrangler dev",
-    "start": "node dist/stdio.js",
-    "start:stdio": "node dist/stdio.js",
     "test": "pnpm build:snapshot && node --import tsx --test 'test/**/*.test.ts'",
-    "smoke": "node scripts/smoke.mjs",
     "smoke:remote": "node scripts/remote-smoke.mjs",
     "typecheck": "pnpm build:snapshot && tsc --noEmit"
   },
