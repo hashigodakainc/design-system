@@ -41,20 +41,27 @@ pnpm dev
 `wrangler.jsonc` にはWorker名 `hashigodaka-design-mcp`、Custom Domain
 `mcp-design.hashigodaka.co.jp`、`nodejs_compat`、static assets bindingを定義しています。
 
-`main` へMCPの正本または実装がpushされると、`Deploy design system MCP` workflowがsnapshotを
-再生成してWorkerをデプロイし、公開endpointで4 toolとstatic assetをsmoke testします。手動検証は
-次のコマンドで実行できます。
+デプロイにはCloudflare Workers BuildsのGitHub連携を使用します。Cloudflare Dashboardで
+Worker `hashigodaka-design-mcp` とこのリポジトリを接続し、次のbuild設定を使用します。
+
+- Production branch: `main`
+- Root directory: `mcp`
+- Build command: `pnpm typecheck && pnpm test`
+- Deploy command: `pnpm exec wrangler deploy`
+- Non-production branch builds: 無効
+- Build watch paths: `assets/**`、`docs/**`、`mcp/**`、`styles/**`、`tokens/**`
+
+`main` へ対象パスの変更がpushされると、Workers Buildsがsnapshotを再生成してWorkerを
+デプロイします。Cloudflareがbuild用API tokenを管理するため、GitHub repositoryへ
+Cloudflareのcredentialを保存しません。GitHub Actionsは正本とWorkerの検証だけを担当します。
+
+公開endpointで4 toolとstatic assetを確認する手動検証は次のコマンドで実行できます。
 
 ```sh
 pnpm smoke:remote
 # 別endpointを検証する場合
 MCP_BASE_URL=https://example.workers.dev pnpm smoke:remote
 ```
-
-workflowの初回実行前に、GitHub repositoryへ次を設定します。
-
-- Variable `CLOUDFLARE_ACCOUNT_ID`: HashigodakaのCloudflare Account ID
-- Secret `CLOUDFLARE_API_TOKEN`: Hashigodaka Accountに限定したWorkers Scripts Edit token
 
 Cloudflare側では `mcp-design.hashigodaka.co.jp` のCustom Domainを有効にします。
 
