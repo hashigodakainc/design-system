@@ -2,3 +2,5 @@
 .pnpm-store/
 mcp/node_modules/
 mcp/dist/
+mcp/src/generated/
+mcp/.wrangler/

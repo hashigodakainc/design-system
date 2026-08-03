@@ -29,8 +29,8 @@ jobs:
       - name: Rebuild wordmark
         run: pnpm build:wordmark
         working-directory: mcp
-      - name: Smoke test MCP server
-        run: pnpm smoke
+      - name: Test MCP Worker
+        run: pnpm test
         working-directory: mcp
       - name: Generated wordmark files must be up to date
         run: git diff --exit-code assets/wordmarks/wordmark.svg assets/manifest.json

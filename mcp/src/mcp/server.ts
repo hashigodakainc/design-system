@@ -1,13 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/server";
-import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import * as z from "zod/v4";
 
-import {
-  type Category,
-  loadRepositoryData,
-} from "./data.js";
+import { type Category, type RepositoryData } from "../data.js";
+import type { RepositoryDataLoader } from "../loaders/types.js";
+import { createServerIcons } from "./icon.js";
 
-const repository = loadRepositoryData();
 const categorySchema = z.enum(["color", "typography", "layout"]);
 const jsonObjectSchema = z.record(z.string(), z.json());
 const pendingSummarySchema = z.object({
@@ -38,7 +35,10 @@ const tokenCategorySchema = z.object({
   roles: z.array(roleSchema).optional(),
 });
 
-function statusesForCategories(categories: Category[]) {
+function statusesForCategories(
+  repository: RepositoryData,
+  categories: Category[],
+) {
   return categories.map((category) => {
     const data = repository.tokenCategories.get(category);
     if (data === undefined) {
@@ -48,7 +48,10 @@ function statusesForCategories(categories: Category[]) {
   });
 }
 
-function pendingForCategories(categories: Category[]) {
+function pendingForCategories(
+  repository: RepositoryData,
+  categories: Category[],
+) {
   return categories.flatMap((category) => {
     const data = repository.tokenCategories.get(category);
     if (data === undefined) {
@@ -61,11 +64,14 @@ function pendingForCategories(categories: Category[]) {
   });
 }
 
-export function createServer(): McpServer {
+export function createServer(loader: RepositoryDataLoader): McpServer {
+  const repository = loader.load();
   const server = new McpServer(
     {
       name: "hashigodaka-design-system",
+      title: "Hashigodaka Design System MCP",
       version: "0.1.0",
+      icons: createServerIcons(repository),
     },
     { instructions: repository.instructions },
   );
@@ -104,9 +110,9 @@ export function createServer(): McpServer {
         }
         return data;
       });
-      const pending = pendingForCategories(categories);
+      const pending = pendingForCategories(repository, categories);
       const output = {
-        status: statusesForCategories(categories),
+        status: statusesForCategories(repository, categories),
         pending,
         categories: selected,
       };
@@ -235,13 +241,3 @@ export function createServer(): McpServer {
 
   return server;
 }
-
-const handle = serveStdio(createServer);
-
-process.on("SIGINT", () => {
-  void handle.close();
-});
-
-process.on("SIGTERM", () => {
-  void handle.close();
-});
