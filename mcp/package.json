@@ -11,6 +11,7 @@
     "dev": "pnpm build:snapshot && wrangler dev",
     "start": "node dist/stdio.js",
     "start:stdio": "node dist/stdio.js",
+    "test": "pnpm build:snapshot && node --import tsx --test 'test/**/*.test.ts'",
     "smoke": "node scripts/smoke.mjs",
     "smoke:remote": "node scripts/remote-smoke.mjs",
     "typecheck": "pnpm build:snapshot && tsc --noEmit"
@@ -20,7 +21,9 @@
   },
   "packageManager": "pnpm@11.18.0",
   "dependencies": {
+    "@modelcontextprotocol/hono": "2.0.0",
     "@modelcontextprotocol/server": "2.0.0",
+    "hono": "^4.12.33",
     "zod": "4.4.3"
   },
   "devDependencies": {

@@ -1,4 +1,6 @@
+import { createMcpHonoApp } from "@modelcontextprotocol/hono";
 import { createMcpHandler } from "@modelcontextprotocol/server";
+import { Hono } from "hono";
 
 import snapshotJson from "./generated/design-snapshot.json" with { type: "json" };
 import { SnapshotRepositoryLoader } from "./loaders/snapshot.js";
@@ -52,89 +54,144 @@ export function createWorker(
     legacy: "stateless",
   });
 
+  // The SDK adapter contributes Hono's Web Standard request handling and JSON
+  // body parser.  We deliberately disable its localhost defaults here because
+  // this app also serves public health and static-asset routes; the /mcp-only
+  // Host and Origin policy is applied by the Worker entry below.
+  // Keep the SDK's JSON parser scoped to /mcp. A top-level adapter would try
+  // to parse an unrelated asset request carrying an application/json header.
+  const mcpApp = createMcpHonoApp({ host: PRODUCTION_HOSTNAME });
+  const app = new Hono<{ Bindings: WorkerEnv }>();
+
+  app.notFound(() => jsonResponse({ ok: false, error: "Not found" }, 404));
+
+  app.get(HEALTH_PATH, () =>
+    jsonResponse({
+      ok: true,
+      service: "hashigodaka-design-mcp",
+      snapshot: {
+        generatedAt: snapshot.generatedAt,
+        textFileCount: Object.keys(snapshot.textFiles).length,
+        staticAssetCount: snapshot.staticAssets.length,
+      },
+    }),
+  );
+
+  // Keep the historical behavior of exposing only GET on /health. Hono may
+  // otherwise treat HEAD as an implicit GET route.
+  app.on("HEAD", HEALTH_PATH, () =>
+    jsonResponse({ ok: false, error: "Not found" }, 404),
+  );
+
+  app.all(`${STATIC_ASSET_PREFIX}*`, async (context) => {
+    const requestUrl = new URL(context.req.url);
+    const method = context.req.method;
+
+    if (method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: staticAssetCorsHeaders,
+      });
+    }
+    if (method !== "GET" && method !== "HEAD") {
+      return jsonResponse(
+        { ok: false, error: "Method not allowed" },
+        405,
+        { Allow: "GET, HEAD, OPTIONS" },
+      );
+    }
+    if (!staticAssetPaths.has(requestUrl.pathname)) {
+      return jsonResponse({ ok: false, error: "Not found" }, 404);
+    }
+
+    const assetUrl = new URL(context.req.url);
+    assetUrl.pathname = requestUrl.pathname.slice("/assets".length);
+    const assetResponse = await (context.env as WorkerEnv).ASSETS.fetch(
+      new Request(assetUrl, context.req.raw),
+    );
+    return withHeaders(assetResponse, {
+      ...staticAssetCorsHeaders,
+    });
+  });
+
+  mcpApp.all("*", async (context) => {
+    if (context.req.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    if (context.req.method !== "POST") {
+      return jsonResponse(
+        { ok: false, error: "Method not allowed" },
+        405,
+        { Allow: "POST, OPTIONS" },
+      );
+    }
+
+    return withHeaders(await handler.fetch(context.req.raw), corsHeaders);
+  });
+
+  app.all(MCP_PATH, (context) => {
+    // Hono's executionCtx accessor throws when the app is invoked directly in
+    // unit tests (where Cloudflare does not provide one). Preserve it in the
+    // actual Worker runtime while keeping the fetch-shaped handler portable.
+    let executionCtx: Parameters<typeof mcpApp.fetch>[2];
+    try {
+      executionCtx = context.executionCtx;
+    } catch {
+      // Direct Hono invocations have no Cloudflare execution context.
+    }
+    return executionCtx === undefined
+      ? mcpApp.fetch(context.req.raw, context.env)
+      : mcpApp.fetch(context.req.raw, context.env, executionCtx);
+  });
+
   return {
-    async fetch(request, env): Promise<Response> {
+    async fetch(request, env, ctx): Promise<Response> {
       const url = new URL(request.url);
 
-      if (url.pathname === HEALTH_PATH && request.method === "GET") {
-        return jsonResponse({
-          ok: true,
-          service: "hashigodaka-design-mcp",
-          snapshot: {
-            generatedAt: snapshot.generatedAt,
-            textFileCount: Object.keys(snapshot.textFiles).length,
-            staticAssetCount: snapshot.staticAssets.length,
-          },
-        });
-      }
-
-      if (url.pathname.startsWith(STATIC_ASSET_PREFIX)) {
-        if (request.method === "OPTIONS") {
-          return new Response(null, {
-            status: 204,
-            headers: staticAssetCorsHeaders,
-          });
-        }
-        if (request.method !== "GET" && request.method !== "HEAD") {
-          return jsonResponse(
-            { ok: false, error: "Method not allowed" },
-            405,
-            { Allow: "GET, HEAD, OPTIONS" },
-          );
-        }
-        if (!staticAssetPaths.has(url.pathname)) {
-          return jsonResponse({ ok: false, error: "Not found" }, 404);
-        }
-
-        const assetUrl = new URL(request.url);
-        assetUrl.pathname = url.pathname.slice("/assets".length);
-        const assetResponse = await env.ASSETS.fetch(
-          new Request(assetUrl, request),
-        );
-        return withHeaders(assetResponse, {
-          ...staticAssetCorsHeaders,
-        });
-      }
-
-      if (url.pathname !== MCP_PATH) {
+      if (url.pathname === HEALTH_PATH && request.method === "HEAD") {
         return jsonResponse({ ok: false, error: "Not found" }, 404);
       }
 
-      const hostRejection = validateRequestHost(request);
-      if (hostRejection) {
-        return hostRejection;
-      }
+      if (url.pathname === MCP_PATH) {
+        const hostRejection = validateRequestHost(request);
+        if (hostRejection) {
+          return hostRejection;
+        }
 
-      const originRejection = validateRequestOrigin(
-        request,
-        url,
-        env.MCP_ALLOWED_ORIGINS,
-      );
-      if (originRejection) {
-        return originRejection;
-      }
-
-      if (request.method === "OPTIONS") {
-        return new Response(null, { status: 204, headers: corsHeaders });
-      }
-
-      if (request.method !== "POST") {
-        return jsonResponse(
-          { ok: false, error: "Method not allowed" },
-          405,
-          { Allow: "POST, OPTIONS" },
+        const originRejection = validateRequestOrigin(
+          request,
+          url,
+          env.MCP_ALLOWED_ORIGINS,
         );
+        if (originRejection) {
+          return originRejection;
+        }
+
+        if (request.method === "OPTIONS") {
+          return new Response(null, { status: 204, headers: corsHeaders });
+        }
+        if (request.method !== "POST") {
+          return jsonResponse(
+            { ok: false, error: "Method not allowed" },
+            405,
+            { Allow: "POST, OPTIONS" },
+          );
+        }
+
+        // Bound and sanitize before entering the adapter's JSON parser. This
+        // keeps oversized JSON from being cloned/parsed by middleware first.
+        const mcpRequest = await readBoundedRequest(
+          request,
+          MAX_MCP_BODY_BYTES,
+        );
+        if (!mcpRequest) {
+          return jsonResponse({ ok: false, error: "Payload too large" }, 413);
+        }
+        return withMcpCors(await app.fetch(mcpRequest, env, ctx));
       }
 
-      const mcpRequest = await readBoundedRequest(
-        request,
-        MAX_MCP_BODY_BYTES,
-      );
-      if (!mcpRequest) {
-        return jsonResponse({ ok: false, error: "Payload too large" }, 413);
-      }
-
-      return withHeaders(await handler.fetch(mcpRequest), corsHeaders);
+      return app.fetch(request, env, ctx);
     },
   } satisfies ExportedHandler<WorkerEnv>;
 }
@@ -328,6 +385,10 @@ function withHeaders(
     statusText: response.statusText,
     headers: nextHeaders,
   });
+}
+
+function withMcpCors(response: Response): Response {
+  return withHeaders(response, corsHeaders);
 }
 
 export default createWorker(snapshotJson as DesignSystemSnapshot);
