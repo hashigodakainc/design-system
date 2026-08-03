@@ -37,6 +37,12 @@ AIエージェントが利用できるデザイントークン、資産、実装
   固有設定は薄いアダプターとして分離します。
 - 特定のWebサイトやプロダクトだけに必要な判断を、会社共通の原則として一般化しません。
 
+## MCPのデプロイ
+
+Remote MCPのデプロイはCloudflare Workers BuildsのGitHub連携を正とし、`main`へのpushから
+Cloudflare側でbuild・deployします。GitHub Actionsは検証だけを担当し、Cloudflareへの
+デプロイやcredential管理を重複させません。設定値の正本は `mcp/README.md` です。
+
 ## ドキュメント言語
 
 ユーザーから別の指定がない限り、説明ドキュメントは日本語で記述します。ファイル名、コード、
