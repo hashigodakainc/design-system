@@ -18,7 +18,7 @@
     { "name": "layout.page.gutter.mobile", "type": "dimension", "value": "{space.5}" },
     { "name": "layout.page.gutter.tablet", "type": "dimension", "value": "{space.7}" },
     { "name": "layout.page.gutter.desktop", "type": "dimension", "value": "{space.8}" },
-    { "name": "layout.content.indent", "type": "dimension", "value": "{space.8}" },
+    { "name": "layout.content.indent", "type": "dimension", "value": "{space.0}", "description": "セクション本文を見出しの左端に揃えるため、追加インデントを設けない。" },
     { "name": "layout.section.space.small", "type": "dimension", "value": "{space.7}" },
     { "name": "layout.section.space.medium", "type": "dimension", "value": "{space.8}" },
     { "name": "layout.section.space.large", "type": "dimension", "value": "{space.9}" },
