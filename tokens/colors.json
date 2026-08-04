@@ -2,14 +2,7 @@
   "version": "0.1.0",
   "status": "selected",
   "sourceDecision": "D-E-D",
-  "description": "Hashigodakaのブランドカラーのカラートークン",
-  "pending": [
-    {
-      "topic": "Semantic Colors（Success / Warning / Error / Info）",
-      "until": "未選定。策定時期未定",
-      "interim": "Extended Colorsやバッジ色で代用しない。バッジの色名は見た目のバリエーションであり、状態の意味を固定しない。"
-    }
-  ],
+  "description": "Hashigodakaのブランドカラーと用途別カラートークン",
   "tokens": [
     {
       "name": "color.brand.primary",
@@ -100,6 +93,78 @@
       "type": "color",
       "value": "{color.neutral.border}",
       "description": "装飾的な区切り線。情報伝達を罫線だけに依存させない。"
+    },
+    {
+      "name": "color.status.success.background",
+      "type": "color",
+      "value": "#E8F5EC",
+      "description": "処理の完了や正常な結果を示す、Successメッセージの背景。"
+    },
+    {
+      "name": "color.status.success.foreground",
+      "type": "color",
+      "value": "#176B35",
+      "description": "Successメッセージの文字とアイコン。"
+    },
+    {
+      "name": "color.status.success.border",
+      "type": "color",
+      "value": "#4A9B67",
+      "description": "Successメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+    },
+    {
+      "name": "color.status.warning.background",
+      "type": "color",
+      "value": "#FFF4D6",
+      "description": "確認や注意が必要な状態を示す、Warningメッセージの背景。"
+    },
+    {
+      "name": "color.status.warning.foreground",
+      "type": "color",
+      "value": "#704B00",
+      "description": "Warningメッセージの文字とアイコン。"
+    },
+    {
+      "name": "color.status.warning.border",
+      "type": "color",
+      "value": "#A77400",
+      "description": "Warningメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+    },
+    {
+      "name": "color.status.error.background",
+      "type": "color",
+      "value": "#FDEBEC",
+      "description": "失敗や修正が必要な状態を示す、Errorメッセージの背景。"
+    },
+    {
+      "name": "color.status.error.foreground",
+      "type": "color",
+      "value": "#9F2530",
+      "description": "Errorメッセージの文字とアイコン。"
+    },
+    {
+      "name": "color.status.error.border",
+      "type": "color",
+      "value": "#C84D58",
+      "description": "Errorメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+    },
+    {
+      "name": "color.status.info.background",
+      "type": "color",
+      "value": "#E7F4FC",
+      "description": "補足や中立的な案内を示す、Infoメッセージの背景。"
+    },
+    {
+      "name": "color.status.info.foreground",
+      "type": "color",
+      "value": "#005F8F",
+      "description": "Infoメッセージの文字とアイコン。"
+    },
+    {
+      "name": "color.status.info.border",
+      "type": "color",
+      "value": "#2482B3",
+      "description": "Infoメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
     },
     {
       "name": "color.action.primary.background",
@@ -337,6 +402,26 @@
     {
       "foreground": "color.badge.orange.foreground",
       "background": "color.badge.orange.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.status.success.foreground",
+      "background": "color.status.success.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.status.warning.foreground",
+      "background": "color.status.warning.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.status.error.foreground",
+      "background": "color.status.error.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.status.info.foreground",
+      "background": "color.status.info.background",
       "minimum": 4.5
     }
   ]

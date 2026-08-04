@@ -63,6 +63,13 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - コントラストの基準値と検査対象の組は `tokens/colors.json` の `contrastChecks` を正本とする。
 - Primaryをリンク文字としてCanvas上へ直接置く用途は承認していない。
 - 色だけで状態や系列を伝えず、ラベル、形、線種などを併用する。
+- 処理結果やシステム状態には `color.status.success.*`、`color.status.warning.*`、
+  `color.status.error.*`、`color.status.info.*` を使う。ブランド色、Extended Colors、
+  `color.badge.*` を状態色として代用しない。
+- 状態メッセージは同じ状態のBackground・Foreground・Borderを一組で使い、状態名または具体的な
+  説明と識別可能なアイコンを併記する。色だけで状態を伝えない。
+- Successは完了または正常、Warningは確認や注意が必要、Errorは失敗または修正が必要、Infoは
+  中立的な補足や案内に限定する。進行中や未確定をSuccessで表さない。
 
 ## タイポグラフィ
 

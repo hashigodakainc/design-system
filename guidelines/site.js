@@ -75,6 +75,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
 
   const brandContainer = document.querySelector('[data-render="brand-swatches"]');
   const neutralContainer = document.querySelector('[data-render="neutral-swatches"]');
+  const semanticContainer = document.querySelector('[data-render="semantic-swatches"]');
   if (brandContainer) {
     colorSource.tokens
       .filter((token) => token.name.startsWith('color.brand.'))
@@ -84,6 +85,26 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     colorSource.tokens
       .filter((token) => ['color.neutral.canvas', 'color.neutral.ink', 'color.neutral.surface'].includes(token.name))
       .forEach((token) => neutralContainer.append(renderSwatch(token, 'neutral')));
+  }
+  if (semanticContainer) {
+    const statusLabels = {
+      success: ['Success', '正常に完了しました', '✓'],
+      warning: ['Warning', '内容を確認してください', '!'],
+      error: ['Error', '修正が必要です', '×'],
+      info: ['Info', '補足情報があります', 'i'],
+    };
+    Object.entries(statusLabels).forEach(([status, [label, message, icon]]) => {
+      const article = el('article', 'semantic-card');
+      article.style.background = `var(${cssVar(`color.status.${status}.background`)})`;
+      article.style.borderColor = `var(${cssVar(`color.status.${status}.border`)})`;
+      article.style.color = `var(${cssVar(`color.status.${status}.foreground`)})`;
+      const marker = el('span', 'semantic-icon', icon);
+      marker.setAttribute('aria-hidden', 'true');
+      const body = el('div');
+      body.append(el('strong', '', label), el('p', '', message));
+      article.append(marker, body);
+      semanticContainer.append(article);
+    });
   }
 
   const stripUnit = (value) => value.replace(/px$/, '');
