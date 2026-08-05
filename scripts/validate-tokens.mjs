@@ -86,6 +86,16 @@ for (const classes of guidelineCardClasses) {
   const modifiers = ["hsg-card-raised", "hsg-card-sunken"].filter((name) => classes.includes(name));
   if (modifiers.length !== 1) failures.push(`Guideline card must use exactly one surface modifier: ${classes.join(" ")}`);
 }
+for (const tokenName of [
+  "color.border.default",
+  "color.border.emphasis",
+  "color.card.foreground",
+  "color.card.raised.background",
+  "color.card.raised.border",
+  "color.card.sunken.background",
+]) {
+  if (!tokens.has(tokenName)) failures.push(`Card component token is missing: ${tokenName}`);
+}
 
 for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]) {
   if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);

@@ -140,9 +140,9 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - カードは `.hsg-card` だけで使わず、面の役割に応じて `.hsg-card-raised` または
   `.hsg-card-sunken` のどちらか一つを必ず併用する。二つの修飾クラスを同時に使わない。
 - `.hsg-card-raised` は周囲より前面へ持ち上がる独立した情報単位に使う。
-  `color.background.raised` と `border.width.default` / `color.border.default` の輪郭で面を示し、
+  `color.card.raised.background` と `border.width.default` / `color.card.raised.border` の輪郭で面を示し、
   影を重ねない。
 - `.hsg-card-sunken` は周囲より奥まった補足情報、入力領域、内包された情報グループに使う。
-  `color.background.sunken` で面を示し、罫線や影を重ねない。
+  `color.card.sunken.background` で面を示し、罫線や影を重ねない。
 - Raised / Sunkenは配置場所ではなくカード自身の面の役割を表す。列数や並べ方はカードへ
   固定せず、利用側のレイアウトで決める。

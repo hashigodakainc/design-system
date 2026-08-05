@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
   "primitiveReferenceExceptions": [
@@ -273,8 +273,15 @@
     {
       "name": "color.border.default",
       "layer": "semantic",
+      "value": "{color.neutral.100}",
+      "description": "カード、区切り線、表など非操作面の控えめな既定罫線。情報伝達を罫線だけに依存させない。",
+      "type": "color"
+    },
+    {
+      "name": "color.border.emphasis",
+      "layer": "semantic",
       "value": "{color.neutral.200}",
-      "description": "情報構造の境界と輪郭の既定罫線。情報伝達を罫線だけに依存させない。",
+      "description": "Secondary Buttonなど、操作性に輪郭が必要な要素の強調罫線。",
       "type": "color"
     },
     {
@@ -397,6 +404,30 @@
       "type": "color"
     },
     {
+      "name": "color.card.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.raised.background",
+      "layer": "component",
+      "value": "{color.background.raised}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.raised.border",
+      "layer": "component",
+      "value": "{color.border.default}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.sunken.background",
+      "layer": "component",
+      "value": "{color.background.sunken}",
+      "type": "color"
+    },
+    {
       "name": "color.action.primary.background",
       "layer": "component",
       "value": "{color.background.inverse}",
@@ -447,7 +478,7 @@
     {
       "name": "color.action.secondary.border",
       "layer": "component",
-      "value": "{color.border.default}",
+      "value": "{color.border.emphasis}",
       "type": "color"
     },
     {
@@ -596,9 +627,19 @@
       "minimum": 1.1
     },
     {
-      "foreground": "color.border.default",
-      "background": "color.background.raised",
+      "foreground": "color.card.raised.border",
+      "background": "color.card.raised.background",
       "minimum": 1.1
+    },
+    {
+      "foreground": "color.card.foreground",
+      "background": "color.card.raised.background",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.card.foreground",
+      "background": "color.card.sunken.background",
+      "minimum": 7
     },
     {
       "foreground": "color.action.primary.foreground",
@@ -609,6 +650,11 @@
       "foreground": "color.action.secondary.foreground",
       "background": "color.action.secondary.background",
       "minimum": 4.5
+    },
+    {
+      "foreground": "color.action.secondary.border",
+      "background": "color.action.secondary.background",
+      "minimum": 1.1
     },
     {
       "foreground": "color.action.primary.hover.foreground",

@@ -111,16 +111,16 @@
   padding: var(--hsg-space-6);
   border: 0;
   border-radius: var(--hsg-radius-medium);
-  color: var(--hsg-color-text-primary);
+  color: var(--hsg-color-card-foreground);
 }
 
 .hsg-card-raised {
-  border: var(--hsg-border-width-default) solid var(--hsg-color-border-default);
-  background: var(--hsg-color-background-raised);
+  border: var(--hsg-border-width-default) solid var(--hsg-color-card-raised-border);
+  background: var(--hsg-color-card-raised-background);
 }
 
 .hsg-card-sunken {
-  background: var(--hsg-color-background-sunken);
+  background: var(--hsg-color-card-sunken-background);
 }
 
 @media (prefers-reduced-motion: reduce) {
