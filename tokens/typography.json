@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "selected",
   "sourceDecision": "D-I",
   "description": "Hashigodakaの用途別タイポグラフィトークンの正本",
@@ -19,6 +19,7 @@
     { "name": "typography.size.heading.2.desktop", "type": "dimension", "value": "28px", "description": "主要セクション見出し。" },
     { "name": "typography.size.heading.2.mobile", "type": "dimension", "value": "24px", "description": "モバイルの主要セクション見出し。" },
     { "name": "typography.size.heading.3", "type": "dimension", "value": "20px", "description": "カードや小セクションの見出し。" },
+    { "name": "typography.size.heading.4", "type": "dimension", "value": "18px", "description": "小区分やカード内部の下位見出し。" },
     { "name": "typography.size.body.large", "type": "dimension", "value": "18px", "description": "リード文、導入文。" },
     { "name": "typography.size.body.default", "type": "dimension", "value": "16px", "description": "標準本文。" },
     { "name": "typography.size.body.small", "type": "dimension", "value": "14px", "description": "補足本文。" },
@@ -43,6 +44,7 @@
     { "name": "heading-1", "family": "body", "fontSize": "{typography.size.heading.1.desktop}", "mobileFontSize": "{typography.size.heading.1.mobile}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
     { "name": "heading-2", "family": "body", "fontSize": "{typography.size.heading.2.desktop}", "mobileFontSize": "{typography.size.heading.2.mobile}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
     { "name": "heading-3", "family": "body", "fontSize": "{typography.size.heading.3}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
+    { "name": "heading-4", "family": "body", "fontSize": "{typography.size.heading.4}", "fontWeight": "{typography.weight.heading}", "lineHeight": "{typography.line-height.heading}", "letterSpacing": "{typography.letter-spacing.heading}" },
     { "name": "body-large", "family": "body", "fontSize": "{typography.size.body.large}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "body", "family": "body", "fontSize": "{typography.size.body.default}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "body-small", "family": "body", "fontSize": "{typography.size.body.small}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },

@@ -108,7 +108,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     foundationGroups.forEach(({ label, description, prefixes }) => {
       const group = el('section', 'foundation-group');
       const heading = el('div', 'foundation-group-heading');
-      heading.append(el('h4', '', label), el('p', '', description));
+      heading.append(el('h4', 'hsg-type-heading-4', label), el('p', '', description));
       const grid = el('div', 'neutral-grid');
       grid.setAttribute('aria-label', `${label} semantic colors`);
       colorSource.tokens

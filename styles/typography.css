@@ -27,6 +27,13 @@
   line-height: var(--hsg-typography-line-height-heading);
   letter-spacing: var(--hsg-typography-letter-spacing-heading);
 }
+.hsg-type-heading-4 {
+  font-family: var(--hsg-typography-family-body);
+  font-size: var(--hsg-typography-size-heading-4);
+  font-weight: var(--hsg-typography-weight-heading);
+  line-height: var(--hsg-typography-line-height-heading);
+  letter-spacing: var(--hsg-typography-letter-spacing-heading);
+}
 .hsg-type-body-large {
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-body-large);
