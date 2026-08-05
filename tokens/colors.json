@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0",
+  "version": "0.7.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
   "primitiveReferenceExceptions": [
@@ -257,6 +257,13 @@
       "type": "color"
     },
     {
+      "name": "color.text.disabled",
+      "layer": "semantic",
+      "value": "{color.neutral.200}",
+      "description": "操作できない項目の文字とアイコン。情報伝達には使わない。",
+      "type": "color"
+    },
+    {
       "name": "color.text.inverse",
       "layer": "semantic",
       "value": "{color.neutral.50}",
@@ -404,6 +411,13 @@
       "layer": "component",
       "value": "{color.text.secondary}",
       "description": "未選択のメニュー項目の文字とアイコン。",
+      "type": "color"
+    },
+    {
+      "name": "color.menu.disabled.foreground",
+      "layer": "component",
+      "value": "{color.text.disabled}",
+      "description": "無効なメニュー項目の文字とアイコン。",
       "type": "color"
     },
     {

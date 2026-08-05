@@ -137,7 +137,7 @@
   transition: color .16s ease, border-color .16s ease;
 }
 
-.hsg-menu-item:hover {
+.hsg-menu-item:not([aria-disabled="true"]):hover {
   color: var(--hsg-color-menu-hover-foreground);
 }
 
@@ -147,9 +147,15 @@
   font-weight: var(--hsg-typography-weight-emphasis);
 }
 
-.hsg-menu-item:focus-visible {
+.hsg-menu-item:not([aria-disabled="true"]):focus-visible {
   outline: var(--hsg-focus-outline-width) solid var(--hsg-color-focus-outline);
   outline-offset: calc(-1 * var(--hsg-focus-outline-width));
+}
+
+.hsg-menu-item[aria-disabled="true"] {
+  border-bottom-color: transparent;
+  color: var(--hsg-color-menu-disabled-foreground);
+  cursor: not-allowed;
 }
 
 .hsg-menu-icon {
