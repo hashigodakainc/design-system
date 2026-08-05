@@ -35,8 +35,6 @@
       <a href="#imagery">写真とモチーフ</a>
       <p class="nav-group">UI</p>
       <a href="#components">コンポーネント</a>
-      <p class="nav-group">リソース</p>
-      <a href="#tokens">デザイントークン</a>
     </nav>
     <p class="sidebar-note">初版 0.1<br>2026年7月</p>
   </aside>
@@ -256,14 +254,6 @@
       </div>
       <div class="badge-demo badge-demo-colors"><p class="demo-label">Classification Colors</p><div class="demo-row"><span class="hsg-badge hsg-badge-primary">Primary</span><span class="hsg-badge hsg-badge-secondary">Secondary</span><span class="hsg-badge hsg-badge-violet">Violet</span><span class="hsg-badge hsg-badge-orange">Orange</span></div><p>色付きバッジは白文字を使い、コントラストを満たす専用トーンで分類を示します。処理結果やシステム状態にはStatus Semantic Colorsを使います。</p></div>
       <p class="pending-note">ボタンの3階層と基本状態、バッジの表示仕様は採用済みです。ボタン寸法のバリエーション、無効・処理中状態、アイコン併用は今後追加します。</p>
-    </section>
-
-    <section class="section compact-section" id="tokens">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">デザイントークン</h2><p>人向けガイドと実装を、同じトークンと資産定義でつなぎます。</p></div></div>
-      <div class="code-panel"><div class="code-title"><span>HTML</span><code>styles/components.css</code></div><pre><code>&lt;button class="hsg-button hsg-button-primary"&gt;
-  お問い合わせ
-&lt;/button&gt;</code></pre></div>
-      <p>機械可読な正本は <code>tokens/colors.json</code>、<code>tokens/typography.json</code>、<code>tokens/layout.json</code>、ブランド資産の状態と制約は <code>assets/manifest.json</code> です。生成したCSS変数、正本のSVG、採用済みコンポーネントクラスを参照します。</p>
     </section>
 
     <footer><p>Hashigodaka Design System</p><p>判断と実装を、同じ場所から。</p></footer>
