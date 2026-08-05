@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
   "primitiveReferenceExceptions": [
@@ -400,6 +400,41 @@
       "type": "color"
     },
     {
+      "name": "color.menu.foreground",
+      "layer": "component",
+      "value": "{color.text.secondary}",
+      "description": "未選択のメニュー項目の文字とアイコン。",
+      "type": "color"
+    },
+    {
+      "name": "color.menu.hover.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "description": "ホバー中のメニュー項目の文字とアイコン。",
+      "type": "color"
+    },
+    {
+      "name": "color.menu.active.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "description": "選択中のメニュー項目の文字とアイコン。",
+      "type": "color"
+    },
+    {
+      "name": "color.menu.active.indicator",
+      "layer": "component",
+      "value": "{color.brand.primary}",
+      "description": "選択中のメニュー項目を示す下線。",
+      "type": "color"
+    },
+    {
+      "name": "color.menu.divider",
+      "layer": "component",
+      "value": "{color.border.default}",
+      "description": "メニュー全体の下端を示す控えめな区切り線。",
+      "type": "color"
+    },
+    {
       "name": "color.action.primary.background",
       "layer": "component",
       "value": "{color.background.inverse}",
@@ -611,6 +646,21 @@
     {
       "foreground": "color.card.foreground",
       "background": "color.card.sunken.background",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.menu.foreground",
+      "background": "color.background.canvas",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.menu.active.foreground",
+      "background": "color.background.canvas",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.menu.hover.foreground",
+      "background": "color.background.canvas",
       "minimum": 7
     },
     {
