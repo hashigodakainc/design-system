@@ -2,7 +2,8 @@
 
 Hashigodakaのデザイン原則、デザイントークン、ブランド資産、コンポーネント、
 AI向け配布物の正本です。人が参照する入口として、閲覧型の
-[ガイドラインサイト](guidelines/)も管理します。
+[ガイドラインサイト](guidelines/)も管理します。公開版は
+[`design.hashigodaka.co.jp`](https://design.hashigodaka.co.jp/)で閲覧できます。
 
 人間が判断に使えるデザインガイドと、AIエージェントが成果物の生成・検証に使える
 機械可読な定義を、同じ根拠から提供します。
@@ -30,6 +31,7 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
 - [`docs/media.md`](docs/media.md) — Webページ以外のビジネス成果物へ適用する横断判断
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
 - [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
+- [`site/`](site/) — ガイドラインの公開範囲を制限するCloudflare Workers Static Assets配布アダプター
 - [`mcp/`](mcp/) — AIエージェントが正本を参照するRemote MCPサーバー
 - [`scripts/`](scripts/) — トークンの生成と機械検証
 

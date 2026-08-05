@@ -37,6 +37,16 @@ AIエージェントが利用できるデザイントークン、資産、実装
   固有設定は薄いアダプターとして分離します。
 - 特定のWebサイトやプロダクトだけに必要な判断を、会社共通の原則として一般化しません。
 
+## ガイドラインサイトのデプロイ
+
+人間向けガイドラインは `https://design.hashigodaka.co.jp/` で一般公開し、
+MCPとは別のCloudflare Workers Static Assetsとして配信します。デプロイは
+`site/` をrootとするWorkers BuildsのGitHub連携を正とします。
+
+`site/dist/` は正本からホワイトリストで生成する未管理の配信成果物であり、
+直接編集・コミットしません。配信先に値や判断を独自定義せず、
+`tokens/`・`assets/manifest.json`・`docs/guidelines.md`・`guidelines/`から常に再生成します。
+
 ## MCPのデプロイ
 
 Remote MCPのデプロイはCloudflare Workers BuildsのGitHub連携を正とし、`main`へのpushから

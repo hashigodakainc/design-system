@@ -20,6 +20,12 @@ jobs:
         run: git diff --exit-code styles/tokens.css styles/typography.css
       - name: Validate tokens, assets, and docs
         run: node scripts/validate-tokens.mjs
+      - name: Install guideline site dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: site
+      - name: Verify guideline site deployment bundle
+        run: pnpm verify
+        working-directory: site
       - name: Install MCP dependencies
         run: pnpm install --frozen-lockfile
         working-directory: mcp
