@@ -116,23 +116,23 @@ const render = (colorSource, typographySource, layoutSource) => {
     });
   }
   if (semanticContainer) {
-    const statusLabels = {
-      success: ['Success', '正常に完了しました', '✓'],
-      warning: ['Warning', '内容を確認してください', '!'],
-      error: ['Error', '修正が必要です', '×'],
-      info: ['Info', '補足情報があります', 'i'],
+    const statusGroups = {
+      success: 'Success',
+      warning: 'Warning',
+      error: 'Error',
+      info: 'Info',
     };
-    Object.entries(statusLabels).forEach(([status, [label, message, icon]]) => {
-      const article = el('article', 'semantic-card');
-      article.style.background = `var(${cssVar(`color.status.${status}.background`)})`;
-      article.style.borderColor = `var(${cssVar(`color.status.${status}.border`)})`;
-      article.style.color = `var(${cssVar(`color.status.${status}.foreground`)})`;
-      const marker = el('span', 'semantic-icon', icon);
-      marker.setAttribute('aria-hidden', 'true');
-      const body = el('div');
-      body.append(el('strong', '', label), el('p', '', message));
-      article.append(marker, body);
-      semanticContainer.append(article);
+    Object.entries(statusGroups).forEach(([status, label]) => {
+      const group = el('section', 'foundation-group');
+      const heading = el('div', 'foundation-group-heading');
+      heading.append(el('h4', 'hsg-type-heading-4', label));
+      const grid = el('div', 'neutral-grid');
+      grid.setAttribute('aria-label', `${label} status colors`);
+      colorSource.tokens
+        .filter((token) => token.layer === 'semantic' && token.name.startsWith(`color.status.${status}.`))
+        .forEach((token) => grid.append(renderSwatch(token, 'neutral')));
+      group.append(heading, grid);
+      semanticContainer.append(group);
     });
   }
 
