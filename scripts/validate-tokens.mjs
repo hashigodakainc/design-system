@@ -62,6 +62,15 @@ for (const [label, source] of [
   }
 }
 
+for (const [label, source] of [
+  ["guidelines/site.css", guidelineCss],
+  ["styles/components.css", componentCss],
+]) {
+  if (/\bborder(?:-(?:top|right|bottom|left))?\s*:\s*\d+(?:\.\d+)?px\b/i.test(source)) {
+    failures.push(`${label} contains a raw border width; use border.width.* token`);
+  }
+}
+
 for (const className of [
   "hsg-card",
   "hsg-card-raised",

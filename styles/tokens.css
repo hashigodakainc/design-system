@@ -147,6 +147,8 @@
   --hsg-radius-medium: 4px;
   --hsg-radius-action: var(--hsg-radius-medium);
   --hsg-radius-badge: var(--hsg-radius-small);
+  --hsg-border-width-default: 1px;
+  --hsg-border-width-strong: 2px;
   --hsg-focus-outline-width: 3px;
   --hsg-focus-outline-offset: 3px;
   --hsg-layout-breakpoint-mobile: 760px;

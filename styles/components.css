@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 0 22px;
-  border: 2px solid transparent;
+  border: var(--hsg-border-width-strong) solid transparent;
   border-radius: var(--hsg-radius-action);
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-action);
@@ -44,7 +44,7 @@
   min-height: auto;
   padding: 8px 0 6px;
   border: 0;
-  border-bottom: 2px solid var(--hsg-color-action-tertiary-underline);
+  border-bottom: var(--hsg-border-width-strong) solid var(--hsg-color-action-tertiary-underline);
   border-radius: 0;
   background: transparent;
   color: var(--hsg-color-action-tertiary-foreground);
@@ -66,7 +66,7 @@
   min-height: 24px;
   align-items: center;
   padding: 3px 8px;
-  border: 1px solid transparent;
+  border: var(--hsg-border-width-default) solid transparent;
   border-radius: var(--hsg-radius-badge);
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-caption);
@@ -115,7 +115,7 @@
 }
 
 .hsg-card-raised {
-  border: 1px solid var(--hsg-color-border-default);
+  border: var(--hsg-border-width-default) solid var(--hsg-color-border-default);
   background: var(--hsg-color-background-raised);
 }
 
