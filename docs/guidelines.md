@@ -122,7 +122,7 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 
 ## コンポーネント
 
-実装の正本は `styles/components.css`（`.hsg-button`、`.hsg-badge` と修飾クラス）である。
+実装の正本は `styles/components.css`（`.hsg-button`、`.hsg-badge`、`.hsg-card` と修飾クラス）である。
 見た目の仕様はCSSを読む。
 
 - ボタンのPrimary / Secondary / Tertiaryは行動の重要度であり、ブランドのPrimary / Secondary
@@ -133,3 +133,16 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - バッジは短いラベルで状態・分類を補助する。本文の代わりに重要情報を押し込まず、単体で意味が
   伝わる短い語を必ず表示する。色付きバッジはブランド原色でなく、白文字のコントラストを満たす
   専用トーン（`color.badge.*`）を使う。
+- Neutral Badgeは周囲と反対の面を使う。Sunken面では `.hsg-badge-neutral-raised`、
+  RaisedまたはCanvas面では `.hsg-badge-neutral-sunken` とし、罫線や影を加えない。
+- Primary、Secondary、Violet、Orangeの色付きバッジは分類色自体が面を作るため、
+  Raised / Sunkenへ分けない。
+- カードは `.hsg-card` だけで使わず、面の役割に応じて `.hsg-card-raised` または
+  `.hsg-card-sunken` のどちらか一つを必ず併用する。二つの修飾クラスを同時に使わない。
+- `.hsg-card-raised` は周囲より前面へ持ち上がる独立した情報単位に使う。
+  `color.card.raised.background` と `border.width.default` / `color.card.raised.border` の輪郭で面を示し、
+  影を重ねない。
+- `.hsg-card-sunken` は周囲より奥まった補足情報、入力領域、内包された情報グループに使う。
+  `color.card.sunken.background` で面を示し、罫線や影を重ねない。
+- Raised / Sunkenは配置場所ではなくカード自身の面の役割を表す。列数や並べ方はカードへ
+  固定せず、利用側のレイアウトで決める。

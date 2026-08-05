@@ -1,14 +1,7 @@
 {
-  "version": "0.2.0",
+  "version": "0.4.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
-  "pending": [
-    {
-      "topic": ".hsg-card の正式定義",
-      "until": "輪郭型・区画型の2修飾クラスを別提案で承認する",
-      "interim": "background.raised / background.sunken / border.default の使用規則を個別実装で適用する"
-    }
-  ],
   "primitiveReferenceExceptions": [
     "color.badge.primary.background",
     "color.badge.secondary.background",
@@ -218,14 +211,14 @@
       "name": "color.background.raised",
       "layer": "semantic",
       "value": "{color.neutral.0}",
-      "description": "基盤より持ち上げる面。canvas上へ直接置かず、sunken区画内か border.default の輪郭を伴う。",
+      "description": "基盤より持ち上がる面。カードでは border.default の薄い輪郭を添え、影は加えない。",
       "type": "color"
     },
     {
       "name": "color.background.sunken",
       "layer": "semantic",
       "value": "{color.neutral.100}",
-      "description": "基盤より一段沈む区画、図表、インセットの背景。カード背景には background.raised を優先する。",
+      "description": "基盤より一段沈む区画、図表、インセット、補足カードの背景。罫線や影を加えず面を示す。",
       "type": "color"
     },
     {
@@ -280,8 +273,15 @@
     {
       "name": "color.border.default",
       "layer": "semantic",
+      "value": "{color.neutral.100}",
+      "description": "カード、区切り線、表など非操作面の控えめな既定罫線。情報伝達を罫線だけに依存させない。",
+      "type": "color"
+    },
+    {
+      "name": "color.border.emphasis",
+      "layer": "semantic",
       "value": "{color.neutral.200}",
-      "description": "情報構造の境界と輪郭の既定罫線。情報伝達を罫線だけに依存させない。",
+      "description": "Secondary Buttonなど、操作性に輪郭が必要な要素の強調罫線。",
       "type": "color"
     },
     {
@@ -404,6 +404,30 @@
       "type": "color"
     },
     {
+      "name": "color.card.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.raised.background",
+      "layer": "component",
+      "value": "{color.background.raised}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.raised.border",
+      "layer": "component",
+      "value": "{color.border.default}",
+      "type": "color"
+    },
+    {
+      "name": "color.card.sunken.background",
+      "layer": "component",
+      "value": "{color.background.sunken}",
+      "type": "color"
+    },
+    {
       "name": "color.action.primary.background",
       "layer": "component",
       "value": "{color.background.inverse}",
@@ -454,7 +478,7 @@
     {
       "name": "color.action.secondary.border",
       "layer": "component",
-      "value": "{color.border.default}",
+      "value": "{color.border.emphasis}",
       "type": "color"
     },
     {
@@ -500,21 +524,27 @@
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.background",
+      "name": "color.badge.neutral.raised.background",
       "layer": "component",
-      "value": "{color.background.sunken}",
+      "value": "{color.background.raised}",
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.foreground",
+      "name": "color.badge.neutral.raised.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.border",
+      "name": "color.badge.neutral.sunken.background",
       "layer": "component",
-      "value": "{color.border.default}",
+      "value": "{color.background.sunken}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.neutral.sunken.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
       "type": "color"
     },
     {
@@ -597,6 +627,21 @@
       "minimum": 1.1
     },
     {
+      "foreground": "color.card.raised.border",
+      "background": "color.card.raised.background",
+      "minimum": 1.1
+    },
+    {
+      "foreground": "color.card.foreground",
+      "background": "color.card.raised.background",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.card.foreground",
+      "background": "color.card.sunken.background",
+      "minimum": 7
+    },
+    {
       "foreground": "color.action.primary.foreground",
       "background": "color.action.primary.background",
       "minimum": 4.5
@@ -605,6 +650,11 @@
       "foreground": "color.action.secondary.foreground",
       "background": "color.action.secondary.background",
       "minimum": 4.5
+    },
+    {
+      "foreground": "color.action.secondary.border",
+      "background": "color.action.secondary.background",
+      "minimum": 1.1
     },
     {
       "foreground": "color.action.primary.hover.foreground",
@@ -617,8 +667,13 @@
       "minimum": 4.5
     },
     {
-      "foreground": "color.badge.neutral.foreground",
-      "background": "color.badge.neutral.background",
+      "foreground": "color.badge.neutral.raised.foreground",
+      "background": "color.badge.neutral.raised.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.neutral.sunken.foreground",
+      "background": "color.badge.neutral.sunken.background",
       "minimum": 4.5
     },
     {

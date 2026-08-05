@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "selected",
   "description": "Hashigodakaの余白、コンテンツ幅、グリッド、ブレークポイントの正本。",
   "tokens": [
@@ -37,6 +37,8 @@
     { "name": "radius.medium", "type": "dimension", "value": "4px", "description": "矩形の明快さを保ちながら角の硬さだけを和らげる角丸。" },
     { "name": "radius.action", "type": "dimension", "value": "{radius.medium}", "description": "PrimaryとSecondaryボタンの角丸。ボックス形状を作らないTertiaryには使わない。" },
     { "name": "radius.badge", "type": "dimension", "value": "{radius.small}", "description": "バッジの角丸。" },
+    { "name": "border.width.default", "type": "dimension", "value": "1px", "description": "通常の輪郭と区切り線の太さ。" },
+    { "name": "border.width.strong", "type": "dimension", "value": "2px", "description": "操作要素や状態表示など、形状差を明確にする輪郭の太さ。" },
     { "name": "focus.outline.width", "type": "dimension", "value": "3px", "description": "color.focus.outline で示すキーボードフォーカスの太さ。" },
     { "name": "focus.outline.offset", "type": "dimension", "value": "3px", "description": "フォーカスアウトラインと要素の間隔。" },
 

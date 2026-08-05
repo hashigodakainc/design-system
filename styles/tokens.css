@@ -40,7 +40,8 @@
   --hsg-color-text-secondary: var(--hsg-color-neutral-600);
   --hsg-color-text-inverse: var(--hsg-color-neutral-50);
   --hsg-color-text-on-brand: var(--hsg-color-neutral-900);
-  --hsg-color-border-default: var(--hsg-color-neutral-200);
+  --hsg-color-border-default: var(--hsg-color-neutral-100);
+  --hsg-color-border-emphasis: var(--hsg-color-neutral-200);
   --hsg-color-focus-outline: var(--hsg-color-neutral-900);
   --hsg-color-status-success-background: var(--hsg-color-green-50);
   --hsg-color-status-success-foreground: var(--hsg-color-green-700);
@@ -58,6 +59,10 @@
   --hsg-color-data-series-2: var(--hsg-color-lime-300);
   --hsg-color-data-series-3: var(--hsg-color-violet-500);
   --hsg-color-data-series-4: var(--hsg-color-orange-400);
+  --hsg-color-card-foreground: var(--hsg-color-text-primary);
+  --hsg-color-card-raised-background: var(--hsg-color-background-raised);
+  --hsg-color-card-raised-border: var(--hsg-color-border-default);
+  --hsg-color-card-sunken-background: var(--hsg-color-background-sunken);
   --hsg-color-action-primary-background: var(--hsg-color-background-inverse);
   --hsg-color-action-primary-foreground: var(--hsg-color-text-inverse);
   --hsg-color-action-primary-border: var(--hsg-color-background-inverse);
@@ -66,7 +71,7 @@
   --hsg-color-action-primary-hover-border: var(--hsg-color-background-inverse-hover);
   --hsg-color-action-secondary-background: var(--hsg-color-background-canvas);
   --hsg-color-action-secondary-foreground: var(--hsg-color-text-primary);
-  --hsg-color-action-secondary-border: var(--hsg-color-border-default);
+  --hsg-color-action-secondary-border: var(--hsg-color-border-emphasis);
   --hsg-color-action-secondary-hover-background: var(--hsg-color-background-inverse);
   --hsg-color-action-secondary-hover-foreground: var(--hsg-color-text-inverse);
   --hsg-color-action-secondary-hover-border: var(--hsg-color-background-inverse);
@@ -74,9 +79,10 @@
   --hsg-color-action-tertiary-underline: var(--hsg-color-text-primary);
   --hsg-color-action-tertiary-hover-foreground: var(--hsg-color-text-secondary);
   --hsg-color-action-tertiary-hover-underline: var(--hsg-color-text-secondary);
-  --hsg-color-badge-neutral-background: var(--hsg-color-background-sunken);
-  --hsg-color-badge-neutral-foreground: var(--hsg-color-text-primary);
-  --hsg-color-badge-neutral-border: var(--hsg-color-border-default);
+  --hsg-color-badge-neutral-raised-background: var(--hsg-color-background-raised);
+  --hsg-color-badge-neutral-raised-foreground: var(--hsg-color-text-primary);
+  --hsg-color-badge-neutral-sunken-background: var(--hsg-color-background-sunken);
+  --hsg-color-badge-neutral-sunken-foreground: var(--hsg-color-text-primary);
   --hsg-color-badge-primary-background: var(--hsg-color-blue-600);
   --hsg-color-badge-primary-foreground: var(--hsg-color-text-inverse);
   --hsg-color-badge-secondary-background: var(--hsg-color-lime-600);
@@ -98,6 +104,7 @@
   --hsg-typography-size-heading-2-desktop: 28px;
   --hsg-typography-size-heading-2-mobile: 24px;
   --hsg-typography-size-heading-3: 20px;
+  --hsg-typography-size-heading-4: 18px;
   --hsg-typography-size-body-large: 18px;
   --hsg-typography-size-body-default: 16px;
   --hsg-typography-size-body-small: 14px;
@@ -145,6 +152,8 @@
   --hsg-radius-medium: 4px;
   --hsg-radius-action: var(--hsg-radius-medium);
   --hsg-radius-badge: var(--hsg-radius-small);
+  --hsg-border-width-default: 1px;
+  --hsg-border-width-strong: 2px;
   --hsg-focus-outline-width: 3px;
   --hsg-focus-outline-offset: 3px;
   --hsg-layout-breakpoint-mobile: 760px;

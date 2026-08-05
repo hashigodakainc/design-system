@@ -30,7 +30,7 @@ const fetchJson = (path) => fetch(path).then((response) => {
   return response.json();
 });
 
-const render = (colorSource, typographySource, layoutSource, assetSource) => {
+const render = (colorSource, typographySource, layoutSource) => {
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -88,9 +88,32 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
       .forEach((token) => neutralContainer.append(renderSwatch(token, 'neutral')));
   }
   if (foundationContainer) {
-    colorSource.tokens
-      .filter((token) => token.layer === 'semantic' && /\.(?:background|text|border|focus)\./.test(`.${token.name}.`))
-      .forEach((token) => foundationContainer.append(renderSwatch(token, 'neutral')));
+    const foundationGroups = [
+      {
+        label: 'Background',
+        prefixes: ['color.background.'],
+      },
+      {
+        label: 'Text',
+        prefixes: ['color.text.'],
+      },
+      {
+        label: 'Border & Focus',
+        prefixes: ['color.border.', 'color.focus.'],
+      },
+    ];
+    foundationGroups.forEach(({ label, prefixes }) => {
+      const group = el('section', 'foundation-group');
+      const heading = el('div', 'foundation-group-heading');
+      heading.append(el('h4', 'hsg-type-heading-4', label));
+      const grid = el('div', 'neutral-grid');
+      grid.setAttribute('aria-label', `${label} semantic colors`);
+      colorSource.tokens
+        .filter((token) => token.layer === 'semantic' && prefixes.some((prefix) => token.name.startsWith(prefix)))
+        .forEach((token) => grid.append(renderSwatch(token, 'neutral')));
+      group.append(heading, grid);
+      foundationContainer.append(group);
+    });
   }
   if (semanticContainer) {
     const statusLabels = {
@@ -178,69 +201,12 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     breakpointNote.textContent = `${mobile}以下をMobile、${tablet}以下をTabletとして構造を切り替えます。`;
   }
 
-  /* 策定状況テーブルと未決事項リスト */
-
-  const statusPresentation = {
-    candidate: { label: '検証中', badge: 'hsg-badge-primary' },
-    selected: { label: '選定済', badge: 'hsg-badge-secondary' },
-    approved: { label: '利用可', badge: 'hsg-badge-secondary' },
-    undecided: { label: '未策定', badge: 'hsg-badge-neutral' },
-    deprecated: { label: '非推奨', badge: 'hsg-badge-orange' },
-  };
-
-  const statusRows = [
-    { label: 'カラー', status: colorSource.status, pending: colorSource.pending ?? [] },
-    { label: 'タイポグラフィ', status: typographySource.status, pending: typographySource.pending ?? [] },
-    { label: 'レイアウト', status: layoutSource.status, pending: layoutSource.pending ?? [] },
-    ...assetSource.assets.map((asset) => ({
-      label: `${asset.label}（${asset.kind}）`,
-      status: asset.status,
-      pending: asset.pending ?? [],
-    })),
-  ];
-
-  const statusTable = document.querySelector('[data-render="status-table"]');
-  if (statusTable) {
-    const head = el('div', 'status-row status-head');
-    head.setAttribute('role', 'row');
-    ['領域', '状態', '未決事項'].forEach((text) => head.append(el('span', '', text)));
-    statusTable.append(head);
-    statusRows.forEach((row) => {
-      const presentation = statusPresentation[row.status] ?? { label: row.status, badge: 'hsg-badge-neutral' };
-      const node = el('div', 'status-row');
-      node.setAttribute('role', 'row');
-      const badgeCell = el('span');
-      badgeCell.append(el('b', `hsg-badge ${presentation.badge}`, presentation.label));
-      node.append(
-        el('strong', '', row.label),
-        badgeCell,
-        el('span', '', row.pending.length ? row.pending.map((entry) => entry.topic).join('、') : 'なし'),
-      );
-      statusTable.append(node);
-    });
-  }
-
-  const pendingList = document.querySelector('[data-render="pending-list"]');
-  if (pendingList) {
-    statusRows.filter((row) => row.pending.length).forEach((row) => {
-      row.pending.forEach((entry) => {
-        const article = el('article', 'pending-item');
-        article.append(
-          el('h4', '', `${row.label}｜${entry.topic}`),
-          el('p', '', `確定の条件：${entry.until}`),
-          el('p', '', `それまでの運用：${entry.interim}`),
-        );
-        pendingList.append(article);
-      });
-    });
-  }
 };
 
 Promise.all([
   fetchJson('../tokens/colors.json'),
   fetchJson('../tokens/typography.json'),
   fetchJson('../tokens/layout.json'),
-  fetchJson('../assets/manifest.json'),
 ]).then((sources) => render(...sources)).catch((error) => {
   console.error('デザイントークンの読み込みに失敗しました。HTTPサーバー経由（リポジトリルート配信）で表示してください。', error);
 });

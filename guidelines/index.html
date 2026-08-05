@@ -35,9 +35,6 @@
       <a href="#imagery">写真とモチーフ</a>
       <p class="nav-group">UI</p>
       <a href="#components">コンポーネント</a>
-      <p class="nav-group">リソース</p>
-      <a href="#tokens">デザイントークン</a>
-      <a href="#status">策定状況</a>
     </nav>
     <p class="sidebar-note">初版 0.1<br>2026年7月</p>
   </aside>
@@ -47,10 +44,6 @@
       <div class="hero-copy">
         <h1 class="hsg-type-display">判断を、<br><span class="nowrap">実装できる形に。</span></h1>
         <p class="hero-lead">Hashigodakaらしい判断を、誰でも、どの制作環境でも再現するための共通言語です。人が読むガイドと、実装が参照するトークンを同じ根拠から提供します。</p>
-        <div class="hero-actions">
-          <a class="hsg-button hsg-button-primary" href="#colors">カラーを見る</a>
-          <a class="text-link" href="#status">現在の策定状況 <span aria-hidden="true">→</span></a>
-        </div>
       </div>
     </section>
 
@@ -79,7 +72,7 @@
       <div class="neutral-grid" data-render="neutral-swatches"></div>
       <h3 class="subheading hsg-type-heading-3">Foundation Semantic Colors</h3>
       <p class="semantic-intro">背景、文字、罫線、フォーカスの用途を表す第2層です。</p>
-      <div class="neutral-grid" data-render="foundation-swatches"></div>
+      <div class="foundation-groups" data-render="foundation-swatches"></div>
       <h3 class="subheading hsg-type-heading-3">Status Semantic Colors</h3>
       <p class="semantic-intro">状態は背景・文字・境界を一組で使い、状態名または具体的な説明とアイコンを併記します。</p>
       <div class="semantic-grid" aria-label="セマンティックカラーパレット" data-render="semantic-swatches"></div>
@@ -121,6 +114,12 @@
           <p class="hsg-type-heading-3 type-role-sample">プロジェクト設計</p>
           <dl data-render="role-specs"></dl>
           <p class="type-role-usage">カードや小セクションの見出し。本文の強調だけを目的に使わない。</p>
+        </article>
+        <article class="type-role">
+          <div class="type-role-name"><strong>Heading 4</strong><code>.hsg-type-heading-4</code></div>
+          <p class="hsg-type-heading-4 type-role-sample">背景の用途</p>
+          <dl data-render="role-specs"></dl>
+          <p class="type-role-usage">小区分やカード内部の下位見出し。Heading 3の配下で使い、本文の強調には使わない。</p>
         </article>
         <article class="type-role">
           <div class="type-role-name"><strong>Body Large</strong><code>.hsg-type-body-large</code></div>
@@ -233,33 +232,28 @@
     </section>
 
     <section class="section" id="components">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>ボタンは面・枠線・下線で行動の重要度を、バッジは短いラベルで状態や分類を示します。</p></div></div>
+      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>カードは面の役割に応じてRaisedとSunkenを使い分け、ボタンとバッジは重要度や分類を形と色で示します。</p></div></div>
+      <h3 class="component-type-heading hsg-type-heading-3">Button</h3>
       <div class="component-demo">
         <div><p class="demo-label">Actions</p><div class="demo-row"><button class="hsg-button hsg-button-primary" type="button">お問い合わせ</button><button class="hsg-button hsg-button-secondary" type="button">詳しく見る</button><button class="hsg-button hsg-button-tertiary" type="button">戻る</button></div></div>
-        <article class="demo-card"><p class="demo-label">Card</p><h3 class="hsg-type-heading-3">構想から実装まで、同じチームで。</h3><p>事業と技術の間をつなぎ、実際に使われるところまで伴走します。</p><a href="#components">サービスを見る →</a></article>
       </div>
-      <div class="badge-demo"><p class="demo-label">Badges</p><div class="demo-row"><span class="hsg-badge hsg-badge-neutral">Neutral</span><span class="hsg-badge hsg-badge-primary">Primary</span><span class="hsg-badge hsg-badge-secondary">Secondary</span><span class="hsg-badge hsg-badge-violet">Violet</span><span class="hsg-badge hsg-badge-orange">Orange</span></div><p>色付きバッジは白文字を使い、コントラストを満たす専用トーンで分類を示します。処理結果やシステム状態にはStatus Semantic Colorsを使います。</p></div>
       <div class="button-guidance">
         <article><strong>Primary</strong><span>重要度：高</span><p>黒背景と白文字。画面内で最も優先する行動に使います。</p></article>
         <article><strong>Secondary</strong><span>重要度：中</span><p>白背景、黒文字、グレー枠。ホバー時は黒背景へ反転します。</p></article>
         <article><strong>Tertiary</strong><span>重要度：低</span><p>透明背景、黒文字、黒下線。面を作らず補助的な行動を示します。</p></article>
       </div>
+      <h3 class="component-type-heading hsg-type-heading-3">Card</h3>
+      <div class="card-group-demo">
+        <article class="hsg-card hsg-card-raised demo-card"><p class="demo-label">Raised Card</p><h4 class="hsg-type-heading-4">構想から実装まで、同じチームで。</h4><p>独立した情報単位は、Raised背景だけで前面へ持ち上げます。</p><a href="#components">サービスを見る →</a></article>
+        <article class="hsg-card hsg-card-sunken demo-card"><p class="demo-label">Sunken Card</p><h4 class="hsg-type-heading-4">前提と補足</h4><p>補足情報や内包された情報グループは、Sunken背景で周囲より奥まった面として示します。</p></article>
+      </div>
+      <h3 class="component-type-heading hsg-type-heading-3">Badge</h3>
+      <div class="badge-surface-demo">
+        <article class="badge-demo badge-demo-sunken"><p class="demo-label">On Sunken</p><div class="demo-row"><span class="hsg-badge hsg-badge-neutral-raised">Neutral Raised</span></div></article>
+        <article class="badge-demo badge-demo-raised"><p class="demo-label">On Raised</p><div class="demo-row"><span class="hsg-badge hsg-badge-neutral-sunken">Neutral Sunken</span></div></article>
+      </div>
+      <div class="badge-demo badge-demo-colors"><p class="demo-label">Classification Colors</p><div class="demo-row"><span class="hsg-badge hsg-badge-primary">Primary</span><span class="hsg-badge hsg-badge-secondary">Secondary</span><span class="hsg-badge hsg-badge-violet">Violet</span><span class="hsg-badge hsg-badge-orange">Orange</span></div><p>色付きバッジは白文字を使い、コントラストを満たす専用トーンで分類を示します。処理結果やシステム状態にはStatus Semantic Colorsを使います。</p></div>
       <p class="pending-note">ボタンの3階層と基本状態、バッジの表示仕様は採用済みです。ボタン寸法のバリエーション、無効・処理中状態、アイコン併用は今後追加します。</p>
-    </section>
-
-    <section class="section compact-section" id="tokens">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">デザイントークン</h2><p>人向けガイドと実装を、同じトークンと資産定義でつなぎます。</p></div></div>
-      <div class="code-panel"><div class="code-title"><span>HTML</span><code>styles/components.css</code></div><pre><code>&lt;button class="hsg-button hsg-button-primary"&gt;
-  お問い合わせ
-&lt;/button&gt;</code></pre></div>
-      <p>機械可読な正本は <code>tokens/colors.json</code>、<code>tokens/typography.json</code>、<code>tokens/layout.json</code>、ブランド資産の状態と制約は <code>assets/manifest.json</code> です。生成したCSS変数、正本のSVG、採用済みコンポーネントクラスを参照します。</p>
-    </section>
-
-    <section class="section" id="status">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">策定状況</h2><p>利用できるものと、まだ固定しないものを明確にします。</p></div></div>
-      <div class="status-table" role="table" aria-label="デザインシステム策定状況" data-render="status-table"></div>
-      <h3 class="subheading hsg-type-heading-3">未決事項と暫定運用</h3>
-      <div class="pending-list" data-render="pending-list"></div>
     </section>
 
     <footer><p>Hashigodaka Design System</p><p>判断と実装を、同じ場所から。</p></footer>
