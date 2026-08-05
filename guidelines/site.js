@@ -91,24 +91,21 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     const foundationGroups = [
       {
         label: 'Background',
-        description: 'ページや要素の面が、基盤・前面・奥・反転のどこにあるかを示します。',
         prefixes: ['color.background.'],
       },
       {
         label: 'Text',
-        description: '情報の優先度と、配置する背景に応じた文字色を示します。',
         prefixes: ['color.text.'],
       },
       {
         label: 'Border & Focus',
-        description: '情報構造の境界と、キーボードフォーカスを示します。',
         prefixes: ['color.border.', 'color.focus.'],
       },
     ];
-    foundationGroups.forEach(({ label, description, prefixes }) => {
+    foundationGroups.forEach(({ label, prefixes }) => {
       const group = el('section', 'foundation-group');
       const heading = el('div', 'foundation-group-heading');
-      heading.append(el('h4', 'hsg-type-heading-4', label), el('p', '', description));
+      heading.append(el('h4', 'hsg-type-heading-4', label));
       const grid = el('div', 'neutral-grid');
       grid.setAttribute('aria-label', `${label} semantic colors`);
       colorSource.tokens
