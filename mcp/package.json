@@ -8,9 +8,10 @@
     "build:snapshot": "node --import tsx scripts/build-snapshot.ts",
     "build:wordmark": "node scripts/build-wordmark.mjs",
     "dev": "pnpm build:snapshot && wrangler dev",
-    "test": "pnpm build:snapshot && node --import tsx --test 'test/**/*.test.ts'",
+    "test": "pnpm validate:tokens && pnpm build:snapshot && node --import tsx --test 'test/**/*.test.ts'",
     "smoke:remote": "node scripts/remote-smoke.mjs",
-    "typecheck": "pnpm build:snapshot && tsc --noEmit"
+    "typecheck": "pnpm validate:tokens && pnpm build:snapshot && tsc --noEmit",
+    "validate:tokens": "node ../scripts/validate-tokens.mjs"
   },
   "engines": {
     "node": ">=22"

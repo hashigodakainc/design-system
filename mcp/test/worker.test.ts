@@ -26,6 +26,34 @@ const env = {
   },
 };
 
+test("snapshot publishes the three-layer color taxonomy without legacy names", () => {
+  const source = snapshotJson.textFiles["tokens/colors.json"];
+  assert.equal(typeof source, "string");
+  const colors = JSON.parse(source) as {
+    tokens: Array<{ layer: string; name: string; value: string }>;
+  };
+  const names = new Set(colors.tokens.map((token) => token.name));
+
+  for (const name of [
+    "color.neutral.0",
+    "color.background.raised",
+    "color.background.sunken",
+    "color.text.secondary",
+    "color.focus.outline",
+    "color.action.primary.background",
+  ]) assert(names.has(name), `missing ${name}`);
+  for (const name of [
+    "color.neutral.canvas",
+    "color.neutral.surface",
+    "color.neutral.border",
+    "color.neutral.muted",
+    "color.neutral.ink",
+    "color.background.surface",
+    "color.border.subtle",
+  ]) assert(!names.has(name), `legacy token remains: ${name}`);
+  assert(colors.tokens.every((token) => ["primitive", "semantic", "component"].includes(token.layer)));
+});
+
 function request(path: string, init: RequestInit = {}): Request {
   const headers = new Headers(init.headers);
   if (!headers.has("host")) {

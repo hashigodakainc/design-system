@@ -25,6 +25,7 @@ const tokenSchema = z.object({
   value: z.string(),
   resolved: z.string(),
   description: z.string().nullable(),
+  layer: z.string().nullable(),
   type: z.string().nullable(),
 });
 const roleSchema = jsonObjectSchema;

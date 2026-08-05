@@ -50,16 +50,24 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 
 ## 色と面積
 
-- 制作物では、原色名ではなく `color.background.canvas`、`color.text.primary`、
-  `color.action.primary.background` などの用途別トークンを参照する。
-- `color.neutral.canvas` を画面の基盤とし、最も広い面積を取る。色を画面全体へ敷き詰めない。
-- `color.neutral.ink` は文字と必要な罫線へ使い、黒い大面積を既定にしない。
+- カラートークンは、値を表す第1層（プリミティブ）、用途を表す第2層（セマンティック）、
+  部品固有の第3層（コンポーネント）で構成する。制作物は第2層または第3層だけを参照し、
+  `color.neutral.*` や `color.blue.*` など第1層を直接参照しない。
+- 参照方向は第3層から第2層、第2層から第1層に限定する。第3層から第1層への直接参照は、
+  対応する意味が第2層にない場合だけ許容し、同じ値を別の部品でも必要とした時点で第2層へ昇格する。
+- `color.background.canvas` を画面の基盤とし、最も広い面積を取る。色を画面全体へ敷き詰めない。
+- `color.background.raised` は、Canvas上では `color.border.default` の輪郭を伴う単発の面として使うか、
+  `color.background.sunken` の区画内へ罫線なしで置く。面と罫線による境界表現を同じ要素へ重ねない。
+- `color.background.sunken` の区画は入れ子にせず、内部の追加構造は罫線と余白で区切る。
+- `color.background.inverse` はPrimaryの行動など意味のある箇所に限定し、一つのまとまりに一つまでとする。
+- 通常の文字は `color.text.primary`、補足文字は `color.text.secondary`、罫線は
+  `color.border.default`、フォーカスリングは `color.focus.outline` を使う。
 - `color.brand.primary` は、一つの強いグラフィックなど、意味のあるブランド表現へ絞る。
   `color.brand.secondary` とExtended Colorsは、Primaryより小さい面積で使う。
 - 4つの有彩色を一つの画面で均等に使わない。図解で系列識別が必要な場合
   （`color.data.series.*`）を例外とする。
 - ブランドカラーの面を黒枠で囲むことを共通スタイルにしない。色同士はCanvas相当の余白で分け、
-  情報構造の境界には `color.neutral.border` を使う。Inkの強い輪郭は意味のある箇所へ限定する。
+  情報構造の境界には `color.border.default` を使う。強い輪郭は意味のある箇所へ限定する。
 - コントラストの基準値と検査対象の組は `tokens/colors.json` の `contrastChecks` を正本とする。
 - Primaryをリンク文字としてCanvas上へ直接置く用途は承認していない。
 - 色だけで状態や系列を伝えず、ラベル、形、線種などを併用する。
@@ -103,8 +111,8 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 [`assets/motifs/brand-motif.svg`](../assets/motifs/brand-motif.svg) である。
 
 - 一つの面では原則として一つだけ使い、写真や別の大きな抽象図形と主役を競わせない。
-- 単色で使う。既定は `color.brand.primary`、モノクロ要件では `color.neutral.ink`、暗い面への
-  反転では `color.neutral.canvas` を使う。
+- 単色で使う。既定は `color.brand.primary`、モノクロ要件では `color.text.primary`、暗い面への
+  反転では `color.text.inverse` を使う。
 - 縦横比を固定して拡大縮小する。回転、反転、輪郭線化、切り取り、左右別色への分解はしない。
 - サイズの下限は `assets/manifest.json` の `restrictions` を正本とする。
 - 会社名の「はしご」をそのまま図案化したものではない。社名の物語を説明するために、モチーフを

@@ -57,7 +57,7 @@
 }
 
 .hsg-button:focus-visible {
-  outline: var(--hsg-focus-outline-width) solid var(--hsg-color-neutral-ink);
+  outline: var(--hsg-focus-outline-width) solid var(--hsg-color-focus-outline);
   outline-offset: var(--hsg-focus-outline-offset);
 }
 

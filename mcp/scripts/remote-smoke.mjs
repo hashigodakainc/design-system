@@ -47,6 +47,16 @@ try {
   });
   assert.notEqual(tokens.isError, true);
   assert.equal(tokens.structuredContent?.categories?.[0]?.category, "color");
+  const colorTokens = tokens.structuredContent?.categories?.[0]?.tokens ?? [];
+  const colorNames = new Set(colorTokens.map((token) => token.name));
+  assert(colorNames.has("color.neutral.0"));
+  assert(colorNames.has("color.background.raised"));
+  assert(colorNames.has("color.action.primary.background"));
+  assert(!colorNames.has("color.neutral.canvas"));
+  assert.deepEqual(
+    new Set(colorTokens.map((token) => token.layer)),
+    new Set(["primitive", "semantic", "component"]),
+  );
 
   const asset = await client.callTool({
     name: "get_asset",

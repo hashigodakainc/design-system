@@ -41,7 +41,7 @@
         "letterSpacing": "{typography.letter-spacing.heading}"
       },
       "sourceDecision": "D-I（Sora）の現行組みを2026-07-31採用。字形調整は将来任意。",
-      "defaultColor": "{color.neutral.ink}",
+      "defaultColor": "{color.text.primary}",
       "colorMode": "single-color",
       "usage": [
         "サイトヘッダーでの社名表示",
