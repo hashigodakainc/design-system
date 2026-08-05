@@ -56,11 +56,6 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .foundation-groups { display: grid; gap: var(--hsg-space-7); }
 .foundation-group-heading { margin-bottom: var(--hsg-space-4); }
 .foundation-group-heading h4 { margin: 0; }
-.semantic-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.semantic-card { display: grid; grid-template-columns: auto 1fr; gap: var(--hsg-space-3); align-items: start; padding: var(--hsg-space-4); border: var(--hsg-border-width-strong) solid; }
-.semantic-card strong { display: block; font-size: var(--hsg-typography-size-label); line-height: var(--hsg-typography-line-height-compact); }
-.semantic-card p { margin: var(--hsg-space-1) 0 0; }
-.semantic-icon { display: grid; width: 24px; height: 24px; place-items: center; border: var(--hsg-border-width-strong) solid currentColor; border-radius: 50%; font-weight: var(--hsg-typography-weight-emphasis); line-height: 1; }
 .guidance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 68px; }
 .guidance-grid > article > p { color: var(--hsg-color-text-secondary); }
 .use-sample { min-height: 230px; margin-bottom: 18px; border: var(--hsg-border-width-default) solid var(--hsg-color-border-default); }

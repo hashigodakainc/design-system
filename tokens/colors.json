@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
   "primitiveReferenceExceptions": [
@@ -306,13 +306,6 @@
       "type": "color"
     },
     {
-      "name": "color.status.success.border",
-      "layer": "semantic",
-      "value": "{color.green.400}",
-      "description": "Successメッセージの境界。",
-      "type": "color"
-    },
-    {
       "name": "color.status.warning.background",
       "layer": "semantic",
       "value": "{color.yellow.50}",
@@ -324,13 +317,6 @@
       "layer": "semantic",
       "value": "{color.yellow.700}",
       "description": "Warningメッセージの文字とアイコン。",
-      "type": "color"
-    },
-    {
-      "name": "color.status.warning.border",
-      "layer": "semantic",
-      "value": "{color.yellow.500}",
-      "description": "Warningメッセージの境界。",
       "type": "color"
     },
     {
@@ -348,13 +334,6 @@
       "type": "color"
     },
     {
-      "name": "color.status.error.border",
-      "layer": "semantic",
-      "value": "{color.red.400}",
-      "description": "Errorメッセージの境界。",
-      "type": "color"
-    },
-    {
       "name": "color.status.info.background",
       "layer": "semantic",
       "value": "{color.blue.50}",
@@ -366,13 +345,6 @@
       "layer": "semantic",
       "value": "{color.blue.700}",
       "description": "Infoメッセージの文字とアイコン。",
-      "type": "color"
-    },
-    {
-      "name": "color.status.info.border",
-      "layer": "semantic",
-      "value": "{color.blue.500}",
-      "description": "Infoメッセージの境界。",
       "type": "color"
     },
     {

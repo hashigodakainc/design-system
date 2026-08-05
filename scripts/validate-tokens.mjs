@@ -110,6 +110,11 @@ for (const tokenName of [
   if (tokens.has(tokenName)) failures.push(`Legacy neutral badge token must not be restored: ${tokenName}`);
 }
 
+for (const status of ["success", "warning", "error", "info"]) {
+  const tokenName = `color.status.${status}.border`;
+  if (tokens.has(tokenName)) failures.push(`Status colors must not define component borders: ${tokenName}`);
+}
+
 for (const [label, source] of [
   ["guidelines/index.html", guidelineHtml],
   ["guidelines/site.css", guidelineCss],
