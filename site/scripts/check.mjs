@@ -63,6 +63,9 @@ const addReference = (from, reference) => {
 };
 
 const html = await readFile(path.join(distDir, 'index.html'), 'utf8');
+if (!html.includes('<link rel="icon" href="assets/motifs/brand-motif.svg" type="image/svg+xml">')) {
+  errors.push('Guideline favicon must reference the public brand motif SVG.');
+}
 for (const match of html.matchAll(/\b(?:href|src)=(['"])(.*?)\1/g)) addReference('index.html', match[2]);
 for (const cssFile of [...actualFiles].filter((file) => file.endsWith('.css'))) {
   const css = await readFile(path.join(distDir, cssFile), 'utf8');
