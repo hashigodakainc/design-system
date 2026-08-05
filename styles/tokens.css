@@ -74,9 +74,10 @@
   --hsg-color-action-tertiary-underline: var(--hsg-color-text-primary);
   --hsg-color-action-tertiary-hover-foreground: var(--hsg-color-text-secondary);
   --hsg-color-action-tertiary-hover-underline: var(--hsg-color-text-secondary);
-  --hsg-color-badge-neutral-background: var(--hsg-color-background-sunken);
-  --hsg-color-badge-neutral-foreground: var(--hsg-color-text-primary);
-  --hsg-color-badge-neutral-border: var(--hsg-color-border-default);
+  --hsg-color-badge-neutral-raised-background: var(--hsg-color-background-raised);
+  --hsg-color-badge-neutral-raised-foreground: var(--hsg-color-text-primary);
+  --hsg-color-badge-neutral-sunken-background: var(--hsg-color-background-sunken);
+  --hsg-color-badge-neutral-sunken-foreground: var(--hsg-color-text-primary);
   --hsg-color-badge-primary-background: var(--hsg-color-blue-600);
   --hsg-color-badge-primary-foreground: var(--hsg-color-text-inverse);
   --hsg-color-badge-secondary-background: var(--hsg-color-lime-600);

@@ -76,10 +76,14 @@
   white-space: nowrap;
 }
 
-.hsg-badge-neutral {
-  border-color: var(--hsg-color-badge-neutral-border);
-  background: var(--hsg-color-badge-neutral-background);
-  color: var(--hsg-color-badge-neutral-foreground);
+.hsg-badge-neutral-raised {
+  background: var(--hsg-color-badge-neutral-raised-background);
+  color: var(--hsg-color-badge-neutral-raised-foreground);
+}
+
+.hsg-badge-neutral-sunken {
+  background: var(--hsg-color-badge-neutral-sunken-background);
+  color: var(--hsg-color-badge-neutral-sunken-foreground);
 }
 
 .hsg-badge-primary {

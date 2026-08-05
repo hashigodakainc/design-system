@@ -133,6 +133,10 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - バッジは短いラベルで状態・分類を補助する。本文の代わりに重要情報を押し込まず、単体で意味が
   伝わる短い語を必ず表示する。色付きバッジはブランド原色でなく、白文字のコントラストを満たす
   専用トーン（`color.badge.*`）を使う。
+- Neutral Badgeは周囲と反対の面を使う。Sunken面では `.hsg-badge-neutral-raised`、
+  RaisedまたはCanvas面では `.hsg-badge-neutral-sunken` とし、罫線や影を加えない。
+- Primary、Secondary、Violet、Orangeの色付きバッジは分類色自体が面を作るため、
+  Raised / Sunkenへ分けない。
 - カードは `.hsg-card` だけで使わず、面の役割に応じて `.hsg-card-raised` または
   `.hsg-card-sunken` のどちらか一つを必ず併用する。二つの修飾クラスを同時に使わない。
 - `.hsg-card-raised` は周囲より前面へ持ち上がる独立した情報単位に使う。

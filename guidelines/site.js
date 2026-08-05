@@ -207,7 +207,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     candidate: { label: '検証中', badge: 'hsg-badge-primary' },
     selected: { label: '選定済', badge: 'hsg-badge-secondary' },
     approved: { label: '利用可', badge: 'hsg-badge-secondary' },
-    undecided: { label: '未策定', badge: 'hsg-badge-neutral' },
+    undecided: { label: '未策定', badge: 'hsg-badge-neutral-sunken' },
     deprecated: { label: '非推奨', badge: 'hsg-badge-orange' },
   };
 
@@ -229,7 +229,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
     ['領域', '状態', '未決事項'].forEach((text) => head.append(el('span', '', text)));
     statusTable.append(head);
     statusRows.forEach((row) => {
-      const presentation = statusPresentation[row.status] ?? { label: row.status, badge: 'hsg-badge-neutral' };
+      const presentation = statusPresentation[row.status] ?? { label: row.status, badge: 'hsg-badge-neutral-sunken' };
       const node = el('div', 'status-row');
       node.setAttribute('role', 'row');
       const badgeCell = el('span');

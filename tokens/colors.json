@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
   "primitiveReferenceExceptions": [
@@ -493,21 +493,27 @@
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.background",
+      "name": "color.badge.neutral.raised.background",
       "layer": "component",
-      "value": "{color.background.sunken}",
+      "value": "{color.background.raised}",
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.foreground",
+      "name": "color.badge.neutral.raised.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
       "type": "color"
     },
     {
-      "name": "color.badge.neutral.border",
+      "name": "color.badge.neutral.sunken.background",
       "layer": "component",
-      "value": "{color.border.default}",
+      "value": "{color.background.sunken}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.neutral.sunken.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
       "type": "color"
     },
     {
@@ -610,8 +616,13 @@
       "minimum": 4.5
     },
     {
-      "foreground": "color.badge.neutral.foreground",
-      "background": "color.badge.neutral.background",
+      "foreground": "color.badge.neutral.raised.foreground",
+      "background": "color.badge.neutral.raised.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.badge.neutral.sunken.foreground",
+      "background": "color.badge.neutral.sunken.background",
       "minimum": 4.5
     },
     {

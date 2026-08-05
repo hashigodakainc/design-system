@@ -78,6 +78,19 @@ for (const classes of guidelineCardClasses) {
   if (modifiers.length !== 1) failures.push(`Guideline card must use exactly one surface modifier: ${classes.join(" ")}`);
 }
 
+for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]) {
+  if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+}
+if (componentCss.includes(".hsg-badge-neutral {")) failures.push("Legacy .hsg-badge-neutral class must not be restored");
+for (const tokenName of [
+  "color.badge.neutral.background",
+  "color.badge.neutral.foreground",
+  "color.badge.neutral.border",
+]) {
+  if (tokens.has(tokenName)) failures.push(`Legacy neutral badge token must not be restored: ${tokenName}`);
+}
+
 for (const [label, source] of [
   ["guidelines/index.html", guidelineHtml],
   ["guidelines/site.css", guidelineCss],
