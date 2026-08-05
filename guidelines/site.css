@@ -149,8 +149,8 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .button-guidance strong { font-size: var(--hsg-typography-size-heading-3); line-height: var(--hsg-typography-line-height-heading); }
 .button-guidance span { margin-top: 3px; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-label); font-weight: var(--hsg-typography-weight-emphasis); }
 .button-guidance p { margin: 20px 0 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-body-small); }
-.demo-card { padding: 32px; border-top: 10px solid var(--hsg-color-brand-primary); background: var(--hsg-color-background-sunken); }
-.demo-card h3 { margin-top: 42px; }
+.card-group-demo { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--hsg-space-4); margin: 24px 0 0 var(--hsg-layout-content-indent); }
+.demo-card h3 { margin-top: var(--hsg-space-5); }
 .demo-card p:not(.demo-label) { color: var(--hsg-color-text-secondary); }
 .demo-card a { font-size: var(--hsg-typography-size-action); font-weight: var(--hsg-typography-weight-emphasis); line-height: var(--hsg-typography-line-height-compact); text-underline-offset: 5px; }
 .code-panel { margin: 0 0 28px var(--hsg-layout-content-indent); background: var(--hsg-color-background-inverse); color: var(--hsg-color-text-inverse); }
@@ -170,6 +170,7 @@ footer p { margin: 0; }
   .swatches { grid-template-columns: repeat(2,1fr); }
   .neutral-grid { grid-template-columns: 1fr; }
   .component-demo { grid-template-columns: 1fr; }
+  .card-group-demo { grid-template-columns: 1fr; }
   .button-guidance { grid-template-columns: 1fr; }
   .layout-spec-grid { grid-template-columns: 1fr; }
   .motif-panel, .wordmark-panel { grid-template-columns: 1fr; }

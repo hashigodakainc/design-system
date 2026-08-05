@@ -222,7 +222,12 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
 
   const pendingList = document.querySelector('[data-render="pending-list"]');
   if (pendingList) {
-    statusRows.filter((row) => row.pending.length).forEach((row) => {
+    const rowsWithPending = statusRows.filter((row) => row.pending.length);
+    if (!rowsWithPending.length) {
+      document.querySelector('[data-render="pending-heading"]')?.remove();
+      pendingList.remove();
+    }
+    rowsWithPending.forEach((row) => {
       row.pending.forEach((entry) => {
         const article = el('article', 'pending-item');
         article.append(

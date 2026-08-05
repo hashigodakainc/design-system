@@ -2,13 +2,6 @@
   "version": "0.2.0",
   "status": "approved",
   "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
-  "pending": [
-    {
-      "topic": ".hsg-card の正式定義",
-      "until": "輪郭型・区画型の2修飾クラスを別提案で承認する",
-      "interim": "background.raised / background.sunken / border.default の使用規則を個別実装で適用する"
-    }
-  ],
   "primitiveReferenceExceptions": [
     "color.badge.primary.background",
     "color.badge.secondary.background",

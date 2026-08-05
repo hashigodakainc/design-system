@@ -62,6 +62,22 @@ for (const [label, source] of [
   }
 }
 
+for (const className of [
+  "hsg-card",
+  "hsg-card-raised",
+  "hsg-card-sunken",
+]) {
+  if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+}
+const guidelineCardClasses = [...guidelineHtml.matchAll(/class="([^"]+)"/g)]
+  .map((match) => match[1].split(/\s+/))
+  .filter((classes) => classes.includes("hsg-card"));
+for (const classes of guidelineCardClasses) {
+  const modifiers = ["hsg-card-raised", "hsg-card-sunken"].filter((name) => classes.includes(name));
+  if (modifiers.length !== 1) failures.push(`Guideline card must use exactly one surface modifier: ${classes.join(" ")}`);
+}
+
 for (const [label, source] of [
   ["guidelines/index.html", guidelineHtml],
   ["guidelines/site.css", guidelineCss],

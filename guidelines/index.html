@@ -233,10 +233,14 @@
     </section>
 
     <section class="section" id="components">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>ボタンは面・枠線・下線で行動の重要度を、バッジは短いラベルで状態や分類を示します。</p></div></div>
+      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>カードは面の役割に応じてRaisedとSunkenを使い分け、ボタンとバッジは重要度や分類を形と色で示します。</p></div></div>
       <div class="component-demo">
         <div><p class="demo-label">Actions</p><div class="demo-row"><button class="hsg-button hsg-button-primary" type="button">お問い合わせ</button><button class="hsg-button hsg-button-secondary" type="button">詳しく見る</button><button class="hsg-button hsg-button-tertiary" type="button">戻る</button></div></div>
-        <article class="demo-card"><p class="demo-label">Card</p><h3 class="hsg-type-heading-3">構想から実装まで、同じチームで。</h3><p>事業と技術の間をつなぎ、実際に使われるところまで伴走します。</p><a href="#components">サービスを見る →</a></article>
+        <article class="hsg-card hsg-card-raised demo-card"><p class="demo-label">Raised Card</p><h3 class="hsg-type-heading-3">構想から実装まで、同じチームで。</h3><p>独立した情報単位は、Raised背景だけで前面へ持ち上げます。</p><a href="#components">サービスを見る →</a></article>
+      </div>
+      <div class="card-group-demo">
+        <article class="hsg-card hsg-card-sunken demo-card"><p class="demo-label">Sunken Card</p><h3 class="hsg-type-heading-3">前提と補足</h3><p>補足情報や内包された情報グループは、Sunken背景で周囲より奥まった面として示します。</p></article>
+        <article class="hsg-card hsg-card-raised demo-card"><p class="demo-label">Raised Card</p><h3 class="hsg-type-heading-3">次に進めること</h3><p>独立して扱う情報はRaised背景を使い、Sunkenとの面差で役割を区別します。</p></article>
       </div>
       <div class="badge-demo"><p class="demo-label">Badges</p><div class="demo-row"><span class="hsg-badge hsg-badge-neutral">Neutral</span><span class="hsg-badge hsg-badge-primary">Primary</span><span class="hsg-badge hsg-badge-secondary">Secondary</span><span class="hsg-badge hsg-badge-violet">Violet</span><span class="hsg-badge hsg-badge-orange">Orange</span></div><p>色付きバッジは白文字を使い、コントラストを満たす専用トーンで分類を示します。処理結果やシステム状態にはStatus Semantic Colorsを使います。</p></div>
       <div class="button-guidance">
@@ -258,7 +262,7 @@
     <section class="section" id="status">
       <div class="section-heading"><div><h2 class="hsg-type-heading-2">策定状況</h2><p>利用できるものと、まだ固定しないものを明確にします。</p></div></div>
       <div class="status-table" role="table" aria-label="デザインシステム策定状況" data-render="status-table"></div>
-      <h3 class="subheading hsg-type-heading-3">未決事項と暫定運用</h3>
+      <h3 class="subheading hsg-type-heading-3" data-render="pending-heading">未決事項と暫定運用</h3>
       <div class="pending-list" data-render="pending-list"></div>
     </section>
 

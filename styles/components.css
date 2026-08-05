@@ -102,6 +102,22 @@
   color: var(--hsg-color-badge-orange-foreground);
 }
 
+.hsg-card {
+  min-width: 0;
+  padding: var(--hsg-space-6);
+  border: 0;
+  border-radius: var(--hsg-radius-medium);
+  color: var(--hsg-color-text-primary);
+}
+
+.hsg-card-raised {
+  background: var(--hsg-color-background-raised);
+}
+
+.hsg-card-sunken {
+  background: var(--hsg-color-background-sunken);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hsg-button { transition: none; }
 }
