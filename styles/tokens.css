@@ -101,7 +101,7 @@
   --hsg-layout-page-gutter-mobile: var(--hsg-space-5);
   --hsg-layout-page-gutter-tablet: var(--hsg-space-7);
   --hsg-layout-page-gutter-desktop: var(--hsg-space-8);
-  --hsg-layout-content-indent: var(--hsg-space-8);
+  --hsg-layout-content-indent: var(--hsg-space-0);
   --hsg-layout-section-space-small: var(--hsg-space-7);
   --hsg-layout-section-space-medium: var(--hsg-space-8);
   --hsg-layout-section-space-large: var(--hsg-space-9);
