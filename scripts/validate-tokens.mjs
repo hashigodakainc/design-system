@@ -97,6 +97,27 @@ for (const tokenName of [
   if (!tokens.has(tokenName)) failures.push(`Card component token is missing: ${tokenName}`);
 }
 
+for (const className of ["hsg-menu", "hsg-menu-item", "hsg-menu-icon"]) {
+  if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+}
+for (const tokenName of [
+  "color.menu.foreground",
+  "color.menu.hover.foreground",
+  "color.menu.active.foreground",
+  "color.menu.active.indicator",
+  "color.menu.divider",
+]) {
+  if (!tokens.has(tokenName)) failures.push(`Menu component token is missing: ${tokenName}`);
+}
+if (tokens.get("color.menu.active.indicator")?.value !== "{color.brand.primary}") {
+  failures.push("Menu active indicator must reference color.brand.primary");
+}
+const guidelineMenuItems = [...guidelineHtml.matchAll(/<a class="[^"]*hsg-menu-item[^"]*"[^>]*>/g)];
+if (guidelineMenuItems.filter(([tag]) => tag.includes('aria-current="page"')).length !== 1) {
+  failures.push('Guideline menu must have exactly one aria-current="page" item');
+}
+
 for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]) {
   if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
   if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);

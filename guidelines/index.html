@@ -232,7 +232,18 @@
     </section>
 
     <section class="section" id="components">
-      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>カードは面の役割に応じてRaisedとSunkenを使い分け、ボタンとバッジは重要度や分類を形と色で示します。</p></div></div>
+      <div class="section-heading"><div><h2 class="hsg-type-heading-2">コンポーネント</h2><p>メニュー、ボタン、カード、バッジを、用途と状態が一貫する実装として提供します。</p></div></div>
+      <h3 class="component-type-heading hsg-type-heading-3">Menu</h3>
+      <div class="component-demo menu-component-demo">
+        <div>
+          <nav class="hsg-menu" aria-label="メインメニュー">
+            <a class="hsg-menu-item" href="#components"><svg class="hsg-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke-width="2"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg><span>ホーム</span></a>
+            <a class="hsg-menu-item" href="#components"><svg class="hsg-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke-width="2"><path d="m4 7 8-4 8 4-8 4Z"></path><path d="M4 7v10l8 4 8-4V7M12 11v10"></path></svg><span>商品</span></a>
+            <a class="hsg-menu-item" href="#components" aria-current="page"><svg class="hsg-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke-width="2"><path d="M6 3h9l3 3v15H6Z"></path><path d="M9 10h6M9 14h6M9 18h4"></path></svg><span>注文</span></a>
+            <a class="hsg-menu-item" href="#components"><svg class="hsg-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H3v-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg><span>設定</span></a>
+          </nav>
+        </div>
+      </div>
       <h3 class="component-type-heading hsg-type-heading-3">Button</h3>
       <div class="component-demo">
         <div><p class="demo-label">Actions</p><div class="demo-row"><button class="hsg-button hsg-button-primary" type="button">お問い合わせ</button><button class="hsg-button hsg-button-secondary" type="button">詳しく見る</button><button class="hsg-button hsg-button-tertiary" type="button">戻る</button></div></div>
@@ -253,7 +264,7 @@
         <article class="badge-demo badge-demo-raised"><p class="demo-label">On Raised</p><div class="demo-row"><span class="hsg-badge hsg-badge-neutral-sunken">Neutral Sunken</span></div></article>
       </div>
       <div class="badge-demo badge-demo-colors"><p class="demo-label">Classification Colors</p><div class="demo-row"><span class="hsg-badge hsg-badge-primary">Primary</span><span class="hsg-badge hsg-badge-secondary">Secondary</span><span class="hsg-badge hsg-badge-violet">Violet</span><span class="hsg-badge hsg-badge-orange">Orange</span></div><p>色付きバッジは白文字を使い、コントラストを満たす専用トーンで分類を示します。処理結果やシステム状態にはStatus Semantic Colorsを使います。</p></div>
-      <p class="pending-note">ボタンの3階層と基本状態、バッジの表示仕様は採用済みです。ボタン寸法のバリエーション、無効・処理中状態、アイコン併用は今後追加します。</p>
+      <p class="pending-note">メニューの基本状態、ボタンの3階層と基本状態、バッジの表示仕様は採用済みです。タブパターン、ボタン寸法のバリエーション、無効・処理中状態、ボタンのアイコン併用は今後追加します。</p>
     </section>
 
     <footer><p>Hashigodaka Design System</p><p>判断と実装を、同じ場所から。</p></footer>

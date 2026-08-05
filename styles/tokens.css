@@ -59,6 +59,11 @@
   --hsg-color-card-raised-background: var(--hsg-color-background-raised);
   --hsg-color-card-raised-border: var(--hsg-color-border-default);
   --hsg-color-card-sunken-background: var(--hsg-color-background-sunken);
+  --hsg-color-menu-foreground: var(--hsg-color-text-secondary);
+  --hsg-color-menu-hover-foreground: var(--hsg-color-text-primary);
+  --hsg-color-menu-active-foreground: var(--hsg-color-text-primary);
+  --hsg-color-menu-active-indicator: var(--hsg-color-brand-primary);
+  --hsg-color-menu-divider: var(--hsg-color-border-default);
   --hsg-color-action-primary-background: var(--hsg-color-background-inverse);
   --hsg-color-action-primary-foreground: var(--hsg-color-text-inverse);
   --hsg-color-action-primary-border: var(--hsg-color-background-inverse);
