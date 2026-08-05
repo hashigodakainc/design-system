@@ -88,9 +88,35 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
       .forEach((token) => neutralContainer.append(renderSwatch(token, 'neutral')));
   }
   if (foundationContainer) {
-    colorSource.tokens
-      .filter((token) => token.layer === 'semantic' && /\.(?:background|text|border|focus)\./.test(`.${token.name}.`))
-      .forEach((token) => foundationContainer.append(renderSwatch(token, 'neutral')));
+    const foundationGroups = [
+      {
+        label: 'Background',
+        description: 'ページや要素の面が、基盤・前面・奥・反転のどこにあるかを示します。',
+        prefixes: ['color.background.'],
+      },
+      {
+        label: 'Text',
+        description: '情報の優先度と、配置する背景に応じた文字色を示します。',
+        prefixes: ['color.text.'],
+      },
+      {
+        label: 'Border & Focus',
+        description: '情報構造の境界と、キーボードフォーカスを示します。',
+        prefixes: ['color.border.', 'color.focus.'],
+      },
+    ];
+    foundationGroups.forEach(({ label, description, prefixes }) => {
+      const group = el('section', 'foundation-group');
+      const heading = el('div', 'foundation-group-heading');
+      heading.append(el('h4', '', label), el('p', '', description));
+      const grid = el('div', 'neutral-grid');
+      grid.setAttribute('aria-label', `${label} semantic colors`);
+      colorSource.tokens
+        .filter((token) => token.layer === 'semantic' && prefixes.some((prefix) => token.name.startsWith(prefix)))
+        .forEach((token) => grid.append(renderSwatch(token, 'neutral')));
+      group.append(heading, grid);
+      foundationContainer.append(group);
+    });
   }
   if (semanticContainer) {
     const statusLabels = {

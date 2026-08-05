@@ -211,14 +211,14 @@
       "name": "color.background.raised",
       "layer": "semantic",
       "value": "{color.neutral.0}",
-      "description": "基盤より持ち上げる面。canvas上へ直接置かず、sunken区画内か border.default の輪郭を伴う。",
+      "description": "基盤より持ち上がる面。カードでは罫線や影を加えず、この背景色だけで面を示す。",
       "type": "color"
     },
     {
       "name": "color.background.sunken",
       "layer": "semantic",
       "value": "{color.neutral.100}",
-      "description": "基盤より一段沈む区画、図表、インセットの背景。カード背景には background.raised を優先する。",
+      "description": "基盤より一段沈む区画、図表、インセット、補足カードの背景。罫線や影を加えず面を示す。",
       "type": "color"
     },
     {
