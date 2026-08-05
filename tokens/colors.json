@@ -1,363 +1,600 @@
 {
-  "version": "0.1.0",
-  "status": "selected",
-  "sourceDecision": "D-E-D",
-  "description": "Hashigodakaのブランドカラーと用途別カラートークン",
+  "version": "0.2.0",
+  "status": "approved",
+  "description": "Hashigodakaの三層カラートークン（プリミティブ、セマンティック、コンポーネント）",
+  "pending": [
+    {
+      "topic": ".hsg-card の正式定義",
+      "until": "輪郭型・区画型の2修飾クラスを別提案で承認する",
+      "interim": "background.raised / background.sunken / border.default の使用規則を個別実装で適用する"
+    }
+  ],
+  "primitiveReferenceExceptions": [
+    "color.badge.primary.background",
+    "color.badge.secondary.background",
+    "color.badge.violet.background",
+    "color.badge.orange.background"
+  ],
   "tokens": [
     {
-      "name": "color.brand.primary",
-      "type": "color",
+      "name": "color.neutral.0",
+      "layer": "primitive",
+      "value": "#FFFFFF",
+      "description": "最明ストップ。",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.50",
+      "layer": "primitive",
+      "value": "#FAF9FC",
+      "description": "",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.100",
+      "layer": "primitive",
+      "value": "#ECE8F0",
+      "description": "",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.200",
+      "layer": "primitive",
+      "value": "#DCD8E1",
+      "description": "",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.600",
+      "layer": "primitive",
+      "value": "#625D69",
+      "description": "",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.800",
+      "layer": "primitive",
+      "value": "#35313A",
+      "description": "",
+      "type": "color"
+    },
+    {
+      "name": "color.neutral.900",
+      "layer": "primitive",
+      "value": "#18151D",
+      "description": "最暗ストップ。",
+      "type": "color"
+    },
+    {
+      "name": "color.blue.50",
+      "layer": "primitive",
+      "value": "#E7F4FC",
+      "type": "color"
+    },
+    {
+      "name": "color.blue.400",
+      "layer": "primitive",
       "value": "#00A0FF",
-      "description": "ブランドの主色。主役となるグラフィックやブランド表現へ限定して使う。"
+      "type": "color"
+    },
+    {
+      "name": "color.blue.500",
+      "layer": "primitive",
+      "value": "#2482B3",
+      "type": "color"
+    },
+    {
+      "name": "color.blue.600",
+      "layer": "primitive",
+      "value": "#0070B8",
+      "type": "color"
+    },
+    {
+      "name": "color.blue.700",
+      "layer": "primitive",
+      "value": "#005F8F",
+      "type": "color"
+    },
+    {
+      "name": "color.lime.300",
+      "layer": "primitive",
+      "value": "#C7F14A",
+      "type": "color"
+    },
+    {
+      "name": "color.lime.600",
+      "layer": "primitive",
+      "value": "#5F7800",
+      "type": "color"
+    },
+    {
+      "name": "color.violet.500",
+      "layer": "primitive",
+      "value": "#6C4ED9",
+      "type": "color"
+    },
+    {
+      "name": "color.orange.400",
+      "layer": "primitive",
+      "value": "#FF6B3D",
+      "type": "color"
+    },
+    {
+      "name": "color.orange.600",
+      "layer": "primitive",
+      "value": "#B83A12",
+      "type": "color"
+    },
+    {
+      "name": "color.green.50",
+      "layer": "primitive",
+      "value": "#E8F5EC",
+      "type": "color"
+    },
+    {
+      "name": "color.green.400",
+      "layer": "primitive",
+      "value": "#4A9B67",
+      "type": "color"
+    },
+    {
+      "name": "color.green.700",
+      "layer": "primitive",
+      "value": "#176B35",
+      "type": "color"
+    },
+    {
+      "name": "color.yellow.50",
+      "layer": "primitive",
+      "value": "#FFF4D6",
+      "type": "color"
+    },
+    {
+      "name": "color.yellow.500",
+      "layer": "primitive",
+      "value": "#A77400",
+      "type": "color"
+    },
+    {
+      "name": "color.yellow.700",
+      "layer": "primitive",
+      "value": "#704B00",
+      "type": "color"
+    },
+    {
+      "name": "color.red.50",
+      "layer": "primitive",
+      "value": "#FDEBEC",
+      "type": "color"
+    },
+    {
+      "name": "color.red.400",
+      "layer": "primitive",
+      "value": "#C84D58",
+      "type": "color"
+    },
+    {
+      "name": "color.red.700",
+      "layer": "primitive",
+      "value": "#9F2530",
+      "type": "color"
+    },
+    {
+      "name": "color.brand.primary",
+      "layer": "semantic",
+      "value": "{color.blue.400}",
+      "description": "ブランドの主色。主役となるグラフィックやブランド表現へ限定して使う。",
+      "type": "color"
     },
     {
       "name": "color.brand.secondary",
-      "type": "color",
-      "value": "#C7F14A",
-      "description": "ブランドの補助色。主色より小さい面積で、ブランド表現の対比が必要な箇所へ使う。"
+      "layer": "semantic",
+      "value": "{color.lime.300}",
+      "description": "ブランドの補助色。主色より小さい面積で使う。",
+      "type": "color"
     },
     {
       "name": "color.brand.extended.violet",
-      "type": "color",
-      "value": "#6C4ED9",
-      "description": "図解やブランド表現を拡張する紫。"
+      "layer": "semantic",
+      "value": "{color.violet.500}",
+      "description": "図解やブランド表現を拡張する紫。",
+      "type": "color"
     },
     {
       "name": "color.brand.extended.orange",
-      "type": "color",
-      "value": "#FF6B3D",
-      "description": "図解やブランド表現を拡張する橙。"
-    },
-    {
-      "name": "color.neutral.canvas",
-      "type": "color",
-      "value": "#FAF9FC",
-      "description": "ページ全体の背景。広い面積を確保する。"
-    },
-    {
-      "name": "color.neutral.ink",
-      "type": "color",
-      "value": "#18151D",
-      "description": "見出しと本文の基本文字色。"
-    },
-    {
-      "name": "color.neutral.surface",
-      "type": "color",
-      "value": "#ECE8F0",
-      "description": "カード、図表、区切り面の薄い背景。"
-    },
-    {
-      "name": "color.neutral.border",
-      "type": "color",
-      "value": "#DCD8E1",
-      "description": "入力欄やSecondaryボタンなど、輪郭を穏やかに示す罫線。"
-    },
-    {
-      "name": "color.neutral.muted",
-      "type": "color",
-      "value": "#625D69",
-      "description": "補足情報と、Tertiaryボタンのホバー状態に使う控えめな文字色。"
+      "layer": "semantic",
+      "value": "{color.orange.400}",
+      "description": "図解やブランド表現を拡張する橙。",
+      "type": "color"
     },
     {
       "name": "color.background.canvas",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "ページ背景の用途別トークン。"
+      "layer": "semantic",
+      "value": "{color.neutral.50}",
+      "description": "ページ全体の背景。広い面積を確保する。",
+      "type": "color"
     },
     {
-      "name": "color.background.surface",
-      "type": "color",
-      "value": "{color.neutral.surface}",
-      "description": "カードや図表背景の用途別トークン。"
+      "name": "color.background.raised",
+      "layer": "semantic",
+      "value": "{color.neutral.0}",
+      "description": "基盤より持ち上げる面。canvas上へ直接置かず、sunken区画内か border.default の輪郭を伴う。",
+      "type": "color"
+    },
+    {
+      "name": "color.background.sunken",
+      "layer": "semantic",
+      "value": "{color.neutral.100}",
+      "description": "基盤より一段沈む区画、図表、インセットの背景。カード背景には background.raised を優先する。",
+      "type": "color"
+    },
+    {
+      "name": "color.background.inverse",
+      "layer": "semantic",
+      "value": "{color.neutral.900}",
+      "description": "暗い面。Primary CTAなど強い面の基盤。大面積を既定にしない。",
+      "type": "color"
+    },
+    {
+      "name": "color.background.inverse-hover",
+      "layer": "semantic",
+      "value": "{color.neutral.800}",
+      "description": "暗い面のホバー。階層を保ったままトーンを変える。",
+      "type": "color"
     },
     {
       "name": "color.background.brand",
-      "type": "color",
-      "value": "{color.brand.primary}",
-      "description": "ブランド主色を背景として使う場合のトークン。"
+      "layer": "semantic",
+      "value": "{color.blue.400}",
+      "description": "ブランド主色を背景として使う場合のトークン。",
+      "type": "color"
     },
     {
       "name": "color.text.primary",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "通常の見出しと本文。"
+      "layer": "semantic",
+      "value": "{color.neutral.900}",
+      "description": "通常の見出しと本文。",
+      "type": "color"
+    },
+    {
+      "name": "color.text.secondary",
+      "layer": "semantic",
+      "value": "{color.neutral.600}",
+      "description": "補足情報の控えめな文字色。",
+      "type": "color"
+    },
+    {
+      "name": "color.text.inverse",
+      "layer": "semantic",
+      "value": "{color.neutral.50}",
+      "description": "暗い面の上で使う文字色。",
+      "type": "color"
     },
     {
       "name": "color.text.on-brand",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "PrimaryとSecondaryの色面上で使う文字色。"
+      "layer": "semantic",
+      "value": "{color.neutral.900}",
+      "description": "PrimaryとSecondaryの色面上で使う文字色。",
+      "type": "color"
     },
     {
-      "name": "color.border.subtle",
-      "type": "color",
-      "value": "{color.neutral.border}",
-      "description": "装飾的な区切り線。情報伝達を罫線だけに依存させない。"
+      "name": "color.border.default",
+      "layer": "semantic",
+      "value": "{color.neutral.200}",
+      "description": "情報構造の境界と輪郭の既定罫線。情報伝達を罫線だけに依存させない。",
+      "type": "color"
+    },
+    {
+      "name": "color.focus.outline",
+      "layer": "semantic",
+      "value": "{color.neutral.900}",
+      "description": "フォーカスリング。",
+      "type": "color"
     },
     {
       "name": "color.status.success.background",
-      "type": "color",
-      "value": "#E8F5EC",
-      "description": "処理の完了や正常な結果を示す、Successメッセージの背景。"
+      "layer": "semantic",
+      "value": "{color.green.50}",
+      "description": "Successメッセージの背景。",
+      "type": "color"
     },
     {
       "name": "color.status.success.foreground",
-      "type": "color",
-      "value": "#176B35",
-      "description": "Successメッセージの文字とアイコン。"
+      "layer": "semantic",
+      "value": "{color.green.700}",
+      "description": "Successメッセージの文字とアイコン。",
+      "type": "color"
     },
     {
       "name": "color.status.success.border",
-      "type": "color",
-      "value": "#4A9B67",
-      "description": "Successメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+      "layer": "semantic",
+      "value": "{color.green.400}",
+      "description": "Successメッセージの境界。",
+      "type": "color"
     },
     {
       "name": "color.status.warning.background",
-      "type": "color",
-      "value": "#FFF4D6",
-      "description": "確認や注意が必要な状態を示す、Warningメッセージの背景。"
+      "layer": "semantic",
+      "value": "{color.yellow.50}",
+      "description": "Warningメッセージの背景。",
+      "type": "color"
     },
     {
       "name": "color.status.warning.foreground",
-      "type": "color",
-      "value": "#704B00",
-      "description": "Warningメッセージの文字とアイコン。"
+      "layer": "semantic",
+      "value": "{color.yellow.700}",
+      "description": "Warningメッセージの文字とアイコン。",
+      "type": "color"
     },
     {
       "name": "color.status.warning.border",
-      "type": "color",
-      "value": "#A77400",
-      "description": "Warningメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+      "layer": "semantic",
+      "value": "{color.yellow.500}",
+      "description": "Warningメッセージの境界。",
+      "type": "color"
     },
     {
       "name": "color.status.error.background",
-      "type": "color",
-      "value": "#FDEBEC",
-      "description": "失敗や修正が必要な状態を示す、Errorメッセージの背景。"
+      "layer": "semantic",
+      "value": "{color.red.50}",
+      "description": "Errorメッセージの背景。",
+      "type": "color"
     },
     {
       "name": "color.status.error.foreground",
-      "type": "color",
-      "value": "#9F2530",
-      "description": "Errorメッセージの文字とアイコン。"
+      "layer": "semantic",
+      "value": "{color.red.700}",
+      "description": "Errorメッセージの文字とアイコン。",
+      "type": "color"
     },
     {
       "name": "color.status.error.border",
-      "type": "color",
-      "value": "#C84D58",
-      "description": "Errorメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
+      "layer": "semantic",
+      "value": "{color.red.400}",
+      "description": "Errorメッセージの境界。",
+      "type": "color"
     },
     {
       "name": "color.status.info.background",
-      "type": "color",
-      "value": "#E7F4FC",
-      "description": "補足や中立的な案内を示す、Infoメッセージの背景。"
+      "layer": "semantic",
+      "value": "{color.blue.50}",
+      "description": "Infoメッセージの背景。",
+      "type": "color"
     },
     {
       "name": "color.status.info.foreground",
-      "type": "color",
-      "value": "#005F8F",
-      "description": "Infoメッセージの文字とアイコン。"
+      "layer": "semantic",
+      "value": "{color.blue.700}",
+      "description": "Infoメッセージの文字とアイコン。",
+      "type": "color"
     },
     {
       "name": "color.status.info.border",
-      "type": "color",
-      "value": "#2482B3",
-      "description": "Infoメッセージの境界と、色以外の識別を補うアイコンの輪郭。"
-    },
-    {
-      "name": "color.action.primary.background",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "最重要アクションの黒い背景。ブランドのPrimary Colorとは独立した重要度の表現。"
-    },
-    {
-      "name": "color.action.primary.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "主要CTAの文字。"
-    },
-    {
-      "name": "color.action.primary.border",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "主要CTAの枠線。背景と同色にして強い面を作る。"
-    },
-    {
-      "name": "color.action.primary.hover.background",
-      "type": "color",
-      "value": "#35313A",
-      "description": "主要CTAのホバー背景。階層を保ったまま黒のトーンを変える。"
-    },
-    {
-      "name": "color.action.primary.hover.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "主要CTAのホバー文字。"
-    },
-    {
-      "name": "color.action.primary.hover.border",
-      "type": "color",
-      "value": "{color.action.primary.hover.background}",
-      "description": "主要CTAのホバー枠線。"
-    },
-    {
-      "name": "color.action.secondary.background",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "中重要度アクションの白い背景。"
-    },
-    {
-      "name": "color.action.secondary.foreground",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "補助CTAの文字。"
-    },
-    {
-      "name": "color.action.secondary.border",
-      "type": "color",
-      "value": "{color.neutral.border}",
-      "description": "補助CTAのグレーの枠線。"
-    },
-    {
-      "name": "color.action.secondary.hover.background",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "補助CTAのホバー背景。通常状態の明暗を反転する。"
-    },
-    {
-      "name": "color.action.secondary.hover.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "補助CTAのホバー文字。"
-    },
-    {
-      "name": "color.action.secondary.hover.border",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "補助CTAのホバー枠線。"
-    },
-    {
-      "name": "color.action.tertiary.foreground",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "低重要度アクションの文字。"
-    },
-    {
-      "name": "color.action.tertiary.underline",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "低重要度アクションを示す下線。"
-    },
-    {
-      "name": "color.action.tertiary.hover.foreground",
-      "type": "color",
-      "value": "{color.neutral.muted}",
-      "description": "低重要度アクションのホバー文字。"
-    },
-    {
-      "name": "color.action.tertiary.hover.underline",
-      "type": "color",
-      "value": "{color.neutral.muted}",
-      "description": "低重要度アクションのホバー下線。"
-    },
-    {
-      "name": "color.badge.neutral.background",
-      "type": "color",
-      "value": "{color.neutral.surface}",
-      "description": "未確定など、強い色を必要としないバッジの背景。"
-    },
-    {
-      "name": "color.badge.neutral.foreground",
-      "type": "color",
-      "value": "{color.neutral.ink}",
-      "description": "Neutralバッジの文字。"
-    },
-    {
-      "name": "color.badge.neutral.border",
-      "type": "color",
-      "value": "{color.neutral.border}",
-      "description": "Neutralバッジの枠線。"
-    },
-    {
-      "name": "color.badge.primary.background",
-      "type": "color",
-      "value": "#0070B8",
-      "description": "Primary系バッジの背景。白文字を使える専用の濃いトーン。"
-    },
-    {
-      "name": "color.badge.primary.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "Primary系バッジの白い文字。"
-    },
-    {
-      "name": "color.badge.secondary.background",
-      "type": "color",
-      "value": "#5F7800",
-      "description": "Secondary系バッジの背景。白文字を使える専用の濃いトーン。"
-    },
-    {
-      "name": "color.badge.secondary.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "Secondary系バッジの白い文字。"
-    },
-    {
-      "name": "color.badge.violet.background",
-      "type": "color",
-      "value": "{color.brand.extended.violet}",
-      "description": "Violet系バッジの背景。"
-    },
-    {
-      "name": "color.badge.violet.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "Violet系バッジの白い文字。"
-    },
-    {
-      "name": "color.badge.orange.background",
-      "type": "color",
-      "value": "#B83A12",
-      "description": "Orange系バッジの背景。白文字を使える専用の濃いトーン。"
-    },
-    {
-      "name": "color.badge.orange.foreground",
-      "type": "color",
-      "value": "{color.neutral.canvas}",
-      "description": "Orange系バッジの白い文字。"
+      "layer": "semantic",
+      "value": "{color.blue.500}",
+      "description": "Infoメッセージの境界。",
+      "type": "color"
     },
     {
       "name": "color.data.series.1",
-      "type": "color",
-      "value": "{color.brand.primary}",
-      "description": "図解・チャートの第1系列。"
+      "layer": "semantic",
+      "value": "{color.blue.400}",
+      "description": "図解・チャートの第1系列。",
+      "type": "color"
     },
     {
       "name": "color.data.series.2",
-      "type": "color",
-      "value": "{color.brand.secondary}",
-      "description": "図解・チャートの第2系列。"
+      "layer": "semantic",
+      "value": "{color.lime.300}",
+      "description": "図解・チャートの第2系列。",
+      "type": "color"
     },
     {
       "name": "color.data.series.3",
-      "type": "color",
-      "value": "{color.brand.extended.violet}",
-      "description": "図解・チャートの第3系列。"
+      "layer": "semantic",
+      "value": "{color.violet.500}",
+      "description": "図解・チャートの第3系列。",
+      "type": "color"
     },
     {
       "name": "color.data.series.4",
-      "type": "color",
-      "value": "{color.brand.extended.orange}",
-      "description": "図解・チャートの第4系列。"
+      "layer": "semantic",
+      "value": "{color.orange.400}",
+      "description": "図解・チャートの第4系列。",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.background",
+      "layer": "component",
+      "value": "{color.background.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.border",
+      "layer": "component",
+      "value": "{color.background.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.hover.background",
+      "layer": "component",
+      "value": "{color.background.inverse-hover}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.hover.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.primary.hover.border",
+      "layer": "component",
+      "value": "{color.background.inverse-hover}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.background",
+      "layer": "component",
+      "value": "{color.background.canvas}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.border",
+      "layer": "component",
+      "value": "{color.border.default}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.hover.background",
+      "layer": "component",
+      "value": "{color.background.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.hover.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.secondary.hover.border",
+      "layer": "component",
+      "value": "{color.background.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.tertiary.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.tertiary.underline",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.tertiary.hover.foreground",
+      "layer": "component",
+      "value": "{color.text.secondary}",
+      "type": "color"
+    },
+    {
+      "name": "color.action.tertiary.hover.underline",
+      "layer": "component",
+      "value": "{color.text.secondary}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.neutral.background",
+      "layer": "component",
+      "value": "{color.background.sunken}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.neutral.foreground",
+      "layer": "component",
+      "value": "{color.text.primary}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.neutral.border",
+      "layer": "component",
+      "value": "{color.border.default}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.primary.background",
+      "layer": "component",
+      "value": "{color.blue.600}",
+      "$comment": "primitive直接参照の許容例（生成時警告）",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.primary.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.secondary.background",
+      "layer": "component",
+      "value": "{color.lime.600}",
+      "$comment": "primitive直接参照の許容例（生成時警告）",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.secondary.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.violet.background",
+      "layer": "component",
+      "value": "{color.violet.500}",
+      "$comment": "primitive直接参照の許容例（生成時警告）",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.violet.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.orange.background",
+      "layer": "component",
+      "value": "{color.orange.600}",
+      "$comment": "primitive直接参照の許容例（生成時警告）",
+      "type": "color"
+    },
+    {
+      "name": "color.badge.orange.foreground",
+      "layer": "component",
+      "value": "{color.text.inverse}",
+      "type": "color"
     }
   ],
   "contrastChecks": [
     {
       "foreground": "color.text.primary",
-      "background": "color.background.canvas",
+      "background": "color.background.raised",
       "minimum": 7
+    },
+    {
+      "foreground": "color.text.primary",
+      "background": "color.background.sunken",
+      "minimum": 7
+    },
+    {
+      "foreground": "color.text.secondary",
+      "background": "color.background.raised",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.text.secondary",
+      "background": "color.background.sunken",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.background.raised",
+      "background": "color.background.sunken",
+      "minimum": 1.1
     },
     {
       "foreground": "color.action.primary.foreground",

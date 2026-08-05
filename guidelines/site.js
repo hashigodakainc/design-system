@@ -75,6 +75,7 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
 
   const brandContainer = document.querySelector('[data-render="brand-swatches"]');
   const neutralContainer = document.querySelector('[data-render="neutral-swatches"]');
+  const foundationContainer = document.querySelector('[data-render="foundation-swatches"]');
   const semanticContainer = document.querySelector('[data-render="semantic-swatches"]');
   if (brandContainer) {
     colorSource.tokens
@@ -83,8 +84,13 @@ const render = (colorSource, typographySource, layoutSource, assetSource) => {
   }
   if (neutralContainer) {
     colorSource.tokens
-      .filter((token) => ['color.neutral.canvas', 'color.neutral.ink', 'color.neutral.surface'].includes(token.name))
+      .filter((token) => token.layer === 'primitive' && token.name.startsWith('color.neutral.'))
       .forEach((token) => neutralContainer.append(renderSwatch(token, 'neutral')));
+  }
+  if (foundationContainer) {
+    colorSource.tokens
+      .filter((token) => token.layer === 'semantic' && /\.(?:background|text|border|focus)\./.test(`.${token.name}.`))
+      .forEach((token) => foundationContainer.append(renderSwatch(token, 'neutral')));
   }
   if (semanticContainer) {
     const statusLabels = {

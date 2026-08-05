@@ -37,7 +37,7 @@
     { "name": "radius.medium", "type": "dimension", "value": "4px", "description": "矩形の明快さを保ちながら角の硬さだけを和らげる角丸。" },
     { "name": "radius.action", "type": "dimension", "value": "{radius.medium}", "description": "PrimaryとSecondaryボタンの角丸。ボックス形状を作らないTertiaryには使わない。" },
     { "name": "radius.badge", "type": "dimension", "value": "{radius.small}", "description": "バッジの角丸。" },
-    { "name": "focus.outline.width", "type": "dimension", "value": "3px", "description": "キーボードフォーカスを示すInkアウトラインの太さ。" },
+    { "name": "focus.outline.width", "type": "dimension", "value": "3px", "description": "color.focus.outline で示すキーボードフォーカスの太さ。" },
     { "name": "focus.outline.offset", "type": "dimension", "value": "3px", "description": "フォーカスアウトラインと要素の間隔。" },
 
     { "name": "layout.breakpoint.mobile", "type": "dimension", "value": "760px" },

@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { validateColorLayers } from "./color-layer-rules.mjs";
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
@@ -16,6 +18,10 @@ const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutS
 const tokens = new Map();
 const failures = [];
 const supportedTypes = new Set(["color", "fontFamily", "fontWeight", "dimension", "number", "letterSpacing"]);
+
+const layerValidation = validateColorLayers(colorSource);
+failures.push(...layerValidation.errors);
+for (const warning of layerValidation.warnings) console.warn(`Warning: ${warning}`);
 
 for (const token of allTokens) {
   if (tokens.has(token.name)) failures.push(`Duplicate token: ${token.name}`);
@@ -36,8 +42,33 @@ for (const token of allTokens) {
 
 const combinedCss = `${generatedCss}\n${generatedTypographyCss}`;
 for (const source of [guidelineHtml, guidelineCss, componentCss]) {
-  for (const match of source.matchAll(/var\((--hsg-[a-z0-9-]+)\)/g)) {
+  for (const match of source.matchAll(/var\(\s*(--hsg-[a-z0-9-]+)(?:\s*,[^)]*)?\s*\)/g)) {
     if (!combinedCss.includes(`${match[1]}:`)) failures.push(`A consumer uses an unknown CSS variable: ${match[1]}`);
+  }
+}
+
+const primitiveCssNames = new Set(
+  colorSource.tokens
+    .filter((token) => token.layer === "primitive")
+    .map((token) => cssName(token.name)),
+);
+for (const [label, source] of [
+  ["guidelines/index.html", guidelineHtml],
+  ["guidelines/site.css", guidelineCss],
+  ["styles/components.css", componentCss],
+]) {
+  for (const match of source.matchAll(/var\(\s*(--hsg-color-[a-z0-9-]+)(?:\s*,[^)]*)?\s*\)/g)) {
+    if (primitiveCssNames.has(match[1])) failures.push(`${label} directly uses primitive color variable: ${match[1]}`);
+  }
+}
+
+for (const [label, source] of [
+  ["guidelines/index.html", guidelineHtml],
+  ["guidelines/site.css", guidelineCss],
+  ["styles/components.css", componentCss],
+]) {
+  if (/#[0-9a-f]{3,8}\b/i.test(source) || /%23[0-9a-f]{3,8}\b/i.test(source) || /\brgba?\(/i.test(source)) {
+    failures.push(`${label} contains a raw color value; use a semantic or component token`);
   }
 }
 

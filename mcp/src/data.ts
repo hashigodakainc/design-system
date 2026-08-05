@@ -22,6 +22,7 @@ export interface StatusSummary {
 
 export interface ResolvedToken {
   description: string | null;
+  layer: string | null;
   name: string;
   resolved: string;
   type: string | null;
@@ -278,6 +279,7 @@ function loadTokenCategories(source: RepositorySource): {
         resolved: resolveAlias(name),
         description:
           typeof token.description === "string" ? token.description : null,
+        layer: typeof token.layer === "string" ? token.layer : null,
         type: typeof token.type === "string" ? token.type : null,
       };
     });
