@@ -1,0 +1,20 @@
+{
+  "name": "@hashigodaka/design-guidelines-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "dev": "pnpm build && wrangler dev",
+    "smoke": "node scripts/smoke.mjs",
+    "verify": "pnpm build && pnpm check && WRANGLER_LOG_PATH=/tmp/design-guidelines-wrangler-build.log wrangler deploy --dry-run"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@11.18.0",
+  "devDependencies": {
+    "wrangler": "^4.113.0"
+  }
+}
