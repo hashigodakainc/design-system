@@ -115,6 +115,7 @@
 }
 
 .hsg-card-raised {
+  border: 1px solid var(--hsg-color-border-default);
   background: var(--hsg-color-background-raised);
 }
 

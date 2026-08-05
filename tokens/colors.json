@@ -211,7 +211,7 @@
       "name": "color.background.raised",
       "layer": "semantic",
       "value": "{color.neutral.0}",
-      "description": "基盤より持ち上がる面。カードでは罫線や影を加えず、この背景色だけで面を示す。",
+      "description": "基盤より持ち上がる面。カードでは border.default の薄い輪郭を添え、影は加えない。",
       "type": "color"
     },
     {
@@ -593,6 +593,11 @@
     {
       "foreground": "color.background.raised",
       "background": "color.background.sunken",
+      "minimum": 1.1
+    },
+    {
+      "foreground": "color.border.default",
+      "background": "color.background.raised",
       "minimum": 1.1
     },
     {
