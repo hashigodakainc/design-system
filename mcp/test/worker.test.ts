@@ -4,6 +4,7 @@ import test from "node:test";
 import snapshotJson from "../src/generated/design-snapshot.json" with {
   type: "json",
 };
+import { SnapshotRepositoryLoader } from "../src/loaders/snapshot.ts";
 import {
   createWorker,
   readBoundedRequest,
@@ -26,12 +27,21 @@ const env = {
   },
 };
 
-test("snapshot publishes the three-layer color taxonomy without legacy names", () => {
-  const source = snapshotJson.textFiles["tokens/colors.json"];
-  assert.equal(typeof source, "string");
-  const colors = JSON.parse(source) as {
-    tokens: Array<{ layer: string; name: string; value: string }>;
-  };
+type TokenSource = {
+  pending?: unknown[];
+  roles?: Array<{ name: string }>;
+  status: string;
+  tokens: Array<{ layer: string; name: string; type: string; value: string }>;
+};
+
+function tokenSource(path: string): TokenSource {
+  const source = snapshotJson.textFiles[path];
+  assert.equal(typeof source, "string", `snapshot is missing ${path}`);
+  return JSON.parse(source) as TokenSource;
+}
+
+test("snapshot separates semantic colors from component tokens", () => {
+  const colors = tokenSource("tokens/colors.json");
   const names = new Set(colors.tokens.map((token) => token.name));
 
   for (const name of [
@@ -40,7 +50,6 @@ test("snapshot publishes the three-layer color taxonomy without legacy names", (
     "color.background.sunken",
     "color.text.secondary",
     "color.focus.outline",
-    "color.action.primary.background",
   ]) assert(names.has(name), `missing ${name}`);
   for (const name of [
     "color.neutral.canvas",
@@ -51,7 +60,59 @@ test("snapshot publishes the three-layer color taxonomy without legacy names", (
     "color.background.surface",
     "color.border.subtle",
   ]) assert(!names.has(name), `legacy token remains: ${name}`);
-  assert(colors.tokens.every((token) => ["primitive", "semantic", "component"].includes(token.layer)));
+  assert(
+    colors.tokens.every((token) => ["primitive", "semantic"].includes(token.layer)),
+  );
+
+  const components = tokenSource("tokens/components.json");
+  const componentNames = new Set(
+    components.tokens.map((token) => token.name),
+  );
+  assert.equal(components.status, "selected");
+  assert.deepEqual(components.pending ?? [], []);
+  assert.equal(components.tokens.length, 40);
+  for (const name of [
+    "button.primary.background",
+    "button.radius",
+    "badge.primary.background",
+    "badge.radius",
+    "menu.foreground",
+    "menu.disabled.foreground",
+    "card.foreground",
+  ]) assert(componentNames.has(name), `missing ${name}`);
+  assert(
+    components.tokens.every(
+      (token) =>
+        token.layer === "component" &&
+        ["color", "dimension"].includes(token.type),
+    ),
+  );
+});
+
+test("snapshot publishes label-large typography", () => {
+  const typography = tokenSource("tokens/typography.json");
+  const tokenNames = new Set(typography.tokens.map((token) => token.name));
+  const roleNames = new Set((typography.roles ?? []).map((role) => role.name));
+
+  assert(tokenNames.has("typography.size.label-large"));
+  assert(roleNames.has("label-large"));
+});
+
+test("repository exposes all four token sources and component status", () => {
+  const repository = new SnapshotRepositoryLoader(snapshotJson).load();
+  assert.deepEqual(
+    [...repository.tokenCategories.keys()].sort(),
+    ["color", "component", "layout", "typography"],
+  );
+
+  const components = repository.tokenCategories.get("component");
+  assert(components);
+  assert.equal(components.source.path, "tokens/components.json");
+  assert.equal(components.source.status, "selected");
+  assert.deepEqual(components.source.pending, []);
+  assert.equal(components.tokens.length, 40);
+  assert.match(repository.instructions, /tokens\/components\.json=selected/);
+  assert.match(repository.instructions, /category="component"/);
 });
 
 function request(path: string, init: RequestInit = {}): Request {
@@ -72,7 +133,16 @@ async function fetchWorker(path: string, init: RequestInit = {}) {
 test("Hono routes health, not-found, and method responses", async () => {
   const health = await fetchWorker("/health");
   assert.equal(health.status, 200);
-  assert.equal((await health.json()).ok, true);
+  const healthBody = await health.json();
+  assert.equal(healthBody.ok, true);
+  assert.equal(
+    healthBody.snapshot.textFileCount,
+    Object.keys(snapshotJson.textFiles).length,
+  );
+  assert.equal(
+    healthBody.snapshot.staticAssetCount,
+    snapshotJson.staticAssets.length,
+  );
   assert.equal(health.headers.get("access-control-allow-origin"), "*");
 
   const headHealth = await fetchWorker("/health", { method: "HEAD" });
@@ -147,7 +217,10 @@ test("MCP options and initialize requests pass through the Hono adapter", async 
   });
   assert.equal(initialize.status, 200);
   assert.equal(initialize.headers.get("access-control-allow-origin"), "*");
-  assert.match(await initialize.text(), /result/);
+  const initializeText = await initialize.text();
+  assert.match(initializeText, /result/);
+  assert.match(initializeText, /tokens\/components\.json=selected/);
+  assert.match(initializeText, /category=\\?"component\\?"/);
 });
 
 test("MCP guards enforce host, exact origins, and body limits", async () => {

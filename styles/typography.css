@@ -62,9 +62,9 @@
   line-height: var(--hsg-typography-line-height-compact);
   letter-spacing: var(--hsg-typography-letter-spacing-label);
 }
-.hsg-type-action {
+.hsg-type-label-large {
   font-family: var(--hsg-typography-family-body);
-  font-size: var(--hsg-typography-size-action);
+  font-size: var(--hsg-typography-size-label-large);
   font-weight: var(--hsg-typography-weight-emphasis);
   line-height: var(--hsg-typography-line-height-compact);
   letter-spacing: var(--hsg-typography-letter-spacing-body);

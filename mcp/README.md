@@ -14,6 +14,9 @@ Hashigodakaデザインシステムの正本を、AIエージェントから参�
 snapshotは正本から再生成するビルド成果物であり、gitでは管理しません。正本の更新をWorkerへ
 反映するにはsnapshotの再生成と再デプロイが必要です。
 
+`get_tokens` では、プリミティブ／セマンティックを `color`、コンポーネント固有の色と寸法を
+`component` として分けて返します。`component` の正本は `tokens/components.json` です。
+
 ## セットアップ
 
 Node.js 22以上と、`package.json` の `packageManager` に記録したpnpmを使用します。
@@ -67,7 +70,7 @@ Cloudflare側では `mcp-design.hashigodaka.co.jp` のCustom Domainを有効に�
 
 ## 提供するtool
 
-- `get_tokens` — color / typography / layout のトークン、解決前後のalias、status、pendingを返す
+- `get_tokens` — color / component / typography / layout のトークン、解決前後のalias、status、pendingを返す
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 - `get_stylesheet` — `styles/*.css` のCSS本文を返す
