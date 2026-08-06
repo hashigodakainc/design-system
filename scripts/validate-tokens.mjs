@@ -103,6 +103,7 @@ for (const className of ["hsg-menu", "hsg-menu-item", "hsg-menu-icon"]) {
 }
 for (const tokenName of [
   "color.menu.foreground",
+  "color.menu.disabled.foreground",
   "color.menu.hover.foreground",
   "color.menu.active.foreground",
   "color.menu.active.indicator",
@@ -113,9 +114,22 @@ for (const tokenName of [
 if (tokens.get("color.menu.active.indicator")?.value !== "{color.brand.primary}") {
   failures.push("Menu active indicator must reference color.brand.primary");
 }
-const guidelineMenuItems = [...guidelineHtml.matchAll(/<a class="[^"]*hsg-menu-item[^"]*"[^>]*>/g)];
+if (tokens.get("color.menu.disabled.foreground")?.value !== "{color.text.disabled}") {
+  failures.push("Menu disabled foreground must reference color.text.disabled");
+}
+if (!componentCss.includes('.hsg-menu-item[aria-disabled="true"]')) {
+  failures.push("Menu stylesheet must define aria-disabled state");
+}
+const guidelineMenuItems = [...guidelineHtml.matchAll(/<(?:a|span) class="[^"]*hsg-menu-item[^"]*"[^>]*>/g)];
 if (guidelineMenuItems.filter(([tag]) => tag.includes('aria-current="page"')).length !== 1) {
   failures.push('Guideline menu must have exactly one aria-current="page" item');
+}
+const disabledMenuItems = guidelineMenuItems.filter(([tag]) => tag.includes('aria-disabled="true"'));
+if (disabledMenuItems.length !== 1) failures.push("Guideline menu must have exactly one disabled item");
+for (const [tag] of disabledMenuItems) {
+  if (tag.startsWith("<a ") || tag.includes("href=") || tag.includes("tabindex=") || tag.includes("aria-current=")) {
+    failures.push("Disabled guideline menu item must not be a link, focusable, or current");
+  }
 }
 
 for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]) {
