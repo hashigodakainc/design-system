@@ -30,7 +30,7 @@ const fetchJson = (path) => fetch(path).then((response) => {
   return response.json();
 });
 
-const render = (colorSource, typographySource, layoutSource) => {
+const render = (colorSource, typographySource, layoutSource, componentSource) => {
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -38,7 +38,7 @@ const render = (colorSource, typographySource, layoutSource) => {
     return node;
   };
 
-  const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
+  const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens, ...componentSource.tokens];
   const tokenByName = new Map(allTokens.map((token) => [token.name, token]));
   const cssVar = (name) => `--hsg-${name.replaceAll('.', '-')}`;
 
@@ -207,6 +207,7 @@ Promise.all([
   fetchJson('../tokens/colors.json'),
   fetchJson('../tokens/typography.json'),
   fetchJson('../tokens/layout.json'),
+  fetchJson('../tokens/components.json'),
 ]).then((sources) => render(...sources)).catch((error) => {
   console.error('デザイントークンの読み込みに失敗しました。HTTPサーバー経由（リポジトリルート配信）で表示してください。', error);
 });

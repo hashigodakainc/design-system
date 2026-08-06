@@ -53,8 +53,11 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - カラートークンは、値を表す第1層（プリミティブ）、用途を表す第2層（セマンティック）、
   部品固有の第3層（コンポーネント）で構成する。制作物は第2層または第3層だけを参照し、
   `color.neutral.*` や `color.blue.*` など第1層を直接参照しない。
-- 参照方向は第3層から第2層、第2層から第1層に限定する。第3層から第1層への直接参照は、
+- 参照方向は第3層から第2層、第2層から第1層または第2層に限定する。第3層から第1層への直接参照は、
   対応する意味が第2層にない場合だけ許容し、同じ値を別の部品でも必要とした時点で第2層へ昇格する。
+- 第1層と第2層の色は `tokens/colors.json`、第3層は色と角丸を含めて
+  `tokens/components.json` を正本とする。第3層の名前は `{component}.{variant}.{state}.{property}` とし、
+  実装クラス名に対応する `button.*`、`badge.*`、`menu.*`、`card.*` を使う。
 - `color.background.canvas` を画面の基盤とし、最も広い面積を取る。色を画面全体へ敷き詰めない。
 - `color.background.raised` は、Canvas上では `color.border.default` の輪郭を伴う単発の面として使うか、
   `color.background.sunken` の区画内へ罫線なしで置く。面と罫線による境界表現を同じ要素へ重ねない。
@@ -73,7 +76,7 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - 色だけで状態や系列を伝えず、ラベル、形、線種などを併用する。
 - 処理結果やシステム状態には `color.status.success.*`、`color.status.warning.*`、
   `color.status.error.*`、`color.status.info.*` を使う。ブランド色、Extended Colors、
-  `color.badge.*` を状態色として代用しない。
+  `badge.*` を状態色として代用しない。
 - 状態色は同じ状態のBackground・Foregroundを一組で使う。状態名または具体的な説明と
   識別可能なアイコンを併記し、色だけで状態を伝えない。
 - Successは完了または正常、Warningは確認や注意が必要、Errorは失敗または修正が必要、Infoは
@@ -128,24 +131,24 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - ボタンのPrimary / Secondary / Tertiaryは行動の重要度であり、ブランドのPrimary / Secondary
   Colorとは別の概念である。階層はニュートラルカラーの面積と輪郭で示す。
 - Primaryは画面内で最も優先する行動に使い、原則として一つのまとまりに一つまで。
-- ボタンのラベルはActionのタイポグラフィで、操作後の結果が予測できる具体的な動詞を選ぶ。
+- ボタンのラベルはLabel Largeのタイポグラフィで、操作後の結果が予測できる具体的な動詞を選ぶ。
 - 色だけで階層や状態を伝えず、面・枠線・下線の形状差も保つ。
 - メニューはページまたはビュー間を移動する横並びナビゲーションに使う。`nav.hsg-menu` の直下へ
   `.hsg-menu-item` を置き、有効な移動先はリンクにする。アプリケーション操作用の `role="menu"` は付けない。
 - 現在地は一つの項目だけに `aria-current="page"` を付けて示す。選択中の文字とアイコンは
-  `color.menu.active.foreground`、下線は `color.menu.active.indicator` を使う。ブランドのPrimaryは
+  `menu.active.foreground`、下線は `menu.active.indicator` を使う。ブランドのPrimaryは
   この選択下線に限定し、未選択項目の文字やメニュー全体の区切り線へ広げない。
 - 先頭アイコンは任意とし、`currentColor` で文字色に追従させる。アイコンだけの項目にはせず、
   移動先が分かる文字ラベルを必ず併記する。
 - 移動先を利用できない項目は、リンクではなく `.hsg-menu-item` を付けた要素へ
   `aria-disabled="true"` を指定する。`href`、`tabindex`、`aria-current` は付けず、クリック、
   キーボードフォーカス、ホバー変化、選択下線を発生させない。文字とアイコンには
-  `color.menu.disabled.foreground` を使い、無効状態だけで重要な情報を伝えない。
+  `menu.disabled.foreground` を使い、無効状態だけで重要な情報を伝えない。
 - メニューはCanvasまたはRaised面に置く。項目が横幅へ収まらない場合は折り返さず横スクロールさせる。
   同一ページ内のパネルを切り替えるUIには、このメニューではなくタブパターンを別途定義する。
 - バッジは短いラベルで状態・分類を補助する。本文の代わりに重要情報を押し込まず、単体で意味が
   伝わる短い語を必ず表示する。色付きバッジはブランド原色でなく、白文字のコントラストを満たす
-  専用トーン（`color.badge.*`）を使う。
+  専用トーン（`badge.*`）を使う。
 - Neutral Badgeは周囲と反対の面を使う。Sunken面では `.hsg-badge-neutral-raised`、
   RaisedまたはCanvas面では `.hsg-badge-neutral-sunken` とし、罫線や影を加えない。
 - Primary、Secondary、Violet、Orangeの色付きバッジは分類色自体が面を作るため、
@@ -153,9 +156,9 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 - カードは `.hsg-card` だけで使わず、面の役割に応じて `.hsg-card-raised` または
   `.hsg-card-sunken` のどちらか一つを必ず併用する。二つの修飾クラスを同時に使わない。
 - `.hsg-card-raised` は周囲より前面へ持ち上がる独立した情報単位に使う。
-  `color.card.raised.background` と `border.width.default` / `color.card.raised.border` の輪郭で面を示し、
+  `card.raised.background` と `border.width.default` / `card.raised.border` の輪郭で面を示し、
   影を重ねない。
 - `.hsg-card-sunken` は周囲より奥まった補足情報、入力領域、内包された情報グループに使う。
-  `color.card.sunken.background` で面を示し、罫線や影を重ねない。
+  `card.sunken.background` で面を示し、罫線や影を重ねない。
 - Raised / Sunkenは配置場所ではなくカード自身の面の役割を表す。列数や並べ方はカードへ
   固定せず、利用側のレイアウトで決める。

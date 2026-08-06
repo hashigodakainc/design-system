@@ -9,6 +9,7 @@ import type {
 
 const REQUIRED_TEXT_FILES = [
   "tokens/colors.json",
+  "tokens/components.json",
   "tokens/typography.json",
   "tokens/layout.json",
   "assets/manifest.json",

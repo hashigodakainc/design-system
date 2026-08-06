@@ -2,17 +2,18 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { validateColorLayers } from "./color-layer-rules.mjs";
+import { validateTokenLayers } from "./color-layer-rules.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
 const layoutSource = JSON.parse(await readFile(resolve(root, "tokens/layout.json"), "utf8"));
+const componentSource = JSON.parse(await readFile(resolve(root, "tokens/components.json"), "utf8"));
 const outputPath = resolve(root, "styles/tokens.css");
 const typographyOutputPath = resolve(root, "styles/typography.css");
-const tokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
+const tokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens, ...componentSource.tokens];
 
-const layerValidation = validateColorLayers(colorSource);
+const layerValidation = validateTokenLayers({ colorSource, componentSource, typographySource, layoutSource });
 for (const warning of layerValidation.warnings) console.warn(`Warning: ${warning}`);
 if (layerValidation.errors.length) {
   throw new Error(layerValidation.errors.join("\n"));
@@ -25,7 +26,7 @@ const cssValue = (value) => {
 };
 
 const lines = [
-  "/* Generated from tokens/colors.json, tokens/typography.json, and tokens/layout.json. Do not edit directly. */",
+  "/* Generated from tokens/colors.json, tokens/typography.json, tokens/layout.json, and tokens/components.json. Do not edit directly. */",
   ":root {",
   ...tokens.map((token) => `  ${cssName(token.name)}: ${cssValue(token.value)};`),
   "}",

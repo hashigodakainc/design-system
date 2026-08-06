@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "selected",
   "sourceDecision": "D-I",
   "description": "Hashigodakaの用途別タイポグラフィトークンの正本",
@@ -24,7 +24,7 @@
     { "name": "typography.size.body.default", "type": "dimension", "value": "16px", "description": "標準本文。" },
     { "name": "typography.size.body.small", "type": "dimension", "value": "14px", "description": "補足本文。" },
     { "name": "typography.size.label", "type": "dimension", "value": "13px", "description": "意味のあるラベル、入力項目名。" },
-    { "name": "typography.size.action", "type": "dimension", "value": "15px", "description": "ボタンと主要リンク。" },
+    { "name": "typography.size.label-large", "type": "dimension", "value": "15px", "description": "ボタン、メニュー、主要リンクのラベル。" },
     { "name": "typography.size.caption", "type": "dimension", "value": "12px", "description": "注釈、出典、メタデータ。" },
     { "name": "typography.size.code", "type": "dimension", "value": "14px", "description": "コードとコード識別子。" },
 
@@ -49,7 +49,7 @@
     { "name": "body", "family": "body", "fontSize": "{typography.size.body.default}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "body-small", "family": "body", "fontSize": "{typography.size.body.small}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.body}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "label", "family": "body", "fontSize": "{typography.size.label}", "fontWeight": "{typography.weight.emphasis}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.label}" },
-    { "name": "action", "family": "body", "fontSize": "{typography.size.action}", "fontWeight": "{typography.weight.emphasis}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.body}" },
+    { "name": "label-large", "family": "body", "fontSize": "{typography.size.label-large}", "fontWeight": "{typography.weight.emphasis}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.body}" },
     { "name": "caption", "family": "body", "fontSize": "{typography.size.caption}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.compact}", "letterSpacing": "{typography.letter-spacing.label}" },
     { "name": "code", "family": "code", "fontSize": "{typography.size.code}", "fontWeight": "{typography.weight.body}", "lineHeight": "{typography.line-height.code}", "letterSpacing": "{typography.letter-spacing.body}" }
   ]

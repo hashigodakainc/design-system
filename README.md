@@ -23,9 +23,10 @@ AI向け配布物の正本です。人が参照する入口として、閲覧型
   Web以外の媒体に固有の横断的な判断は [`docs/media.md`](docs/media.md) に書き、値を再掲しません。
 - `styles/tokens.css`・`styles/typography.css` は生成物です。ガイドラインサイトは正本JSONを直接読み込んで描画します。
 
-カラートークンは、値を表すPrimitive、用途を表すSemantic、部品固有のComponentの三層です。
-制作物はSemanticまたはComponentだけを参照し、Primitiveを直接参照しません。参照規律と例外は
-`tokens/colors.json` と `scripts/color-layer-rules.mjs` で機械検証します。
+色の正本 `tokens/colors.json` は、値を表すPrimitiveと用途を表すSemanticの二層です。
+部品固有のComponentトークンは、色と角丸を `tokens/components.json` にまとめます。制作物は
+SemanticまたはComponentだけを参照し、Primitiveを直接参照しません。参照規律と例外は
+両JSONと `scripts/color-layer-rules.mjs` で機械検証します。
 
 ## 構成
 

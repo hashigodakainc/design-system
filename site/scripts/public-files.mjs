@@ -6,6 +6,7 @@ export const publicFiles = [
   ['styles/typography.css', 'styles/typography.css'],
   ['styles/components.css', 'styles/components.css'],
   ['tokens/colors.json', 'tokens/colors.json'],
+  ['tokens/components.json', 'tokens/components.json'],
   ['tokens/typography.json', 'tokens/typography.json'],
   ['tokens/layout.json', 'tokens/layout.json'],
   ['assets/manifest.json', 'assets/manifest.json'],

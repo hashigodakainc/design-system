@@ -51,12 +51,51 @@ try {
   const colorNames = new Set(colorTokens.map((token) => token.name));
   assert(colorNames.has("color.neutral.0"));
   assert(colorNames.has("color.background.raised"));
-  assert(colorNames.has("color.action.primary.background"));
   assert(!colorNames.has("color.neutral.canvas"));
   assert.deepEqual(
     new Set(colorTokens.map((token) => token.layer)),
-    new Set(["primitive", "semantic", "component"]),
+    new Set(["primitive", "semantic"]),
   );
+
+  const components = await client.callTool({
+    name: "get_tokens",
+    arguments: { category: "component" },
+  });
+  assert.notEqual(components.isError, true);
+  const componentCategory = components.structuredContent?.categories?.[0];
+  assert.equal(componentCategory?.category, "component");
+  assert.equal(componentCategory?.source?.path, "tokens/components.json");
+  assert.deepEqual(components.structuredContent?.status, [
+    { source: "tokens/components.json", status: "selected" },
+  ]);
+  assert.deepEqual(components.structuredContent?.pending, []);
+  const componentTokens = componentCategory?.tokens ?? [];
+  assert.equal(componentTokens.length, 40);
+  const componentNames = new Set(componentTokens.map((token) => token.name));
+  for (const name of [
+    "button.primary.background",
+    "badge.primary.background",
+    "menu.foreground",
+    "card.foreground",
+  ]) assert(componentNames.has(name), `missing ${name}`);
+  assert(
+    componentTokens.every((token) => token.layer === "component"),
+  );
+
+  const typography = await client.callTool({
+    name: "get_tokens",
+    arguments: { category: "typography" },
+  });
+  assert.notEqual(typography.isError, true);
+  const typographyCategory = typography.structuredContent?.categories?.[0];
+  const typographyNames = new Set(
+    (typographyCategory?.tokens ?? []).map((token) => token.name),
+  );
+  assert(typographyNames.has("typography.size.label-large"));
+  const roleNames = new Set(
+    (typographyCategory?.roles ?? []).map((role) => role.name),
+  );
+  assert(roleNames.has("label-large"));
 
   const asset = await client.callTool({
     name: "get_asset",

@@ -6,6 +6,7 @@ const checks = [
   ['/site.css', 200, '.sidebar'],
   ['/site.js', 200, 'fetchJson'],
   ['/tokens/colors.json', 200, 'color.brand.primary'],
+  ['/tokens/components.json', 200, 'button.primary.background'],
   ['/assets/manifest.json', 200, 'brand-motif'],
   ['/assets/wordmarks/wordmark.svg', 200, '<svg'],
   ['/docs/guidelines.md', 200, '# Hashigodaka'],

@@ -2,24 +2,25 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { validateColorLayers } from "./color-layer-rules.mjs";
+import { validateTokenLayers } from "./color-layer-rules.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
 const typographySource = JSON.parse(await readFile(resolve(root, "tokens/typography.json"), "utf8"));
 const layoutSource = JSON.parse(await readFile(resolve(root, "tokens/layout.json"), "utf8"));
+const componentSource = JSON.parse(await readFile(resolve(root, "tokens/components.json"), "utf8"));
 const assetSource = JSON.parse(await readFile(resolve(root, "assets/manifest.json"), "utf8"));
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
 const guidelineHtml = await readFile(resolve(root, "guidelines/index.html"), "utf8");
 const guidelineCss = await readFile(resolve(root, "guidelines/site.css"), "utf8");
-const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens];
+const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens, ...componentSource.tokens];
 const tokens = new Map();
 const failures = [];
 const supportedTypes = new Set(["color", "fontFamily", "fontWeight", "dimension", "number", "letterSpacing"]);
 
-const layerValidation = validateColorLayers(colorSource);
+const layerValidation = validateTokenLayers({ colorSource, componentSource, typographySource, layoutSource });
 failures.push(...layerValidation.errors);
 for (const warning of layerValidation.warnings) console.warn(`Warning: ${warning}`);
 
@@ -89,10 +90,10 @@ for (const classes of guidelineCardClasses) {
 for (const tokenName of [
   "color.border.default",
   "color.border.emphasis",
-  "color.card.foreground",
-  "color.card.raised.background",
-  "color.card.raised.border",
-  "color.card.sunken.background",
+  "card.foreground",
+  "card.raised.background",
+  "card.raised.border",
+  "card.sunken.background",
 ]) {
   if (!tokens.has(tokenName)) failures.push(`Card component token is missing: ${tokenName}`);
 }
@@ -102,19 +103,19 @@ for (const className of ["hsg-menu", "hsg-menu-item", "hsg-menu-icon"]) {
   if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
 }
 for (const tokenName of [
-  "color.menu.foreground",
-  "color.menu.disabled.foreground",
-  "color.menu.hover.foreground",
-  "color.menu.active.foreground",
-  "color.menu.active.indicator",
-  "color.menu.divider",
+  "menu.foreground",
+  "menu.disabled.foreground",
+  "menu.hover.foreground",
+  "menu.active.foreground",
+  "menu.active.indicator",
+  "menu.divider",
 ]) {
   if (!tokens.has(tokenName)) failures.push(`Menu component token is missing: ${tokenName}`);
 }
-if (tokens.get("color.menu.active.indicator")?.value !== "{color.brand.primary}") {
+if (tokens.get("menu.active.indicator")?.value !== "{color.brand.primary}") {
   failures.push("Menu active indicator must reference color.brand.primary");
 }
-if (tokens.get("color.menu.disabled.foreground")?.value !== "{color.text.disabled}") {
+if (tokens.get("menu.disabled.foreground")?.value !== "{color.text.disabled}") {
   failures.push("Menu disabled foreground must reference color.text.disabled");
 }
 if (!componentCss.includes('.hsg-menu-item[aria-disabled="true"]')) {
@@ -137,13 +138,6 @@ for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]
   if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
 }
 if (componentCss.includes(".hsg-badge-neutral {")) failures.push("Legacy .hsg-badge-neutral class must not be restored");
-for (const tokenName of [
-  "color.badge.neutral.background",
-  "color.badge.neutral.foreground",
-  "color.badge.neutral.border",
-]) {
-  if (tokens.has(tokenName)) failures.push(`Legacy neutral badge token must not be restored: ${tokenName}`);
-}
 
 for (const status of ["success", "warning", "error", "info"]) {
   const tokenName = `color.status.${status}.border`;
@@ -243,6 +237,7 @@ const statusedSources = [
   ["tokens/colors.json", colorSource],
   ["tokens/typography.json", typographySource],
   ["tokens/layout.json", layoutSource],
+  ["tokens/components.json", componentSource],
   ["assets/manifest.json", assetSource],
 ];
 const validatePending = (label, pending) => {
@@ -298,7 +293,7 @@ const contrast = (foreground, background) => {
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 };
 
-for (const check of colorSource.contrastChecks) {
+for (const check of [...colorSource.contrastChecks, ...componentSource.contrastChecks]) {
   try {
     const ratio = contrast(resolveValue(check.foreground), resolveValue(check.background));
     if (ratio < check.minimum) {
@@ -318,5 +313,6 @@ if (failures.length) {
   console.log(`${colorSource.tokens.length} color tokens validated`);
   console.log(`${typographySource.tokens.length} typography tokens and ${typographySource.roles.length} roles validated`);
   console.log(`${layoutSource.tokens.length} layout tokens validated`);
+  console.log(`${componentSource.tokens.length} component tokens validated`);
   console.log(`${assetSource.assets.length} brand assets validated`);
 }
