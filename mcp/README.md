@@ -15,7 +15,8 @@ snapshotは正本から再生成するビルド成果物であり、gitでは管
 反映するにはsnapshotの再生成と再デプロイが必要です。
 
 `get_tokens` では、プリミティブ／セマンティックを `color`、コンポーネント固有の色と寸法を
-`component` として分けて返します。`component` の正本は `tokens/components.json` です。
+`component` として分けて返します。角丸、境界線、フォーカス輪郭は `shape` として返します。
+それぞれの正本は `tokens/components.json` と `tokens/shape.json` です。
 
 ## セットアップ
 
@@ -70,7 +71,7 @@ Cloudflare側では `mcp-design.hashigodaka.co.jp` のCustom Domainを有効に�
 
 ## 提供するtool
 
-- `get_tokens` — color / component / typography / layout のトークン、解決前後のalias、status、pendingを返す
+- `get_tokens` — color / component / typography / layout / shape のトークン、解決前後のalias、status、pendingを返す
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 - `get_stylesheet` — `styles/*.css` のCSS本文を返す

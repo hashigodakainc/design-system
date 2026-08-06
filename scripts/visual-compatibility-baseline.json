@@ -1,0 +1,24 @@
+{
+  "resolvedRoles": {
+    "display": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "64px", "mobileFontSize": "44px", "fontWeight": "700", "lineHeight": "1.12", "letterSpacing": "-0.04em" },
+    "heading-1": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "40px", "mobileFontSize": "32px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
+    "heading-2": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "28px", "mobileFontSize": "24px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
+    "heading-3": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "20px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
+    "heading-4": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "18px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
+    "body-large": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "18px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
+    "body": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "16px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
+    "body-small": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "14px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
+    "label": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "13px", "fontWeight": "700", "lineHeight": "1.5", "letterSpacing": "0.04em" },
+    "label-large": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "15px", "fontWeight": "700", "lineHeight": "1.5", "letterSpacing": "0" },
+    "caption": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "12px", "fontWeight": "400", "lineHeight": "1.5", "letterSpacing": "0.04em" },
+    "code": { "family": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "fontWeight": "400", "lineHeight": "1.7", "letterSpacing": "0" }
+  },
+  "componentCss": {
+    "blockCount": 27,
+    "sha256": "08e3e9e811f77dd56f5e2b679f0dd74a2840ca57d23a87a847ff5d0813de9711"
+  },
+  "typographyCss": {
+    "blockCount": 16,
+    "sha256": "a5c9a75848b68ebafa08376b8df8eaf482e9b0921e92236de8ceb362e713288b"
+  }
+}

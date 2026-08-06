@@ -24,17 +24,25 @@ const typographyRoleNames = new Set([
   "code",
 ]);
 const layoutNamePatterns = [
-  /^space\.(?:0|[1-9]|10)$/,
-  /^layout\.(?:page|content|section|grid|breakpoint|sidebar|mobile-header)\./,
+  /^spacing\.(?:0|4|8|12|16|24|32|48|64|96|128)$/,
+  /^layout\.page\.gutter\.(?:mobile|tablet|desktop)$/,
+  /^layout\.content\.(?:indent|width\.(?:reading|standard|wide))$/,
+  /^layout\.section\.space\.(?:small|medium|large)$/,
+  /^layout\.grid\.(?:columns|gutter)\.(?:mobile|tablet|desktop)$/,
+  /^layout\.breakpoint\.(?:mobile-max|tablet-max|desktop-max)$/,
+  /^layout\.sidebar\.width$/,
+  /^layout\.header\.height\.mobile$/,
+];
+const shapeNamePatterns = [
   /^radius\.(?:small|medium)$/,
   /^border\.width\.(?:default|strong)$/,
   /^focus\.outline\.(?:width|offset)$/,
 ];
 
-export function validateTokenLayers({ colorSource, componentSource, typographySource, layoutSource }) {
+export function validateTokenLayers({ colorSource, componentSource, typographySource, layoutSource, shapeSource }) {
   const errors = [];
   const warnings = [];
-  const sources = [colorSource, componentSource, typographySource, layoutSource];
+  const sources = [colorSource, componentSource, typographySource, layoutSource, shapeSource];
   const tokens = new Map(sources.flatMap((source) => source.tokens).map((token) => [token.name, token]));
   const exceptions = new Set(componentSource.primitiveReferenceExceptions ?? []);
   const usedExceptions = new Set();
@@ -117,6 +125,17 @@ export function validateTokenLayers({ colorSource, componentSource, typographySo
     if (!layoutNamePatterns.some((pattern) => pattern.test(token.name))) {
       errors.push(`tokens/layout.json has an unsupported token structure: ${token.name}`);
     }
+    const spacingName = /^spacing\.(\d+)$/.exec(token.name);
+    if (spacingName && token.value !== `${spacingName[1]}px`) {
+      errors.push(`Spacing primitive name must match its value: ${token.name} (${token.value})`);
+    }
+  }
+  for (const token of shapeSource.tokens) {
+    if ("layer" in token) errors.push(`tokens/shape.json must not declare color layers: ${token.name}`);
+    if (!shapeNamePatterns.some((pattern) => pattern.test(token.name))) {
+      errors.push(`tokens/shape.json has an unsupported token structure: ${token.name}`);
+    }
+    if (referencePattern.test(token.value)) errors.push(`Shape primitive must not reference another token: ${token.name}`);
   }
 
   const roleNames = new Set(typographySource.roles.map((role) => role.name));
@@ -126,11 +145,40 @@ export function validateTokenLayers({ colorSource, componentSource, typographySo
   for (const token of typographySource.tokens) {
     if ("layer" in token) errors.push(`tokens/typography.json must not declare color layers: ${token.name}`);
     if (!token.name.startsWith("typography.")) errors.push(`tokens/typography.json may only contain typography.* tokens: ${token.name}`);
+    if (!/^typography\.(?:family\.(?:latin|body|code)|weight\.(?:400|700)|size\.(?:12|13|14|15|16|18|20|24|28|32|40|44|64)|line-height\.(?:112|135|150|170|180)|tracking\.(?:tighter|tight|normal|wide))$/.test(token.name)) {
+      errors.push(`tokens/typography.json has an unsupported primitive name: ${token.name}`);
+    }
+    const sizeName = /^typography\.size\.(\d+)$/.exec(token.name);
+    if (sizeName && token.value !== `${sizeName[1]}px`) {
+      errors.push(`Typography size primitive name must match its value: ${token.name} (${token.value})`);
+    }
+    const weightName = /^typography\.weight\.(\d+)$/.exec(token.name);
+    if (weightName && token.value !== weightName[1]) {
+      errors.push(`Typography weight primitive name must match its value: ${token.name} (${token.value})`);
+    }
+    const lineHeightName = /^typography\.line-height\.(\d+)$/.exec(token.name);
+    if (lineHeightName && Number(token.value) !== Number(lineHeightName[1]) / 100) {
+      errors.push(`Typography line-height primitive name must match its value: ${token.name} (${token.value})`);
+    }
     if (token.name.startsWith("typography.size.") && !typographySource.roles.some((role) => {
       const references = [role.fontSize, role.mobileFontSize].filter(Boolean);
       return references.includes(`{${token.name}}`);
     })) {
       errors.push(`Typography size token must be used by a supported role: ${token.name}`);
+    }
+  }
+
+  for (const role of typographySource.roles) {
+    for (const [field, pattern] of [
+      ["fontSize", /^\{typography\.size\.\d+\}$/],
+      ["mobileFontSize", /^\{typography\.size\.\d+\}$/],
+      ["fontWeight", /^\{typography\.weight\.\d+\}$/],
+      ["lineHeight", /^\{typography\.line-height\.\d+\}$/],
+      ["letterSpacing", /^\{typography\.tracking\.(?:tighter|tight|normal|wide)\}$/],
+    ]) {
+      if (role[field] !== undefined && !pattern.test(role[field])) {
+        errors.push(`Typography role ${role.name}.${field} must reference the matching primitive namespace: ${role[field]}`);
+      }
     }
   }
 

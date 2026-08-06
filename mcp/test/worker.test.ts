@@ -89,20 +89,26 @@ test("snapshot separates semantic colors from component tokens", () => {
   );
 });
 
-test("snapshot publishes label-large typography", () => {
+test("snapshot publishes numeric typography primitives and shape tokens", () => {
   const typography = tokenSource("tokens/typography.json");
   const tokenNames = new Set(typography.tokens.map((token) => token.name));
   const roleNames = new Set((typography.roles ?? []).map((role) => role.name));
 
-  assert(tokenNames.has("typography.size.label-large"));
+  assert(tokenNames.has("typography.size.15"));
+  assert(!tokenNames.has("typography.size.label-large"));
   assert(roleNames.has("label-large"));
+
+  const shape = tokenSource("tokens/shape.json");
+  const shapeNames = new Set(shape.tokens.map((token) => token.name));
+  assert(shapeNames.has("radius.medium"));
+  assert(shapeNames.has("focus.outline.width"));
 });
 
-test("repository exposes all four token sources and component status", () => {
+test("repository exposes all five token sources and component status", () => {
   const repository = new SnapshotRepositoryLoader(snapshotJson).load();
   assert.deepEqual(
     [...repository.tokenCategories.keys()].sort(),
-    ["color", "component", "layout", "typography"],
+    ["color", "component", "layout", "shape", "typography"],
   );
 
   const components = repository.tokenCategories.get("component");

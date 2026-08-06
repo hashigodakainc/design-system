@@ -1,5 +1,5 @@
 {
-  "version": "0.8.0",
+  "version": "0.8.1",
   "status": "approved",
   "description": "Hashigodakaのプリミティブ、セマンティックカラートークンの正本。",
   "tokens": [
@@ -14,35 +14,35 @@
       "name": "color.neutral.50",
       "layer": "primitive",
       "value": "#FAF9FC",
-      "description": "",
+      "description": "Neutralスケールの50段階。",
       "type": "color"
     },
     {
       "name": "color.neutral.100",
       "layer": "primitive",
       "value": "#ECE8F0",
-      "description": "",
+      "description": "Neutralスケールの100段階。",
       "type": "color"
     },
     {
       "name": "color.neutral.200",
       "layer": "primitive",
       "value": "#DCD8E1",
-      "description": "",
+      "description": "Neutralスケールの200段階。",
       "type": "color"
     },
     {
       "name": "color.neutral.600",
       "layer": "primitive",
       "value": "#625D69",
-      "description": "",
+      "description": "Neutralスケールの600段階。",
       "type": "color"
     },
     {
       "name": "color.neutral.800",
       "layer": "primitive",
       "value": "#35313A",
-      "description": "",
+      "description": "Neutralスケールの800段階。",
       "type": "color"
     },
     {
@@ -56,114 +56,133 @@
       "name": "color.blue.50",
       "layer": "primitive",
       "value": "#E7F4FC",
+      "description": "Blueスケールの50段階。",
       "type": "color"
     },
     {
       "name": "color.blue.400",
       "layer": "primitive",
       "value": "#00A0FF",
+      "description": "Blueスケールの400段階。",
       "type": "color"
     },
     {
       "name": "color.blue.500",
       "layer": "primitive",
       "value": "#2482B3",
+      "description": "Blueスケールの500段階。",
       "type": "color"
     },
     {
       "name": "color.blue.600",
       "layer": "primitive",
       "value": "#0070B8",
+      "description": "Blueスケールの600段階。",
       "type": "color"
     },
     {
       "name": "color.blue.700",
       "layer": "primitive",
       "value": "#005F8F",
+      "description": "Blueスケールの700段階。",
       "type": "color"
     },
     {
       "name": "color.lime.300",
       "layer": "primitive",
       "value": "#C7F14A",
+      "description": "Limeスケールの300段階。",
       "type": "color"
     },
     {
       "name": "color.lime.600",
       "layer": "primitive",
       "value": "#5F7800",
+      "description": "Limeスケールの600段階。",
       "type": "color"
     },
     {
       "name": "color.violet.500",
       "layer": "primitive",
       "value": "#6C4ED9",
+      "description": "Violetスケールの500段階。",
       "type": "color"
     },
     {
       "name": "color.orange.400",
       "layer": "primitive",
       "value": "#FF6B3D",
+      "description": "Orangeスケールの400段階。",
       "type": "color"
     },
     {
       "name": "color.orange.600",
       "layer": "primitive",
       "value": "#B83A12",
+      "description": "Orangeスケールの600段階。",
       "type": "color"
     },
     {
       "name": "color.green.50",
       "layer": "primitive",
       "value": "#E8F5EC",
+      "description": "Greenスケールの50段階。",
       "type": "color"
     },
     {
       "name": "color.green.400",
       "layer": "primitive",
       "value": "#4A9B67",
+      "description": "Greenスケールの400段階。",
       "type": "color"
     },
     {
       "name": "color.green.700",
       "layer": "primitive",
       "value": "#176B35",
+      "description": "Greenスケールの700段階。",
       "type": "color"
     },
     {
       "name": "color.yellow.50",
       "layer": "primitive",
       "value": "#FFF4D6",
+      "description": "Yellowスケールの50段階。",
       "type": "color"
     },
     {
       "name": "color.yellow.500",
       "layer": "primitive",
       "value": "#A77400",
+      "description": "Yellowスケールの500段階。",
       "type": "color"
     },
     {
       "name": "color.yellow.700",
       "layer": "primitive",
       "value": "#704B00",
+      "description": "Yellowスケールの700段階。",
       "type": "color"
     },
     {
       "name": "color.red.50",
       "layer": "primitive",
       "value": "#FDEBEC",
+      "description": "Redスケールの50段階。",
       "type": "color"
     },
     {
       "name": "color.red.400",
       "layer": "primitive",
       "value": "#C84D58",
+      "description": "Redスケールの400段階。",
       "type": "color"
     },
     {
       "name": "color.red.700",
       "layer": "primitive",
       "value": "#9F2530",
+      "description": "Redスケールの700段階。",
       "type": "color"
     },
     {
