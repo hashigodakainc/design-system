@@ -117,6 +117,11 @@ test("repository exposes all five token sources and component status", () => {
   assert.equal(components.source.status, "selected");
   assert.deepEqual(components.source.pending, []);
   assert.equal(components.tokens.length, 40);
+  assert.ok(
+    repository.instructions.startsWith(
+      "HashigodakaのWeb UI、サイト、スライド、提案書、図解、SNS画像、ロゴ、配色、書体、余白、コンポーネントについて作成・修正・レビューするときに使う。",
+    ),
+  );
   assert.match(repository.instructions, /tokens\/components\.json=selected/);
   assert.match(repository.instructions, /category="component"/);
 });
