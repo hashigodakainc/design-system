@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "status": "selected",
   "description": "Hashigodakaのコンポーネント固有トークンの正本。",
   "primitiveReferenceExceptions": [
@@ -13,132 +13,154 @@
       "name": "button.primary.background",
       "layer": "component",
       "value": "{color.background.inverse}",
+      "description": "Primaryボタンの背景色。",
       "type": "color"
     },
     {
       "name": "button.primary.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "Primaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.primary.border",
       "layer": "component",
       "value": "{color.background.inverse}",
+      "description": "Primaryボタンの輪郭色。",
       "type": "color"
     },
     {
       "name": "button.primary.hover.background",
       "layer": "component",
       "value": "{color.background.inverse-hover}",
+      "description": "ホバー中のPrimaryボタンの背景色。",
       "type": "color"
     },
     {
       "name": "button.primary.hover.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "ホバー中のPrimaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.primary.hover.border",
       "layer": "component",
       "value": "{color.background.inverse-hover}",
+      "description": "ホバー中のPrimaryボタンの輪郭色。",
       "type": "color"
     },
     {
       "name": "button.secondary.background",
       "layer": "component",
       "value": "{color.background.canvas}",
+      "description": "Secondaryボタンの背景色。",
       "type": "color"
     },
     {
       "name": "button.secondary.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "Secondaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.secondary.border",
       "layer": "component",
       "value": "{color.border.emphasis}",
+      "description": "Secondaryボタンの輪郭色。",
       "type": "color"
     },
     {
       "name": "button.secondary.hover.background",
       "layer": "component",
       "value": "{color.background.inverse}",
+      "description": "ホバー中のSecondaryボタンの背景色。",
       "type": "color"
     },
     {
       "name": "button.secondary.hover.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "ホバー中のSecondaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.secondary.hover.border",
       "layer": "component",
       "value": "{color.background.inverse}",
+      "description": "ホバー中のSecondaryボタンの輪郭色。",
       "type": "color"
     },
     {
       "name": "button.tertiary.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "Tertiaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.tertiary.underline",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "Tertiaryボタンの下線色。",
       "type": "color"
     },
     {
       "name": "button.tertiary.hover.foreground",
       "layer": "component",
       "value": "{color.text.secondary}",
+      "description": "ホバー中のTertiaryボタンの文字とアイコンの色。",
       "type": "color"
     },
     {
       "name": "button.tertiary.hover.underline",
       "layer": "component",
       "value": "{color.text.secondary}",
+      "description": "ホバー中のTertiaryボタンの下線色。",
       "type": "color"
     },
     {
       "name": "button.radius",
       "layer": "component",
       "value": "{radius.medium}",
+      "description": "ボタンに共通する角丸。",
       "type": "dimension"
     },
     {
       "name": "badge.neutral.raised.background",
       "layer": "component",
       "value": "{color.background.raised}",
+      "description": "Raised面で使うNeutralバッジの背景色。",
       "type": "color"
     },
     {
       "name": "badge.neutral.raised.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "Raised面で使うNeutralバッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.neutral.sunken.background",
       "layer": "component",
       "value": "{color.background.sunken}",
+      "description": "Sunken面で使うNeutralバッジの背景色。",
       "type": "color"
     },
     {
       "name": "badge.neutral.sunken.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "Sunken面で使うNeutralバッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.primary.background",
       "layer": "component",
       "value": "{color.blue.600}",
+      "description": "Primary分類バッジの背景色。",
       "$comment": "Badge固有の分類色としてprimitive直接参照を許可。2コンポーネント目で利用する場合はsemanticへ昇格する。",
       "type": "color"
     },
@@ -146,12 +168,14 @@
       "name": "badge.primary.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "Primary分類バッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.secondary.background",
       "layer": "component",
       "value": "{color.lime.600}",
+      "description": "Secondary分類バッジの背景色。",
       "$comment": "Badge固有の分類色としてprimitive直接参照を許可。2コンポーネント目で利用する場合はsemanticへ昇格する。",
       "type": "color"
     },
@@ -159,12 +183,14 @@
       "name": "badge.secondary.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "Secondary分類バッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.violet.background",
       "layer": "component",
       "value": "{color.violet.500}",
+      "description": "Violet分類バッジの背景色。",
       "$comment": "Badge固有の分類色としてprimitive直接参照を許可。2コンポーネント目で利用する場合はsemanticへ昇格する。",
       "type": "color"
     },
@@ -172,12 +198,14 @@
       "name": "badge.violet.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "Violet分類バッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.orange.background",
       "layer": "component",
       "value": "{color.orange.600}",
+      "description": "Orange分類バッジの背景色。",
       "$comment": "Badge固有の分類色としてprimitive直接参照を許可。2コンポーネント目で利用する場合はsemanticへ昇格する。",
       "type": "color"
     },
@@ -185,12 +213,14 @@
       "name": "badge.orange.foreground",
       "layer": "component",
       "value": "{color.text.inverse}",
+      "description": "Orange分類バッジの文字色。",
       "type": "color"
     },
     {
       "name": "badge.radius",
       "layer": "component",
       "value": "{radius.small}",
+      "description": "バッジに共通する角丸。",
       "type": "dimension"
     },
     {
@@ -239,24 +269,28 @@
       "name": "card.foreground",
       "layer": "component",
       "value": "{color.text.primary}",
+      "description": "カード内の既定の文字色。",
       "type": "color"
     },
     {
       "name": "card.raised.background",
       "layer": "component",
       "value": "{color.background.raised}",
+      "description": "Raisedカードの背景色。",
       "type": "color"
     },
     {
       "name": "card.raised.border",
       "layer": "component",
       "value": "{color.border.default}",
+      "description": "Raisedカードの輪郭色。",
       "type": "color"
     },
     {
       "name": "card.sunken.background",
       "layer": "component",
       "value": "{color.background.sunken}",
+      "description": "Sunkenカードの背景色。",
       "type": "color"
     }
   ],

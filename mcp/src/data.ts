@@ -2,7 +2,7 @@ export type JsonPrimitive = boolean | null | number | string;
 export type JsonValue = JsonPrimitive | JsonObject | JsonValue[];
 export type JsonObject = { [key: string]: JsonValue };
 
-export type Category = "color" | "component" | "layout" | "typography";
+export type Category = "color" | "component" | "layout" | "shape" | "typography";
 
 export interface PendingSummary {
   pending: JsonObject;
@@ -78,6 +78,7 @@ const categoryPaths: Record<Category, string> = {
   component: "tokens/components.json",
   typography: "tokens/typography.json",
   layout: "tokens/layout.json",
+  shape: "tokens/shape.json",
 };
 
 function isJsonObject(value: unknown): value is JsonObject {

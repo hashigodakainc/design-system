@@ -91,11 +91,23 @@ try {
   const typographyNames = new Set(
     (typographyCategory?.tokens ?? []).map((token) => token.name),
   );
-  assert(typographyNames.has("typography.size.label-large"));
+  assert(typographyNames.has("typography.size.15"));
+  assert(!typographyNames.has("typography.size.label-large"));
   const roleNames = new Set(
     (typographyCategory?.roles ?? []).map((role) => role.name),
   );
   assert(roleNames.has("label-large"));
+
+  const shape = await client.callTool({
+    name: "get_tokens",
+    arguments: { category: "shape" },
+  });
+  assert.notEqual(shape.isError, true);
+  const shapeNames = new Set(
+    (shape.structuredContent?.categories?.[0]?.tokens ?? []).map((token) => token.name),
+  );
+  assert(shapeNames.has("radius.medium"));
+  assert(shapeNames.has("focus.outline.width"));
 
   const asset = await client.callTool({
     name: "get_asset",

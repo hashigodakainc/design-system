@@ -9,6 +9,7 @@ export const publicFiles = [
   ['tokens/components.json', 'tokens/components.json'],
   ['tokens/typography.json', 'tokens/typography.json'],
   ['tokens/layout.json', 'tokens/layout.json'],
+  ['tokens/shape.json', 'tokens/shape.json'],
   ['assets/manifest.json', 'assets/manifest.json'],
   ['assets/fonts/sora.ttf', 'assets/fonts/sora.ttf'],
   ['assets/fonts/sora-OFL.txt', 'assets/fonts/sora-OFL.txt'],

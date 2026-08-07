@@ -5,7 +5,7 @@ import { type Category, type RepositoryData } from "../data.js";
 import type { RepositoryDataLoader } from "../loaders/types.js";
 import { createServerIcons } from "./icon.js";
 
-const categorySchema = z.enum(["color", "component", "typography", "layout"]);
+const categorySchema = z.enum(["color", "component", "typography", "layout", "shape"]);
 const jsonObjectSchema = z.record(z.string(), z.json());
 const pendingSummarySchema = z.object({
   source: z.string(),
@@ -87,7 +87,7 @@ export function createServer(loader: RepositoryDataLoader): McpServer {
         category: categorySchema
           .optional()
           .describe(
-            "取得カテゴリ。省略時は color / component / typography / layout の全件。",
+            "取得カテゴリ。省略時は color / component / typography / layout / shape の全件。",
           ),
       }),
       outputSchema: z.object({
@@ -104,7 +104,7 @@ export function createServer(loader: RepositoryDataLoader): McpServer {
     async ({ category }) => {
       const categories: Category[] =
         category === undefined
-          ? ["color", "component", "typography", "layout"]
+          ? ["color", "component", "typography", "layout", "shape"]
           : [category];
       const selected = categories.map((name) => {
         const data = repository.tokenCategories.get(name);

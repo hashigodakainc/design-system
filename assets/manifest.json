@@ -38,7 +38,7 @@
         "text": "Hashigodaka",
         "font": "assets/fonts/sora.ttf",
         "weight": 700,
-        "letterSpacing": "{typography.letter-spacing.heading}"
+        "letterSpacing": "{typography.tracking.tight}"
       },
       "sourceDecision": "D-I（Sora）の現行組みを2026-07-31採用。字形調整は将来任意。",
       "defaultColor": "{color.text.primary}",

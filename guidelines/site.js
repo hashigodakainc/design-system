@@ -30,7 +30,7 @@ const fetchJson = (path) => fetch(path).then((response) => {
   return response.json();
 });
 
-const render = (colorSource, typographySource, layoutSource, componentSource) => {
+const render = (colorSource, typographySource, layoutSource, shapeSource, componentSource) => {
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -38,7 +38,13 @@ const render = (colorSource, typographySource, layoutSource, componentSource) =>
     return node;
   };
 
-  const allTokens = [...colorSource.tokens, ...typographySource.tokens, ...layoutSource.tokens, ...componentSource.tokens];
+  const allTokens = [
+    ...colorSource.tokens,
+    ...typographySource.tokens,
+    ...layoutSource.tokens,
+    ...shapeSource.tokens,
+    ...componentSource.tokens,
+  ];
   const tokenByName = new Map(allTokens.map((token) => [token.name, token]));
   const cssVar = (name) => `--hsg-${name.replaceAll('.', '-')}`;
 
@@ -172,7 +178,7 @@ const render = (colorSource, typographySource, layoutSource, componentSource) =>
   const spaceScale = document.querySelector('[data-render="space-scale"]');
   if (spaceScale) {
     layoutSource.tokens
-      .filter((token) => /^space\.\d+$/.test(token.name) && resolveValue(token.value) !== '0px')
+      .filter((token) => /^spacing\.\d+$/.test(token.name) && resolveValue(token.value) !== '0px')
       .sort((a, b) => parseInt(resolveValue(a.value), 10) - parseInt(resolveValue(b.value), 10))
       .forEach((token) => {
         const item = el('div');
@@ -196,8 +202,8 @@ const render = (colorSource, typographySource, layoutSource, componentSource) =>
 
   const breakpointNote = document.querySelector('[data-render="breakpoint-note"]');
   if (breakpointNote) {
-    const mobile = resolveValue(tokenByName.get('layout.breakpoint.mobile').value);
-    const tablet = resolveValue(tokenByName.get('layout.breakpoint.tablet').value);
+    const mobile = resolveValue(tokenByName.get('layout.breakpoint.mobile-max').value);
+    const tablet = resolveValue(tokenByName.get('layout.breakpoint.tablet-max').value);
     breakpointNote.textContent = `${mobile}以下をMobile、${tablet}以下をTabletとして構造を切り替えます。`;
   }
 
@@ -207,6 +213,7 @@ Promise.all([
   fetchJson('../tokens/colors.json'),
   fetchJson('../tokens/typography.json'),
   fetchJson('../tokens/layout.json'),
+  fetchJson('../tokens/shape.json'),
   fetchJson('../tokens/components.json'),
 ]).then((sources) => render(...sources)).catch((error) => {
   console.error('デザイントークンの読み込みに失敗しました。HTTPサーバー経由（リポジトリルート配信）で表示してください。', error);
