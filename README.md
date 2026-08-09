@@ -4,6 +4,8 @@ Hashigodakaのデザイン原則、デザイントークン、ブランド資産
 AI向け配布物の正本です。人が参照する入口として、閲覧型の
 [ガイドラインサイト](guidelines/)も管理します。公開版は
 [`design.hashigodaka.co.jp`](https://design.hashigodaka.co.jp/)で閲覧できます。
+AIエージェント向けRemote MCPは、同じオリジンの
+[`design.hashigodaka.co.jp/mcp`](https://design.hashigodaka.co.jp/mcp)で提供します。
 
 人間が判断に使えるデザインガイドと、AIエージェントが成果物の生成・検証に使える
 機械可読な定義を、同じ根拠から提供します。

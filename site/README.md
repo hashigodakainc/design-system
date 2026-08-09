@@ -2,6 +2,9 @@
 
 `guidelines/` の人間向けガイドラインを Cloudflare Workers Static Assets で公開するための、薄い配布アダプターです。公開先は `https://design.hashigodaka.co.jp/`、Worker名は `hashigodaka-design-guidelines` です。
 
+同じオリジンの `https://design.hashigodaka.co.jp/mcp` は、より具体的なCloudflare Workers Routeで
+別のMCP Workerへ振り分けます。このWorkerは、それ以外のガイドラインと公開資産を配信します。
+
 ## SSOTと公開範囲
 
 値・成熟度の正本は引き続き `../tokens/*.json` と `../assets/manifest.json`、横断的な判断の正本は `../docs/guidelines.md` です。`dist/` は `pnpm build` が毎回作り直す未管理の配信成果物で、直接編集しません。

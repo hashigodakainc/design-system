@@ -7,9 +7,9 @@ Hashigodakaデザインシステムの正本を、AIエージェントから参�
 
 - Workerはリポジトリ直下の正本から `pnpm build:snapshot` が生成する
   `src/generated/design-snapshot.json` をbundleへ同梱します。
-- フォントとSVGはWranglerのstatic assets bindingから配信します。Workerの `get_asset` は
-  資産メタデータへ `https://mcp-design.hashigodaka.co.jp/assets/...` の絶対URLを加え、
-  SVGでは従来の本文も返します。
+- フォントとSVGはガイドラインサイトと同じ公開資産を参照します。Workerの `get_asset` は
+  資産メタデータへ `https://design.hashigodaka.co.jp/assets/...` の絶対URLを加え、SVGでは
+  従来の本文も返します。
 
 snapshotは正本から再生成するビルド成果物であり、gitでは管理しません。正本の更新をWorkerへ
 反映するにはsnapshotの再生成と再デプロイが必要です。
@@ -39,14 +39,14 @@ pnpm dev
 ```
 
 既定のMCP endpointは `http://127.0.0.1:8787/mcp`、health endpointは
-`http://127.0.0.1:8787/health` です。Workerは既存client向けの
+`http://127.0.0.1:8787/mcp/health` です。Workerは既存client向けの
 `initialize`（2025-era、stateless）と、`server/discover` による2026-eraの両方を受け付けます。
 
-`wrangler.jsonc` にはWorker名 `hashigodaka-design-mcp`、Custom Domain
-`mcp-design.hashigodaka.co.jp`、`nodejs_compat`、static assets bindingを定義しています。
+`wrangler.jsonc` にはWorker名 `hashigodaka-design-system-mcp`、ガイドラインサイトのCustom
+Domainより優先されるRoute `design.hashigodaka.co.jp/mcp*` と `nodejs_compat` を定義しています。
 
 デプロイにはCloudflare Workers BuildsのGitHub連携を使用します。Cloudflare Dashboardで
-Worker `hashigodaka-design-mcp` とこのリポジトリを接続し、次のbuild設定を使用します。
+Worker `hashigodaka-design-system-mcp` とこのリポジトリを接続し、次のbuild設定を使用します。
 
 - Production branch: `main`
 - Root directory: `mcp`
@@ -67,7 +67,14 @@ pnpm smoke:remote
 MCP_BASE_URL=https://example.workers.dev pnpm smoke:remote
 ```
 
-Cloudflare側では `mcp-design.hashigodaka.co.jp` のCustom Domainを有効にします。
+Cloudflare側では、ガイドラインWorkerのCustom Domain `design.hashigodaka.co.jp` を維持したまま、
+MCP Workerへ `design.hashigodaka.co.jp/mcp*` のRouteを設定します。より具体的なRouteが優先される
+ため、`/mcp` と `/mcp/health` だけがMCP Workerへ到達し、それ以外はガイドラインWorkerが
+配信します。
+
+デプロイ後はCloudflareの同名レート制限ルール `Hashigodaka MCP rate limits` も、POST
+`/mcp` のホスト条件を `design.hashigodaka.co.jp` へ切り替えます。新endpointのsmoke成功後、
+Worker Domainsに旧MCPホストが残っていないことも確認します。
 
 ## 提供するtool
 

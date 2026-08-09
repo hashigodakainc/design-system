@@ -8,10 +8,9 @@ import { createServer } from "./mcp/server.js";
 import type { DesignSystemSnapshot } from "./snapshot.js";
 
 const MCP_PATH = "/mcp";
-const HEALTH_PATH = "/health";
-const STATIC_ASSET_PREFIX = "/assets/";
-const PRODUCTION_HOSTNAME = "mcp-design.hashigodaka.co.jp";
-const ASSET_BASE_URL = "https://mcp-design.hashigodaka.co.jp/";
+const HEALTH_PATH = "/mcp/health";
+const PRODUCTION_HOSTNAME = "design.hashigodaka.co.jp";
+const ASSET_BASE_URL = "https://design.hashigodaka.co.jp/";
 const MAX_MCP_BODY_BYTES = 1024 * 1024;
 const MCP_CREDENTIAL_HEADERS = [
   "authorization",
@@ -29,13 +28,7 @@ const corsHeaders = {
     "Authorization, Content-Type, mcp-protocol-version, mcp-method, mcp-name",
   "Access-Control-Expose-Headers": "mcp-protocol-version",
 };
-const staticAssetCorsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
-};
-
 interface WorkerEnv {
-  ASSETS: Fetcher;
   MCP_ALLOWED_ORIGINS?: string;
 }
 
@@ -45,9 +38,6 @@ export function createWorker(
   const loader = new SnapshotRepositoryLoader(snapshot, {
     assetBaseUrl: ASSET_BASE_URL,
   });
-  const staticAssetPaths = new Set(
-    snapshot.staticAssets.map((asset) => `/${asset.path}`),
-  );
   const handler = createMcpHandler(() => createServer(loader), {
     // Keep the existing initialize-based clients working while also advertising
     // the modern 2026-07-28 era through server/discover.
@@ -56,8 +46,8 @@ export function createWorker(
 
   // The SDK adapter contributes Hono's Web Standard request handling and JSON
   // body parser.  We deliberately disable its localhost defaults here because
-  // this app also serves public health and static-asset routes; the /mcp-only
-  // Host and Origin policy is applied by the Worker entry below.
+  // this app also serves a public health route; the /mcp-only Host and Origin
+  // policy is applied by the Worker entry below.
   // Keep the SDK's JSON parser scoped to /mcp. A top-level adapter would try
   // to parse an unrelated asset request carrying an application/json header.
   const mcpApp = createMcpHonoApp({ host: PRODUCTION_HOSTNAME });
@@ -65,7 +55,7 @@ export function createWorker(
 
   app.notFound(() => jsonResponse({ ok: false, error: "Not found" }, 404));
 
-  app.get(HEALTH_PATH, () =>
+  const healthResponse = () =>
     jsonResponse({
       ok: true,
       service: "hashigodaka-design-mcp",
@@ -74,45 +64,14 @@ export function createWorker(
         textFileCount: Object.keys(snapshot.textFiles).length,
         staticAssetCount: snapshot.staticAssets.length,
       },
-    }),
-  );
+    });
+  app.get(HEALTH_PATH, healthResponse);
 
-  // Keep the historical behavior of exposing only GET on /health. Hono may
-  // otherwise treat HEAD as an implicit GET route.
+  // Keep the health endpoint GET-only. Hono may otherwise treat HEAD as an
+  // implicit GET route.
   app.on("HEAD", HEALTH_PATH, () =>
     jsonResponse({ ok: false, error: "Not found" }, 404),
   );
-
-  app.all(`${STATIC_ASSET_PREFIX}*`, async (context) => {
-    const requestUrl = new URL(context.req.url);
-    const method = context.req.method;
-
-    if (method === "OPTIONS") {
-      return new Response(null, {
-        status: 204,
-        headers: staticAssetCorsHeaders,
-      });
-    }
-    if (method !== "GET" && method !== "HEAD") {
-      return jsonResponse(
-        { ok: false, error: "Method not allowed" },
-        405,
-        { Allow: "GET, HEAD, OPTIONS" },
-      );
-    }
-    if (!staticAssetPaths.has(requestUrl.pathname)) {
-      return jsonResponse({ ok: false, error: "Not found" }, 404);
-    }
-
-    const assetUrl = new URL(context.req.url);
-    assetUrl.pathname = requestUrl.pathname.slice("/assets".length);
-    const assetResponse = await (context.env as WorkerEnv).ASSETS.fetch(
-      new Request(assetUrl, context.req.raw),
-    );
-    return withHeaders(assetResponse, {
-      ...staticAssetCorsHeaders,
-    });
-  });
 
   mcpApp.all("*", async (context) => {
     if (context.req.method === "OPTIONS") {
