@@ -13,19 +13,8 @@ import {
 } from "../src/worker.ts";
 
 const worker = createWorker(snapshotJson);
-const assetRequests: Request[] = [];
-const env = {
-  ASSETS: {
-    fetch(request: Request) {
-      assetRequests.push(request);
-      return Promise.resolve(
-        new Response("<svg></svg>", {
-          headers: { "Content-Type": "image/svg+xml" },
-        }),
-      );
-    },
-  },
-};
+const productionOrigin = "https://design.hashigodaka.co.jp";
+const env = {};
 
 type TokenSource = {
   pending?: unknown[];
@@ -124,14 +113,22 @@ test("repository exposes all five token sources and component status", () => {
   );
   assert.match(repository.instructions, /tokens\/components\.json=selected/);
   assert.match(repository.instructions, /category="component"/);
+
+  const publicRepository = new SnapshotRepositoryLoader(snapshotJson, {
+    assetBaseUrl: productionOrigin,
+  }).load();
+  assert.equal(
+    publicRepository.assets.get("wordmark")?.asset.url,
+    `${productionOrigin}/assets/wordmarks/wordmark.svg`,
+  );
 });
 
 function request(path: string, init: RequestInit = {}): Request {
   const headers = new Headers(init.headers);
   if (!headers.has("host")) {
-    headers.set("host", "mcp-design.hashigodaka.co.jp");
+    headers.set("host", "design.hashigodaka.co.jp");
   }
-  return new Request(`https://mcp-design.hashigodaka.co.jp${path}`, {
+  return new Request(`${productionOrigin}${path}`, {
     ...init,
     headers,
   });
@@ -142,7 +139,7 @@ async function fetchWorker(path: string, init: RequestInit = {}) {
 }
 
 test("Hono routes health, not-found, and method responses", async () => {
-  const health = await fetchWorker("/health");
+  const health = await fetchWorker("/mcp/health");
   assert.equal(health.status, 200);
   const healthBody = await health.json();
   assert.equal(healthBody.ok, true);
@@ -156,8 +153,11 @@ test("Hono routes health, not-found, and method responses", async () => {
   );
   assert.equal(health.headers.get("access-control-allow-origin"), "*");
 
-  const headHealth = await fetchWorker("/health", { method: "HEAD" });
+  const headHealth = await fetchWorker("/mcp/health", { method: "HEAD" });
   assert.equal(headHealth.status, 404);
+
+  const removedHealth = await fetchWorker("/health");
+  assert.equal(removedHealth.status, 404);
 
   const missing = await fetchWorker("/missing");
   assert.equal(missing.status, 404);
@@ -173,35 +173,6 @@ test("Hono routes health, not-found, and method responses", async () => {
   });
   assert.equal(mcpGetWithMalformedJson.status, 405);
   assert.equal(mcpGetWithMalformedJson.headers.get("allow"), "POST, OPTIONS");
-});
-
-test("static assets use the snapshot allowlist and Cloudflare binding", async () => {
-  assetRequests.length = 0;
-  const asset = await fetchWorker("/assets/wordmarks/wordmark.svg");
-  assert.equal(asset.status, 200);
-  assert.match(asset.headers.get("content-type") ?? "", /image\/svg\+xml/);
-  assert.equal(asset.headers.get("access-control-allow-origin"), "*");
-  assert.equal(assetRequests.length, 1);
-  assert.equal(new URL(assetRequests[0].url).pathname, "/wordmarks/wordmark.svg");
-
-  const head = await fetchWorker("/assets/wordmarks/wordmark.svg", {
-    method: "HEAD",
-  });
-  assert.equal(head.status, 200);
-
-  const options = await fetchWorker("/assets/not-registered.svg", {
-    method: "OPTIONS",
-  });
-  assert.equal(options.status, 204);
-
-  const method = await fetchWorker("/assets/wordmarks/wordmark.svg", {
-    method: "POST",
-  });
-  assert.equal(method.status, 405);
-  assert.equal(method.headers.get("allow"), "GET, HEAD, OPTIONS");
-
-  const missing = await fetchWorker("/assets/not-registered.svg");
-  assert.equal(missing.status, 404);
 });
 
 test("MCP options and initialize requests pass through the Hono adapter", async () => {
@@ -251,7 +222,7 @@ test("MCP guards enforce host, exact origins, and body limits", async () => {
   const malformedOrigin = await malformedConfiguredOriginWorker.fetch(
     request("/mcp", {
       method: "OPTIONS",
-      headers: { origin: "https://mcp-design.hashigodaka.co.jp" },
+      headers: { origin: productionOrigin },
     }),
     { ...env, MCP_ALLOWED_ORIGINS: "https://client.example/" },
   );
@@ -267,7 +238,7 @@ test("MCP guards enforce host, exact origins, and body limits", async () => {
 
 test("bounded requests strip credential and transfer headers", async () => {
   const bounded = await readBoundedRequest(
-    new Request("https://mcp-design.hashigodaka.co.jp/mcp", {
+    new Request(`${productionOrigin}/mcp`, {
       method: "POST",
       headers: {
         authorization: "Bearer secret",
@@ -294,7 +265,7 @@ test("bounded requests strip credential and transfer headers", async () => {
 test("host and origin helpers reject malformed values", () => {
   assert.equal(
     validateRequestHost(
-      new Request("https://mcp-design.hashigodaka.co.jp/mcp", {
+      new Request(`${productionOrigin}/mcp`, {
         headers: { host: "127.0.0.1:8787" },
       }),
     ),
@@ -302,27 +273,35 @@ test("host and origin helpers reject malformed values", () => {
   );
   assert.equal(
     validateRequestHost(
-      new Request("https://mcp-design.hashigodaka.co.jp/mcp", {
+      new Request(`${productionOrigin}/mcp`, {
         headers: { host: "127.0.0.1.evil.example" },
+      }),
+    )?.status,
+    403,
+  );
+  assert.equal(
+    validateRequestHost(
+      new Request(`${productionOrigin}/mcp`, {
+        headers: { host: "mcp-design.hashigodaka.co.jp" },
       }),
     )?.status,
     403,
   );
 
   const allowed = validateRequestOrigin(
-    new Request("https://mcp-design.hashigodaka.co.jp/mcp", {
+    new Request(`${productionOrigin}/mcp`, {
       headers: { origin: "https://client.example" },
     }),
-    new URL("https://mcp-design.hashigodaka.co.jp/mcp"),
+    new URL(`${productionOrigin}/mcp`),
     "https://client.example",
   );
   assert.equal(allowed, undefined);
 
   const malformed = validateRequestOrigin(
-    new Request("https://mcp-design.hashigodaka.co.jp/mcp", {
+    new Request(`${productionOrigin}/mcp`, {
       headers: { origin: "https://client.example/" },
     }),
-    new URL("https://mcp-design.hashigodaka.co.jp/mcp"),
+    new URL(`${productionOrigin}/mcp`),
     "https://client.example",
   );
   assert.equal(malformed?.status, 403);

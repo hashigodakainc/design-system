@@ -39,9 +39,11 @@ AIエージェントが利用できるデザイントークン、資産、実装
 
 ## ガイドラインサイトのデプロイ
 
-人間向けガイドラインは `https://design.hashigodaka.co.jp/` で一般公開し、
-MCPとは別のCloudflare Workers Static Assetsとして配信します。デプロイは
-`site/` をrootとするWorkers BuildsのGitHub連携を正とします。
+人間向けガイドラインは `https://design.hashigodaka.co.jp/`、Remote MCPは同じオリジンの
+`https://design.hashigodaka.co.jp/mcp` で一般公開します。実装とデプロイ単位は分離し、
+ガイドラインをCloudflare Workers Static Assets、`/mcp*` をより具体的なRouteで別のMCP
+Workerへ振り分けます。ガイドラインのデプロイは `site/` をrootとするWorkers Buildsの
+GitHub連携を正とします。
 
 `site/dist/` は正本からホワイトリストで生成する未管理の配信成果物であり、
 直接編集・コミットしません。配信先に値や判断を独自定義せず、

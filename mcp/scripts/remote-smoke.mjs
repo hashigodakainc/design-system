@@ -3,11 +3,11 @@ import assert from "node:assert/strict";
 import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client";
 
 const baseUrl = new URL(
-  process.env.MCP_BASE_URL ?? "https://mcp-design.hashigodaka.co.jp",
+  process.env.MCP_BASE_URL ?? "https://design.hashigodaka.co.jp",
 );
 const endpointUrl = new URL("/mcp", baseUrl);
 const publicAssetOrigin = new URL(
-  process.env.MCP_ASSET_ORIGIN ?? "https://mcp-design.hashigodaka.co.jp",
+  process.env.MCP_ASSET_ORIGIN ?? "https://design.hashigodaka.co.jp",
 );
 const expectedTools = [
   "get_asset",
@@ -16,7 +16,7 @@ const expectedTools = [
   "read_guideline",
 ];
 
-const healthResponse = await fetch(new URL("/health", baseUrl));
+const healthResponse = await fetch(new URL("/mcp/health", baseUrl));
 assert.equal(healthResponse.status, 200, `health returned ${healthResponse.status}`);
 const health = await healthResponse.json();
 assert.equal(health.ok, true);
@@ -119,9 +119,7 @@ try {
   assert.equal(new URL(assetUrl).origin, publicAssetOrigin.origin);
   assert.equal(new URL(assetUrl).pathname, "/assets/wordmarks/wordmark.svg");
 
-  const assetResponse = await fetch(
-    new URL(new URL(assetUrl).pathname, baseUrl),
-  );
+  const assetResponse = await fetch(assetUrl);
   assert.equal(assetResponse.status, 200, `asset returned ${assetResponse.status}`);
   assert.match(assetResponse.headers.get("content-type") ?? "", /image\/svg\+xml/);
   assert.match(await assetResponse.text(), /<svg[\s>]/);
