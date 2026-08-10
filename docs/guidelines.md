@@ -7,9 +7,8 @@ Hashigodakaのデザインに関する横断的な判断の正本である。成
 
 ## ブランド表現の規則
 
-会社の存在意義と責任境界の正本は、Hashigodaka Wikiの
-[ハシゴダカの存在意義とブランドの骨格](https://github.com/hashigodakainc/wiki/blob/main/company/brand-foundation.md)
-である。デザイン・写真・図解・コピーでは次を守る。
+会社の存在意義と責任境界の正本は、社内のブランド基盤文書
+「ハシゴダカの存在意義とブランドの骨格」である。デザイン・写真・図解・コピーでは次を守る。
 
 ### 人とAIの見せ方
 
