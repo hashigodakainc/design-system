@@ -31,11 +31,10 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .section-heading { margin-bottom: 52px; }
 .section-heading h2 { margin-bottom: 8px; }
 .section-heading div > p { max-width: 650px; margin: 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-16); line-height: var(--hsg-typography-line-height-180); }
-.principle-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.principle-card { min-height: 220px; padding: 34px; background: var(--hsg-color-background-sunken); }
-.principle-card:nth-child(5) { grid-column: 1 / -1; min-height: auto; }
-.principle-card h3 { margin-bottom: 10px; }
-.principle-card p { max-width: 520px; margin-bottom: 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-16); line-height: var(--hsg-typography-line-height-180); }
+.principle-list { max-width: var(--hsg-layout-content-width-reading); border-top: var(--hsg-border-width-default) solid var(--hsg-color-border-default); }
+.principle-item { padding: var(--hsg-spacing-32) 0; border-bottom: var(--hsg-border-width-default) solid var(--hsg-color-border-default); }
+.principle-item h3 { margin-bottom: var(--hsg-spacing-8); }
+.principle-item p { margin-bottom: 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-16); line-height: var(--hsg-typography-line-height-180); }
 .swatches { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
 .swatch { background: transparent; }
 .swatch-color { aspect-ratio: 1.4; }
@@ -185,9 +184,7 @@ footer p { margin: 0; }
   .sample-copy { font-size: var(--hsg-typography-size-24); }
   .section, .compact-section { padding: var(--hsg-layout-section-space-medium) var(--hsg-layout-page-gutter-mobile); scroll-margin-top: var(--hsg-layout-header-height-mobile); }
   .section-heading { margin-bottom: 38px; }
-  .principle-grid, .guidance-grid, .specimen-grid, .two-column { grid-template-columns: 1fr; }
-  .principle-card { min-height: 220px; }
-  .principle-card:nth-child(5) { grid-column: auto; }
+  .guidance-grid, .specimen-grid, .two-column { grid-template-columns: 1fr; }
   .specimen-grid, .two-column, .motif-panel, .pending-note, .rule-list, .status-panel, .component-demo, .component-type-heading, .badge-surface-demo, .badge-demo-colors, .button-guidance, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .type-role-usage { grid-column: auto; margin-top: 0; }
