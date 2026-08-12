@@ -84,7 +84,6 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .type-role dl div { display: grid; grid-template-columns: 68px 1fr; gap: 10px; font-size: var(--hsg-typography-size-12); line-height: var(--hsg-typography-line-height-150); }
 .type-role dt { color: var(--hsg-color-text-secondary); }
 .type-role dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: var(--hsg-typography-weight-700); }
-.type-role-usage { grid-column: 2 / 4; max-width: var(--hsg-layout-content-width-reading); margin: -4px 0 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-14); line-height: var(--hsg-typography-line-height-180); }
 .type-rules { margin-top: 74px; }
 .type-rules > h3 { margin-left: var(--hsg-layout-content-indent); }
 .rule-list { margin-left: var(--hsg-layout-content-indent); border-top: var(--hsg-border-width-default) solid var(--hsg-color-border-default); }
@@ -173,7 +172,6 @@ footer p { margin: 0; }
   .specimen-grid, .two-column { grid-template-columns: 1fr; }
   .specimen-grid, .two-column, .motif-panel, .pending-note, .rule-list, .status-panel, .component-demo, .component-type-heading, .badge-surface-demo, .badge-demo-colors, .button-guidance, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
-  .type-role-usage { grid-column: auto; margin-top: 0; }
   .type-role dl { grid-template-columns: repeat(3,1fr); }
   .type-role dl div { grid-template-columns: 1fr; gap: 2px; }
   .semantic-grid { grid-template-columns: 1fr; }
