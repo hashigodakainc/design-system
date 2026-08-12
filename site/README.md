@@ -1,9 +1,10 @@
-# ガイドライン公開サイト
+# デザインシステムサイト
 
-`guidelines/` の人間向けガイドラインを Cloudflare Workers Static Assets で公開するための、薄い配布アダプターです。公開先は `https://design.hashigodaka.co.jp/`、Worker名は `hashigodaka-design-guidelines` です。
+`src/` の人間向けサイトを Cloudflare Workers Static Assets で公開します。公開先は
+`https://design.hashigodaka.co.jp/`、Worker名は `hashigodaka-design-guidelines` です。
 
 同じオリジンの `https://design.hashigodaka.co.jp/mcp` は、より具体的なCloudflare Workers Routeで
-別のMCP Workerへ振り分けます。このWorkerは、それ以外のガイドラインと公開資産を配信します。
+別のMCP Workerへ振り分けます。このWorkerは、それ以外のサイトと公開資産を配信します。
 
 ## SSOTと公開範囲
 
@@ -39,8 +40,8 @@ pnpm smoke -- https://design.hashigodaka.co.jp/
 
 - Root directory: `site`
 - Production branch: `main`
-- Build command: `pnpm build`
-- Deploy command: `pnpm exec wrangler deploy`
-- Watch paths: `guidelines/*`, `assets/*`, `styles/*`, `tokens/*`, `docs/guidelines.md`, `site/*`
+- Build command: `pnpm run build`
+- Deploy command: `npx wrangler deploy`
+- Watch paths: `*`
 
 デプロイは Workers Builds のGitHub連携を正とし、GitHub Actionsに認証情報や別のデプロイ経路を持たせません。存在しないパスはSPAフォールバックせず404になります。`workers.dev` とプレビューURLは無効です。未ハッシュ資産のキャッシュには、Cloudflare Static Assets既定の再検証設定を使用します。

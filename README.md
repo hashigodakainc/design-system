@@ -2,7 +2,7 @@
 
 Hashigodakaのデザイン原則、デザイントークン、ブランド資産、コンポーネント、
 AI向け配布物の正本です。人が参照する入口として、閲覧型の
-[ガイドラインサイト](guidelines/)も管理します。公開版は
+[デザインシステムサイト](site/src/)も管理します。公開版は
 [`design.hashigodaka.co.jp`](https://design.hashigodaka.co.jp/)で閲覧できます。
 AIエージェント向けRemote MCPは、同じオリジンの
 [`design.hashigodaka.co.jp/mcp`](https://design.hashigodaka.co.jp/mcp)で提供します。
@@ -12,9 +12,9 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 ## 現在のフェーズ
 
-ブランドカラー、選定書体（Sora × LINE Seed JP）、固有モチーフを確定済みの基盤として、ガイドラインサイトと再利用可能なデザイントークン・資産の構築を進めています。
+ブランドカラー、選定書体（Sora × LINE Seed JP）、固有モチーフを確定済みの基盤として、デザインシステムサイトと再利用可能なデザイントークン・資産の構築を進めています。
 現在の利用可否と未決事項は、各正本JSON（`tokens/*.json`・`assets/manifest.json`）の
-`status` / `pending` フィールドと、[ガイドラインサイトの策定状況](guidelines/)を
+`status` / `pending` フィールドと、[デザインシステムサイトの策定状況](site/src/)を
 参照してください。
 
 ## 情報の配置
@@ -23,7 +23,7 @@ AIエージェント向けRemote MCPは、同じオリジンの
   `assets/manifest.json` だけに置きます。
 - Webを含む全媒体に共通し、トークンや資産メタデータを補完する定性的な判断は
   [`docs/guidelines.md`](docs/guidelines.md) に書き、値を再掲しません。
-- `styles/tokens.css`・`styles/typography.css` は生成物です。ガイドラインサイトは正本JSONを直接読み込んで描画します。
+- `styles/tokens.css`・`styles/typography.css` は生成物です。デザインシステムサイトは正本JSONを直接読み込んで描画します。
 
 トークンは、値を表すPrimitive、用途を表すSemantic、部品固有のComponentで構成します。
 色は `tokens/colors.json`、タイポグラフィは `tokens/typography.json`、レイアウトは
@@ -38,8 +38,7 @@ AIエージェント向けRemote MCPは、同じオリジンの
 - [`assets/`](assets/) — 再利用可能なブランド資産（モチーフ・フォント）と機械可読な索引
 - [`docs/guidelines.md`](docs/guidelines.md) — 横断的なデザイン判断の正本
 - [`styles/`](styles/) — 正本から生成したCSS変数と採用済みコンポーネントCSS
-- [`guidelines/`](guidelines/) — 人が閲覧するガイドラインサイト（トークン表示はJSONから生成）
-- [`site/`](site/) — ガイドラインの公開範囲を制限するCloudflare Workers Static Assets配布アダプター
+- [`site/`](site/) — 人が閲覧するデザインシステムサイトのソース、ビルド、検証、Cloudflare Workers Static Assets配信設定
 - [`mcp/`](mcp/) — AIエージェントが正本を参照するRemote MCPサーバー
 - [`scripts/`](scripts/) — トークンの生成と機械検証
 
@@ -55,6 +54,8 @@ AIエージェント向けRemote MCPは、同じオリジンの
 ```
 
 ## 更新の手順
+
+開発ツールは `mise install` で、CIと各パッケージが指定するNode・pnpmへ揃えられます。
 
 1. 値・成熟度の変更は `tokens/*.json`・`assets/manifest.json` を編集する
 2. `node scripts/build-tokens.mjs` で生成物を再生成する

@@ -14,8 +14,8 @@ const assetSource = JSON.parse(await readFile(resolve(root, "assets/manifest.jso
 const generatedCss = await readFile(resolve(root, "styles/tokens.css"), "utf8");
 const generatedTypographyCss = await readFile(resolve(root, "styles/typography.css"), "utf8");
 const componentCss = await readFile(resolve(root, "styles/components.css"), "utf8");
-const guidelineHtml = await readFile(resolve(root, "guidelines/index.html"), "utf8");
-const guidelineCss = await readFile(resolve(root, "guidelines/site.css"), "utf8");
+const guidelineHtml = await readFile(resolve(root, "site/src/index.html"), "utf8");
+const guidelineCss = await readFile(resolve(root, "site/src/site.css"), "utf8");
 const allTokens = [
   ...colorSource.tokens,
   ...typographySource.tokens,
@@ -70,8 +70,8 @@ const primitiveCssNames = new Set(
     .map((token) => cssName(token.name)),
 );
 for (const [label, source] of [
-  ["guidelines/index.html", guidelineHtml],
-  ["guidelines/site.css", guidelineCss],
+  ["site/src/index.html", guidelineHtml],
+  ["site/src/site.css", guidelineCss],
   ["styles/components.css", componentCss],
 ]) {
   for (const match of source.matchAll(/var\(\s*(--hsg-color-[a-z0-9-]+)(?:\s*,[^)]*)?\s*\)/g)) {
@@ -80,7 +80,7 @@ for (const [label, source] of [
 }
 
 for (const [label, source] of [
-  ["guidelines/site.css", guidelineCss],
+  ["site/src/site.css", guidelineCss],
   ["styles/components.css", componentCss],
 ]) {
   if (/\bborder(?:-(?:top|right|bottom|left))?\s*:\s*\d+(?:\.\d+)?px\b/i.test(source)) {
@@ -94,14 +94,14 @@ for (const className of [
   "hsg-card-sunken",
 ]) {
   if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
-  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Site is missing a specimen for .${className}`);
 }
 const guidelineCardClasses = [...guidelineHtml.matchAll(/class="([^"]+)"/g)]
   .map((match) => match[1].split(/\s+/))
   .filter((classes) => classes.includes("hsg-card"));
 for (const classes of guidelineCardClasses) {
   const modifiers = ["hsg-card-raised", "hsg-card-sunken"].filter((name) => classes.includes(name));
-  if (modifiers.length !== 1) failures.push(`Guideline card must use exactly one surface modifier: ${classes.join(" ")}`);
+  if (modifiers.length !== 1) failures.push(`Site card must use exactly one surface modifier: ${classes.join(" ")}`);
 }
 for (const tokenName of [
   "color.border.default",
@@ -116,7 +116,7 @@ for (const tokenName of [
 
 for (const className of ["hsg-menu", "hsg-menu-item", "hsg-menu-icon"]) {
   if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
-  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Site is missing a specimen for .${className}`);
 }
 for (const tokenName of [
   "menu.foreground",
@@ -139,19 +139,19 @@ if (!componentCss.includes('.hsg-menu-item[aria-disabled="true"]')) {
 }
 const guidelineMenuItems = [...guidelineHtml.matchAll(/<(?:a|span) class="[^"]*hsg-menu-item[^"]*"[^>]*>/g)];
 if (guidelineMenuItems.filter(([tag]) => tag.includes('aria-current="page"')).length !== 1) {
-  failures.push('Guideline menu must have exactly one aria-current="page" item');
+  failures.push('Site menu must have exactly one aria-current="page" item');
 }
 const disabledMenuItems = guidelineMenuItems.filter(([tag]) => tag.includes('aria-disabled="true"'));
-if (disabledMenuItems.length !== 1) failures.push("Guideline menu must have exactly one disabled item");
+if (disabledMenuItems.length !== 1) failures.push("Site menu must have exactly one disabled item");
 for (const [tag] of disabledMenuItems) {
   if (tag.startsWith("<a ") || tag.includes("href=") || tag.includes("tabindex=") || tag.includes("aria-current=")) {
-    failures.push("Disabled guideline menu item must not be a link, focusable, or current");
+    failures.push("Disabled site menu item must not be a link, focusable, or current");
   }
 }
 
 for (const className of ["hsg-badge-neutral-raised", "hsg-badge-neutral-sunken"]) {
   if (!componentCss.includes(`.${className}`)) failures.push(`Component stylesheet is missing .${className}`);
-  if (!guidelineHtml.includes(className)) failures.push(`Guideline is missing a specimen for .${className}`);
+  if (!guidelineHtml.includes(className)) failures.push(`Site is missing a specimen for .${className}`);
 }
 if (componentCss.includes(".hsg-badge-neutral {")) failures.push("Legacy .hsg-badge-neutral class must not be restored");
 
@@ -161,8 +161,8 @@ for (const status of ["success", "warning", "error", "info"]) {
 }
 
 for (const [label, source] of [
-  ["guidelines/index.html", guidelineHtml],
-  ["guidelines/site.css", guidelineCss],
+  ["site/src/index.html", guidelineHtml],
+  ["site/src/site.css", guidelineCss],
   ["styles/components.css", componentCss],
 ]) {
   if (/#[0-9a-f]{3,8}\b/i.test(source) || /%23[0-9a-f]{3,8}\b/i.test(source) || /\brgba?\(/i.test(source)) {
@@ -216,8 +216,8 @@ for (const [label, source] of [
   ["styles/tokens.css", generatedCss],
   ["styles/typography.css", generatedTypographyCss],
   ["styles/components.css", componentCss],
-  ["guidelines/index.html", guidelineHtml],
-  ["guidelines/site.css", guidelineCss],
+  ["site/src/index.html", guidelineHtml],
+  ["site/src/site.css", guidelineCss],
 ]) {
   for (const pattern of legacyCssVariablePatterns) {
     if (pattern.test(source)) failures.push(`${label} uses a legacy CSS variable: ${pattern}`);
@@ -280,7 +280,7 @@ for (const asset of assetSource.assets) {
       if (!source.includes("<svg")) failures.push(`SVG asset is invalid: ${asset.id}`);
       if (!source.includes(`viewBox="${asset.viewBox}"`)) failures.push(`SVG viewBox does not match manifest: ${asset.id}`);
       if (!source.includes("currentColor")) failures.push(`SVG asset must use currentColor: ${asset.id}`);
-      if (!guidelineHtml.includes(asset.path)) failures.push(`Guideline is missing asset: ${asset.id}`);
+      if (!guidelineHtml.includes(asset.path)) failures.push(`Site is missing asset: ${asset.id}`);
     }
   } catch (error) {
     failures.push(`Asset ${asset.id}: ${error.message}`);
