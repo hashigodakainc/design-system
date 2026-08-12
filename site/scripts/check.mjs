@@ -63,8 +63,8 @@ const addReference = (from, reference) => {
 };
 
 const html = await readFile(path.join(distDir, 'index.html'), 'utf8');
-if (!html.includes('<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">')) {
-  errors.push('Site favicon must reference the dedicated public favicon SVG.');
+if (!html.includes('<link rel="icon" href="assets/motifs/brand-motif.svg" type="image/svg+xml">')) {
+  errors.push('Site favicon must reference the public brand motif SVG.');
 }
 for (const requiredMetadata of [
   '<link rel="canonical" href="https://design.hashigodaka.co.jp/">',
