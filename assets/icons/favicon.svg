@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="favicon-title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" color="#00A0FF" role="img" aria-labelledby="favicon-title">
   <title id="favicon-title">Hashigodaka</title>
-  <rect width="64" height="64" rx="12" fill="#00A0FF"/>
+  <rect width="64" height="64" rx="12" fill="currentColor"/>
   <path fill="#18151D" d="M15 13h9v14h16V13h9v38h-9V36H24v15h-9z"/>
 </svg>

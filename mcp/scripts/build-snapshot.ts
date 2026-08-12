@@ -18,6 +18,7 @@ const REQUIRED_TEXT_FILES = [
 
 const STATIC_CONTENT_TYPES: Record<string, string> = {
   ".otf": "font/otf",
+  ".png": "image/png",
   ".svg": "image/svg+xml",
   ".ttf": "font/ttf",
   ".woff": "font/woff",
