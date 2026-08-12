@@ -60,7 +60,7 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .specimen-grid .type-sample:last-child { margin-bottom: 0 !important; }
 .specimen-jp { font-family: var(--hsg-typography-family-body); font-weight: var(--hsg-typography-weight-700); }
 .specimen-grid article > p:last-child { margin: 0; color: var(--hsg-color-text-secondary); }
-.motif-preview { display: grid; max-width: var(--hsg-layout-content-width-standard); min-height: 420px; place-items: center; margin: 0; padding: var(--hsg-spacing-64); background: var(--hsg-color-background-sunken); }
+.motif-preview { display: grid; max-width: var(--hsg-layout-content-width-standard); min-height: 420px; place-items: center; margin: 0; padding: var(--hsg-spacing-64); }
 .motif-preview img { display: block; width: min(100%,300px); height: auto; }
 .pending-note { margin: var(--hsg-spacing-24) 0 0 var(--hsg-layout-content-indent); color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-14); line-height: var(--hsg-typography-line-height-180); }
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
