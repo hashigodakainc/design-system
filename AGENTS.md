@@ -28,8 +28,11 @@ AIエージェントが利用できるデザイントークン、資産、実装
 
 - 値（色・寸法・書体・資産メタデータ）は `tokens/*.json` と `assets/manifest.json` だけに
   定義します。成熟度・未決事項も同じJSONの `status` / `pending` フィールドが正本です。
-- `docs/` の散文には横断的な恒久判断だけを書き、値を再掲しません（トークン名で参照。
-  `scripts/validate-tokens.mjs` が生値の再流入を検知します）。
+- `docs/guidelines.md` には、トークンや資産メタデータを補完する定性的なデザイン判断だけを
+  書きます。デザインシステムの参照方法、実装手順、利用方法はREADMEや各実装の文書に置きます。
+  ガイドラインでは、推奨する方針を肯定形で示します。必要な場合だけ適用する方針には、その条件を
+  文中で明示します。
+- `docs/` の散文には値を再掲しません（`scripts/validate-tokens.mjs` が生値の再流入を検知します）。
 - `styles/tokens.css`・`styles/typography.css` は生成物です。手編集せず、トークン変更後に
   `node scripts/build-tokens.mjs` で再生成してください。ガイドラインサイトは正本JSONを
   直接読み込んで描画します。
