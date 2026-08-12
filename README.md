@@ -21,7 +21,8 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 - 値（色・寸法・書体・資産メタデータ）と成熟度の正本は `tokens/*.json` と
   `assets/manifest.json` だけに置きます。
-- Webを含む全媒体に共通する横断的な判断は [`docs/guidelines.md`](docs/guidelines.md)、
+- Webを含む全媒体に共通し、トークンや資産メタデータを補完する定性的な判断は
+  [`docs/guidelines.md`](docs/guidelines.md)、
   Web以外の媒体に固有の横断的な判断は [`docs/media.md`](docs/media.md) に書き、値を再掲しません。
 - `styles/tokens.css`・`styles/typography.css` は生成物です。ガイドラインサイトは正本JSONを直接読み込んで描画します。
 
@@ -59,8 +60,8 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 1. 値・成熟度の変更は `tokens/*.json`・`assets/manifest.json` を編集する
 2. `node scripts/build-tokens.mjs` で生成物を再生成する
-3. 横断的な判断が変わった場合のみ、全媒体共通なら `docs/guidelines.md`、Web以外の媒体に
-   固有なら `docs/media.md` を更新する
+3. トークンや資産メタデータを補完する定性的な判断が変わった場合のみ、全媒体共通なら
+   `docs/guidelines.md`、Web以外の媒体に固有なら `docs/media.md` を更新する
 4. `node scripts/validate-tokens.mjs` で検証する（CIでも自動実行）
 5. `main` へコミットしてpushする
 
