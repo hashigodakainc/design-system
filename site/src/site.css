@@ -115,7 +115,6 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .button-role-list { display: grid; max-width: var(--hsg-layout-content-width-reading); gap: var(--hsg-spacing-64); margin-left: var(--hsg-layout-content-indent); }
 .button-role h4 { margin: 0 0 var(--hsg-spacing-4); }
 .button-role > p { margin: var(--hsg-spacing-16) 0 0; color: var(--hsg-color-text-secondary); }
-.button-role > .button-role-priority { margin-top: 0; font-size: var(--hsg-typography-size-13); font-weight: var(--hsg-typography-weight-700); line-height: var(--hsg-typography-line-height-150); }
 .button-role-demo { margin-top: var(--hsg-spacing-24); }
 .card-group-demo { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--hsg-spacing-16); margin-left: var(--hsg-layout-content-indent); }
 .demo-card h4 { margin-top: var(--hsg-spacing-24); }
