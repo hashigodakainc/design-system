@@ -34,23 +34,23 @@ AIエージェントが利用できるデザイントークン、資産、実装
   文中で明示します。
 - `docs/` の散文には値を再掲しません（`scripts/validate-tokens.mjs` が生値の再流入を検知します）。
 - `styles/tokens.css`・`styles/typography.css` は生成物です。手編集せず、トークン変更後に
-  `node scripts/build-tokens.mjs` で再生成してください。ガイドラインサイトは正本JSONを
+  `node scripts/build-tokens.mjs` で再生成してください。デザインシステムサイトは正本JSONを
   直接読み込んで描画します。
 - ハーネス中立なMarkdown、JSON、CSS、画像資産などを正本とし、CodexやClaude Code向けの
   固有設定は薄いアダプターとして分離します。
 - 特定のWebサイトやプロダクトだけに必要な判断を、会社共通の原則として一般化しません。
 
-## ガイドラインサイトのデプロイ
+## デザインシステムサイトのデプロイ
 
-人間向けガイドラインは `https://design.hashigodaka.co.jp/`、Remote MCPは同じオリジンの
+人間向けデザインシステムサイトは `https://design.hashigodaka.co.jp/`、Remote MCPは同じオリジンの
 `https://design.hashigodaka.co.jp/mcp` で一般公開します。実装とデプロイ単位は分離し、
-ガイドラインをCloudflare Workers Static Assets、`/mcp*` をより具体的なRouteで別のMCP
-Workerへ振り分けます。ガイドラインのデプロイは `site/` をrootとするWorkers Buildsの
+サイトをCloudflare Workers Static Assets、`/mcp*` をより具体的なRouteで別のMCP
+Workerへ振り分けます。サイトのデプロイは `site/` をrootとするWorkers Buildsの
 GitHub連携を正とします。
 
 `site/dist/` は正本からホワイトリストで生成する未管理の配信成果物であり、
 直接編集・コミットしません。配信先に値や判断を独自定義せず、
-`tokens/`・`assets/manifest.json`・`docs/guidelines.md`・`guidelines/`から常に再生成します。
+`tokens/`・`assets/manifest.json`・`docs/guidelines.md`・`site/src/`から常に再生成します。
 
 ## MCPのデプロイ
 

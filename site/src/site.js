@@ -210,11 +210,11 @@ const render = (colorSource, typographySource, layoutSource, shapeSource, compon
 };
 
 Promise.all([
-  fetchJson('../tokens/colors.json'),
-  fetchJson('../tokens/typography.json'),
-  fetchJson('../tokens/layout.json'),
-  fetchJson('../tokens/shape.json'),
-  fetchJson('../tokens/components.json'),
+  fetchJson('tokens/colors.json'),
+  fetchJson('tokens/typography.json'),
+  fetchJson('tokens/layout.json'),
+  fetchJson('tokens/shape.json'),
+  fetchJson('tokens/components.json'),
 ]).then((sources) => render(...sources)).catch((error) => {
   console.error('デザイントークンの読み込みに失敗しました。HTTPサーバー経由（リポジトリルート配信）で表示してください。', error);
 });

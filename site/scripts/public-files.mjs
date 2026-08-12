@@ -1,7 +1,7 @@
 export const publicFiles = [
-  ['guidelines/index.html', 'index.html'],
-  ['guidelines/site.css', 'site.css'],
-  ['guidelines/site.js', 'site.js'],
+  ['site/src/index.html', 'index.html'],
+  ['site/src/site.css', 'site.css'],
+  ['site/src/site.js', 'site.js'],
   ['styles/tokens.css', 'styles/tokens.css'],
   ['styles/typography.css', 'styles/typography.css'],
   ['styles/components.css', 'styles/components.css'],
@@ -22,23 +22,4 @@ export const publicFiles = [
   ['site/_headers', '_headers'],
 ];
 
-const rootRelativeReplacements = [
-  ['../styles/', 'styles/'],
-  ['../assets/', 'assets/'],
-  ['../tokens/', 'tokens/'],
-  ['../docs/', 'docs/'],
-  ['./site.css', 'site.css'],
-  ['./site.js', 'site.js'],
-];
-
-export const transformPublicFile = (source, contents) => {
-  if (!['guidelines/index.html', 'guidelines/site.css', 'guidelines/site.js'].includes(source)) {
-    return contents;
-  }
-
-  let transformed = contents.toString('utf8');
-  for (const [before, after] of rootRelativeReplacements) {
-    transformed = transformed.replaceAll(before, after);
-  }
-  return Buffer.from(transformed);
-};
+export const transformPublicFile = (_source, contents) => contents;
