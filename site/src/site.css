@@ -54,9 +54,10 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .specimen-grid, .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-left: var(--hsg-layout-content-indent); }
 .specimen-grid article, .two-column article { padding: 32px; background: var(--hsg-color-background-sunken); }
 .specimen-label, .demo-label { color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-13); font-weight: var(--hsg-typography-weight-700); line-height: var(--hsg-typography-line-height-150); letter-spacing: var(--hsg-typography-tracking-wide); }
-.specimen-grid h3 { margin: 34px 0 12px; font-size: clamp(34px,4vw,54px); letter-spacing: -.055em; }
+.specimen-grid h3 { margin: 0 0 12px; font-size: clamp(34px,4vw,54px); letter-spacing: -.055em; }
 .specimen-latin { font-family: var(--hsg-typography-family-latin); font-weight: var(--hsg-typography-weight-700); }
 .type-sample { min-height: 3em; margin-bottom: 24px !important; color: var(--hsg-color-text-primary) !important; font-size: var(--hsg-typography-size-18); line-height: var(--hsg-typography-line-height-180); }
+.specimen-grid .type-sample:last-child { margin-bottom: 0 !important; }
 .specimen-jp { font-family: var(--hsg-typography-family-body); font-weight: var(--hsg-typography-weight-700); }
 .specimen-grid article > p:last-child, .two-column p { margin: 0; color: var(--hsg-color-text-secondary); }
 .motif-panel { display: grid; grid-template-columns: minmax(280px,.8fr) minmax(320px,1.2fr); margin: var(--hsg-spacing-24) 0 0 var(--hsg-layout-content-indent); background: var(--hsg-color-background-sunken); }
