@@ -108,7 +108,6 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .grid-columns-8 { grid-template-columns: repeat(8,1fr); }
 .grid-columns-12 { grid-template-columns: repeat(12,1fr); }
 .grid-columns i { background: color-mix(in srgb, var(--hsg-color-brand-primary) 24%, var(--hsg-color-background-canvas)); }
-.layout-rules { margin-top: var(--hsg-spacing-64); }
 .status-panel { display: flex; gap: 28px; margin-left: var(--hsg-layout-content-indent); padding: 34px; background: var(--hsg-color-background-sunken); }
 .status-panel > .hsg-badge { height: fit-content; }
 .status-panel h3 { margin-bottom: 8px; }
