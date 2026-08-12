@@ -55,6 +55,8 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 ## 更新の手順
 
+開発ツールは `mise install` で、CIと各パッケージが指定するNode・pnpmへ揃えられます。
+
 1. 値・成熟度の変更は `tokens/*.json`・`assets/manifest.json` を編集する
 2. `node scripts/build-tokens.mjs` で生成物を再生成する
 3. トークンや資産メタデータを補完する定性的な判断が変わった場合のみ、`docs/guidelines.md` を更新する
