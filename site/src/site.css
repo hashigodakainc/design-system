@@ -106,12 +106,13 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .component-demo { display: grid; margin-left: var(--hsg-layout-content-indent); }
 .component-demo > div { padding: 28px; background: var(--hsg-color-background-sunken); }
 .menu-component-demo > div { background: var(--hsg-color-background-raised); }
-.badge-surface-demo { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--hsg-spacing-16); margin-left: var(--hsg-layout-content-indent); }
-.badge-demo { padding: 28px; }
-.badge-demo-sunken, .badge-demo-colors { background: var(--hsg-color-background-sunken); }
-.badge-demo-raised { background: var(--hsg-color-background-raised); }
-.badge-demo-colors { margin: var(--hsg-spacing-16) 0 0 var(--hsg-layout-content-indent); }
-.badge-demo > p:last-child { max-width: var(--hsg-layout-content-width-reading); margin: 20px 0 0; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-14); }
+.badge-role-list { display: grid; max-width: var(--hsg-layout-content-width-reading); gap: var(--hsg-spacing-64); margin-left: var(--hsg-layout-content-indent); }
+.badge-role h4 { margin: 0; }
+.badge-role > p { margin: var(--hsg-spacing-16) 0 0; color: var(--hsg-color-text-secondary); }
+.badge-role-demo { margin-top: var(--hsg-spacing-24); padding: 28px; }
+.badge-role-demo-sunken { background: var(--hsg-color-background-sunken); }
+.badge-role-demo-raised { background: var(--hsg-color-background-raised); }
+.badge-role-demo-colors { padding: 0; }
 .button-role-list { display: grid; max-width: var(--hsg-layout-content-width-reading); gap: var(--hsg-spacing-64); margin-left: var(--hsg-layout-content-indent); }
 .button-role h4 { margin: 0 0 var(--hsg-spacing-4); }
 .button-role > p { margin: var(--hsg-spacing-16) 0 0; color: var(--hsg-color-text-secondary); }
@@ -131,7 +132,6 @@ footer p { margin: 0; }
   .brand-grid { grid-template-columns: repeat(2,1fr); }
   .neutral-grid { grid-template-columns: repeat(2,1fr); }
   .component-demo { grid-template-columns: 1fr; }
-  .badge-surface-demo { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
   .mobile-header { position: sticky; top: 0; z-index: 40; display: flex; height: var(--hsg-layout-header-height-mobile); align-items: center; justify-content: space-between; padding: 0 var(--hsg-spacing-16); border-bottom: var(--hsg-border-width-default) solid var(--hsg-color-border-default); background: color-mix(in srgb, var(--hsg-color-background-canvas) 96%, transparent); backdrop-filter: blur(12px); }
@@ -146,7 +146,7 @@ footer p { margin: 0; }
   .section, .compact-section { padding: var(--hsg-layout-section-space-medium) var(--hsg-layout-page-gutter-mobile); scroll-margin-top: var(--hsg-layout-header-height-mobile); }
   .section-heading { margin-bottom: 38px; }
   .specimen-grid { grid-template-columns: 1fr; }
-  .specimen-grid, .pending-note, .rule-list, .component-demo, .component-type-heading, .badge-surface-demo, .badge-demo-colors, .button-role-list, .card-role-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
+  .specimen-grid, .pending-note, .rule-list, .component-demo, .component-type-heading, .button-role-list, .card-role-list, .badge-role-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .type-role dl { grid-template-columns: repeat(3,1fr); }
   .type-role dl div { grid-template-columns: 1fr; gap: 2px; }
