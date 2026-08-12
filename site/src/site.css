@@ -116,8 +116,11 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .button-role h4 { margin: 0 0 var(--hsg-spacing-4); }
 .button-role > p { margin: var(--hsg-spacing-16) 0 0; color: var(--hsg-color-text-secondary); }
 .button-role-demo { margin-top: var(--hsg-spacing-24); }
-.card-group-demo { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--hsg-spacing-16); margin-left: var(--hsg-layout-content-indent); }
-.demo-card h4 { margin-top: var(--hsg-spacing-24); }
+.card-role-list { display: grid; max-width: var(--hsg-layout-content-width-reading); gap: var(--hsg-spacing-64); margin-left: var(--hsg-layout-content-indent); }
+.card-role h4 { margin: 0; }
+.card-role > p { margin: var(--hsg-spacing-16) 0 0; color: var(--hsg-color-text-secondary); }
+.card-role-demo { margin-top: var(--hsg-spacing-24); }
+.demo-card h5 { margin: 0 0 var(--hsg-spacing-16); }
 .demo-card p:not(.demo-label) { color: var(--hsg-color-text-secondary); }
 .demo-card a { font-size: var(--hsg-typography-size-15); font-weight: var(--hsg-typography-weight-700); line-height: var(--hsg-typography-line-height-150); text-underline-offset: 5px; }
 code { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
@@ -128,7 +131,6 @@ footer p { margin: 0; }
   .brand-grid { grid-template-columns: repeat(2,1fr); }
   .neutral-grid { grid-template-columns: repeat(2,1fr); }
   .component-demo { grid-template-columns: 1fr; }
-  .card-group-demo { grid-template-columns: 1fr; }
   .badge-surface-demo { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
@@ -144,7 +146,7 @@ footer p { margin: 0; }
   .section, .compact-section { padding: var(--hsg-layout-section-space-medium) var(--hsg-layout-page-gutter-mobile); scroll-margin-top: var(--hsg-layout-header-height-mobile); }
   .section-heading { margin-bottom: 38px; }
   .specimen-grid { grid-template-columns: 1fr; }
-  .specimen-grid, .pending-note, .rule-list, .component-demo, .component-type-heading, .badge-surface-demo, .badge-demo-colors, .button-role-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
+  .specimen-grid, .pending-note, .rule-list, .component-demo, .component-type-heading, .badge-surface-demo, .badge-demo-colors, .button-role-list, .card-role-list, .type-subheading, .type-role-list, .type-rules > h3, .layout-foundation { margin-left: 0; }
   .type-role { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .type-role dl { grid-template-columns: repeat(3,1fr); }
   .type-role dl div { grid-template-columns: 1fr; gap: 2px; }
