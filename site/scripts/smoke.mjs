@@ -8,6 +8,8 @@ const checks = [
   ['/tokens/colors.json', 200, 'color.brand.primary'],
   ['/tokens/components.json', 200, 'button.primary.background'],
   ['/assets/manifest.json', 200, 'brand-motif'],
+  ['/assets/icons/favicon.svg', 200, '<svg'],
+  ['/assets/social/design-system-og.png', 200, null],
   ['/assets/wordmarks/wordmark.svg', 200, '<svg'],
   ['/docs/guidelines.md', 200, '# Hashigodaka'],
   ['/AGENTS.md', 404, null],

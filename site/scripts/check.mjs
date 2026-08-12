@@ -63,8 +63,20 @@ const addReference = (from, reference) => {
 };
 
 const html = await readFile(path.join(distDir, 'index.html'), 'utf8');
-if (!html.includes('<link rel="icon" href="assets/motifs/brand-motif.svg" type="image/svg+xml">')) {
-  errors.push('Site favicon must reference the public brand motif SVG.');
+if (!html.includes('<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">')) {
+  errors.push('Site favicon must reference the dedicated public favicon SVG.');
+}
+for (const requiredMetadata of [
+  '<link rel="canonical" href="https://design.hashigodaka.co.jp/">',
+  '<meta property="og:locale" content="ja_JP">',
+  '<meta property="og:url" content="https://design.hashigodaka.co.jp/">',
+  '<meta property="og:image" content="https://design.hashigodaka.co.jp/assets/social/design-system-og.png">',
+  '<meta property="og:image:type" content="image/png">',
+  '<meta property="og:image:width" content="1200">',
+  '<meta property="og:image:height" content="630">',
+  '<meta name="twitter:card" content="summary_large_image">',
+]) {
+  if (!html.includes(requiredMetadata)) errors.push(`Missing social metadata: ${requiredMetadata}`);
 }
 for (const match of html.matchAll(/\b(?:href|src)=(['"])(.*?)\1/g)) addReference('index.html', match[2]);
 for (const cssFile of [...actualFiles].filter((file) => file.endsWith('.css'))) {
