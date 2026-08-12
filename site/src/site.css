@@ -44,7 +44,7 @@ h1 { max-width: var(--hsg-layout-content-width-reading); margin-bottom: 28px; }
 .swatch strong, .neutral strong { display: block; font-size: var(--hsg-typography-size-18); font-weight: var(--hsg-typography-weight-700); line-height: var(--hsg-typography-line-height-150); }
 .swatch small, .neutral small { display: block; margin-top: 16px; color: var(--hsg-color-text-secondary); font-size: var(--hsg-typography-size-12); line-height: var(--hsg-typography-line-height-150); }
 .subheading { margin: 68px 0 20px; }
-.neutral-grid { display: grid; max-width: var(--hsg-layout-content-width-standard); grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 14px; }
+.neutral-grid { display: grid; max-width: var(--hsg-layout-content-width-standard); grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
 .neutral > span { display: block; aspect-ratio: 2; }
 .neutral > div { padding: var(--hsg-spacing-16) 0 0; }
 .semantic-intro { max-width: var(--hsg-layout-content-width-reading); margin: 0 0 var(--hsg-spacing-16); color: var(--hsg-color-text-secondary); }
@@ -159,7 +159,7 @@ footer p { margin: 0; }
 @media (max-width: 1050px) {
   .hero { grid-template-columns: 1fr; }
   .brand-grid { grid-template-columns: repeat(2,1fr); }
-  .neutral-grid { grid-template-columns: 1fr; }
+  .neutral-grid { grid-template-columns: repeat(2,1fr); }
   .component-demo { grid-template-columns: 1fr; }
   .card-group-demo { grid-template-columns: 1fr; }
   .badge-surface-demo { grid-template-columns: 1fr; }
@@ -196,7 +196,7 @@ footer p { margin: 0; }
   .layout-block-heading { display: grid; gap: var(--hsg-spacing-16); align-items: start; }
   .space-scale { grid-template-columns: repeat(10,40px); }
   .grid-specimens > div { grid-template-columns: 1fr; gap: var(--hsg-spacing-8); }
-  .brand-grid { grid-template-columns: 1fr; }
+  .brand-grid, .neutral-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; padding: var(--hsg-spacing-32) var(--hsg-layout-page-gutter-mobile) var(--hsg-spacing-96); }
 }
 @media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } .sidebar { transition: none; } }
