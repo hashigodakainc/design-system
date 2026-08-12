@@ -24,7 +24,7 @@
     {
       "id": "social.design-system",
       "kind": "social-image",
-      "label": "Design System OGP",
+      "label": "Hashigodaka 共通OGP",
       "status": "approved",
       "path": "assets/social/design-system-og.png",
       "format": "image/png",
@@ -32,14 +32,14 @@
         "width": 1200,
         "height": 630
       },
-      "source": "assets/social/design-system-og.svg",
+      "source": "hashigodakainc/hashigodaka-pages:public/assets/ogp-logotype.png",
       "usage": [
         "デザインシステムサイトのOGP画像",
         "大きな画像付きソーシャルカード"
       ],
       "restrictions": [
         "縦横比を変えない",
-        "文言、書体、配色、構図を個別に改変しない"
+        "hashigodaka-pagesの共通OGPと異なる書体、配色、構図へ改変しない"
       ]
     },
     {
