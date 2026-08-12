@@ -18,6 +18,10 @@ jobs:
         run: node scripts/build-tokens.mjs
       - name: Generated files must be up to date
         run: git diff --exit-code styles/tokens.css styles/typography.css
+      - name: Rebuild favicon from brand motif
+        run: node scripts/build-favicon.mjs
+      - name: Generated favicon must be up to date
+        run: git diff --exit-code assets/icons/favicon.svg
       - name: Validate tokens, assets, and docs
         run: node scripts/validate-tokens.mjs
       - name: Verify resolved visual compatibility

@@ -58,10 +58,11 @@ AIエージェント向けRemote MCPは、同じオリジンの
 開発ツールは `mise install` で、CIと各パッケージが指定するNode・pnpmへ揃えられます。
 
 1. 値・成熟度の変更は `tokens/*.json`・`assets/manifest.json` を編集する
-2. `node scripts/build-tokens.mjs` で生成物を再生成する
-3. トークンや資産メタデータを補完する定性的な判断が変わった場合のみ、`docs/guidelines.md` を更新する
-4. `node scripts/validate-tokens.mjs` で検証する（CIでも自動実行）
-5. `main` へコミットしてpushする
+2. `node scripts/build-tokens.mjs` でトークン生成物を再生成する
+3. ブランドモチーフを変更した場合は、`node scripts/build-favicon.mjs` でfaviconを再生成する
+4. トークンや資産メタデータを補完する定性的な判断が変わった場合のみ、`docs/guidelines.md` を更新する
+5. `node scripts/validate-tokens.mjs` で検証する（CIでも自動実行）
+6. `main` へコミットしてpushする
 
 情報配置と更新ワークフローの合意の正本は
 [Issue #1](https://github.com/hashigodakainc/design-system/issues/1) を参照してください。
