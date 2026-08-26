@@ -38,13 +38,21 @@ for (const actual of actualFiles) {
 for (const [source, destination] of publicFiles) {
   if (!actualFiles.has(destination)) continue;
   const sourceContents = await readFile(path.join(repositoryRoot, source));
-  const expectedContents = transformPublicFile(source, sourceContents);
+  const expectedContents = await transformPublicFile(source, sourceContents);
   const actualContents = await readFile(path.join(distDir, destination));
   if (!actualContents.equals(expectedContents)) {
     errors.push(`Public file does not match its SSOT source: ${destination}`);
   }
   const stat = await lstat(path.join(distDir, destination));
   if (!stat.isFile()) errors.push(`Public path is not a regular file: ${destination}`);
+}
+
+for (const file of actualFiles) {
+  if (file.endsWith('.ttf')) errors.push(`TrueType font must not be published: ${file}`);
+  if (file.endsWith('.woff2')) {
+    const signature = (await readFile(path.join(distDir, file))).subarray(0, 4).toString('ascii');
+    if (signature !== 'wOF2') errors.push(`Invalid WOFF2 signature: ${file}`);
+  }
 }
 
 for (const jsonFile of [...actualFiles].filter((file) => file.endsWith('.json'))) {

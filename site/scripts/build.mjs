@@ -16,7 +16,7 @@ for (const [source, destination] of publicFiles) {
   await mkdir(path.dirname(destinationPath), { recursive: true });
 
   const contents = await readFile(sourcePath);
-  const transformed = transformPublicFile(source, contents);
+  const transformed = await transformPublicFile(source, contents);
   await writeFile(destinationPath, transformed);
 }
 
