@@ -1,3 +1,5 @@
+import wawoff2 from 'wawoff2';
+
 export const publicFiles = [
   ['site/src/index.html', 'index.html'],
   ['site/src/site.css', 'site.css'],
@@ -11,10 +13,10 @@ export const publicFiles = [
   ['tokens/layout.json', 'tokens/layout.json'],
   ['tokens/shape.json', 'tokens/shape.json'],
   ['assets/manifest.json', 'assets/manifest.json'],
-  ['assets/fonts/sora.ttf', 'assets/fonts/sora.ttf'],
+  ['assets/fonts/sora.ttf', 'assets/fonts/sora.woff2'],
   ['assets/fonts/sora-OFL.txt', 'assets/fonts/sora-OFL.txt'],
-  ['assets/fonts/line-seed-jp-regular.ttf', 'assets/fonts/line-seed-jp-regular.ttf'],
-  ['assets/fonts/line-seed-jp-bold.ttf', 'assets/fonts/line-seed-jp-bold.ttf'],
+  ['assets/fonts/line-seed-jp-regular.ttf', 'assets/fonts/line-seed-jp-regular.woff2'],
+  ['assets/fonts/line-seed-jp-bold.ttf', 'assets/fonts/line-seed-jp-bold.woff2'],
   ['assets/fonts/line-seed-jp-OFL.txt', 'assets/fonts/line-seed-jp-OFL.txt'],
   ['assets/icons/favicon.svg', 'assets/icons/favicon.svg'],
   ['assets/motifs/brand-motif.svg', 'assets/motifs/brand-motif.svg'],
@@ -24,4 +26,6 @@ export const publicFiles = [
   ['site/_headers', '_headers'],
 ];
 
-export const transformPublicFile = (_source, contents) => contents;
+export const transformPublicFile = async (source, contents) => (
+  source.endsWith('.ttf') ? Buffer.from(await wawoff2.compress(contents)) : contents
+);
