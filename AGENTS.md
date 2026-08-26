@@ -66,4 +66,8 @@ Cloudflare側でbuild・deployします。GitHub Actionsは検証だけを担当
 ## Gitワークフロー
 
 デフォルトブランチは `main`、リモート名は `origin` です。変更後は内容を確認し、無関係な変更を
-含めず、実際の変更を表すメッセージでコミットしてpushします。
+含めず、実際の変更を表すメッセージでコミットし、作業ブランチをpushしてPull Requestを作成します。
+
+作業ブランチ名は `<type>/<short-description>` 形式とし、説明部分は英小文字のkebab-caseで
+記述します。`type` は変更内容に応じて `feat`、`fix`、`perf`、`refactor`、`docs`、`chore` を
+使います。関連Issueがある場合は、説明部分の先頭へIssue番号を付けられます。
