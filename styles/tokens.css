@@ -82,6 +82,7 @@
   --hsg-typography-tracking-tighter: -0.04em;
   --hsg-typography-tracking-tight: -0.02em;
   --hsg-typography-tracking-normal: 0;
+  --hsg-typography-tracking-relaxed: 0.02em;
   --hsg-typography-tracking-wide: 0.04em;
   --hsg-spacing-0: 0px;
   --hsg-spacing-4: 4px;

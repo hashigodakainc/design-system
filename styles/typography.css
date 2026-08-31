@@ -39,21 +39,21 @@
   font-size: var(--hsg-typography-size-18);
   font-weight: var(--hsg-typography-weight-400);
   line-height: var(--hsg-typography-line-height-180);
-  letter-spacing: var(--hsg-typography-tracking-normal);
+  letter-spacing: var(--hsg-typography-tracking-relaxed);
 }
 .hsg-type-body {
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-16);
   font-weight: var(--hsg-typography-weight-400);
   line-height: var(--hsg-typography-line-height-180);
-  letter-spacing: var(--hsg-typography-tracking-normal);
+  letter-spacing: var(--hsg-typography-tracking-relaxed);
 }
 .hsg-type-body-small {
   font-family: var(--hsg-typography-family-body);
   font-size: var(--hsg-typography-size-14);
   font-weight: var(--hsg-typography-weight-400);
   line-height: var(--hsg-typography-line-height-180);
-  letter-spacing: var(--hsg-typography-tracking-normal);
+  letter-spacing: var(--hsg-typography-tracking-relaxed);
 }
 .hsg-type-label {
   font-family: var(--hsg-typography-family-body);

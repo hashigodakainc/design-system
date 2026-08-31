@@ -145,7 +145,7 @@ export function validateTokenLayers({ colorSource, componentSource, typographySo
   for (const token of typographySource.tokens) {
     if ("layer" in token) errors.push(`tokens/typography.json must not declare color layers: ${token.name}`);
     if (!token.name.startsWith("typography.")) errors.push(`tokens/typography.json may only contain typography.* tokens: ${token.name}`);
-    if (!/^typography\.(?:family\.(?:latin|body|code)|weight\.(?:400|700)|size\.(?:12|13|14|15|16|18|20|24|28|32|40|44|64)|line-height\.(?:112|135|150|170|180)|tracking\.(?:tighter|tight|normal|wide))$/.test(token.name)) {
+    if (!/^typography\.(?:family\.(?:latin|body|code)|weight\.(?:400|700)|size\.(?:12|13|14|15|16|18|20|24|28|32|40|44|64)|line-height\.(?:112|135|150|170|180)|tracking\.(?:tighter|tight|normal|relaxed|wide))$/.test(token.name)) {
       errors.push(`tokens/typography.json has an unsupported primitive name: ${token.name}`);
     }
     const sizeName = /^typography\.size\.(\d+)$/.exec(token.name);
@@ -174,7 +174,7 @@ export function validateTokenLayers({ colorSource, componentSource, typographySo
       ["mobileFontSize", /^\{typography\.size\.\d+\}$/],
       ["fontWeight", /^\{typography\.weight\.\d+\}$/],
       ["lineHeight", /^\{typography\.line-height\.\d+\}$/],
-      ["letterSpacing", /^\{typography\.tracking\.(?:tighter|tight|normal|wide)\}$/],
+      ["letterSpacing", /^\{typography\.tracking\.(?:tighter|tight|normal|relaxed|wide)\}$/],
     ]) {
       if (role[field] !== undefined && !pattern.test(role[field])) {
         errors.push(`Typography role ${role.name}.${field} must reference the matching primitive namespace: ${role[field]}`);
