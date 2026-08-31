@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Typography: 本文の可読性
+
+- `typography.tracking.relaxed`を追加し、`body-large`、`body`、`body-small`の字間へ適用した。
+- LINE Seed JPの字面が長文で詰まって見えないよう、本文ロールの視認性を改善した。
+
 ### Breaking: Typography・Layout トークン再編
 
 - Typographyのプリミティブを値由来名へ統一し、用途は既存の`.hsg-type-*`ロールへ集約した。

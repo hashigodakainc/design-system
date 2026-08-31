@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "status": "selected",
   "sourceDecision": "D-I",
   "description": "Hashigodakaのタイポグラフィプリミティブと用途別ロールの正本。",
@@ -34,6 +34,7 @@
     { "name": "typography.tracking.tighter", "type": "letterSpacing", "value": "-0.04em", "description": "標準より強く詰める字間プリミティブ。" },
     { "name": "typography.tracking.tight", "type": "letterSpacing", "value": "-0.02em", "description": "標準より詰める字間プリミティブ。" },
     { "name": "typography.tracking.normal", "type": "letterSpacing", "value": "0", "description": "書体本来の字間を使うプリミティブ。" },
+    { "name": "typography.tracking.relaxed", "type": "letterSpacing", "value": "0.02em", "description": "長文の可読性を高めるため、標準よりわずかに広げる字間プリミティブ。" },
     { "name": "typography.tracking.wide", "type": "letterSpacing", "value": "0.04em", "description": "標準より広げる字間プリミティブ。" }
   ],
   "roles": [
@@ -42,9 +43,9 @@
     { "name": "heading-2", "family": "body", "fontSize": "{typography.size.28}", "mobileFontSize": "{typography.size.24}", "fontWeight": "{typography.weight.700}", "lineHeight": "{typography.line-height.135}", "letterSpacing": "{typography.tracking.tight}" },
     { "name": "heading-3", "family": "body", "fontSize": "{typography.size.20}", "fontWeight": "{typography.weight.700}", "lineHeight": "{typography.line-height.135}", "letterSpacing": "{typography.tracking.tight}" },
     { "name": "heading-4", "family": "body", "fontSize": "{typography.size.18}", "fontWeight": "{typography.weight.700}", "lineHeight": "{typography.line-height.135}", "letterSpacing": "{typography.tracking.tight}" },
-    { "name": "body-large", "family": "body", "fontSize": "{typography.size.18}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.normal}" },
-    { "name": "body", "family": "body", "fontSize": "{typography.size.16}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.normal}" },
-    { "name": "body-small", "family": "body", "fontSize": "{typography.size.14}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.normal}" },
+    { "name": "body-large", "family": "body", "fontSize": "{typography.size.18}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.relaxed}" },
+    { "name": "body", "family": "body", "fontSize": "{typography.size.16}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.relaxed}" },
+    { "name": "body-small", "family": "body", "fontSize": "{typography.size.14}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.180}", "letterSpacing": "{typography.tracking.relaxed}" },
     { "name": "label", "family": "body", "fontSize": "{typography.size.13}", "fontWeight": "{typography.weight.700}", "lineHeight": "{typography.line-height.150}", "letterSpacing": "{typography.tracking.wide}" },
     { "name": "label-large", "family": "body", "fontSize": "{typography.size.15}", "fontWeight": "{typography.weight.700}", "lineHeight": "{typography.line-height.150}", "letterSpacing": "{typography.tracking.normal}" },
     { "name": "caption", "family": "body", "fontSize": "{typography.size.12}", "fontWeight": "{typography.weight.400}", "lineHeight": "{typography.line-height.150}", "letterSpacing": "{typography.tracking.wide}" },

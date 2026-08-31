@@ -5,9 +5,9 @@
     "heading-2": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "28px", "mobileFontSize": "24px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
     "heading-3": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "20px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
     "heading-4": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "18px", "fontWeight": "700", "lineHeight": "1.35", "letterSpacing": "-0.02em" },
-    "body-large": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "18px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
-    "body": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "16px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
-    "body-small": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "14px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0" },
+    "body-large": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "18px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0.02em" },
+    "body": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "16px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0.02em" },
+    "body-small": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "14px", "fontWeight": "400", "lineHeight": "1.8", "letterSpacing": "0.02em" },
     "label": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "13px", "fontWeight": "700", "lineHeight": "1.5", "letterSpacing": "0.04em" },
     "label-large": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "15px", "fontWeight": "700", "lineHeight": "1.5", "letterSpacing": "0" },
     "caption": { "family": "\"Hsg Line Seed JP\", sans-serif", "fontSize": "12px", "fontWeight": "400", "lineHeight": "1.5", "letterSpacing": "0.04em" },
@@ -19,6 +19,6 @@
   },
   "typographyCss": {
     "blockCount": 16,
-    "sha256": "a5c9a75848b68ebafa08376b8df8eaf482e9b0921e92236de8ceb362e713288b"
+    "sha256": "0c418473647eac5abcc5019b8e6fb0f4f1f274b8efef42602ac9fcb1a9a73cdb"
   }
 }
