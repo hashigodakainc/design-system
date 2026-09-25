@@ -71,6 +71,6 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 共同編集用の資料仕様は `tokens/presentation.json`、一括取得はMCPの
 `get_presentation_profile` で提供します。候補状態と実機検証の残件は正本の
-`status` / `pending` を参照してください。PPTX生成手順は
+`status` / `pending` を参照してください。資料作成の方針と見本は
 [hashigodaka-deck](https://github.com/hashigodakainc/hashigodaka-skills/tree/main/hashigodaka-deck)
 で管理します。

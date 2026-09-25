@@ -45,16 +45,6 @@ export const presentationSourceSchema = z
       height: positive,
       unit: z.literal("in"),
     }),
-    layout: z.object({
-      margin: positive,
-      gap: positive,
-      padding: positive,
-      headerY: positive,
-      titleY: positive,
-      bodyY: positive,
-      bodyBottom: positive,
-      footerY: positive,
-    }),
     typeScale: z.object({
       cover: positive,
       divider: positive,
@@ -71,22 +61,6 @@ export const presentationSourceSchema = z
   })
   .strict()
   .superRefine((p, ctx) => {
-    const { margin, headerY, titleY, bodyY, bodyBottom, footerY } = p.layout;
-    if (
-      !(
-        2 * margin < p.canvas.width &&
-        headerY < titleY &&
-        titleY < bodyY &&
-        bodyY < bodyBottom &&
-        bodyBottom < footerY &&
-        footerY < p.canvas.height
-      )
-    ) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Presentation regions must be ordered and inside the canvas",
-      });
-    }
     if (p.status === "candidate" && p.pending.length === 0)
       ctx.addIssue({
         code: "custom",
@@ -133,17 +107,17 @@ export function getPresentationProfile(repository: RepositoryData) {
   });
   const guideline = repository.guidelines.get("guidelines");
   if (!guideline) throw new Error("Missing design guidelines");
+  const { schemaVersion, version, status, pending, ...design } = profile;
   return {
-    schemaVersion: 1,
+    schemaVersion,
     source: {
       path: "tokens/presentation.json",
-      version: profile.version,
-      status: profile.status,
-      pending: profile.pending,
+      version,
+      status,
+      pending,
     },
-    profile: { ...profile, colors: resolvedColors },
+    profile: { ...design, colors: resolvedColors },
     references: { colors: profile.colors },
-    dependencies: [...repository.tokenCategories.values()].map((c) => c.source),
     assets,
     guideline: { source: guideline.source.path, markdown: guideline.markdown },
   };

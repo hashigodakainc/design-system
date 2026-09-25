@@ -42,7 +42,7 @@ try {
     expectedTools,
   );
 
-  const presentation = await client.callTool({ name: "get_presentation_profile", arguments: { target: "google-slides" } });
+  const presentation = await client.callTool({ name: "get_presentation_profile", arguments: {} });
   assert.notEqual(presentation.isError, true);
   assert.equal(presentation.structuredContent?.profile?.target, "google-slides");
   assert(presentation.structuredContent?.assets?.some((asset) => asset.id === "wordmark"));

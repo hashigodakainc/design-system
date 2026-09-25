@@ -12,6 +12,9 @@ test("profile preserves provenance, pending state, units, semantic references an
   const repository = load();
   const result = getPresentationProfile(repository);
   assert.equal(result.schemaVersion, 1);
+  for (const field of ["schemaVersion", "version", "status", "pending", "layout"])
+    assert.equal(field in result.profile, false);
+  assert.equal("dependencies" in result, false);
   assert.equal(result.source.path, "tokens/presentation.json");
   assert.equal(result.source.status, "candidate");
   assert(result.source.pending.length > 0);
@@ -44,7 +47,7 @@ test("upstream semantic edits flow into the resolved profile", () => {
     "#112233",
   );
 });
-// Invalid equivalence classes and geometry boundaries. Rendering and application
+// Invalid equivalence classes and numeric boundaries. Rendering and application
 // font substitution are separate manual checks, not inferred from these tests.
 for (const [name, mutate] of Object.entries({
   schema: (p: any) => {
@@ -55,15 +58,6 @@ for (const [name, mutate] of Object.entries({
   },
   zeroDimension: (p: any) => {
     p.canvas.width = 0;
-  },
-  crossedRegions: (p: any) => {
-    p.layout.bodyY = p.layout.bodyBottom;
-  },
-  footerBoundary: (p: any) => {
-    p.layout.footerY = p.canvas.height;
-  },
-  marginBoundary: (p: any) => {
-    p.layout.margin = p.canvas.width / 2;
   },
   rawColor: (p: any) => {
     p.colors.text = "#112233";
@@ -114,7 +108,7 @@ async function rpc(method: string, params: object) {
           .slice(6),
   );
 }
-test("MCP tool discovery, text/JSON equivalence, and invalid target", async () => {
+test("MCP tool discovery, text/JSON equivalence, and unexpected arguments", async () => {
   const list = await rpc("tools/list", {});
   const tool = list.result.tools.find(
     (t: any) => t.name === "get_presentation_profile",
@@ -123,7 +117,7 @@ test("MCP tool discovery, text/JSON equivalence, and invalid target", async () =
   assert.equal(tool.annotations.readOnlyHint, true);
   const response = await rpc("tools/call", {
     name: tool.name,
-    arguments: { target: "google-slides" },
+    arguments: {},
   });
   assert.notEqual(response.result.isError, true);
   assert.deepEqual(

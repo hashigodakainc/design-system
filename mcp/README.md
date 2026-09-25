@@ -96,21 +96,16 @@ contentだけで返します。
 
 ## 資料作成用プロファイル
 
-`get_presentation_profile({"target":"google-slides"})` は `tokens/presentation.json` を読み、
-書体、資料用の単位を持つサイズ、セマンティック／コンポーネント参照から解決した色、
-ワードマーク・モチーフのSVGと利用条件、横断ガイドを一括で返します。
-`source.status` と `source.pending` は必ず確認してください。初版は共同編集用の候補であり、
-Googleスライドでの書体選択・PPTX取り込み・PDF出力の実機確認を残しています。
-Google Fonts収録だけをSlidesの対応証明にしません。
+`get_presentation_profile({})` は `tokens/presentation.json` を読み、
+書体、画面サイズ、文字サイズの目安、配色、公式資産と利用条件、デザインガイドを返します。
+配置や資料の構成は作成側で決めます。
 
-呼び出し側は `structuredContent` をJSONに保存して生成スキルへ渡せます。
-生成と目視確認は `hashigodakainc/hashigodaka-skills` の `hashigodaka-deck` が担当し、
-MCPはファイル生成、保存、アップロードを行いません。`schemaVersion` が出力契約を識別します。
-`references.colors` は元の参照、`profile.colors` は解決済み値です。
+- `source`：仕様の出典・版・状態・未確認事項。Googleスライドへの取り込みは未確認です。
+- `profile`：資料用のデザイン仕様。色は既存トークンから解決した値です。
+- `references.colors`：色の参照元。
+- `assets`・`guideline`：公式資産とデザインガイド。
 
-色は既存の正本を参照し、資料専用の値と検証状況だけを `tokens/presentation.json` で管理します。
-Web用の文字サイズやCSSフォントの別名をそのままOfficeへ渡しません。
-配布するPPTXにはフォントが自動で埋め込まれるわけではありません。
+`structuredContent` とtextのJSONは同じ内容です。`schemaVersion` は出力契約を識別します。
 
 開発中に同じ出力契約をローカルで取得する場合:
 

@@ -247,8 +247,8 @@ export function createServer(loader: RepositoryDataLoader): McpServer {
     "get_presentation_profile",
     {
       title: "Get presentation design profile",
-      description: "Googleスライドで共同編集する資料の仕様を一括取得します。資料用書体・寸法・解決済み配色・ワードマークとモチーフ・横断ガイド・未検証事項を返します。生成やアップロードは行いません。",
-      inputSchema: z.object({ target: z.literal("google-slides").describe("編集先。PowerPointで開く場合は同じ書体の導入と描画確認が必要。") }),
+      description: "資料用の書体・文字サイズの目安・配色・公式資産・デザインガイドと検証状態を返します。",
+      inputSchema: z.object({}).strict(),
       outputSchema: jsonObjectSchema,
       annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true },
     },
