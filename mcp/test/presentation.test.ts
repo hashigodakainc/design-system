@@ -8,7 +8,7 @@ const load = () =>
   new SnapshotRepositoryLoader(snapshot, {
     assetBaseUrl: "https://design.hashigodaka.co.jp",
   }).load();
-test("profile preserves provenance, pending state, units, semantic references and asset usage", () => {
+test("profile preserves provenance, adoption state, units, semantic references and asset usage", () => {
   const repository = load();
   const result = getPresentationProfile(repository);
   assert.equal(result.schemaVersion, 1);
@@ -16,8 +16,8 @@ test("profile preserves provenance, pending state, units, semantic references an
     assert.equal(field in result.profile, false);
   assert.equal("dependencies" in result, false);
   assert.equal(result.source.path, "tokens/presentation.json");
-  assert.equal(result.source.status, "candidate");
-  assert(result.source.pending.length > 0);
+  assert.equal(result.source.status, "selected");
+  assert.equal("pending" in result.source, false);
   assert.equal(result.profile.typeUnit, "pt");
   assert.equal(result.profile.canvas.unit, "in");
   for (const [role, alias] of Object.entries(result.references.colors)) {
@@ -35,6 +35,13 @@ test("profile preserves provenance, pending state, units, semantic references an
         "https://design.hashigodaka.co.jp/assets/",
       ),
     );
+  }
+});
+test("adoption states do not depend on runtime verification", () => {
+  for (const status of ["candidate", "selected", "approved"]) {
+    const repository = load();
+    repository.presentation.status = status;
+    assert.equal(getPresentationProfile(repository).source.status, status);
   }
 });
 test("upstream semantic edits flow into the resolved profile", () => {
@@ -74,8 +81,8 @@ for (const [name, mutate] of Object.entries({
   missingAsset: (p: any) => {
     p.assetIds = ["missing"];
   },
-  noPending: (p: any) => {
-    p.pending = [];
+  unknownStatus: (p: any) => {
+    p.status = "unknown";
   },
 })) {
   test(`invalid profile fails closed: ${name}`, () => {

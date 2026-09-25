@@ -70,7 +70,7 @@ AIエージェント向けRemote MCPは、同じオリジンの
 ## 営業・提案資料
 
 共同編集用の資料仕様は `tokens/presentation.json`、一括取得はMCPの
-`get_presentation_profile` で提供します。候補状態と実機検証の残件は正本の
-`status` / `pending` を参照してください。資料作成の方針と見本は
+`get_presentation_profile` で提供します。仕様の採用状態は正本の
+`status` を参照してください。資料作成の方針と見本は
 [hashigodaka-deck](https://github.com/hashigodakainc/hashigodaka-skills/tree/main/hashigodaka-deck)
 で管理します。

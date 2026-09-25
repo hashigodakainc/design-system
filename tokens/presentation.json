@@ -1,15 +1,8 @@
 {
   "schemaVersion": 1,
   "version": "0.1.0",
-  "status": "candidate",
+  "status": "selected",
   "description": "資料用の書体・文字サイズ・配色・公式資産。",
-  "pending": [
-    {
-      "topic": "Googleスライドでの書体・改行の実機確認",
-      "until": "SoraとNoto Sans JPの選択、PPTX取り込み、PDF出力をGoogleスライドで確認する",
-      "interim": "SoraとNoto Sans JPを候補として使用する。"
-    }
-  ],
   "target": "google-slides",
   "fonts": {
     "latin": "Sora",
@@ -18,7 +11,7 @@
       400,
       700
     ],
-    "reason": "和文の共同編集用代替候補。英字のみの表示はブランド書体を維持する。"
+    "reason": "和文の共同編集用代替書体。英字のみの表示はブランド書体を維持する。"
   },
   "canvas": {
     "width": 13.333333,

@@ -2,11 +2,6 @@ import * as z from "zod/v4";
 import type { RepositoryData } from "./data.js";
 
 const positive = z.number().positive().finite();
-const pending = z.object({
-  topic: z.string().min(1),
-  until: z.string().min(1),
-  interim: z.string().min(1),
-});
 const colors = z.object(
   Object.fromEntries(
     [
@@ -32,7 +27,6 @@ export const presentationSourceSchema = z
     version: z.string().min(1),
     status: z.enum(["candidate", "selected", "approved"]),
     description: z.string().min(1),
-    pending: z.array(pending),
     target: z.literal("google-slides"),
     fonts: z.object({
       latin: z.string().min(1),
@@ -59,14 +53,7 @@ export const presentationSourceSchema = z
     rules: z.array(z.string().min(1)).min(1),
     fontSources: z.array(z.url()),
   })
-  .strict()
-  .superRefine((p, ctx) => {
-    if (p.status === "candidate" && p.pending.length === 0)
-      ctx.addIssue({
-        code: "custom",
-        message: "Candidate profile must declare pending validation",
-      });
-  });
+  .strict();
 
 /** Resolve only semantic/component references; do not copy brand values into a profile. */
 export function getPresentationProfile(repository: RepositoryData) {
@@ -107,14 +94,13 @@ export function getPresentationProfile(repository: RepositoryData) {
   });
   const guideline = repository.guidelines.get("guidelines");
   if (!guideline) throw new Error("Missing design guidelines");
-  const { schemaVersion, version, status, pending, ...design } = profile;
+  const { schemaVersion, version, status, ...design } = profile;
   return {
     schemaVersion,
     source: {
       path: "tokens/presentation.json",
       version,
       status,
-      pending,
     },
     profile: { ...design, colors: resolvedColors },
     references: { colors: profile.colors },
