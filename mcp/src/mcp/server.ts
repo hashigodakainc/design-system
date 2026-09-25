@@ -3,6 +3,7 @@ import * as z from "zod/v4";
 
 import { type Category, type RepositoryData } from "../data.js";
 import type { RepositoryDataLoader } from "../loaders/types.js";
+import { getPresentationProfile } from "../presentation.js";
 import { createServerIcons } from "./icon.js";
 
 const categorySchema = z.enum(["color", "component", "typography", "layout", "shape"]);
@@ -239,6 +240,21 @@ export function createServer(loader: RepositoryDataLoader): McpServer {
           },
         ],
       };
+    },
+  );
+
+  server.registerTool(
+    "get_presentation_profile",
+    {
+      title: "Get presentation design profile",
+      description: "資料用の書体・文字サイズの目安・配色・公式資産・デザインガイドと検証状態を返します。",
+      inputSchema: z.object({}).strict(),
+      outputSchema: jsonObjectSchema,
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true },
+    },
+    async () => {
+      const output = getPresentationProfile(repository);
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     },
   );
 

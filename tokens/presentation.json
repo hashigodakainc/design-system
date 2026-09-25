@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "status": "selected",
+  "description": "資料用の書体・文字サイズ・配色・公式資産。",
+  "target": "google-slides",
+  "fonts": {
+    "latin": "Sora",
+    "body": "Noto Sans JP",
+    "weights": [
+      400,
+      700
+    ],
+    "reason": "和文の共同編集用代替書体。英字のみの表示はブランド書体を維持する。"
+  },
+  "canvas": {
+    "width": 13.333333,
+    "height": 7.5,
+    "unit": "in"
+  },
+  "typeScale": {
+    "cover": 40,
+    "divider": 48,
+    "title": 28,
+    "heading": 20,
+    "body": 18,
+    "caption": 11
+  },
+  "typeUnit": "pt",
+  "colors": {
+    "canvas": "{color.background.canvas}",
+    "surface": "{card.raised.background}",
+    "inset": "{card.sunken.background}",
+    "text": "{color.text.primary}",
+    "muted": "{color.text.secondary}",
+    "border": "{card.raised.border}",
+    "brand": "{color.brand.primary}",
+    "secondary": "{color.brand.secondary}",
+    "emphasis": "{color.status.info.foreground}",
+    "series1": "{color.data.series.1}",
+    "series2": "{color.data.series.2}",
+    "series3": "{color.data.series.3}",
+    "series4": "{color.data.series.4}"
+  },
+  "assetIds": [
+    "wordmark",
+    "motif.brand"
+  ],
+  "rules": [
+    "和文を含む段落はbody書体、英字のみのラベルはlatin書体を使う。ロゴは正本のワードマーク資産を使う。",
+    "カードはraisedの面と細い罫線で示し、影を付けない。",
+    "明るい基盤面を広く取り、ブランド主色は図形へ、本文の強調はemphasisへ割り当てる。"
+  ],
+  "fontSources": [
+    "https://fonts.google.com/specimen/Sora",
+    "https://fonts.google.com/noto/specimen/Noto+Sans+JP"
+  ]
+}

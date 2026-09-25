@@ -66,3 +66,11 @@ AIエージェント向けRemote MCPは、同じオリジンの
 
 情報配置と更新ワークフローの合意の正本は
 [Issue #1](https://github.com/hashigodakainc/design-system/issues/1) を参照してください。
+
+## 営業・提案資料
+
+共同編集用の資料仕様は `tokens/presentation.json`、一括取得はMCPの
+`get_presentation_profile` で提供します。仕様の採用状態は正本の
+`status` を参照してください。資料作成の方針と見本は
+[hashigodaka-deck](https://github.com/hashigodakainc/hashigodaka-skills/tree/main/hashigodaka-deck)
+で管理します。

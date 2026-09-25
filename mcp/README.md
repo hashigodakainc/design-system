@@ -1,7 +1,7 @@
 # Hashigodaka Design System MCP
 
 Hashigodakaデザインシステムの正本を、AIエージェントから参照するためのMCPサーバーです。
-4つのtoolをCloudflare Workers上のStreamable HTTPで提供します。
+5つのtoolをCloudflare Workers上のStreamable HTTPで提供します。
 
 ## データの読み込み
 
@@ -59,7 +59,7 @@ Worker `hashigodaka-design-system-mcp` とこのリポジトリを接続し、�
 デプロイします。Cloudflareがbuild用API tokenを管理するため、GitHub repositoryへ
 Cloudflareのcredentialを保存しません。GitHub Actionsは正本とWorkerの検証だけを担当します。
 
-公開endpointで4 toolとstatic assetを確認する手動検証は次のコマンドで実行できます。
+公開endpointで5 toolとstatic assetを確認する手動検証は次のコマンドで実行できます。
 
 ```sh
 pnpm smoke:remote
@@ -78,12 +78,13 @@ Worker Domainsに旧MCPホストが残っていないことも確認します。
 
 ## 提供するtool
 
+- `get_presentation_profile` — 共同編集する資料用の仕様・資産・ガイド・検証状態をまとめて返す
 - `get_tokens` — color / component / typography / layout / shape のトークン、解決前後のalias、status、pendingを返す
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 - `get_stylesheet` — `styles/*.css` のCSS本文を返す
 
-`get_tokens` と `get_asset` は `structuredContent` を返し、同一内容を直列化したJSONをtext
+`get_tokens`、`get_asset`、`get_presentation_profile` は `structuredContent` を返し、同一内容を直列化したJSONをtext
 contentにも含めます。`read_guideline` と `get_stylesheet` はMarkdown本文とCSS本文をtext
 contentだけで返します。
 
@@ -92,3 +93,25 @@ contentだけで返します。
 
 ワードマークを再調整する場合は、`assets/manifest.json` のwordmarkにある `generator` を編集し、
 `pnpm build:wordmark` を実行します。SVGとmanifestの `viewBox` はコマンドが同時に更新します。
+
+## 資料作成用プロファイル
+
+`get_presentation_profile({})` は `tokens/presentation.json` を読み、
+書体、画面サイズ、文字サイズの目安、配色、公式資産と利用条件、デザインガイドを返します。
+配置や資料の構成は作成側で決めます。
+
+- `source`：仕様の出典・版・採用状態。
+- `profile`：資料用のデザイン仕様。色は既存トークンから解決した値です。
+- `references.colors`：色の参照元。
+- `assets`・`guideline`：公式資産とデザインガイド。
+
+`structuredContent` とtextのJSONは同じ内容です。`schemaVersion` は出力契約を識別します。
+
+開発中に同じ出力契約をローカルで取得する場合:
+
+```sh
+pnpm build:snapshot
+node --import tsx scripts/export-presentation.ts /tmp/profile.json
+```
+
+出力JSONは生成物なのでコミットしません。
