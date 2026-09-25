@@ -54,6 +54,7 @@ export interface GuidelineData {
 }
 
 export interface RepositoryData {
+  presentation: JsonObject;
   assetIds: [string, ...string[]];
   assets: Map<string, AssetData>;
   guidelineIds: [string, ...string[]];
@@ -461,6 +462,7 @@ function buildInstructions(
     "Hashigodakaデザインシステムの正本を提供する参照専用MCPサーバーです。",
     "制作前に read_guideline の id=\"guidelines\" を読んでください。値は get_tokens からトークン名で参照し、資産は get_asset で利用条件とともに取得してください。",
     "採用済みコンポーネント（メニュー・ボタン・カード・バッジ）を使う場合は get_tokens の category=\"component\" と get_stylesheet の name=\"components\" を取得して実装をコピーし、再発明しないでください。CSS変数を使う実装では name=\"tokens\" / \"typography\" も取得できます。",
+    "共同編集用スライドを作るときは get_presentation_profile を取得してください。資料用の値・資産・候補状態を一括で返します。",
     `正本の状態: ${statuses.join(", ")}。`,
     pendingText,
   ].join("\n");
@@ -471,11 +473,14 @@ export function loadRepositoryData(
   options: RepositoryDataOptions = {},
 ): RepositoryData {
   const { categories, jsonFiles } = loadTokenCategories(source);
+  const presentation = readJson(source, "tokens/presentation.json");
+  jsonFiles.set("tokens/presentation.json", presentation);
   const { assetIds, assets, manifest } = loadAssets(source, options);
   const { guidelineIds, guidelines } = loadGuidelines(source);
   const { stylesheetNames, stylesheets } = loadStylesheets(source);
 
   return {
+    presentation,
     assetIds,
     assets,
     guidelineIds,

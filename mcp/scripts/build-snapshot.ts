@@ -13,6 +13,7 @@ const REQUIRED_TEXT_FILES = [
   "tokens/typography.json",
   "tokens/layout.json",
   "tokens/shape.json",
+  "tokens/presentation.json",
   "assets/manifest.json",
 ] as const;
 

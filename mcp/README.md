@@ -1,7 +1,7 @@
 # Hashigodaka Design System MCP
 
 Hashigodakaデザインシステムの正本を、AIエージェントから参照するためのMCPサーバーです。
-4つのtoolをCloudflare Workers上のStreamable HTTPで提供します。
+5つのtoolをCloudflare Workers上のStreamable HTTPで提供します。
 
 ## データの読み込み
 
@@ -59,7 +59,7 @@ Worker `hashigodaka-design-system-mcp` とこのリポジトリを接続し、�
 デプロイします。Cloudflareがbuild用API tokenを管理するため、GitHub repositoryへ
 Cloudflareのcredentialを保存しません。GitHub Actionsは正本とWorkerの検証だけを担当します。
 
-公開endpointで4 toolとstatic assetを確認する手動検証は次のコマンドで実行できます。
+公開endpointで5 toolとstatic assetを確認する手動検証は次のコマンドで実行できます。
 
 ```sh
 pnpm smoke:remote
@@ -78,12 +78,13 @@ Worker Domainsに旧MCPホストが残っていないことも確認します。
 
 ## 提供するtool
 
+- `get_presentation_profile` — 共同編集する資料用の仕様・資産・ガイド・検証状態をまとめて返す
 - `get_tokens` — color / component / typography / layout / shape のトークン、解決前後のalias、status、pendingを返す
 - `get_asset` — 資産メタデータと、SVG資産の場合はSVGソース本文を返す
 - `read_guideline` — `docs/*.md` のMarkdown本文を返す
 - `get_stylesheet` — `styles/*.css` のCSS本文を返す
 
-`get_tokens` と `get_asset` は `structuredContent` を返し、同一内容を直列化したJSONをtext
+`get_tokens`、`get_asset`、`get_presentation_profile` は `structuredContent` を返し、同一内容を直列化したJSONをtext
 contentにも含めます。`read_guideline` と `get_stylesheet` はMarkdown本文とCSS本文をtext
 contentだけで返します。
 
@@ -92,3 +93,30 @@ contentだけで返します。
 
 ワードマークを再調整する場合は、`assets/manifest.json` のwordmarkにある `generator` を編集し、
 `pnpm build:wordmark` を実行します。SVGとmanifestの `viewBox` はコマンドが同時に更新します。
+
+## 資料作成用プロファイル
+
+`get_presentation_profile({"target":"google-slides"})` は `tokens/presentation.json` を読み、
+書体、資料用の単位を持つサイズ、セマンティック／コンポーネント参照から解決した色、
+ワードマーク・モチーフのSVGと利用条件、横断ガイドを一括で返します。
+`source.status` と `source.pending` は必ず確認してください。初版は共同編集用の候補であり、
+Googleスライドでの書体選択・PPTX取り込み・PDF出力の実機確認を残しています。
+Google Fonts収録だけをSlidesの対応証明にしません。
+
+呼び出し側は `structuredContent` をJSONに保存して生成スキルへ渡せます。
+生成と目視確認は `hashigodakainc/hashigodaka-skills` の `hashigodaka-deck` が担当し、
+MCPはファイル生成、保存、アップロードを行いません。`schemaVersion` が出力契約を識別します。
+`references.colors` は元の参照、`profile.colors` は解決済み値です。
+
+色は既存の正本を参照し、資料専用の値と検証状況だけを `tokens/presentation.json` で管理します。
+Web用の文字サイズやCSSフォントの別名をそのままOfficeへ渡しません。
+配布するPPTXにはフォントが自動で埋め込まれるわけではありません。
+
+開発中に同じ出力契約をローカルで取得する場合:
+
+```sh
+pnpm build:snapshot
+node --import tsx scripts/export-presentation.ts /tmp/profile.json
+```
+
+出力JSONは生成物なのでコミットしません。

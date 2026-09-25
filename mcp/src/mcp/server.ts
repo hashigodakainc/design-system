@@ -3,6 +3,7 @@ import * as z from "zod/v4";
 
 import { type Category, type RepositoryData } from "../data.js";
 import type { RepositoryDataLoader } from "../loaders/types.js";
+import { getPresentationProfile } from "../presentation.js";
 import { createServerIcons } from "./icon.js";
 
 const categorySchema = z.enum(["color", "component", "typography", "layout", "shape"]);
@@ -239,6 +240,21 @@ export function createServer(loader: RepositoryDataLoader): McpServer {
           },
         ],
       };
+    },
+  );
+
+  server.registerTool(
+    "get_presentation_profile",
+    {
+      title: "Get presentation design profile",
+      description: "Googleスライドで共同編集する資料の仕様を一括取得します。資料用書体・寸法・解決済み配色・ワードマークとモチーフ・横断ガイド・未検証事項を返します。生成やアップロードは行いません。",
+      inputSchema: z.object({ target: z.literal("google-slides").describe("編集先。PowerPointで開く場合は同じ書体の導入と描画確認が必要。") }),
+      outputSchema: jsonObjectSchema,
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true },
+    },
+    async () => {
+      const output = getPresentationProfile(repository);
+      return { content: [{ type: "text", text: JSON.stringify(output) }], structuredContent: output };
     },
   );
 

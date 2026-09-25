@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "status": "candidate",
+  "description": "共同編集する営業・提案資料用の仕様。Web用の文字サイズをそのまま流用せず、資料用の単位で定義する。",
+  "pending": [
+    {
+      "topic": "Googleスライドでの書体・改行の実機確認",
+      "until": "SoraとNoto Sans JPの選択、PPTX取り込み、PDF出力をGoogleスライドで確認する",
+      "interim": "候補仕様として生成・比較し、配布用PDFは描画後に確認する。フォント未検証のまま再現保証しない。"
+    }
+  ],
+  "target": "google-slides",
+  "fonts": {
+    "latin": "Sora",
+    "body": "Noto Sans JP",
+    "weights": [
+      400,
+      700
+    ],
+    "reason": "和文の共同編集用代替候補。英字のみの表示はブランド書体を維持する。"
+  },
+  "canvas": {
+    "width": 13.333333,
+    "height": 7.5,
+    "unit": "in"
+  },
+  "layout": {
+    "margin": 0.5,
+    "gap": 0.3,
+    "padding": 0.25,
+    "headerY": 0.25,
+    "titleY": 0.75,
+    "bodyY": 1.65,
+    "bodyBottom": 6.65,
+    "footerY": 7.05
+  },
+  "typeScale": {
+    "cover": 40,
+    "divider": 48,
+    "title": 28,
+    "heading": 20,
+    "body": 18,
+    "caption": 11
+  },
+  "typeUnit": "pt",
+  "colors": {
+    "canvas": "{color.background.canvas}",
+    "surface": "{card.raised.background}",
+    "inset": "{card.sunken.background}",
+    "text": "{color.text.primary}",
+    "muted": "{color.text.secondary}",
+    "border": "{card.raised.border}",
+    "brand": "{color.brand.primary}",
+    "secondary": "{color.brand.secondary}",
+    "emphasis": "{color.status.info.foreground}",
+    "series1": "{color.data.series.1}",
+    "series2": "{color.data.series.2}",
+    "series3": "{color.data.series.3}",
+    "series4": "{color.data.series.4}"
+  },
+  "assetIds": [
+    "wordmark",
+    "motif.brand"
+  ],
+  "rules": [
+    "和文を含む段落はbody書体、英字のみのラベルはlatin書体を使う。ロゴは正本のワードマーク資産を使う。",
+    "カードはraisedの面と細い罫線で示し、影を付けない。",
+    "明るい基盤面を広く取り、ブランド主色は図形へ、本文の強調はemphasisへ割り当てる。",
+    "比較する項目と順序を左右で揃える。色だけで系列を区別せずラベルを添える。",
+    "数値・グラフには出典または仮定を添える。未提供の実績・経歴・顧客名を補わない。",
+    "文字数を減らすかページを分けて収める。自動縮小で小さい文字にしない。"
+  ],
+  "fontSources": [
+    "https://fonts.google.com/specimen/Sora",
+    "https://fonts.google.com/noto/specimen/Noto+Sans+JP"
+  ]
+}

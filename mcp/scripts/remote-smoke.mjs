@@ -11,6 +11,7 @@ const publicAssetOrigin = new URL(
 );
 const expectedTools = [
   "get_asset",
+  "get_presentation_profile",
   "get_stylesheet",
   "get_tokens",
   "read_guideline",
@@ -40,6 +41,11 @@ try {
     tools.map((tool) => tool.name).sort(),
     expectedTools,
   );
+
+  const presentation = await client.callTool({ name: "get_presentation_profile", arguments: { target: "google-slides" } });
+  assert.notEqual(presentation.isError, true);
+  assert.equal(presentation.structuredContent?.profile?.target, "google-slides");
+  assert(presentation.structuredContent?.assets?.some((asset) => asset.id === "wordmark"));
 
   const tokens = await client.callTool({
     name: "get_tokens",
