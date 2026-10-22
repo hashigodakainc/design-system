@@ -18,18 +18,18 @@
   },
   "packageManager": "pnpm@11.18.0",
   "dependencies": {
-    "@modelcontextprotocol/hono": "2.0.0",
-    "@modelcontextprotocol/server": "2.0.0",
-    "hono": "^4.12.33",
+    "@modelcontextprotocol/hono": "2.0.2",
+    "@modelcontextprotocol/server": "2.3.1",
+    "hono": "^4.13.13",
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260722.1",
-    "@modelcontextprotocol/client": "2.0.0",
+    "@cloudflare/workers-types": "^5.20261019.1",
+    "@modelcontextprotocol/client": "2.3.1",
     "@types/node": "26.1.2",
     "opentype.js": "^2.0.0",
     "tsx": "^4.23.1",
     "typescript": "7.0.2",
-    "wrangler": "^4.113.0"
+    "wrangler": "^4.151.3"
   }
 }
