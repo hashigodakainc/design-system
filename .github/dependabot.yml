@@ -1,0 +1,55 @@
+# Dependabot のバージョン更新(2026-10-26 セキュリティ監査の方針で全リポジトリに導入)。
+# PR は毎週月曜にまとめて届く。patch/minor で CI が通ったものはマージし、
+# メジャー更新や本番の挙動に関わる更新は内容を確認してからマージする。
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories:
+      - /mcp
+      - /site
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Tokyo
+    # 公開直後の版はサプライチェーン攻撃の取り下げが間に合わないことがあるため、7日待つ。
+    # セキュリティ更新のPRには cooldown は効かず、すぐ届く。
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      mcp-sdk:
+        patterns:
+          - "@modelcontextprotocol/*"
+      cloudflare:
+        patterns:
+          - "wrangler"
+          - "miniflare"
+          - "@cloudflare/*"
+          - "@astrojs/cloudflare"
+      dev-minor-patch:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      prod-minor-patch:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Tokyo
+    # 公開直後の版はサプライチェーン攻撃の取り下げが間に合わないことがあるため、7日待つ。
+    # セキュリティ更新のPRには cooldown は効かず、すぐ届く。
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns:
+          - "*"
