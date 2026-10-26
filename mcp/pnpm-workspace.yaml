@@ -1,3 +1,7 @@
 allowBuilds:
   esbuild: true
   workerd: true
+# miniflare が undici を 7.29.1 に固定しているため、脆弱性(GHSA-xjj6-f33q-929c)の修正版にそろえる。
+# miniflare の固定が 7.30.1 以上になったら、この行は消してよい。
+overrides:
+  "undici@<7.30.1": ^7.30.1
