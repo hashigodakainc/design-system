@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { validateTokenLayers } from "./color-layer-rules.mjs";
+import { validateTokenLayers, validateTokenSyntax } from "./color-layer-rules.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
@@ -27,6 +27,7 @@ const tokens = new Map();
 const failures = [];
 const supportedTypes = new Set(["color", "fontFamily", "fontWeight", "dimension", "number", "letterSpacing"]);
 
+failures.push(...validateTokenSyntax(allTokens));
 const layerValidation = validateTokenLayers({ colorSource, componentSource, typographySource, layoutSource, shapeSource });
 failures.push(...layerValidation.errors);
 for (const warning of layerValidation.warnings) console.warn(`Warning: ${warning}`);
@@ -255,6 +256,21 @@ for (const role of typographySource.roles) {
   }
 }
 
+// SVG は MCP の get_asset（svgSource）とサーバーアイコンでそのまま配信されるため、
+// 受け取り側でインライン描画されても実行できる要素・属性を含めない。
+const findUnsafeSvgContent = (source) => {
+  const reasons = [];
+  if (/<!(DOCTYPE|ENTITY)/i.test(source)) reasons.push("DOCTYPE/ENTITY");
+  if (/<\s*(script|foreignObject|iframe|object|embed)\b/i.test(source)) reasons.push("active element");
+  if (/\son[a-z]+\s*=/i.test(source)) reasons.push("event handler attribute");
+  if (/javascript:/i.test(source)) reasons.push("javascript: URL");
+  for (const match of source.matchAll(/\b(?:xlink:)?href\s*=\s*["']([^"']*)["']/gi)) {
+    if (!match[1].startsWith("#")) reasons.push(`external href (${match[1]})`);
+  }
+  if (/url\(\s*["']?(?!#)/i.test(source)) reasons.push("external url()");
+  return reasons;
+};
+
 const assetStatuses = new Set(["candidate", "selected", "approved", "deprecated", "undecided"]);
 const assetIds = new Set();
 for (const asset of assetSource.assets) {
@@ -274,6 +290,10 @@ for (const asset of assetSource.assets) {
     if (asset.defaultColor) resolveReference(asset.defaultColor);
     for (const file of assetFiles) {
       await readFile(resolve(root, file));
+    }
+    for (const file of assetFiles.filter((file) => file.endsWith(".svg"))) {
+      const reasons = findUnsafeSvgContent(await readFile(resolve(root, file), "utf8"));
+      if (reasons.length) failures.push(`Unsafe SVG content in ${file} (${asset.id}): ${reasons.join(", ")}`);
     }
     if (asset.format === "image/svg+xml") {
       const source = await readFile(resolve(root, asset.path), "utf8");

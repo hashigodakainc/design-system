@@ -184,3 +184,40 @@ export function validateTokenLayers({ colorSource, componentSource, typographySo
 
   return { errors, warnings };
 }
+
+// 生成 CSS は他のプロジェクトがそのまま読み込むため、名前と値を宣言の外へ
+// はみ出さない書式に限る（参照 {token.name} はどの型でも許可する）。
+const tokenNamePattern = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
+const fontFamilyNamePattern = /^(?:"[A-Za-z0-9 -]+"|[A-Za-z][A-Za-z0-9-]*)$/;
+const tokenValuePatterns = {
+  color: /^#[0-9A-Fa-f]{6}(?:[0-9A-Fa-f]{2})?$/,
+  dimension: /^-?\d+(?:\.\d+)?(?:px|rem|em|%)$|^0$/,
+  number: /^-?\d+(?:\.\d+)?$/,
+  fontWeight: /^[1-9]00$/,
+  letterSpacing: /^-?\d+(?:\.\d+)?em$|^0$/,
+};
+
+export function validateTokenSyntax(tokens) {
+  const errors = [];
+  for (const token of tokens) {
+    if (typeof token.name !== "string" || !tokenNamePattern.test(token.name)) {
+      errors.push(`Invalid token name: ${JSON.stringify(token.name)}`);
+      continue;
+    }
+    if (typeof token.value !== "string") {
+      errors.push(`Token value must be a string: ${token.name}`);
+      continue;
+    }
+    const reference = referencePattern.exec(token.value);
+    if (reference) {
+      if (!tokenNamePattern.test(reference[1])) errors.push(`Invalid token reference: ${token.name} -> ${token.value}`);
+      continue;
+    }
+    const valid =
+      token.type === "fontFamily"
+        ? token.value.split(",").every((family) => fontFamilyNamePattern.test(family.trim()))
+        : tokenValuePatterns[token.type]?.test(token.value);
+    if (!valid) errors.push(`Invalid ${token.type} value for ${token.name}: ${JSON.stringify(token.value)}`);
+  }
+  return errors;
+}
