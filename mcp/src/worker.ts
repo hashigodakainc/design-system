@@ -108,6 +108,13 @@ export function createWorker(
     async fetch(request, env, ctx): Promise<Response> {
       const url = new URL(request.url);
 
+      // Hono's router decodes percent-encoded paths, so "/%6Dcp" would reach
+      // the /mcp route without passing the exact-path guards below. Every
+      // route this Worker serves is plain ASCII, so reject encoded paths.
+      if (url.pathname.includes("%")) {
+        return jsonResponse({ ok: false, error: "Not found" }, 404);
+      }
+
       if (url.pathname === HEALTH_PATH && request.method === "HEAD") {
         return jsonResponse({ ok: false, error: "Not found" }, 404);
       }

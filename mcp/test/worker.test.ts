@@ -306,3 +306,19 @@ test("host and origin helpers reject malformed values", () => {
   );
   assert.equal(malformed?.status, 403);
 });
+
+test("percent-encoded paths cannot bypass the /mcp guards", async () => {
+  for (const path of ["/%6Dcp", "/%6dcp", "/m%63p", "/%6Dcp/health"]) {
+    const encoded = await fetchWorker(path, {
+      method: "POST",
+      headers: {
+        host: "attacker.example",
+        origin: "https://attacker.example",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
+    });
+    assert.equal(encoded.status, 404, path);
+    assert.deepEqual(await encoded.json(), { ok: false, error: "Not found" });
+  }
+});

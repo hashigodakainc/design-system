@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { validateTokenLayers } from "./color-layer-rules.mjs";
+import { validateTokenLayers, validateTokenSyntax } from "./color-layer-rules.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const colorSource = JSON.parse(await readFile(resolve(root, "tokens/colors.json"), "utf8"));
@@ -24,6 +24,11 @@ const layerValidation = validateTokenLayers({ colorSource, componentSource, typo
 for (const warning of layerValidation.warnings) console.warn(`Warning: ${warning}`);
 if (layerValidation.errors.length) {
   throw new Error(layerValidation.errors.join("\n"));
+}
+
+const syntaxErrors = validateTokenSyntax(tokens);
+if (syntaxErrors.length) {
+  throw new Error(syntaxErrors.join("\n"));
 }
 
 const cssName = (name) => `--hsg-${name.replaceAll(".", "-")}`;
