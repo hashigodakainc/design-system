@@ -4,6 +4,10 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    # セキュリティPRの表記ルール(2026-11-11)。labels を書くと既定のラベルが置き換わるため dependencies も残す。
+    labels:
+      - security
+      - dependencies
     directories:
       - /mcp
       - /site
@@ -39,6 +43,10 @@ updates:
           - patch
 
   - package-ecosystem: github-actions
+    # セキュリティPRの表記ルール(2026-11-11)。labels を書くと既定のラベルが置き換わるため dependencies も残す。
+    labels:
+      - security
+      - dependencies
     directory: /
     schedule:
       interval: weekly
